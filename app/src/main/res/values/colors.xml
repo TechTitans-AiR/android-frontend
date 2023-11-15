@@ -5,4 +5,5 @@
     <color name="red">#D22B2B</color>
     <color name="buttonPrimaryColor">#D22B2B</color>
     <color name="buttonSecondaryColor">#00308F</color>
+    <color name="bottom_navigation_selected">#E3735E</color>
 </resources>

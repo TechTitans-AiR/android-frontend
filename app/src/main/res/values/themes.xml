@@ -3,6 +3,17 @@
     <style name="Base.Theme.TTPay" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/buttonPrimaryColor</item>
         <item name="colorSecondary">@color/buttonSecondaryColor</item>
+        <item name="bottomNavigationStyle">@style/CustomBottomNavigationView</item>
+    </style>
+
+    <style name="CustomBottomNavigationView" parent="@style/Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="itemTextAppearance">@style/BottomNavigationTextStyle</item>
+        <item name="itemBackground">@drawable/bottom_navigation_item_background</item>
+    </style>
+
+    <style name="BottomNavigationTextStyle">
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="Theme.TTPay" parent="Base.Theme.TTPay" />
