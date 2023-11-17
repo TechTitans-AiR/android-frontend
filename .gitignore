@@ -13,4 +13,5 @@
 .externalNativeBuild
 .cxx
 misc.xml
+.name
 local.properties
