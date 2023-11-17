@@ -13,6 +13,24 @@
         android:theme="@style/Theme.TTPay"
         tools:targetApi="31">
         <activity
+            android:name=".UpdateMerchantActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailsMerchantActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateNewProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AllProductsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateNewMerchantActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AllMerchantsActivity"
+            android:exported="false" />
+        <activity
             android:name=".SettingsActivity"
             android:exported="false" />
         <activity

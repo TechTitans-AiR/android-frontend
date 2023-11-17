@@ -7,12 +7,13 @@ import android.widget.ImageView
 import com.example.ttpay.model.NavigationHandler
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class SettingsActivity : AppCompatActivity() {
+class DetailsMerchantActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+        setContentView(R.layout.activity_details_merchant)
 
         // BottomNavigationView
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
@@ -22,9 +23,10 @@ class SettingsActivity : AppCompatActivity() {
         val btnBack: ImageView = findViewById(R.id.imgView_back)
 
         btnBack.setOnClickListener {
-            val intent = Intent(this, AdminHomeActivity::class.java)
+            val intent = Intent(this, AllMerchantsActivity::class.java)
             startActivity(intent)
             finish()
         }
+
     }
 }

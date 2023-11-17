@@ -13,14 +13,17 @@
 
     <TextView
         android:id="@+id/textView_title"
-        android:layout_width="81dp"
-        android:layout_height="37dp"
+        android:layout_width="0dp"
+        android:layout_height="75dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="sans-serif-light"
         android:text="@string/admin_home_title"
         android:textAlignment="center"
+        android:gravity="center"
         android:textColor="@color/red"
-        android:textSize="24sp"
+        android:textSize="34sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,13 +31,13 @@
     <!-- CardView for the second group -->
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView_group1"
+        android:id="@+id/cardView_all_merchants"
         android:layout_width="378dp"
         android:layout_height="112dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="onGroup1Click"
+        android:onClick="onAllMerchantsClick"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,19 +72,19 @@
 
     <!-- CardView for the third group -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView_group2"
+        android:id="@+id/cardView_create_new_merchant"
         android:layout_width="378dp"
         android:layout_height="112dp"
         android:layout_marginTop="15dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="onGroup2Click"
+        android:onClick="onCreateMerchantClick"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView_group1">
+        app:layout_constraintTop_toBottomOf="@+id/cardView_all_merchants">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -110,19 +113,19 @@
 
     <!-- CardView for the fourth group -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView_group3"
+        android:id="@+id/cardView_all_products"
         android:layout_width="378dp"
         android:layout_height="112dp"
         android:layout_marginTop="15dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="onGroup3Click"
+        android:onClick="onAllProductsClick"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView_group2">
+        app:layout_constraintTop_toBottomOf="@+id/cardView_create_new_merchant">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -150,19 +153,19 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView_group4"
+        android:id="@+id/cardView_create_new_product"
         android:layout_width="378dp"
         android:layout_height="112dp"
         android:layout_marginTop="15dp"
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        android:onClick="onGroup4Click"
+        android:onClick="onCreateProductClick"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView_group3">
+        app:layout_constraintTop_toBottomOf="@+id/cardView_all_products">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -189,18 +192,6 @@
 
     </androidx.cardview.widget.CardView>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:background="@color/red"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
+    <include layout="@layout/bottom_navigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
