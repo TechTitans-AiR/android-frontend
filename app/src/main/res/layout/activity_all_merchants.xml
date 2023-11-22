@@ -30,6 +30,14 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
+    <!-- ProgressBar for loading -->
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
     <!-- RecyclerView for all merchants -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_all_merchants"

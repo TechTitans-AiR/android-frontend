@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.model.MerchantAdapter
 import com.example.ttpay.model.NavigationHandler
+import com.example.ttpay.network.RetrofitClient
+import com.example.ttpay.network__accountManagement.ServiceAccountManagement
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class AllMerchantsActivity : AppCompatActivity() {
@@ -17,6 +19,8 @@ class AllMerchantsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_merchants)
+
+        val service = RetrofitClient.instance.create(ServiceAccountManagement::class.java)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this)
