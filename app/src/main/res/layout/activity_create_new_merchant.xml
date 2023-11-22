@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateNewMerchantActivity">
+
+    <!-- Back Button -->
+    <ImageView
+        android:id="@+id/imgView_back"
+        android:layout_width="40dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:contentDescription="Back Button"
+        android:src="@drawable/baseline_arrow_back" />
+
+    <!-- Title "Create new merchant" -->
+
+    <!-- ScrollView for user attributes -->
+
+    <TextView
+        android:id="@+id/textView_title_create_new_merchant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@id/imgView_back"
+        android:fontFamily="sans-serif-light"
+        android:text="Create new merchant"
+        android:textColor="@color/red"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_above="@+id/btn_create_merchant"
+        android:layout_below="@+id/textView_title_create_new_merchant"
+        android:padding="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Edit text views for user attributes -->
+            <TextView
+                android:id="@+id/textView_first_name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="First Name"
+                android:layout_marginTop="8dp" />
+
+            <EditText
+                android:id="@+id/editText_first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter First Name"
+                android:inputType="text"
+                android:layout_below="@+id/textView_first_name_label" />
+
+            <TextView
+                android:id="@+id/textView_last_name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Last Name"
+                android:layout_below="@+id/editText_first_name"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/editText_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Last Name"
+                android:inputType="text"
+                android:layout_below="@+id/textView_last_name_label" />
+
+            <!-- Dodaj ostale TextView i EditText za ostale atribute -->
+
+            <!-- Date of Birth -->
+            <TextView
+                android:id="@+id/textView_date_of_birth_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date of Birth"
+                android:layout_below="@+id/editText_last_name"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/editText_date_of_birth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Date of Birth"
+                android:inputType="date"
+                android:layout_below="@+id/textView_date_of_birth_label" />
+
+            <!-- Address -->
+            <TextView
+                android:id="@+id/textView_address_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:layout_below="@+id/editText_date_of_birth"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/editText_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Address"
+                android:inputType="text"
+                android:layout_below="@+id/textView_address_label" />
+
+            <!-- Phone -->
+            <TextView
+                android:id="@+id/textView_phone_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone"
+                android:layout_below="@+id/editText_address"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/editText_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Phone"
+                android:inputType="phone"
+                android:layout_below="@+id/textView_phone_label" />
+
+            <!-- Email -->
+            <TextView
+                android:id="@+id/textView_email_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:layout_below="@+id/editText_phone"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/editText_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Email"
+                android:inputType="textEmailAddress"
+                android:layout_below="@+id/textView_email_label" />
+
+            <!-- Username -->
+            <TextView
+                android:id="@+id/textView_username_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:layout_below="@+id/editText_email"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/editText_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Username"
+                android:inputType="text"
+                android:layout_below="@+id/textView_username_label" />
+
+            <!-- Password -->
+            <TextView
+                android:id="@+id/textView_password_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                android:layout_below="@+id/editText_username"
+                android:layout_marginTop="16dp" />
+
+            <EditText
+                android:id="@+id/editText_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Password"
+                android:inputType="textPassword"
+                android:layout_below="@+id/textView_password_label" />
+
+            <!-- UserRole Spinner -->
+            <TextView
+                android:id="@+id/textView_user_role_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Role"
+                android:layout_below="@+id/editText_password"
+                android:layout_marginTop="16dp" />
+
+            <Spinner
+                android:id="@+id/spinner_user_role"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_user_role_label"
+                android:layout_marginTop="16dp" />
+
+            <!-- UserStatus Spinner -->
+            <TextView
+                android:id="@+id/textView_user_status_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                android:layout_below="@+id/spinner_user_role"
+                android:layout_marginTop="16dp" />
+
+
+            <Spinner
+                android:id="@+id/spinner_user_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView_user_status_label"
+                android:layout_marginTop="16dp" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <!-- Button "Create merchant" -->
+    <Button
+        android:id="@+id/btn_create_merchant"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Create merchant"
+        android:textSize="16sp" />
+
+    <!-- BottomNavigationView -->
+    <include layout="@layout/bottom_navigation" />
+
+</RelativeLayout>
