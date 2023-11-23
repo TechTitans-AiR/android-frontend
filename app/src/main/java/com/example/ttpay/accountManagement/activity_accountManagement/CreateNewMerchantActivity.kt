@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
 import com.example.ttpay.navigationBar.activities.AdminHomeActivity
@@ -12,6 +13,8 @@ import com.example.ttpay.model.NavigationHandler
 import com.example.ttpay.model.UserRole
 import com.example.ttpay.model.UserStatus
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class CreateNewMerchantActivity : AppCompatActivity() {
 
@@ -51,6 +54,23 @@ class CreateNewMerchantActivity : AppCompatActivity() {
             arrayOf(UserStatus.active.name, UserStatus.inactive.name, UserStatus.blocked.name)
         )
         userStatusSpinner.adapter = userStatusAdapter
+
+        // data from fields
+        val txtFirstname: EditText =findViewById(R.id.editText_first_name)
+        val txtLastname:EditText=findViewById(R.id.editText_last_name)
+
+        val txtBirthDate:EditText=findViewById(R.id.editText_date_of_birth)
+        val dateString=txtBirthDate.text.toString()
+        val format= SimpleDateFormat("dd-MM-yyyy")
+        val birthDate: Date =format.parse(dateString)
+
+        val txtAddress:EditText=findViewById(R.id.editText_address)
+        val txtPhone:EditText=findViewById(R.id.editText_phone)
+        val txtEmail:EditText=findViewById(R.id.editText_email)
+        val txtUsername:EditText=findViewById(R.id.editText_username)
+        val txtPassword:EditText=findViewById(R.id.editText_password)
+
+
 
     }
 }
