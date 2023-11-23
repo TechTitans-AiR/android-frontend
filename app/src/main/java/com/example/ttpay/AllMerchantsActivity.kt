@@ -2,6 +2,7 @@ package com.example.ttpay
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -23,19 +24,22 @@ class AllMerchantsActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var recyclerView: RecyclerView
+    private val adapter = MerchantAdapter(emptyList())
     private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_merchants)
+        recyclerView = findViewById(R.id.recyclerView_all_merchants)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        // Set adapter on recyclerView
+        recyclerView.adapter = adapter
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
-
-        // set RecyclerView
-        recyclerView = findViewById(R.id.recyclerView_all_merchants)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        bottomNavigationView.visibility = View.VISIBLE
 
         progressBar = findViewById(R.id.loadingProgressBar)
 
@@ -50,7 +54,7 @@ class AllMerchantsActivity : AppCompatActivity() {
         }
     }
 
-    //function for fetching all users
+    // Fetching all users
     private fun fetchMerchants() {
         showLoading()
         val service = RetrofitClient.instance.create(ServiceAccountManagement::class.java)
@@ -61,15 +65,15 @@ class AllMerchantsActivity : AppCompatActivity() {
                 hideLoading()
                 if (response.isSuccessful) {
                     val users = response.body() ?: emptyList()
-                    val adapter = MerchantAdapter(users)
-                    recyclerView.adapter = adapter
+                    Log.d("AllMerchantsActivity", "Users fetched successfully: $users")
+                    adapter.updateData(users)
                 } else {
-                    hideLoading()
                     showErrorDialog()
                 }
             }
 
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                hideLoading()
                 showErrorDialog()
             }
         })
@@ -98,5 +102,4 @@ class AllMerchantsActivity : AppCompatActivity() {
         val dialog = builder.create()
         dialog.show()
     }
-
 }

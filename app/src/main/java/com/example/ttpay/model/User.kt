@@ -7,15 +7,15 @@ data class User(
     val id: String,
     val username: String,
     val password: String,
-    val firstName: String,
-    val lastName: String,
+    val first_name: String,
+    val last_name: String,
     val email: String,
     val address: String,
     val phone: String,
-    val dateOfBirth: String, // Change to String for date format "dd.MM.yyyy"
-    val dateCreated: String, // Change to String for date format "dd.MM.yyyy HH:mm:ss"
-    val dateModified: String, // Change to String for date format "dd.MM.yyyy HH:mm:ss"
-    val role: UserRole,
+    val date_of_birth: String, // Change to String for date format "dd.MM.yyyy"
+    val date_created: String, // Change to String for date format "dd.MM.yyyy HH:mm:ss"
+    val date_modified: String, // Change to String for date format "dd.MM.yyyy HH:mm:ss"
+    val userRole: UserRole,
     val userStatus: UserStatus
 ) {
     companion object {
@@ -25,18 +25,18 @@ data class User(
 
             return User(
                 id = "1",
-                firstName = "Admin",
-                lastName = "Admin",
-                dateOfBirth = "01.01.1990",
+                first_name = "Admin",
+                last_name = "Admin",
+                date_of_birth = "01.01.1990",
                 address = "Zrmanjska",
                 phone = "099709980",
                 email = "admin@example.com",
                 username = "admin",
                 password = "admin",
-                role = UserRole.admin,
+                userRole = UserRole.admin,
                 userStatus = UserStatus.active,
-                dateCreated = currentDate,
-                dateModified = currentDate
+                date_created = currentDate,
+                date_modified = currentDate
             )
         }
     }

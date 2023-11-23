@@ -13,7 +13,7 @@ import com.example.ttpay.DetailsMerchantActivity
 import com.example.ttpay.R
 import com.example.ttpay.UpdateMerchantActivity
 
-class MerchantAdapter(private val users: List<User>) :
+class MerchantAdapter(private var users: List<User>) :
     RecyclerView.Adapter<MerchantAdapter.MerchantViewHolder>() {
 
     class MerchantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -31,18 +31,16 @@ class MerchantAdapter(private val users: List<User>) :
 
     override fun onBindViewHolder(holder: MerchantViewHolder, position: Int) {
         val user = users[position]
-        holder.txtViewName.text = "${user.firstName} ${user.lastName}"
+        holder.txtViewName.text = "${user.first_name} ${user.last_name}"
 
         holder.imgViewEye.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailsMerchantActivity::class.java)
-            // Pass the user ID or other necessary data to the details activity if needed
             intent.putExtra("userId", user.id)
             holder.itemView.context.startActivity(intent)
         }
 
         holder.imgViewPencil.setOnClickListener {
             val intent = Intent(holder.itemView.context, UpdateMerchantActivity::class.java)
-            // Pass the user ID or other necessary data to the update activity if needed
             intent.putExtra("userId", user.id)
             holder.itemView.context.startActivity(intent)
         }
@@ -50,17 +48,15 @@ class MerchantAdapter(private val users: List<User>) :
         holder.imgViewRemove.setOnClickListener {
             val builder = AlertDialog.Builder(holder.itemView.context)
 
-            // Dialog settings
             builder.setTitle("Confirm")
                 .setMessage("Are you sure you want to delete this merchant?")
                 .setPositiveButton("OK") { _, _ ->
                     // Implement deletion logic
                 }
                 .setNegativeButton("Cancel") { dialog, _ ->
-                    dialog.dismiss() // Close dialog
+                    dialog.dismiss()
                 }
 
-            // Create and display dialog
             val dialog = builder.create()
             dialog.show()
         }
@@ -68,5 +64,11 @@ class MerchantAdapter(private val users: List<User>) :
 
     override fun getItemCount(): Int {
         return users.size
+    }
+
+    // Update data in adapter
+    fun updateData(newUsers: List<User>) {
+        users = newUsers
+        notifyDataSetChanged()
     }
 }

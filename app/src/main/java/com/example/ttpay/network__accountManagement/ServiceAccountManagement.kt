@@ -8,6 +8,6 @@ import retrofit2.http.POST
 
 interface ServiceAccountManagement {
 
-    @GET("/api/app/v1/users")
+    @GET("/api/v1/users")
     fun getUsers(): Call<List<User>>
 }
