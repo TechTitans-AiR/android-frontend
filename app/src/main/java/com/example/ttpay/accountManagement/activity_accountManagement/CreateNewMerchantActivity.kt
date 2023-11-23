@@ -1,25 +1,31 @@
 package com.example.ttpay.accountManagement.activity_accountManagement
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.example.ttpay.navigationBar.activities.AdminHomeActivity
 import com.example.ttpay.R
 import com.example.ttpay.model.NavigationHandler
+import com.example.ttpay.model.User
 import com.example.ttpay.model.UserRole
 import com.example.ttpay.model.UserStatus
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.text.SimpleDateFormat
-import java.util.Date
+import java.time.LocalDate
+
 
 class CreateNewMerchantActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_new_merchant)
@@ -37,7 +43,7 @@ class CreateNewMerchantActivity : AppCompatActivity() {
             finish()
         }
 
-        //Spinner
+        //Spinner- UserRole
         val userRoleSpinner: Spinner = findViewById(R.id.spinner_user_role)
         val userRoleAdapter = ArrayAdapter(
             this,
@@ -54,15 +60,17 @@ class CreateNewMerchantActivity : AppCompatActivity() {
             arrayOf(UserStatus.active.name, UserStatus.inactive.name, UserStatus.blocked.name)
         )
         userStatusSpinner.adapter = userStatusAdapter
+        userStatusSpinner.setSelection(0)
+        userStatusSpinner.isClickable = false
+        userStatusSpinner.isFocusable = false
+        userStatusSpinner.isFocusableInTouchMode = false
 
         // data from fields
         val txtFirstname: EditText =findViewById(R.id.editText_first_name)
         val txtLastname:EditText=findViewById(R.id.editText_last_name)
 
         val txtBirthDate:EditText=findViewById(R.id.editText_date_of_birth)
-        val dateString=txtBirthDate.text.toString()
-        val format= SimpleDateFormat("dd-MM-yyyy")
-        val birthDate: Date =format.parse(dateString)
+        val birthDateString=txtBirthDate.text.toString()
 
         val txtAddress:EditText=findViewById(R.id.editText_address)
         val txtPhone:EditText=findViewById(R.id.editText_phone)
@@ -70,7 +78,48 @@ class CreateNewMerchantActivity : AppCompatActivity() {
         val txtUsername:EditText=findViewById(R.id.editText_username)
         val txtPassword:EditText=findViewById(R.id.editText_password)
 
+        val dateCreated= LocalDate.now().toString()
+
+        //button for creating user --> POST createUser
+        val btnCreateUser: Button = findViewById(R.id.btn_create_merchant)
+
+        btnCreateUser.setOnClickListener {
+
+            //userRole
+            val selectedRoleString =
+                userRoleSpinner.selectedItem.toString() // user role from spinner
+            //first i make role null
+            var selectedRole: UserRole? = null
+
+            if (selectedRoleString.isEmpty()) {//check if the string of role is empty (role not selected)
+                Toast.makeText(this, "User role must be selected!", Toast.LENGTH_LONG).show()
+            } else {//role is selected
+                //then when selected role from spinner, role is admin or merchant
+                selectedRole = when (selectedRoleString) {
+                    UserRole.admin.name -> UserRole.admin // when selected admin, role will be admin
+                    UserRole.merchant.name -> UserRole.merchant
+                    else -> null
+                }
+            }
+
+            //userStatus-->always will be active when creating user
 
 
+            val newUser = User(
+                null,
+                txtUsername.text.toString(),
+                txtPassword.text.toString(),
+                txtFirstname.text.toString(),
+                txtLastname.text.toString(),
+                txtEmail.text.toString(),
+                txtAddress.text.toString(),
+                txtPhone.text.toString(),
+                birthDateString,
+                dateCreated,
+                null,
+                selectedRole,
+                userStatus = UserStatus.active,
+            )
+        }
     }
 }

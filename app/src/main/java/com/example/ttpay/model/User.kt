@@ -14,7 +14,7 @@ data class User(
     val phone: String?,
     val date_of_birth: String?, // Change to String for date format "dd.MM.yyyy"
     val date_created: String, // Change to String for date format "dd.MM.yyyy HH:mm:ss"
-    val date_modified: String, // Change to String for date format "dd.MM.yyyy HH:mm:ss"
+    val date_modified: String?, // Change to String for date format "dd.MM.yyyy HH:mm:ss"
     val userRole: UserRole?,
     val userStatus: UserStatus?
 ) {
