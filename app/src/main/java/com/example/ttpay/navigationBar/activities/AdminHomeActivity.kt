@@ -1,10 +1,15 @@
-package com.example.ttpay
+package com.example.ttpay.navigationBar.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.example.ttpay.R
+import com.example.ttpay.accountManagement.activity_accountManagement.AllMerchantsActivity
+import com.example.ttpay.accountManagement.activity_accountManagement.CreateNewMerchantActivity
 import com.example.ttpay.model.NavigationHandler
+import com.example.ttpay.products.activity_products.AllProductsActivity
+import com.example.ttpay.products.activity_products.CreateNewProductActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class AdminHomeActivity : AppCompatActivity() {

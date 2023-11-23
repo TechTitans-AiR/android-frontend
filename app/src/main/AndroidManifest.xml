@@ -19,37 +19,37 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".UpdateMerchantActivity"
+            android:name=".accountManagement.activity_accountManagement.UpdateMerchantActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailsMerchantActivity"
+            android:name=".accountManagement.activity_accountManagement.DetailsMerchantActivity"
             android:exported="false" />
         <activity
-            android:name=".CreateNewProductActivity"
+            android:name=".products.activity_products.CreateNewProductActivity"
             android:exported="false" />
         <activity
-            android:name=".AllProductsActivity"
+            android:name=".products.activity_products.AllProductsActivity"
             android:exported="false" />
         <activity
-            android:name=".CreateNewMerchantActivity"
+            android:name=".accountManagement.activity_accountManagement.CreateNewMerchantActivity"
             android:exported="false" />
         <activity
-            android:name=".AllMerchantsActivity"
+            android:name=".accountManagement.activity_accountManagement.AllMerchantsActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".navigationBar.activities.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".navigationBar.activities.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminHomeActivity"
+            android:name=".navigationBar.activities.AdminHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".navigationBar.activities.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".navigationBar.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

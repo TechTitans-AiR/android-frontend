@@ -1,14 +1,13 @@
 package com.example.ttpay.model
 
 // NavigationHandler.kt
-import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
-import com.example.ttpay.AdminHomeActivity
-import com.example.ttpay.MainActivity
-import com.example.ttpay.ProfileActivity
+import com.example.ttpay.navigationBar.activities.AdminHomeActivity
+import com.example.ttpay.navigationBar.activities.MainActivity
+import com.example.ttpay.navigationBar.activities.ProfileActivity
 import com.example.ttpay.R
-import com.example.ttpay.SettingsActivity
+import com.example.ttpay.navigationBar.activities.SettingsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class NavigationHandler(private val activity: AppCompatActivity) {

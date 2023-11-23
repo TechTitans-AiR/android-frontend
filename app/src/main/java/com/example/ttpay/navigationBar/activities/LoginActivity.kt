@@ -1,4 +1,4 @@
-package com.example.ttpay
+package com.example.ttpay.navigationBar.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.ttpay.R
 import com.example.ttpay.model.User
 
 class LoginActivity : AppCompatActivity() {

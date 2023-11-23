@@ -9,9 +9,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ttpay.DetailsMerchantActivity
+import com.example.ttpay.accountManagement.activity_accountManagement.DetailsMerchantActivity
 import com.example.ttpay.R
-import com.example.ttpay.UpdateMerchantActivity
+import com.example.ttpay.accountManagement.activity_accountManagement.UpdateMerchantActivity
 
 class MerchantAdapter(private var users: List<User>) :
     RecyclerView.Adapter<MerchantAdapter.MerchantViewHolder>() {
