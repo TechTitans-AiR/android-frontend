@@ -19,7 +19,7 @@ import com.example.ttpay.model.UserRole
 import com.example.ttpay.model.UserStatus
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.time.LocalDate
-
+import com.example.ttpay.accountManagement.network_accountManagement.CreateUser
 
 class CreateNewMerchantActivity : AppCompatActivity() {
 
@@ -104,7 +104,6 @@ class CreateNewMerchantActivity : AppCompatActivity() {
 
             //userStatus-->always will be active when creating user
 
-
             val newUser = User(
                 null,
                 txtUsername.text.toString(),
@@ -120,6 +119,8 @@ class CreateNewMerchantActivity : AppCompatActivity() {
                 selectedRole,
                 userStatus = UserStatus.active,
             )
+            val create= CreateUser()
+            create.createNewUser(this,newUser)//context,user
         }
     }
 }
