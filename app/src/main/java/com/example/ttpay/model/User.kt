@@ -41,3 +41,18 @@ data class User(
         }
     }
 }
+
+data class newUser(
+    val username: String,
+    val password: String,
+    val first_name: String,
+    val last_name: String,
+    val email: String,
+    val address: String?,
+    val phone: String?,
+    val date_of_birth: String?, // Change to String for date format "dd.MM.yyyy"
+    val date_created: String, // Change to String for date format "dd.MM.yyyy HH:mm:ss"
+    val date_modified: String?, // Change to String for date format "dd.MM.yyyy HH:mm:ss"
+    val userRole: String?,
+    val userStatus: String?
+)

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -20,6 +21,7 @@ import com.example.ttpay.model.UserStatus
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.time.LocalDate
 import com.example.ttpay.accountManagement.network_accountManagement.CreateUser
+import com.example.ttpay.model.newUser
 
 class CreateNewMerchantActivity : AppCompatActivity() {
 
@@ -70,7 +72,7 @@ class CreateNewMerchantActivity : AppCompatActivity() {
         val txtLastname:EditText=findViewById(R.id.editText_last_name)
 
         val txtBirthDate:EditText=findViewById(R.id.editText_date_of_birth)
-        val birthDateString=txtBirthDate.text.toString()
+
 
         val txtAddress:EditText=findViewById(R.id.editText_address)
         val txtPhone:EditText=findViewById(R.id.editText_phone)
@@ -84,6 +86,8 @@ class CreateNewMerchantActivity : AppCompatActivity() {
         val btnCreateUser: Button = findViewById(R.id.btn_create_merchant)
 
         btnCreateUser.setOnClickListener {
+
+            val birthDateString=txtBirthDate.text.toString()
 
             //userRole
             val selectedRoleString =
@@ -104,8 +108,7 @@ class CreateNewMerchantActivity : AppCompatActivity() {
 
             //userStatus-->always will be active when creating user
 
-            val newUser = User(
-                null,
+            val new = newUser(
                 txtUsername.text.toString(),
                 txtPassword.text.toString(),
                 txtFirstname.text.toString(),
@@ -116,11 +119,12 @@ class CreateNewMerchantActivity : AppCompatActivity() {
                 birthDateString,
                 dateCreated,
                 null,
-                selectedRole,
-                userStatus = UserStatus.active,
+                selectedRole?.name,
+                UserStatus.active.name,
             )
             val create= CreateUser()
-            create.createNewUser(this,newUser)//context,user
+            create.createNewUser(this,new)//context,user
+            Log.e("USER JE:", "${new.first_name} ")
         }
     }
 }
