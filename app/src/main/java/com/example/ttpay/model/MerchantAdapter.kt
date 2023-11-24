@@ -51,7 +51,7 @@ class MerchantAdapter(private var users: List<User>) :
             builder.setTitle("Confirm")
                 .setMessage("Are you sure you want to delete this merchant?")
                 .setPositiveButton("OK") { _, _ ->
-                    // Implement deletion logic
+                    // TODO: Implement deletion logic
                 }
                 .setNegativeButton("Cancel") { dialog, _ ->
                     dialog.dismiss()
