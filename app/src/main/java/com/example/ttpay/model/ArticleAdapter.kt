@@ -20,6 +20,8 @@ class ArticleAdapter(private var articles: List<Article>) :
         val imgViewEye: ImageView = itemView.findViewById(R.id.imgView_eye)
         val imgViewPencil: ImageView = itemView.findViewById(R.id.imgView_pencil)
         val imgViewRemove: ImageView = itemView.findViewById(R.id.imgView_remove)
+        val txtViewWeight: TextView = itemView.findViewById(R.id.textView_weight)
+        val txtViewPrice: TextView = itemView.findViewById(R.id.textView_price_currency)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
@@ -31,6 +33,8 @@ class ArticleAdapter(private var articles: List<Article>) :
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = articles[position]
         holder.txtViewName.text = article.name
+        holder.txtViewWeight.text = "${article.weight} weight"
+        holder.txtViewPrice.text = "${article.price} ${article.currency}"
 
         holder.imgViewEye.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailsArticleActivity::class.java)

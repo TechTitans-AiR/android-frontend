@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import com.example.ttpay.R
 import com.example.ttpay.model.NavigationHandler
+import com.example.ttpay.navigationBar.activities.AdminHomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class AllProductsActivity : AppCompatActivity() {
@@ -21,6 +23,14 @@ class AllProductsActivity : AppCompatActivity() {
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
+
+        val btnBack: ImageView = findViewById(R.id.imgView_back)
+
+        btnBack.setOnClickListener {
+            val intent = Intent(this, AdminHomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     // Handle click on "All Articles" CardView

@@ -17,6 +17,8 @@ class ServiceAdapter(private var services: List<Service>) :
 
     class ServiceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtViewName: TextView = itemView.findViewById(R.id.textView_service_name)
+        val txtViewDuration: TextView = itemView.findViewById(R.id.textView_durationAndUnit)
+        val txtViewPrice: TextView = itemView.findViewById(R.id.textView_priceAndCurrency)
         val imgViewEye: ImageView = itemView.findViewById(R.id.imgView_eye)
         val imgViewPencil: ImageView = itemView.findViewById(R.id.imgView_pencil)
         val imgViewRemove: ImageView = itemView.findViewById(R.id.imgView_remove)
@@ -30,7 +32,10 @@ class ServiceAdapter(private var services: List<Service>) :
 
     override fun onBindViewHolder(holder: ServiceViewHolder, position: Int) {
         val service = services[position]
+        // Displaying service name with additional details
         holder.txtViewName.text = service.serviceName
+        holder.txtViewDuration.text = "${service.duration} ${service.durationUnit}"
+        holder.txtViewPrice.text = "${service.price} ${service.currency}"
 
         holder.imgViewEye.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailsServiceActivity::class.java)
