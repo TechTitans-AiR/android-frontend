@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:fontFamily="sans-serif-light"
-        android:text="@string/all_articles_title"
+        android:text="@string/catalog_item_title"
         android:textAlignment="center"
         android:gravity="center"
         android:textColor="@color/red"
