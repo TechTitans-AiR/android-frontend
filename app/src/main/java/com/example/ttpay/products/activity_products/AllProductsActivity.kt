@@ -30,4 +30,12 @@ class AllProductsActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    // Handle click on "All Articles" CardView
+    fun onAllServicesClick(view: View) {
+        Log.d("AllProductsActivity", "onAllServicesClick")
+        val intent = Intent(this, AllServicesActivity::class.java)
+        startActivity(intent)
+    }
+
+
 }
