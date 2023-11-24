@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.accountManagement.activity_accountManagement.DetailsMerchantActivity
 import com.example.ttpay.R
 import com.example.ttpay.accountManagement.activity_accountManagement.UpdateMerchantActivity
+import com.example.ttpay.accountManagement.network_accountManagement.DeleteUser
 
 class MerchantAdapter(private var users: List<User>) :
     RecyclerView.Adapter<MerchantAdapter.MerchantViewHolder>() {
@@ -52,6 +53,11 @@ class MerchantAdapter(private var users: List<User>) :
                 .setMessage("Are you sure you want to delete this merchant?")
                 .setPositiveButton("OK") { _, _ ->
                     // TODO: Implement deletion logic
+                    val userIdToDelete = user.id // Get the user ID to delete
+                    val delete= DeleteUser()
+
+                    // Call the delete method here passing the context and user ID
+                    delete.deleteUser(holder.itemView.context, userIdToDelete)
                 }
                 .setNegativeButton("Cancel") { dialog, _ ->
                     dialog.dismiss()
@@ -71,4 +77,5 @@ class MerchantAdapter(private var users: List<User>) :
         users = newUsers
         notifyDataSetChanged()
     }
+
 }

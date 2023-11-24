@@ -18,5 +18,5 @@ interface ServiceAccountManagement {
     fun createNewUser(@Body user: newUser): Call<newUser> // Method for sending user data to backend
 
     @DELETE("/api/v1/users/delete/{userId}")
-    fun deleteUser(@Path("userId") userId: String): Call<Void>
+    fun deleteUser(@Path("userId") userId: String?): Call<Void>
 }
