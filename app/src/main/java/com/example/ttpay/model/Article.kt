@@ -1,0 +1,14 @@
+package com.example.ttpay.model
+
+data class Article(
+    val id: String,
+    val itemCategory: ItemCategory,
+    val name: String,
+    val description: String,
+    val price: Double,
+    val quantityInStock: Int,
+    val weight: Double?,
+    val material: String?,
+    val brand: String,
+    val currency: String
+)

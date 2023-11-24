@@ -16,7 +16,7 @@
             android:id="@+id/textView_firstName_lastName"
             android:layout_width="187dp"
             android:layout_height="match_parent"
-            android:background="@drawable/red_border_item_merchants"
+            android:background="@drawable/red_border_item"
             android:gravity="center"
             android:text="FirstName LastName"
             android:textSize="16sp" />
