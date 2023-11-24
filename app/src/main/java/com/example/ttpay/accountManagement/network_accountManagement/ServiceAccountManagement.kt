@@ -14,6 +14,9 @@ interface ServiceAccountManagement {
     @GET("/api/v1/users")
     fun getUsers(): Call<List<User>>
 
+    @GET("/api/v1/users/{id}")
+    fun getUserDetails(@Path("id") userId: String): Call<User>
+
     @POST("/api/v1/users/create")  //endpoint for creating new user
     fun createNewUser(@Body user: newUser): Call<newUser> // Method for sending user data to backend
 
