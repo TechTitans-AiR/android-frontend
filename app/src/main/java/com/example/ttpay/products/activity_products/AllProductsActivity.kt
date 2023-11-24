@@ -3,6 +3,7 @@ package com.example.ttpay.products.activity_products
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.example.ttpay.R
 import com.example.ttpay.model.NavigationHandler
@@ -20,18 +21,13 @@ class AllProductsActivity : AppCompatActivity() {
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
-
     }
 
     // Handle click on "All Articles" CardView
     fun onAllArticlesClick(view: View) {
+        Log.d("AllProductsActivity", "onAllArticlesClick")
         val intent = Intent(this, AllArticlesActivity::class.java)
         startActivity(intent)
     }
 
-    // Handle click on "All Services" CardView
-    fun onAllServicesClick(view: View) {
-        val intent = Intent(this, AllServicesActivity::class.java)
-        startActivity(intent)
-    }
 }
