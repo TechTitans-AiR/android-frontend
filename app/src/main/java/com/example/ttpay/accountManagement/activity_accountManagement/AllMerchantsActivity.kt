@@ -54,6 +54,13 @@ class AllMerchantsActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+    }
+
+    fun onPlusIconClick(view: View) {
+        val intent = Intent(this, CreateNewMerchantActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     // Fetching all users

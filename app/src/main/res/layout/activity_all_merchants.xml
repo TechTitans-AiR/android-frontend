@@ -30,6 +30,26 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
+    <!-- Plus icon with red circle -->
+    <RelativeLayout
+        android:id="@+id/rl_plus_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_all_merchants_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/img_plus_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:onClick="onPlusIconClick"
+            android:src="@drawable/add_circle" />
+
+    </RelativeLayout>
+
     <!-- ProgressBar for loading -->
     <ProgressBar
         android:id="@+id/loadingProgressBar"
@@ -44,11 +64,14 @@
         android:id="@+id/recyclerView_all_merchants"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tv_all_merchants_title"
-        android:layout_marginTop="16dp"
+        android:layout_below="@+id/rl_plus_icon"
+        android:layout_marginBottom="120dp"
         android:padding="16dp"/>
 
     <!-- BottomNavigationView -->
-    <include layout="@layout/bottom_navigation" />
+    <include layout="@layout/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

@@ -10,6 +10,7 @@ import com.example.ttpay.accountManagement.activity_accountManagement.CreateNewM
 import com.example.ttpay.model.NavigationHandler
 import com.example.ttpay.products.activity_products.AllProductsActivity
 import com.example.ttpay.products.activity_products.CreateNewProductActivity
+import com.example.ttpay.transactions.activity_transactions.AllTransactionsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class AdminHomeActivity : AppCompatActivity() {
@@ -36,20 +37,14 @@ class AdminHomeActivity : AppCompatActivity() {
         finish()
     }
 
-    fun onCreateMerchantClick(view: View) {
-        val intent = Intent(this, CreateNewMerchantActivity::class.java)
+    fun onAllTransactionsClick(view: View) {
+        val intent = Intent(this, AllTransactionsActivity::class.java)
         startActivity(intent)
         finish()
     }
 
     fun onAllProductsClick(view: View) {
         val intent = Intent(this, AllProductsActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
-    fun onCreateProductClick(view: View) {
-        val intent = Intent(this, CreateNewProductActivity::class.java)
         startActivity(intent)
         finish()
     }
