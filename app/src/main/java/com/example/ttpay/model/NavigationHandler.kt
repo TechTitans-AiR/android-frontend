@@ -12,7 +12,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class NavigationHandler(private val activity: AppCompatActivity) {
 
+    private lateinit var bottomNavigationView: BottomNavigationView
+
     fun setupWithBottomNavigation(bottomNavigationView: BottomNavigationView) {
+        this.bottomNavigationView = bottomNavigationView
+
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> navigateToActivity(AdminHomeActivity::class.java)
@@ -22,13 +26,20 @@ class NavigationHandler(private val activity: AppCompatActivity) {
             }
             true
         }
+
+        // Highlight the initially selected item
+        highlightSelectedItem()
     }
 
     private fun navigateToActivity(targetActivity: Class<*>) {
         if (!isCurrentActivity(targetActivity)) {
             val intent = Intent(activity, targetActivity)
             activity.startActivity(intent)
-            activity.finish()
+
+            // Do not finish the current activity immediately
+
+            // Highlight the selected item in BottomNavigationView
+            highlightSelectedItem()
         }
     }
 
@@ -40,5 +51,15 @@ class NavigationHandler(private val activity: AppCompatActivity) {
 
     private fun isCurrentActivity(targetActivity: Class<*>): Boolean {
         return activity.javaClass == targetActivity
+    }
+
+    private fun highlightSelectedItem() {
+        // Highlight the selected item based on the current activity
+        when {
+            isCurrentActivity(AdminHomeActivity::class.java) -> bottomNavigationView.selectedItemId = R.id.nav_home
+            isCurrentActivity(ProfileActivity::class.java) -> bottomNavigationView.selectedItemId = R.id.nav_profile
+            isCurrentActivity(SettingsActivity::class.java) -> bottomNavigationView.selectedItemId = R.id.nav_settings
+            // Add more cases for other activities if needed
+        }
     }
 }

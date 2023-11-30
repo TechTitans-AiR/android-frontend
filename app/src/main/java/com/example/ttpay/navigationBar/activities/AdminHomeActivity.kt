@@ -26,11 +26,6 @@ class AdminHomeActivity : AppCompatActivity() {
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
     }
 
-    private fun isCurrentActivity(activityClass: Class<*>): Boolean {
-        // Check if the current activity is already the one being opened
-        return javaClass == activityClass
-    }
-
     fun onAllMerchantsClick(view: View) {
         val intent = Intent(this, AllMerchantsActivity::class.java)
         startActivity(intent)
