@@ -56,6 +56,12 @@ class AllArticlesActivity : AppCompatActivity() {
         }
     }
 
+    fun onPlusIconArticlesClick(view: View) {
+        val intent = Intent(this, CreateNewProductActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     // Fetching all articles
     private fun fetchArticles() {
         showLoading()

@@ -56,6 +56,12 @@ class AllServicesActivity : AppCompatActivity() {
         }
     }
 
+    fun onPlusIconServicesClick (view: View) {
+        val intent = Intent(this, CreateNewProductActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     // Fetching all services
     private fun fetchServices() {
         showLoading()
