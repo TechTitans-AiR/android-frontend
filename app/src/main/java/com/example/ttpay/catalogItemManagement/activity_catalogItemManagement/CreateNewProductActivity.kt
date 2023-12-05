@@ -1,4 +1,4 @@
-package com.example.ttpay.products.activity_products
+package com.example.ttpay.catalogItemManagement.activity_catalogItemManagement
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

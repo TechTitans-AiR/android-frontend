@@ -1,4 +1,4 @@
-package com.example.ttpay.products.network_catalogItemManagement
+package com.example.ttpay.catalogItemManagement.network_catalogItemManagement
 
 import com.example.ttpay.model.Article
 import com.example.ttpay.model.Service

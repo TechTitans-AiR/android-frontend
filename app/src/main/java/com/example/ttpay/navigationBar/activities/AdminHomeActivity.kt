@@ -6,10 +6,8 @@ import android.os.Bundle
 import android.view.View
 import com.example.ttpay.R
 import com.example.ttpay.accountManagement.activity_accountManagement.AllMerchantsActivity
-import com.example.ttpay.accountManagement.activity_accountManagement.CreateNewMerchantActivity
 import com.example.ttpay.model.NavigationHandler
-import com.example.ttpay.products.activity_products.AllProductsActivity
-import com.example.ttpay.products.activity_products.CreateNewProductActivity
+import com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.AllProductsActivity
 import com.example.ttpay.transactions.activity_transactions.AllTransactionsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
