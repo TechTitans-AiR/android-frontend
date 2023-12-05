@@ -1,11 +1,11 @@
-package com.example.ttpay.catalogItemManagement.network_catalogItemManagement
+package com.example.ttpay.products.network_products
 
 import com.example.ttpay.model.Article
 import com.example.ttpay.model.Service
 import retrofit2.Call
 import retrofit2.http.GET
 
-interface ServiceCatalogItemManagement {
+interface ServiceProducts {
     @GET("/api/v1/articles")
     fun getArticles(): Call<List<Article>>
 

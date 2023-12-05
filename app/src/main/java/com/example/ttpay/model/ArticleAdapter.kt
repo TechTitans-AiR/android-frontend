@@ -9,8 +9,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.R
-import com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.DetailsArticleActivity
-import com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.UpdateArticleActivity
+import com.example.ttpay.products.activity_products.DetailsArticleActivity
+import com.example.ttpay.products.activity_products.UpdateArticleActivity
 
 class ArticleAdapter(private var articles: List<Article>) :
     RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {

@@ -9,8 +9,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.R
-import com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.DetailsServiceActivity
-import com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.UpdateServiceActivity
+import com.example.ttpay.products.activity_products.DetailsServiceActivity
+import com.example.ttpay.products.activity_products.UpdateServiceActivity
 
 class ServiceAdapter(private var services: List<Service>) :
     RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder>() {

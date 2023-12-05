@@ -1,4 +1,4 @@
-package com.example.ttpay.catalogItemManagement.activity_catalogItemManagement
+package com.example.ttpay.products.activity_products
 
 import android.content.Intent
 import android.os.Bundle
@@ -17,7 +17,7 @@ import com.example.ttpay.model.NavigationHandler
 import com.example.ttpay.model.Service
 import com.example.ttpay.model.ServiceAdapter
 import com.example.ttpay.network.RetrofitClient
-import com.example.ttpay.catalogItemManagement.network_catalogItemManagement.ServiceCatalogItemManagement
+import com.example.ttpay.products.network_products.ServiceProducts
 import com.example.ttpay.navigationBar.activities.AdminHomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
@@ -66,13 +66,14 @@ class AllProductsActivity : AppCompatActivity() {
     }
 
     fun onPlusIconProductsClick(view: View) {
-        // Implement logic for adding new products
-        // You may want to navigate to a different activity for adding new products
+        val intent = Intent(this, CreateNewProductActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun fetchArticles() {
         showLoading()
-        val service = RetrofitClient.instance.create(ServiceCatalogItemManagement::class.java)
+        val service = RetrofitClient.instance.create(ServiceProducts::class.java)
         val call = service.getArticles()
 
         call.enqueue(object : Callback<List<Article>> {
@@ -96,7 +97,7 @@ class AllProductsActivity : AppCompatActivity() {
 
     private fun fetchServices() {
         showLoading()
-        val service = RetrofitClient.instance.create(ServiceCatalogItemManagement::class.java)
+        val service = RetrofitClient.instance.create(ServiceProducts::class.java)
         val call = service.getServices()
 
         call.enqueue(object : Callback<List<Service>> {

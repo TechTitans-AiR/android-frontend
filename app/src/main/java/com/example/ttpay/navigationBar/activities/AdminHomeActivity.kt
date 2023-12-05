@@ -6,8 +6,9 @@ import android.os.Bundle
 import android.view.View
 import com.example.ttpay.R
 import com.example.ttpay.accountManagement.activity_accountManagement.AllMerchantsActivity
+import com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.AllCatalogsActivity
 import com.example.ttpay.model.NavigationHandler
-import com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.AllProductsActivity
+import com.example.ttpay.products.activity_products.AllProductsActivity
 import com.example.ttpay.transactions.activity_transactions.AllTransactionsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -38,6 +39,12 @@ class AdminHomeActivity : AppCompatActivity() {
 
     fun onAllProductsClick(view: View) {
         val intent = Intent(this, AllProductsActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun onCatalogItemClick(view: View) {
+        val intent = Intent(this, AllCatalogsActivity::class.java)
         startActivity(intent)
         finish()
     }

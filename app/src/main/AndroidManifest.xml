@@ -17,25 +17,22 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".catalogItemManagement.activity_catalogItemManagement.AllCatalogsActivity"
+            android:exported="false" />
+        <activity
             android:name=".transactions.activity_transactions.AllTransactionsActivity"
             android:exported="false" />
         <activity
-            android:name=".catalogItemManagement.activity_catalogItemManagement.UpdateServiceActivity"
+            android:name=".products.activity_products.UpdateServiceActivity"
             android:exported="false" />
         <activity
-            android:name=".catalogItemManagement.activity_catalogItemManagement.DetailsServiceActivity"
+            android:name=".products.activity_products.DetailsServiceActivity"
             android:exported="false" />
         <activity
-            android:name=".catalogItemManagement.activity_catalogItemManagement.AllServicesActivity"
+            android:name=".products.activity_products.UpdateArticleActivity"
             android:exported="false" />
         <activity
-            android:name=".catalogItemManagement.activity_catalogItemManagement.AllArticlesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".catalogItemManagement.activity_catalogItemManagement.UpdateArticleActivity"
-            android:exported="false" />
-        <activity
-            android:name=".catalogItemManagement.activity_catalogItemManagement.DetailsArticleActivity"
+            android:name=".products.activity_products.DetailsArticleActivity"
             android:exported="false" />
         <activity
             android:name=".accountManagement.activity_accountManagement.UpdateMerchantActivity"
@@ -44,10 +41,10 @@
             android:name=".accountManagement.activity_accountManagement.DetailsMerchantActivity"
             android:exported="false" />
         <activity
-            android:name=".catalogItemManagement.activity_catalogItemManagement.CreateNewProductActivity"
+            android:name=".products.activity_products.CreateNewProductActivity"
             android:exported="false" />
         <activity
-            android:name=".catalogItemManagement.activity_catalogItemManagement.AllProductsActivity"
+            android:name=".products.activity_products.AllProductsActivity"
             android:exported="false" />
         <activity
             android:name=".accountManagement.activity_accountManagement.CreateNewMerchantActivity"
