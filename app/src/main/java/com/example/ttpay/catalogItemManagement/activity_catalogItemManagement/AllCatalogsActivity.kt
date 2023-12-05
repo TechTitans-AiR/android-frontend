@@ -12,12 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.navigationBar.activities.AdminHomeActivity
 import com.example.ttpay.R
-import com.example.ttpay.accountManagement.activity_accountManagement.AllMerchantsActivity
-import com.example.ttpay.accountManagement.activity_accountManagement.CreateNewMerchantActivity
 import com.example.ttpay.model.User
 import com.example.ttpay.model.UserAdapter
 import com.example.ttpay.network.RetrofitClient
 import com.example.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
+import com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem.CreateCatalogItemActivity
 import com.example.ttpay.model.NavigationHandler
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call

@@ -17,7 +17,19 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".catalogItemManagement.activity_catalogItemManagement.CreateCatalogItemActivity"
+            android:name=".catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem.CreateCatalogDataActivity"
+            android:exported="false" />
+        <activity
+            android:name=".catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem.SelectUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem.SelectArticlesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem.SelectServicesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem.CreateCatalogItemActivity"
             android:exported="false" />
         <activity
             android:name=".catalogItemManagement.activity_catalogItemManagement.CatalogItemActivity"

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".catalogItemManagement.activity_catalogItemManagement.CreateCatalogItemActivity">
+    tools:context=".catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem.CreateCatalogItemActivity">
 
     <!-- Back button -->
     <ImageView
@@ -28,6 +28,61 @@
         android:textColor="@color/red"
         android:textSize="24sp"
         android:textStyle="bold" />
+
+    <!-- Text for steps to create catalog -->
+    <LinearLayout
+        android:id="@+id/layout_steps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_create_catalog_title"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Follow steps to create catalog item:"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose the services you want to add to the catalog."
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose the items you want to add to the catalog."
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose the user(s) you want to assign the catalog to."
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="and ... The catalog is created!"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <!-- Button to start creating the catalog -->
+    <Button
+        android:id="@+id/btn_start_creating_catalog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_steps"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:text="Start creating catalog"
+        android:textSize="18sp"/>
 
     <!-- BottomNavigationView -->
     <include layout="@layout/bottom_navigation"

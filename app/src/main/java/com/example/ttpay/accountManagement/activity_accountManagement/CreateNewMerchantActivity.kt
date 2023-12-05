@@ -54,7 +54,7 @@ class CreateNewMerchantActivity : AppCompatActivity() {
         )
         userRoleSpinner.adapter = userRoleAdapter
 
-        // Postavljanje ArrayAdapter-a za UserStatus Spinner
+        //ArrayAdapter for UserStatus Spinner
         val userStatusSpinner: Spinner = findViewById(R.id.spinner_user_status)
         val userStatusAdapter = ArrayAdapter(
             this,

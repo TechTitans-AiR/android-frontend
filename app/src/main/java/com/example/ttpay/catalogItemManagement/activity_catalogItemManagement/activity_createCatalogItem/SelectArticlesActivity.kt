@@ -1,34 +1,40 @@
-package com.example.ttpay.catalogItemManagement.activity_catalogItemManagement
+package com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import com.example.ttpay.R
 import com.example.ttpay.model.NavigationHandler
-import com.example.ttpay.navigationBar.activities.AdminHomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class CreateCatalogItemActivity : AppCompatActivity() {
+class SelectArticlesActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
+    private lateinit var continueButton: Button
+    private lateinit var imgBack: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_catalog_item)
+        setContentView(R.layout.activity_select_articles)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
-        //fetch catalog from database
-
-        val imgBack: ImageView = findViewById(R.id.back_button)
+        imgBack = findViewById(R.id.back_back)
         imgBack.setOnClickListener {
-            val intent = Intent(this, AllCatalogsActivity::class.java)
+            val intent = Intent(this, CreateCatalogItemActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        continueButton = findViewById(R.id.btn_continue_select_services)
+        continueButton.setOnClickListener {
+            val intent = Intent(this, SelectServicesActivity::class.java)
             startActivity(intent)
             finish()
         }

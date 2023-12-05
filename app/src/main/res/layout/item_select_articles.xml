@@ -1,0 +1,59 @@
+<!-- item_select_articles.xml -->
+<!-- item_article.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Article frame -->
+    <FrameLayout
+        android:layout_width="382dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textView_article_name"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:background="@drawable/red_border_item"
+            android:gravity="center"
+            android:text="Article Name"
+            android:textSize="16sp" />
+
+        <!-- Additional details for the article -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:id="@+id/textView_weight"
+                android:layout_width="200dp"
+                android:layout_height="30dp"
+                android:text="Weight"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/textView_price_currency"
+                android:layout_width="200dp"
+                android:layout_height="30dp"
+                android:text="Price Currency"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|end"
+            android:text="Add" />
+    </FrameLayout>
+</LinearLayout>
