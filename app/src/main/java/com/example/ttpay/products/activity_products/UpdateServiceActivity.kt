@@ -14,7 +14,7 @@ class UpdateServiceActivity : AppCompatActivity() {
         val btnBack: ImageView = findViewById(R.id.imgView_back)
 
         btnBack.setOnClickListener {
-            val intent = Intent(this, AllServicesActivity::class.java)
+            val intent = Intent(this, AllProductsActivity::class.java)
             startActivity(intent)
             finish()
         }

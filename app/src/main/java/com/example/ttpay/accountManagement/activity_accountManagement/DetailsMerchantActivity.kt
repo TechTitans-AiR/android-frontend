@@ -32,7 +32,7 @@ class DetailsMerchantActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details_merchant)
-// Initialize views
+        // Initialize views
         txtViewFullName = findViewById(R.id.textView_fullName)
         txtViewUserRole = findViewById(R.id.textView_userRole)
         txtViewDateOfBirth = findViewById(R.id.textView_dateOfBirth)

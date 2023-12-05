@@ -137,7 +137,7 @@
                 android:layout_width="199dp"
                 android:layout_height="77dp"
                 android:gravity="center"
-                android:text="The products"
+                android:text="The Products"
                 android:textSize="18sp" />
 
             <ImageView
@@ -184,7 +184,7 @@
                 android:layout_width="199dp"
                 android:layout_height="77dp"
                 android:gravity="center"
-                android:text="Catalog Item"
+                android:text="The Catalog Item"
                 android:textSize="18sp" />
 
         </LinearLayout>

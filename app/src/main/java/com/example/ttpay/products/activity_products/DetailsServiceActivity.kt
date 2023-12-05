@@ -15,7 +15,7 @@ class DetailsServiceActivity : AppCompatActivity() {
         val B_back : ImageView = findViewById(R.id.back_ac)
 
         B_back.setOnClickListener {
-            val intent = Intent(this, AllServicesActivity::class.java)
+            val intent = Intent(this, AllProductsActivity::class.java)
             startActivity(intent)
             finish()
         }

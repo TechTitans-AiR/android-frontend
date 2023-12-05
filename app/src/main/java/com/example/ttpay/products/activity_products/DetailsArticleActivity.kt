@@ -14,7 +14,7 @@ class DetailsArticleActivity : AppCompatActivity() {
         val btnBack: ImageView = findViewById(R.id.imgView_back)
 
         btnBack.setOnClickListener {
-            val intent = Intent(this, AllArticlesActivity::class.java)
+            val intent = Intent(this, AllProductsActivity::class.java)
             startActivity(intent)
             finish()
         }
