@@ -62,7 +62,7 @@
 
     <!-- Continue button -->
     <Button
-        android:id="@+id/btn_continue_select_users"
+        android:id="@+id/btn_continue_see_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/recyclerView_added_users"

@@ -1,5 +1,7 @@
 package com.example.ttpay.model
 
+import java.io.Serializable
+
 data class Article(
     val id: String,
     val itemCategory: ItemCategory,
@@ -11,4 +13,4 @@ data class Article(
     val material: String?,
     val brand: String,
     val currency: String
-)
+): Serializable

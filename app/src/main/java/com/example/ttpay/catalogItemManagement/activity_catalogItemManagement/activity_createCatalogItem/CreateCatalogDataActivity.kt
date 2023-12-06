@@ -32,7 +32,7 @@ class CreateCatalogDataActivity : AppCompatActivity() {
             finish()
         }
 
-        createButton = findViewById(R.id.btn_continue_select_services)
+        createButton = findViewById(R.id.btn_create_catalog)
         createButton.setOnClickListener {
             //implement for create catalog item
         }

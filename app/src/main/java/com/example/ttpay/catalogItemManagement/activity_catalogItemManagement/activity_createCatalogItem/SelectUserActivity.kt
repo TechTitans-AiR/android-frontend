@@ -32,7 +32,7 @@ class SelectUserActivity : AppCompatActivity() {
             finish()
         }
 
-        continueButton = findViewById(R.id.btn_continue_select_services)
+        continueButton = findViewById(R.id.btn_continue_see_data)
         continueButton.setOnClickListener {
             val intent = Intent(this, CreateCatalogDataActivity::class.java)
             startActivity(intent)
