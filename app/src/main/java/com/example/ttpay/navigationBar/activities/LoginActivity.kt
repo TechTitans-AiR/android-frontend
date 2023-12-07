@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.ttpay.R
 import com.example.ttpay.model.User
+import com.example.ttpay.navigationBar.activities.login.LoginRequest
 import com.example.ttpay.navigationBar.activities.login.LoginResponse
 import com.example.ttpay.navigationBar.activities.login.LoginService
 import com.example.ttpay.network.RetrofitClient
@@ -36,12 +37,8 @@ class LoginActivity : AppCompatActivity() {
             val enteredUsername = usernameEditText.text.toString()
             val enteredPassword = passwordEditText.text.toString()
 
-            //instance for Retrofit communication for specific port
-            val retrofit = RetrofitClient.getInstance(8080)//za account_management
-            val loginService = retrofit.create(LoginService::class.java)
-            val call = loginService.login(enteredUsername, enteredPassword)
-
-            calServerLogin(call, enteredUsername,enteredPassword )
+            //for login
+            callServerLogin(enteredUsername,enteredPassword)
 
            /* if (enteredUsername == adminUser.username && enteredPassword == adminUser.password) {
                 // Correct login credentials, redirect to a new page
@@ -55,32 +52,32 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun calServerLogin(call: Call<LoginResponse>, enteredUsername: String, enteredPassword: String) {
-        Log.d("Login", "Username: $enteredUsername, Password: $enteredPassword")
-        call.enqueue(object : Callback<LoginResponse> {
+    private fun callServerLogin(enteredUsername: String, enteredPassword: String) {
+        val retrofit = RetrofitClient.getInstance(8080)//za account_management
+        val loginService = retrofit.create(LoginService::class.java)
+        val loginRequest = LoginRequest(enteredUsername, enteredPassword)
+
+        loginService.login(loginRequest).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.isSuccessful) {
                     val token = response.body()?.token
 
-                    // Successful login --> token saved and redirected to activity
-                    if (!token.isNullOrEmpty()) {
+                    Log.d("TOKEN: ", response.body().toString())
 
+                    if (!token.isNullOrEmpty()) {
                         val intent = Intent(this@LoginActivity, AdminHomeActivity::class.java)
                         startActivity(intent)
                         finish() // Zatvori trenutnu aktivnost
                     }
                 } else {
-                    // Failed login - prikaži poruku o grešci
-                    Log.d("TOKEN: ", "${response.body()?.token.toString()}")
-                    Toast.makeText(this@LoginActivity, "Invalid username or password; ${response.body()?.token}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, "Invalid username or password", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                // Handle failure
                 Toast.makeText(this@LoginActivity, "Login failed: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
-
     }
+
 }

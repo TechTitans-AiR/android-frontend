@@ -6,3 +6,8 @@ data class LoginResponse(
     val expire: Long,
     val username: String
 )
+
+data class LoginRequest(
+    val username: String,
+    val password: String
+    )
