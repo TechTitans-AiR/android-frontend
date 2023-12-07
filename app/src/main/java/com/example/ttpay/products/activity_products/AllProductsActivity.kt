@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.R
+import com.example.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
 import com.example.ttpay.model.Article
 import com.example.ttpay.model.ArticleAdapter
 import com.example.ttpay.model.NavigationHandler
@@ -73,7 +74,8 @@ class AllProductsActivity : AppCompatActivity() {
 
     private fun fetchArticles() {
         showLoading()
-        val service = RetrofitClient.instance.create(ServiceProducts::class.java)
+        val retrofit = RetrofitClient.getInstance(8081)//za catalog_item_management
+        val service = retrofit.create(ServiceProducts::class.java)
         val call = service.getArticles()
 
         call.enqueue(object : Callback<List<Article>> {
@@ -97,7 +99,8 @@ class AllProductsActivity : AppCompatActivity() {
 
     private fun fetchServices() {
         showLoading()
-        val service = RetrofitClient.instance.create(ServiceProducts::class.java)
+        val retrofit = RetrofitClient.getInstance(8081)//za catalog_item_management
+        val service = retrofit.create(ServiceProducts::class.java)
         val call = service.getServices()
 
         call.enqueue(object : Callback<List<Service>> {

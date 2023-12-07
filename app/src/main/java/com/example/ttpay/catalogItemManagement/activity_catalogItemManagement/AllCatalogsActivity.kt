@@ -18,6 +18,7 @@ import com.example.ttpay.network.RetrofitClient
 import com.example.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
 import com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem.CreateCatalogItemActivity
 import com.example.ttpay.model.NavigationHandler
+import com.example.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
@@ -70,7 +71,8 @@ class AllCatalogsActivity : AppCompatActivity() {
 
     private fun fetchUsers() {
         showLoading()
-        val service = RetrofitClient.instance.create(ServiceAccountManagement::class.java)
+        val retrofit = RetrofitClient.getInstance(8080)//za catalog_item_management
+        val service = retrofit.create(ServiceAccountManagement::class.java)
         val call = service.getUsers()
 
         call.enqueue(object : Callback<List<User>> {

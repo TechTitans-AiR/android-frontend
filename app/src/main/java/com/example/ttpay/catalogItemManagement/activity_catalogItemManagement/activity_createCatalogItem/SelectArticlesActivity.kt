@@ -98,7 +98,8 @@ class SelectArticlesActivity : AppCompatActivity() {
 
     private fun fetchArticles() {
         showLoading()
-        val service = RetrofitClient.instance.create(ServiceProducts::class.java)
+        val retrofit = RetrofitClient.getInstance(8081)//za catalog_item_management
+        val service = retrofit.create(ServiceProducts::class.java)
         val call = service.getArticles()
 
         call.enqueue(object : Callback<List<Article>> {
