@@ -9,7 +9,8 @@ import retrofit2.Response
 
 class DeleteUser {
     fun deleteUser(context: Context,userIdToDelete:String?){
-        val service = RetrofitClient.instance.create(ServiceAccountManagement::class.java)
+        val retrofit = RetrofitClient.getInstance(8080)//za account_management
+        val service = retrofit.create(ServiceAccountManagement::class.java)
 
         val call = service.deleteUser(userIdToDelete)
 

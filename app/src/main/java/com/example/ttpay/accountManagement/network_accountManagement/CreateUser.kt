@@ -13,7 +13,8 @@ import retrofit2.Response
 class CreateUser {
 
     fun createNewUser(context: Context, newUser: newUser){
-        val service= RetrofitClient.instance.create(ServiceAccountManagement::class.java)
+        val retrofit = RetrofitClient.getInstance(8080)//za account_management
+        val service = retrofit.create(ServiceAccountManagement::class.java)
 
 
         //call for method createUser
