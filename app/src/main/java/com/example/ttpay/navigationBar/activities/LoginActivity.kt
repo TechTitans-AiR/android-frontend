@@ -1,6 +1,6 @@
 package com.example.ttpay.navigationBar.activities
 
-import android.content.ComponentCallbacks
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,15 +31,18 @@ class LoginActivity : AppCompatActivity() {
         passwordEditText = findViewById(R.id.editTextPassword)
         loginButton = findViewById(R.id.btn_login_login_activity)
 
-        val adminUser = User.createAdmin()
+       // val adminUser = User.createAdmin()
 
         loginButton.setOnClickListener {
             val enteredUsername = usernameEditText.text.toString()
             val enteredPassword = passwordEditText.text.toString()
 
-            //for login
-            callServerLogin(enteredUsername,enteredPassword)
+            if(enteredPassword.isNotEmpty() && enteredUsername.isNotEmpty()){
+                //for login
+                callServerLogin(enteredUsername,enteredPassword)
+            }
 
+            //old hardcoded login for admin
            /* if (enteredUsername == adminUser.username && enteredPassword == adminUser.password) {
                 // Correct login credentials, redirect to a new page
                 val intent = Intent(this, AdminHomeActivity::class.java)
@@ -59,12 +62,14 @@ class LoginActivity : AppCompatActivity() {
 
         loginService.login(loginRequest).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                Log.d("Response 1: ",response.body().toString())
                 if (response.isSuccessful) {
                     val token = response.body()?.token
 
                     Log.d("TOKEN: ", response.body().toString())
 
                     if (!token.isNullOrEmpty()) {
+                        Log.d("Token if: ","tu sam")
                         val intent = Intent(this@LoginActivity, AdminHomeActivity::class.java)
                         startActivity(intent)
                         finish() // Zatvori trenutnu aktivnost
