@@ -8,8 +8,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.auth0.jwt.JWT
 import com.example.ttpay.R
-import com.example.ttpay.model.User
 import com.example.ttpay.navigationBar.activities.login.LoginRequest
 import com.example.ttpay.navigationBar.activities.login.LoginResponse
 import com.example.ttpay.navigationBar.activities.login.LoginService
@@ -31,7 +31,6 @@ class LoginActivity : AppCompatActivity() {
         passwordEditText = findViewById(R.id.editTextPassword)
         loginButton = findViewById(R.id.btn_login_login_activity)
 
-       // val adminUser = User.createAdmin()
 
         loginButton.setOnClickListener {
             val enteredUsername = usernameEditText.text.toString()
@@ -42,16 +41,6 @@ class LoginActivity : AppCompatActivity() {
                 callServerLogin(enteredUsername,enteredPassword)
             }
 
-            //old hardcoded login for admin
-           /* if (enteredUsername == adminUser.username && enteredPassword == adminUser.password) {
-                // Correct login credentials, redirect to a new page
-                val intent = Intent(this, AdminHomeActivity::class.java)
-                startActivity(intent)
-                finish() // Close the current activity
-            } else {
-                // Incorrect credentials, show an error message
-                Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show()
-            }*/
         }
     }
 
@@ -62,19 +51,56 @@ class LoginActivity : AppCompatActivity() {
 
         loginService.login(loginRequest).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                Log.d("Response 1: ",response.body().toString())
+                Log.d("Response 1: ", response.body().toString())//check if response have something
+
+                val statusCode = response.code() // get status code
+                Log.d("Status Code response:", statusCode.toString())
+
                 if (response.isSuccessful) {
-                    val token = response.body()?.token
+                    val responseBody = response.body()
 
-                    Log.d("TOKEN: ", response.body().toString())
+                    Log.d("Status Code success:", statusCode.toString())
 
-                    if (!token.isNullOrEmpty()) {
-                        Log.d("Token if: ","tu sam")
-                        val intent = Intent(this@LoginActivity, AdminHomeActivity::class.java)
-                        startActivity(intent)
-                        finish() // Zatvori trenutnu aktivnost
+                    responseBody?.let { loginResponse ->
+                        val token = loginResponse.body.token
+
+                        Log.d("TOKEN: ", token)
+
+                        //decode JWT token
+                        val decodedJWT = JWT.decode(token)
+
+                        // get role from JWT
+                        var role=""
+                        role=decodedJWT.getClaim("role").asString()
+
+                        // which role is user
+                        Log.d("Role:", role)
+
+
+                        if (token.isNotEmpty()) {
+
+                            when(role){
+                                "admin"-> {
+                                    startActivity(Intent(this@LoginActivity, AdminHomeActivity::class.java))
+                                    finish()
+                                }
+                                "merchant"-> {
+                                    startActivity(Intent(this@LoginActivity, MerchantHomeActivity::class.java))
+                                    finish()
+                                }
+                                else->{
+                                    Toast.makeText(this@LoginActivity, "Something went wrong!", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+
+                        } else {
+                            Log.d("Status Code token null:", statusCode.toString())
+                            Toast.makeText(this@LoginActivity, "Token is null!", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 } else {
+                    // Ispiši statusni kod ili ga obradi na odgovarajući način
+                    Log.d("Status Code Failure Call:", statusCode.toString())
                     Toast.makeText(this@LoginActivity, "Invalid username or password", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -84,5 +110,7 @@ class LoginActivity : AppCompatActivity() {
             }
         })
     }
+
+
 
 }
