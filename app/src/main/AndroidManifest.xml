@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".navigationBar.activities.MerchantHomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem.CreateCatalogDataActivity"
             android:exported="false" />
         <activity
