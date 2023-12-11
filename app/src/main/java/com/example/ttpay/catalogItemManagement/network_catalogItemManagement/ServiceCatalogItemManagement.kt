@@ -10,4 +10,9 @@ interface ServiceCatalogItemManagement {
 
     @GET("/api/v1/catalogs/user/{userId}")
     fun getUserCatalogs(@Path("userId") userId: String): Call<List<Catalog>>
+
+    @GET("/api/v1/catalogs/{catalogId}")
+    fun getCatalogDetails(@Path("catalogId") catalogId: String): Call<Catalog>
+
+
 }
