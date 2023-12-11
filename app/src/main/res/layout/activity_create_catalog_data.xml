@@ -31,25 +31,48 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView_collected_data"
+        android:id="@+id/textView_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView_title_data"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="29dp"
+        android:padding="10dp"
+        android:layout_marginLeft="16dp"
+        android:text="Name of catalog"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView_collected_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_nameOfCatalog"
+        android:layout_marginTop="14dp"
+        android:padding="16dp"
         android:text="Here are all collected data. Add three recycler views for articles, services and users. Also need to set date_created and date_modified as local date time."
         android:textColor="@android:color/black"
-        android:padding="16dp"
         android:textSize="18sp" />
 
-    <!-- Create button -->
+    <!--Input field for name of catalog-->
+    <EditText
+        android:id="@+id/editText_nameOfCatalog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_name"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="-1dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Unesite nešto ovdje..."
+        android:inputType="text"
+        android:padding="15dp" />
+
     <Button
         android:id="@+id/btn_create_catalog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView_collected_data"
-        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:text="Create the catalog item"
         android:textSize="16sp" />
 
