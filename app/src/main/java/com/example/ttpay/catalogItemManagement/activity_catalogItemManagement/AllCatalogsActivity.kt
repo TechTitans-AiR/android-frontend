@@ -71,7 +71,7 @@ class AllCatalogsActivity : AppCompatActivity() {
 
     private fun fetchUsers() {
         showLoading()
-        val retrofit = RetrofitClient.getInstance(8080)//za catalog_item_management
+        val retrofit = RetrofitClient.getInstance(8080)//za account_management
         val service = retrofit.create(ServiceAccountManagement::class.java)
         val call = service.getUsers()
 

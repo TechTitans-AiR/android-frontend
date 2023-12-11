@@ -6,9 +6,9 @@ import java.time.OffsetDateTime
 class Catalog (
     val id: String?,
     val name: String,
-    val articles: List<Article>,
-    val service: List<Service>,
-    val users: List<User>?,
-    val date_created: OffsetDateTime,
-    val date_modified: OffsetDateTime
+    val articles: String,
+    val services: String,
+    val users: String,
+    val date_created: String?,
+    val date_modified: String?
 )
