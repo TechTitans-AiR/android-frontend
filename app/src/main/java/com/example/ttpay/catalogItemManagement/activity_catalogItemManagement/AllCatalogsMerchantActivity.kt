@@ -1,4 +1,4 @@
-package com.example.ttpay.transactions.activity_transactions
+package com.example.ttpay.catalogItemManagement.activity_catalogItemManagement
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,26 +9,20 @@ import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.R
-import com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem.CreateCatalogItemActivity
 import com.example.ttpay.model.NavigationHandler
 import com.example.ttpay.navigationBar.activities.AdminHomeActivity
 import com.example.ttpay.navigationBar.activities.MerchantHomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class AllTransactionsMerchantActivity : AppCompatActivity() {
+class AllCatalogsMerchantActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var progressBar: ProgressBar
+    // add adapter
 
-    /**
-     * add adapter
-     * private val adapter = UserAdapter(emptyList()) { user ->
-            openCatalogItemActivity(user.id)
-    }
-    */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_all_transactions_merchant)
+        setContentView(R.layout.activity_all_catalogs_merchant)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this)
@@ -43,10 +37,5 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-    }
-
-    fun onPlusTransactionIconClick(view: View) {
-        val intent = Intent(this, CreateTransactionActivity::class.java)
-        startActivity(intent)
     }
 }
