@@ -22,11 +22,13 @@ class SelectServicesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_services)
 
+        //nav
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
+        //btn back
         imgBack = findViewById(R.id.back_back)
         imgBack.setOnClickListener {
             val intent = Intent(this, SelectArticlesActivity::class.java)
@@ -43,11 +45,21 @@ class SelectServicesActivity : AppCompatActivity() {
             }
         }
 
+        //get all services
+        fetchServices();
+
+
+
+        //continue to select user
         continueButton = findViewById(R.id.btn_continue_select_services)
         continueButton.setOnClickListener {
             val intent = Intent(this, SelectUserActivity::class.java)
             startActivity(intent)
             finish()
         }
+    }
+
+    private fun fetchServices() {
+        TODO("Not yet implemented")
     }
 }
