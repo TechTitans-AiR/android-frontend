@@ -9,6 +9,7 @@ import com.example.ttpay.R
 import com.example.ttpay.model.NavigationHandler
 import com.example.ttpay.navigationBar.activities.AdminHomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.jakewharton.threetenabp.AndroidThreeTen
 
 class CatalogItemActivity : AppCompatActivity() {
 
@@ -18,6 +19,8 @@ class CatalogItemActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog_item)
+
+        AndroidThreeTen.init(this)
 
         // Retrieve user ID from the intent
         userId = intent.getStringExtra("userId") ?: ""
