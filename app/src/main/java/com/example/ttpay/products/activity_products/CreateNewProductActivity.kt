@@ -28,7 +28,6 @@ class CreateNewProductActivity : AppCompatActivity() {
         imgBack.setOnClickListener {
             val intent = Intent(this, AllProductsActivity::class.java)
             startActivity(intent)
-            finish()
         }
     }
 }
