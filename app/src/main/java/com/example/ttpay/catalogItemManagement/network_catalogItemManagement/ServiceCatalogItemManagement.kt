@@ -8,6 +8,6 @@ import retrofit2.http.Path
 
 interface ServiceCatalogItemManagement {
 
-    @GET("/api/v1/catalogs/{userId}")
+    @GET("/api/v1/catalogs/user/{userId}")
     fun getUserCatalogs(@Path("userId") userId: String): Call<List<Catalog>>
 }
