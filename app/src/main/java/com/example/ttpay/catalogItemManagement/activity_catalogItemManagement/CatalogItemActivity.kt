@@ -15,17 +15,13 @@ import com.example.ttpay.catalogItemManagement.network_catalogItemManagement.Ser
 import com.example.ttpay.model.Catalog
 import com.example.ttpay.model.CatalogAdapter
 import com.example.ttpay.model.NavigationHandler
-import com.example.ttpay.navigationBar.activities.AdminHomeActivity
 import com.example.ttpay.network.RetrofitClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.jakewharton.threetenabp.AndroidThreeTen
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class CatalogItemActivity : AppCompatActivity() {
-
-
     private lateinit var userId: String
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var recyclerView: RecyclerView
@@ -35,8 +31,6 @@ class CatalogItemActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog_item)
-
-        AndroidThreeTen.init(this)
 
         // Retrieve user ID from the intent
         userId = intent.getStringExtra("userId") ?: ""
@@ -52,7 +46,7 @@ class CatalogItemActivity : AppCompatActivity() {
 
         // Set up RecyclerView
         adapter = CatalogAdapter(emptyList()) { catalog ->
-            // Handle catalog item click, if needed
+            // Handle catalog item click
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
@@ -75,14 +69,14 @@ class CatalogItemActivity : AppCompatActivity() {
         val service = retrofit.create(ServiceCatalogItemManagement::class.java)
         val call = service.getUserCatalogs(userId)
 
-        call.enqueue(object : Callback<Catalog> {
-            override fun onResponse(call: Call<Catalog>, response: Response<Catalog>) {
+        call.enqueue(object : Callback<List<Catalog>> {
+            override fun onResponse(call: Call<List<Catalog>>, response: Response<List<Catalog>>) {
                 Log.d("CatalogItemActivity", "onResponse() called")
                 hideLoading()
                 if (response.isSuccessful) {
-                    val catalog = response.body()
-                    if (catalog != null) {
-                        adapter.updateData(listOf(catalog))
+                    val catalogs = response.body()
+                    if (catalogs != null) {
+                        adapter.updateData(catalogs)
                         Log.d("CatalogItemActivity", "Response: $response")
                     }
                 } else {
@@ -90,7 +84,7 @@ class CatalogItemActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<Catalog>, t: Throwable) {
+            override fun onFailure(call: Call<List<Catalog>>, t: Throwable) {
                 Log.e("CatalogItemActivity", "onFailure() called", t)
                 hideLoading()
                 showErrorDialog()
