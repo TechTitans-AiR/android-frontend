@@ -29,7 +29,88 @@ android:layout_height="match_parent"
     android:textSize="24sp"
     android:textStyle="bold" />
 
-<!-- BottomNavigationView -->
+    <!-- Container 1 (Services) -->
+    <RelativeLayout
+        android:id="@+id/container_services"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_create_transaction"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/tv_services"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Services"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- RecyclerView for services -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_services"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_services"
+            android:layout_marginTop="8dp" />
+
+    </RelativeLayout>
+
+    <!-- Container 2 (Articles) -->
+    <RelativeLayout
+        android:id="@+id/container_articles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/container_services"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/tv_articles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Articles"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- RecyclerView for articles -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_articles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_articles"
+            android:layout_marginTop="8dp" />
+
+    </RelativeLayout>
+
+    <!-- Total amount TextView -->
+    <RelativeLayout
+        android:id="@+id/relativeLayoutTotalAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/container_articles"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/tv_total_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Amount: $0.00"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"
+            android:textStyle="bold" />
+
+        <!-- PAY button -->
+        <Button
+            android:id="@+id/btn_pay"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentEnd="true"
+            android:text="PAY" />
+    </RelativeLayout>
+
+
+
+    <!-- BottomNavigationView -->
 <include layout="@layout/bottom_navigation"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

@@ -15,16 +15,9 @@ class CreateTransactionActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
 
-    private lateinit var userId: String
-    private lateinit var userRole: String
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_transaction)
-
-        //Dodajte kod za dohvat podataka iz intenta
-        userId = intent.getStringExtra("userId") ?: ""
-        userRole = intent.getStringExtra("userRole") ?: ""
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this)

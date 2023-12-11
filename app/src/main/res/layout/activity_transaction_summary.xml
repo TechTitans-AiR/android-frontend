@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".transactions.activity_transactions.TransactionSummaryActivity">
+
+    <!-- Transaction details go here -->
+    <TextView
+        android:id="@+id/tv_transaction_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Transaction Details"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"/>
+
+    <!-- RecyclerView for displaying selected services and articles with quantities and prices -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_transaction_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_transaction_details"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Total amount TextView -->
+    <TextView
+        android:id="@+id/tv_total_amount_summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total Amount: $0.00"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_below="@id/recycler_transaction_details"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"/>
+
+    <!-- CONTINUE PAYMENT button -->
+    <Button
+        android:id="@+id/btn_continue_payment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CONTINUE PAYMENT"
+        android:layout_below="@id/tv_total_amount_summary"
+        android:layout_marginTop="16dp"/>
+
+    <!-- BottomNavigationView -->
+    <include layout="@layout/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
