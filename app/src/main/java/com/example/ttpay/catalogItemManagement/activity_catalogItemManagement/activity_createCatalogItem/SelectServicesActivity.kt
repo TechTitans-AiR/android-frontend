@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.R
 import com.example.ttpay.catalogItemManagement.network_catalogItemManagement.NewCatalog
@@ -23,6 +24,7 @@ import com.example.ttpay.model.ServiceAdapter
 import com.example.ttpay.network.RetrofitClient
 import com.example.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,16 +36,22 @@ class SelectServicesActivity : AppCompatActivity() {
     private lateinit var continueButton: Button
     private lateinit var imgBack: ImageView
     private lateinit var progressBar: ProgressBar
+
     //for selecting service
     private lateinit var recyclerViewSelectServices: RecyclerView
     private lateinit var selectServiceAdapter: SelectServiceAdapter
 
     //which service is selected
-    private lateinit var addedServiceAdapter: SelectServiceAdapter
+    private lateinit var addedServiceAdapter: AddedServiceAdapter
     private lateinit var recyclerViewAddedServices: RecyclerView
+
+    private var listSelectedServices = mutableListOf<Service>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_services)
+
+        recyclerViewSelectServices = findViewById(R.id.recyclerView_select_services)
+        recyclerViewAddedServices = findViewById(R.id.recyclerView_added_services)
 
         //nav
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
@@ -73,12 +81,39 @@ class SelectServicesActivity : AppCompatActivity() {
         //get all services
         fetchServices();
 
+        recyclerViewSelectServices.layoutManager = LinearLayoutManager(this)
+        selectServiceAdapter = SelectServiceAdapter(emptyList()) { service ->
+            //Adding selected service to list
+            listSelectedServices.add(service)
 
+            //Updating the display of added articles
+            addedServiceAdapter.updateData(listSelectedServices)
+
+            //Snackbar message
+            showSnackbar("The service is added to the list of services.")
+        }
+
+        recyclerViewAddedServices.layoutManager = LinearLayoutManager(this)
+        addedServiceAdapter = AddedServiceAdapter(listSelectedServices) { position ->
+            // Deleting the selected article from the list of articles
+            listSelectedServices.removeAt(position)
+
+            //Updating the display of added articles
+            addedServiceAdapter.updateData(listSelectedServices)
+
+            //Snackbar message
+            showSnackbar("The article is deleted from the list of articles.")
+        }
+
+        recyclerViewSelectServices.adapter=selectServiceAdapter
+        recyclerViewAddedServices.adapter=addedServiceAdapter
 
         //continue to select user
-        continueButton = findViewById(R.id.btn_continue_select_services)
+        continueButton = findViewById(R.id.btn_continue_select_user)
         continueButton.setOnClickListener {
             val intent = Intent(this, SelectUserActivity::class.java)
+            intent.putExtra("selectedServices", ArrayList(listSelectedServices))
+            intent.putExtra("selectedArticles", ArrayList(selectedArticles))
             startActivity(intent)
             finish()
         }
@@ -92,7 +127,7 @@ class SelectServicesActivity : AppCompatActivity() {
         progressBar.visibility = View.GONE
     }
     private fun fetchServices() {
-        val recyclerView=R.id.recyclerView_select_services
+        showLoading()
 
         val retrofit=RetrofitClient.getInstance(8081)
         val service=retrofit.create(ServiceProducts::class.java)
@@ -104,8 +139,9 @@ class SelectServicesActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Service>>, response: Response<List<Service>>) {
                 hideLoading()
                 if (response.isSuccessful) {
-                    val listServices = response.body() ?: emptyList()
-                    selectServiceAdapter.updateData(listServices)
+                    val listService = response.body() ?: emptyList()
+                    Log.d("Lista servisa: ", ArrayList(listService).toString())
+                    selectServiceAdapter.updateData(listService)
                 } else {
                     showErrorDialog()
                 }
@@ -131,5 +167,13 @@ class SelectServicesActivity : AppCompatActivity() {
 
         val dialog = builder.create()
         dialog.show()
+    }
+    private fun showSnackbar(message: String) {
+        val snackbar = Snackbar.make(
+            findViewById(android.R.id.content),
+            message,
+            Snackbar.LENGTH_SHORT
+        )
+        snackbar.show()
     }
 }

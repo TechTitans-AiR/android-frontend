@@ -3,6 +3,7 @@ package com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.a
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -60,6 +61,7 @@ class SelectArticlesActivity : AppCompatActivity() {
         continueButton.setOnClickListener {
             //Sending the list to the next screen
             val intent = Intent(this, SelectServicesActivity::class.java)
+            Log.d("Articles: ",ArrayList(articles).toString())
             intent.putExtra("selected_articles", ArrayList(articles))
             startActivity(intent)
             finish()
