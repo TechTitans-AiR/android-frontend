@@ -76,6 +76,8 @@ class LoginActivity : AppCompatActivity() {
                         // which role is user
                         Log.d("Role:", role)
 
+                        val userUsername = decodedJWT.getClaim("username").asString()
+
 
                         if (token.isNotEmpty()) {
 
@@ -85,7 +87,9 @@ class LoginActivity : AppCompatActivity() {
                                     finish()
                                 }
                                 "merchant"-> {
-                                    startActivity(Intent(this@LoginActivity, MerchantHomeActivity::class.java))
+                                    val merchantHomeIntent = Intent(this@LoginActivity, MerchantHomeActivity::class.java)
+                                    merchantHomeIntent.putExtra("username", userUsername)
+                                    startActivity(merchantHomeIntent)
                                     finish()
                                 }
                                 else->{
