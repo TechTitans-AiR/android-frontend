@@ -72,7 +72,6 @@ class MerchantAdapter(private var users: List<User>) :
         return users.size
     }
 
-    // Update data in adapter
     fun updateData(newUsers: List<User>) {
         users = newUsers
         notifyDataSetChanged()

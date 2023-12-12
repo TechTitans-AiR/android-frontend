@@ -14,14 +14,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MerchantHomeActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
-
     private lateinit var userUsername: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_merchant_home)
 
-        // BottomNavigationView
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)

@@ -26,7 +26,6 @@ class CatalogItemWithoutUserActivity : AppCompatActivity() {
     private lateinit var adapter: CatalogAdapter
     private lateinit var progressBar: ProgressBar
     private lateinit var navigationHandler: NavigationHandler
-    private lateinit var catalogId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +39,7 @@ class CatalogItemWithoutUserActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView_all_catalogs)
         progressBar = findViewById(R.id.loadingProgressBar)
 
-        // Set up RecyclerView
         adapter = CatalogAdapter(emptyList()) { catalog ->
-            // Handle catalog item click
             val intent = Intent(this, DetailedCatalogItemActivity::class.java)
             intent.putExtra("catalogId", catalog.id)
             startActivity(intent)
@@ -51,7 +48,6 @@ class CatalogItemWithoutUserActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        // Fetch and display user catalogs
         fetchCatalogsWithoutUsers()
 
         val imgBack: ImageView = findViewById(R.id.back_button)
@@ -67,8 +63,6 @@ class CatalogItemWithoutUserActivity : AppCompatActivity() {
         showLoading()
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceCatalogItemManagement::class.java)
-
-        // Use the appropriate API call or method to fetch catalogs without users
         val call = service.getCatalogs()
 
         call.enqueue(object : Callback<List<Catalog>> {

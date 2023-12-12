@@ -23,12 +23,6 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
 
     private lateinit var userUsername: String
 
-    /**
-     * add adapter
-     * private val adapter = UserAdapter(emptyList()) { user ->
-            openCatalogItemActivity(user.id)
-    }
-    */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_transactions_merchant)

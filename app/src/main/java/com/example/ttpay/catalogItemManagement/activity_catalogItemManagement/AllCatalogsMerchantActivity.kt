@@ -50,9 +50,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView_all_catalogs_merchant)
         progressBar = findViewById(R.id.loadingProgressBar)
 
-        // Set up RecyclerView
         adapter = CatalogAdapter(emptyList()) { catalog ->
-            // Handle catalog item click
             val intent = Intent(this, DetailedCatalogItemActivity::class.java)
             intent.putExtra("catalogId", catalog.id)
             startActivity(intent)
@@ -61,7 +59,6 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        //Getting user id based on username
         fetchUserId(userUsername)
 
         val imgBack: ImageView = findViewById(R.id.back_button)
@@ -87,7 +84,6 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
                     if (user != null) {
                         userId = user.id!!
                         Log.d("AllCatalogsMerchant", "Fetched user ID: $userId")
-                        // After getting id, get catalogs
                         fetchUserCatalogs(userId)
                     } else {
                         showErrorDialog()
@@ -143,7 +139,6 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         builder.setTitle("Error")
             .setMessage("Error fetching catalogs. Make sure that you have a catalog.")
             .setPositiveButton("Retry") { _, _ ->
-                // Retry fetching catalogs
                 fetchUserId(userUsername)
             }
             .setNegativeButton("Cancel") { dialog, _ ->

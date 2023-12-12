@@ -86,7 +86,7 @@
             android:name=".accountManagement.activity_accountManagement.DetailsMerchantActivity"
             android:exported="false" />
         <activity
-            android:name=".products.activity_products.CreateNewProductActivity"
+            android:name=".products.activity_products.CreateProductActivity"
             android:exported="false" />
         <activity
             android:name=".products.activity_products.AllProductsActivity"

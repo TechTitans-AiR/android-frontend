@@ -11,6 +11,4 @@ interface ServiceProducts {
 
     @GET("/api/v1/services")
     fun getServices(): Call<List<Service>>
-
-    // Add other methods as needed for e.g., createArticle/createService, updateArticle/updateService, deleteArticle/deleteService
 }

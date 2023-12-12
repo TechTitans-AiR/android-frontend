@@ -43,7 +43,6 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detailed_catalog_item)
 
-        // Initialize views
         progressBar = findViewById(R.id.loadingProgressBar)
         textViewCatalogName = findViewById(R.id.textView_catalogName)
         textViewArticles = findViewById(R.id.textView_articles)
@@ -52,7 +51,6 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         textViewDateCreated = findViewById(R.id.textView_dateCreated)
         textViewDateModified = findViewById(R.id.textView_dateModified)
 
-        // Retrieve catalogId from the intent
         catalogId = intent.getStringExtra("catalogId") ?: ""
         Log.d("CatalogItemWithoutUserActivity", "Catalog id: $catalogId")
 
@@ -61,7 +59,6 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
-        // Call the function to fetch and display catalog details
         fetchCatalogDetails()
 
         val imgBack: ImageView = findViewById(R.id.back_button)
@@ -82,7 +79,6 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val catalog = response.body()
                     if (catalog != null) {
-                        // Update the UI with catalog details
                         updateUIWithCatalogDetails(catalog)
                     }
                 } else {
@@ -200,7 +196,6 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         }
     }
 
-    // Function to fetch user names and update the UI
     private fun fetchAndSetUserNames(userIds: List<String>?) {
         if (userIds.isNullOrEmpty()) {
             textViewUsers.text = "Users: "
@@ -214,14 +209,12 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
             fetchUserDetails(userId) { user ->
                 userNames.add("${user.first_name} ${user.last_name}")
                 if (remainingCount.decrementAndGet() == 0) {
-                    // All user names fetched, update the UI
                     textViewUsers.text = "${userNames.joinToString(", ")}"
                 }
             }
         }
     }
 
-    // Function to fetch detailed information for a user
     private fun fetchUserDetails(userId: String, callback: (User) -> Unit) {
         val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)

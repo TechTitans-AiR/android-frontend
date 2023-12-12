@@ -1,14 +1,11 @@
 package com.example.ttpay.transactions.activity_transactions
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import com.example.ttpay.R
-import com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.AllCatalogsMerchantActivity
 import com.example.ttpay.model.NavigationHandler
-import com.example.ttpay.navigationBar.activities.MerchantHomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class CreateTransactionActivity : AppCompatActivity() {

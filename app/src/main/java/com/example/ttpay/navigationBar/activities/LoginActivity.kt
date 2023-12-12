@@ -45,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun callServerLogin(enteredUsername: String, enteredPassword: String) {
-        val retrofit = RetrofitClient.getInstance(8080)//za account_management
+        val retrofit = RetrofitClient.getInstance(8080)
         val loginService = retrofit.create(LoginService::class.java)
         val loginRequest = LoginRequest(enteredUsername, enteredPassword)
 
@@ -103,7 +103,7 @@ class LoginActivity : AppCompatActivity() {
                         }
                     }
                 } else {
-                    // Ispiši statusni kod ili ga obradi na odgovarajući način
+                    // print the status code
                     Log.d("Status Code Failure Call:", statusCode.toString())
                     Toast.makeText(this@LoginActivity, "Invalid username or password", Toast.LENGTH_SHORT).show()
                 }
