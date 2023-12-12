@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.R
 import com.example.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
-import com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.CatalogItemActivity
-import com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.CatalogItemWithoutUserActivity
 import com.example.ttpay.model.NavigationHandler
 import com.example.ttpay.model.User
 import com.example.ttpay.model.UserAdapter
