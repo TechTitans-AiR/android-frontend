@@ -9,15 +9,20 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.R
 import com.example.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
+import com.example.ttpay.model.AddedUserAdapter
 import com.example.ttpay.model.Article
 import com.example.ttpay.model.NavigationHandler
+import com.example.ttpay.model.SelectServiceAdapter
 import com.example.ttpay.model.SelectUserAdapter
 import com.example.ttpay.model.Service
 import com.example.ttpay.model.User
 import com.example.ttpay.network.RetrofitClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,8 +34,19 @@ class SelectUserActivity : AppCompatActivity() {
     private lateinit var imgBack: ImageView
     private lateinit var progressBar:ProgressBar
 
+    //for selecting user
+    private lateinit var recyclerViewSelectUser:RecyclerView
     private lateinit var selectUserAdapter:SelectUserAdapter
-    private lateinit var addedUserAdapter: SelectUserAdapter
+
+    //which user is selected
+    /*private lateinit var recycleViewAddedUser: RecyclerView
+    private lateinit var addedUserAdapter: AddedUserAdapter
+    */
+
+    private var listSelectedUsers= mutableListOf<User>()
+    private var listArticles= mutableListOf<Article>()
+    private var listServices= mutableListOf<Service>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +72,7 @@ class SelectUserActivity : AppCompatActivity() {
         //Print the list of articles in logcat
         selectedArticles?.let {
             for (article in it) {
+                listArticles.add(article)
                 Log.d("SelectUserActivity", "Article: $article")
             }
         }
@@ -65,6 +82,7 @@ class SelectUserActivity : AppCompatActivity() {
         //Print the list of articles in logcat
         selectedServices?.let {
             for (services in it) {
+                listServices.add(services)
                 Log.d("SelectUserActivity", "Service: $services")
             }
         }
@@ -72,10 +90,35 @@ class SelectUserActivity : AppCompatActivity() {
         //fecth mercants
         fetchMerchants()
 
+        //initializing recycler view
+        recyclerViewSelectUser = findViewById(R.id.recyclerView_select_users)
+
+        //for adapter Select user
+        recyclerViewSelectUser.layoutManager = LinearLayoutManager(this)
+        selectUserAdapter = SelectUserAdapter(emptyList()) { user ->
+            //Adding selected service to list
+            listSelectedUsers.add(user)
+
+            /*Updating the display of added articles
+            Log.d("Add user:", user.first_name)
+            addedUserAdapter.updateData(listSelectedUsers)
+            */
+
+            //Snackbar message
+            showSnackbar("The user is added to the list of users.")
+        }
+
+
+
+        recyclerViewSelectUser.adapter=selectUserAdapter
+
         //go to next activity
         continueButton = findViewById(R.id.btn_continue_see_data)
         continueButton.setOnClickListener {
             val intent = Intent(this, CreateCatalogDataActivity::class.java)
+            intent.putExtra("listArticels",ArrayList(listArticles))
+            intent.putExtra("listServices", ArrayList(listServices))
+            intent.putExtra("listUsers", ArrayList(listSelectedUsers))
             startActivity(intent)
             finish()
         }
@@ -127,5 +170,13 @@ class SelectUserActivity : AppCompatActivity() {
 
         val dialog = builder.create()
         dialog.show()
+    }
+    private fun showSnackbar(message: String) {
+        val snackbar = Snackbar.make(
+            findViewById(android.R.id.content),
+            message,
+            Snackbar.LENGTH_SHORT
+        )
+        snackbar.show()
     }
 }

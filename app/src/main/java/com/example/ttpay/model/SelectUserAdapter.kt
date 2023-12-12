@@ -15,7 +15,6 @@ class SelectUserAdapter (
 
         class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val txtViewUserName: TextView = itemView.findViewById(R.id.textView_user_name)
-            val txtUserStatus: TextView = itemView.findViewById(R.id.textView_user_status)
             val txtEmail: TextView = itemView.findViewById(R.id.textView_user_email)
             val btnAdd: Button = itemView.findViewById(R.id.btn_add)
         }
@@ -29,7 +28,6 @@ class SelectUserAdapter (
         override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
             val user = merchants[position]
             holder.txtViewUserName.text = "${user.first_name} ${user.last_name}"
-            holder.txtUserStatus.text = user.userStatus.toString()
             holder.txtEmail.text = user.email
 
             holder.btnAdd.setOnClickListener {

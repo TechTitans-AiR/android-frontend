@@ -81,6 +81,7 @@ class SelectServicesActivity : AppCompatActivity() {
         //get all services
         fetchServices();
 
+        //for adapter Select service
         recyclerViewSelectServices.layoutManager = LinearLayoutManager(this)
         selectServiceAdapter = SelectServiceAdapter(emptyList()) { service ->
             //Adding selected service to list
@@ -93,6 +94,7 @@ class SelectServicesActivity : AppCompatActivity() {
             showSnackbar("The service is added to the list of services.")
         }
 
+        //for adapter Added service
         recyclerViewAddedServices.layoutManager = LinearLayoutManager(this)
         addedServiceAdapter = AddedServiceAdapter(listSelectedServices) { position ->
             // Deleting the selected article from the list of articles
@@ -102,7 +104,7 @@ class SelectServicesActivity : AppCompatActivity() {
             addedServiceAdapter.updateData(listSelectedServices)
 
             //Snackbar message
-            showSnackbar("The article is deleted from the list of articles.")
+            showSnackbar("The service is deleted from the list of services.")
         }
 
         recyclerViewSelectServices.adapter=selectServiceAdapter

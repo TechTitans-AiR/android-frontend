@@ -15,7 +15,7 @@ class AddedServiceAdapter  (
 ) : RecyclerView.Adapter<AddedServiceAdapter.ServiceViewHolder>() {
 
     class ServiceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val txtViewName: TextView = itemView.findViewById(R.id.textView_article_name)
+        val txtViewName: TextView = itemView.findViewById(R.id.textView_service_name)
         val btnDelete: Button = itemView.findViewById(R.id.btn_delete)
     }
 

@@ -14,7 +14,7 @@ class AddedUserAdapter(
 ) : RecyclerView.Adapter<AddedUserAdapter.UserViewHolder>() {
 
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val txtViewName: TextView = itemView.findViewById(R.id.textView_user_name)
+        val txtViewName: TextView = itemView.findViewById(R.id.textView_userName)
         val btnDelete: Button = itemView.findViewById(R.id.btn_delete)
     }
 
