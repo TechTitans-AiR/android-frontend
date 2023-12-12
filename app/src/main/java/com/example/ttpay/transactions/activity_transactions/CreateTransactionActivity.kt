@@ -11,18 +11,22 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class CreateTransactionActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
+    private lateinit var userUsername: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_transaction)
 
+        userUsername = intent.getStringExtra("username") ?: ""
+
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this)
+        navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
+            intent.putExtra("username", userUsername)
             onBackPressed()
         }
     }

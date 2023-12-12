@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +31,7 @@ import retrofit2.Response
 class AllCatalogsActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var navigationHandler: NavigationHandler
+    private lateinit var userUsername: String
     private val adapter = UserAdapter(emptyList()) { user ->
         openCatalogItemActivity(user.id)
     }
@@ -39,12 +41,14 @@ class AllCatalogsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_catalogs)
 
+        userUsername = intent.getStringExtra("username") ?: ""
+
         recyclerView = findViewById(R.id.recyclerView_all_users)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this)
+        navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
@@ -55,18 +59,20 @@ class AllCatalogsActivity : AppCompatActivity() {
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
             val intent = Intent(this, AdminHomeActivity::class.java)
+            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }
 
-        val btnCatalogsWithoutUsers: Button = findViewById(R.id.btn_catalogs_without_users)
-        btnCatalogsWithoutUsers.setOnClickListener {
+        val textViewCatalogName: TextView = findViewById(R.id.textViewCatalogName)
+        textViewCatalogName.setOnClickListener {
             openCatalogsWithoutUsersActivity()
         }
     }
 
     fun onPlusCatalogIconClick(view: View) {
         val intent = Intent(this, CreateCatalogItemActivity::class.java)
+        intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
     }
@@ -74,6 +80,7 @@ class AllCatalogsActivity : AppCompatActivity() {
     private fun openCatalogItemActivity(userId: String?) {
         val intent = Intent(this, CatalogItemActivity::class.java)
         intent.putExtra("userId", userId)
+        intent.putExtra("username", userUsername)
         startActivity(intent)
     }
 
@@ -128,6 +135,7 @@ class AllCatalogsActivity : AppCompatActivity() {
 
     private fun openCatalogsWithoutUsersActivity() {
         val intent = Intent(this, CatalogItemWithoutUserActivity::class.java)
+        intent.putExtra("username", userUsername)
         startActivity(intent)
     }
 }

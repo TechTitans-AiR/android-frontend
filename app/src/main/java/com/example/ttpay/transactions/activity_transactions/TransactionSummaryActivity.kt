@@ -5,8 +5,13 @@ import android.os.Bundle
 import com.example.ttpay.R
 
 class TransactionSummaryActivity : AppCompatActivity() {
+
+    private lateinit var userUsername: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transaction_summary)
+
+        userUsername = intent.getStringExtra("username") ?: ""
     }
 }

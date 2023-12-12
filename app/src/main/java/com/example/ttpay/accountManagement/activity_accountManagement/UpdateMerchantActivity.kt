@@ -15,21 +15,23 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class UpdateMerchantActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
+    private lateinit var userUsername: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_merchant)
 
+        userUsername = intent.getStringExtra("username") ?: ""
+
         // BottomNavigationView
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this)
+        navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
 
         val btnBack: ImageView = findViewById(R.id.imgView_back)
 
         btnBack.setOnClickListener {
-            val intent = Intent(this, AllMerchantsActivity::class.java)
-            startActivity(intent)
+            intent.putExtra("username", userUsername)
             finish()
         }
 

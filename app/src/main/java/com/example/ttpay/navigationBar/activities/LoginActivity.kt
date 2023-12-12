@@ -83,7 +83,9 @@ class LoginActivity : AppCompatActivity() {
 
                             when(role){
                                 "admin"-> {
-                                    startActivity(Intent(this@LoginActivity, AdminHomeActivity::class.java))
+                                    val adminHomeIntent = Intent(this@LoginActivity, AdminHomeActivity::class.java)
+                                    adminHomeIntent.putExtra("username", userUsername)
+                                    startActivity(adminHomeIntent)
                                     finish()
                                 }
                                 "merchant"-> {

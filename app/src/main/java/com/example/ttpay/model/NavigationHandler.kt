@@ -10,7 +10,7 @@ import com.example.ttpay.R
 import com.example.ttpay.navigationBar.activities.SettingsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class NavigationHandler(private val activity: AppCompatActivity) {
+class NavigationHandler(private val activity: AppCompatActivity, private val userUsername: String) {
 
     private lateinit var bottomNavigationView: BottomNavigationView
 
@@ -26,19 +26,14 @@ class NavigationHandler(private val activity: AppCompatActivity) {
             }
             true
         }
-
-        // Highlight the initially selected item
         highlightSelectedItem()
     }
 
     private fun navigateToActivity(targetActivity: Class<*>) {
         if (!isCurrentActivity(targetActivity)) {
             val intent = Intent(activity, targetActivity)
+            intent.putExtra("username", userUsername)
             activity.startActivity(intent)
-
-            // Do not finish the current activity immediately
-
-            // Highlight the selected item in BottomNavigationView
             highlightSelectedItem()
         }
     }
@@ -54,12 +49,10 @@ class NavigationHandler(private val activity: AppCompatActivity) {
     }
 
     private fun highlightSelectedItem() {
-        // Highlight the selected item based on the current activity
         when {
             isCurrentActivity(AdminHomeActivity::class.java) -> bottomNavigationView.selectedItemId = R.id.nav_home
             isCurrentActivity(ProfileActivity::class.java) -> bottomNavigationView.selectedItemId = R.id.nav_profile
             isCurrentActivity(SettingsActivity::class.java) -> bottomNavigationView.selectedItemId = R.id.nav_settings
-            // Add more cases for other activities if needed
         }
     }
 }

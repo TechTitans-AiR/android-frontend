@@ -1,5 +1,6 @@
 package com.example.ttpay.accountManagement.activity_accountManagement
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,6 +10,7 @@ import com.example.ttpay.model.NavigationHandler
 import com.example.ttpay.model.User
 import com.example.ttpay.network.RetrofitClient
 import com.example.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
+import com.example.ttpay.products.activity_products.AllProductsActivity
 import com.example.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
@@ -30,6 +32,8 @@ class DetailsMerchantActivity : AppCompatActivity() {
     private lateinit var txtViewAddress: TextView
     private lateinit var txtViewStatus: TextView
 
+    private lateinit var userUsername: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details_merchant)
@@ -48,9 +52,12 @@ class DetailsMerchantActivity : AppCompatActivity() {
         // Get user ID from intent
         userId = intent.getStringExtra("userId") ?: ""
 
+        userUsername = intent.getStringExtra("username") ?: ""
+
+
         // BottomNavigationView
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this)
+        navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
 
         // Fetch and display merchant details
@@ -59,6 +66,7 @@ class DetailsMerchantActivity : AppCompatActivity() {
         // Back button click listener
         val btnBack: ImageView = findViewById(R.id.imgView_back)
         btnBack.setOnClickListener {
+            intent.putExtra("username", userUsername)
             finish()
         }
     }

@@ -7,107 +7,76 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
-import androidx.appcompat.app.AlertDialog
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.R
-import com.example.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
-import com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.DetailedCatalogItemActivity
-import com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem.CreateCatalogItemActivity
-import com.example.ttpay.model.CatalogAdapter
+import com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.AllCatalogsActivity
 import com.example.ttpay.model.NavigationHandler
-import com.example.ttpay.model.Transaction
 import com.example.ttpay.model.TransactionAdapter
-import com.example.ttpay.model.User
-import com.example.ttpay.navigationBar.activities.AdminHomeActivity
-import com.example.ttpay.navigationBar.activities.MerchantHomeActivity
 import com.example.ttpay.network.RetrofitClient
 import com.example.ttpay.transactions.network_transactions.ServiceTransactionManagement
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.appcompat.app.AlertDialog
+import com.example.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
+import com.example.ttpay.model.Transaction
+import com.example.ttpay.model.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AllTransactionsMerchantActivity : AppCompatActivity() {
-
-    private lateinit var navigationHandler: NavigationHandler
-    private lateinit var progressBar: ProgressBar
-
-    private lateinit var userUsername: String
+class TransactionItemActivity : AppCompatActivity() {
 
     private lateinit var userId: String
-
     private lateinit var recyclerView: RecyclerView
+    private lateinit var transactionId: String
+    private lateinit var navigationHandler: NavigationHandler
+    private lateinit var progressBar: ProgressBar
     private lateinit var adapter: TransactionAdapter
+    private lateinit var textViewUserName: TextView
+    private lateinit var userUsername: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_all_transactions_merchant)
+        setContentView(R.layout.activity_transaction_item)
+
+        userId = intent.getStringExtra("userId") ?: ""
+        Log.d("TransactionItemActivity", "User id: $userId")
+
+        transactionId = intent.getStringExtra("transactionId") ?: ""
 
         userUsername = intent.getStringExtra("username") ?: ""
-        Log.d("MerchantHomeActivity", "User username: $userUsername")
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
-        progressBar = findViewById(R.id.loadingProgressBar)
-
         recyclerView = findViewById(R.id.recyclerView_all_transactions)
+        progressBar = findViewById(R.id.loadingProgressBar)
 
         adapter = TransactionAdapter(emptyList()) { transaction ->
             val intent = Intent(this, DetailedTransactionActivity::class.java)
             intent.putExtra("transactionId", transaction.id)
+            intent.putExtra("username", userUsername)
             startActivity(intent)
         }
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        fetchUserId(userUsername)
+        fetchUserTransactions(userId)
+
+        textViewUserName = findViewById(R.id.textViewUserName)
+        fetchUserDetails(userId)
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
-            val intent = Intent(this, MerchantHomeActivity::class.java)
+            val intent = Intent(this, AllTransactionsActivity::class.java)
             intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }
-    }
-
-    fun onPlusTransactionIconClick(view: View) {
-        val intent = Intent(this, CreateTransactionActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun fetchUserId(username: String) {
-        val retrofit = RetrofitClient.getInstance(8080)
-        val service = retrofit.create(ServiceAccountManagement::class.java)
-
-        val call = service.getUsers()
-
-        call.enqueue(object : Callback<List<User>> {
-            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
-                if (response.isSuccessful) {
-                    val users = response.body()
-                    val user = users?.find { it.username == username }
-                    if (user != null) {
-                        userId = user.id!!
-                        Log.d("AllTransactionMerchantActivity", "Fetched user ID: $userId")
-                        fetchUserTransactions(userId)
-                    } else {
-                        showErrorDialog()
-                    }
-                } else {
-                    showErrorDialog()
-                }
-            }
-
-            override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                showErrorDialog()
-            }
-        })
     }
 
     private fun fetchUserTransactions(userId: String) {
@@ -164,5 +133,30 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
 
         val dialog = builder.create()
         dialog.show()
+    }
+
+    private fun fetchUserDetails(userId: String) {
+        val retrofit = RetrofitClient.getInstance(8080)
+        val service = retrofit.create(ServiceAccountManagement::class.java)
+        val call = service.getUserDetails(userId)
+
+        call.enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) {
+                    val user = response.body()
+                    if (user != null) {
+                        textViewUserName.text = "${user.first_name} ${user.last_name}"
+                    }
+                } else {
+                    showErrorDialog()
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.e("CatalogItemActivity", "onFailure() called", t)
+                hideLoading()
+                showErrorDialog()
+            }
+        })
     }
 }

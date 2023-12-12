@@ -29,12 +29,24 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
+    <!-- TextView for displaying user's name and surname -->
+    <TextView
+        android:id="@+id/textViewUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_present_catalog_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
     <!-- RecyclerView for catalogs -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_catalogs"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tv_present_catalog_title"
+        android:layout_below="@id/textViewUserName"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="100dp"
         android:padding="16dp"/>
