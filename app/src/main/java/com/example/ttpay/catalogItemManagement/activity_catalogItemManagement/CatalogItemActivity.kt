@@ -59,31 +59,33 @@ class CatalogItemActivity : AppCompatActivity() {
         adapter = CatalogAdapter(emptyList()) {
             // Handle catalog item click
 
-        adapter = CatalogAdapter(emptyList()) { catalog ->
-            val intent = Intent(this, DetailedCatalogItemActivity::class.java)
-            intent.putExtra("catalogId", catalog.id)
-            intent.putExtra("username", userUsername)
-            startActivity(intent)
+            adapter = CatalogAdapter(emptyList()) { catalog ->
+                val intent = Intent(this, DetailedCatalogItemActivity::class.java)
+                intent.putExtra("catalogId", catalog.id)
+                intent.putExtra("username", userUsername)
+                startActivity(intent)
+            }
+
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            recyclerView.adapter = adapter
+
+            fetchUserCatalogs()
+
+            textViewUserName = findViewById(R.id.textViewUserName)
+            fetchUserDetails(userId)
+
+            val imgBack: ImageView = findViewById(R.id.back_button)
+            imgBack.setOnClickListener {
+                val intent = Intent(this, AllCatalogsActivity::class.java)
+                intent.putExtra("username", userUsername)
+                startActivity(intent)
+                finish()
+            }
+
         }
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
-
-        fetchUserCatalogs()
-
-        textViewUserName = findViewById(R.id.textViewUserName)
-        fetchUserDetails(userId)
-
-        val imgBack: ImageView = findViewById(R.id.back_button)
-        imgBack.setOnClickListener {
-            val intent = Intent(this, AllCatalogsActivity::class.java)
-            intent.putExtra("username", userUsername)
-            startActivity(intent)
-            finish()
-        }
 
     }
-
     private fun fetchUserCatalogs() {
         Log.d("CatalogItemActivity", "fetchUserCatalogs() started")
         showLoading()
@@ -92,7 +94,10 @@ class CatalogItemActivity : AppCompatActivity() {
         val call = service.getUserCatalogs(userId)
 
         call.enqueue(object : Callback<List<Catalog>> {
-            override fun onResponse(call: Call<List<Catalog>>, response: Response<List<Catalog>>) {
+            override fun onResponse(
+                call: Call<List<Catalog>>,
+                response: Response<List<Catalog>>
+            ) {
                 Log.d("CatalogItemActivity", "onResponse() called")
                 hideLoading()
                 Log.d("Response: ", response.toString())
@@ -114,52 +119,53 @@ class CatalogItemActivity : AppCompatActivity() {
             }
         })
     }
+        private fun showLoading() {
+            progressBar.visibility = View.VISIBLE
+        }
 
-    private fun showLoading() {
-        progressBar.visibility = View.VISIBLE
-    }
+        private fun hideLoading() {
+            progressBar.visibility = View.GONE
+        }
 
-    private fun hideLoading() {
-        progressBar.visibility = View.GONE
-    }
+        private fun showErrorDialog() {
+            val builder = AlertDialog.Builder(this)
 
-    private fun showErrorDialog() {
-        val builder = AlertDialog.Builder(this)
+            builder.setTitle("Error")
+                .setMessage("Error fetching catalogs.")
+                .setPositiveButton("Retry") { _, _ ->
+                    fetchUserCatalogs()
+                }
+                .setNegativeButton("Cancel") { dialog, _ ->
+                    dialog.dismiss()
+                }
 
-        builder.setTitle("Error")
-            .setMessage("Error fetching catalogs.")
-            .setPositiveButton("Retry") { _, _ ->
-                fetchUserCatalogs()
-            }
-            .setNegativeButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-            }
+            val dialog = builder.create()
+            dialog.show()
+        }
 
-        val dialog = builder.create()
-        dialog.show()
-    }
-    private fun fetchUserDetails(userId: String) {
-        val retrofit = RetrofitClient.getInstance(8080)
-        val service = retrofit.create(ServiceAccountManagement::class.java)
-        val call = service.getUserDetails(userId)
+        private fun fetchUserDetails(userId: String) {
+            val retrofit = RetrofitClient.getInstance(8080)
+            val service = retrofit.create(ServiceAccountManagement::class.java)
+            val call = service.getUserDetails(userId)
 
-        call.enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                if (response.isSuccessful) {
-                    val user = response.body()
-                    if (user != null) {
-                        textViewUserName.text = "${user.first_name} ${user.last_name}"
+            call.enqueue(object : Callback<User> {
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if (response.isSuccessful) {
+                        val user = response.body()
+                        if (user != null) {
+                            textViewUserName.text = "${user.first_name} ${user.last_name}"
+                        }
+                    } else {
+                        showErrorDialog()
                     }
-                } else {
+                }
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    Log.e("CatalogItemActivity", "onFailure() called", t)
+                    hideLoading()
                     showErrorDialog()
                 }
-            }
-
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                Log.e("CatalogItemActivity", "onFailure() called", t)
-                hideLoading()
-                showErrorDialog()
-            }
-        })
-    }
+            })
+        }
 }
+
