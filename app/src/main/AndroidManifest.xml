@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".catalogItemManagement.activity_catalogItemManagement.CatalogItemWithoutUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".catalogItemManagement.activity_catalogItemManagement.DetailedCatalogItemActivity"
             android:exported="false" />
         <activity

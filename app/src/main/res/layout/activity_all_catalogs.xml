@@ -74,10 +74,21 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_all_users"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="350dp"
         android:layout_below="@+id/loadingProgressBar"
-        android:layout_marginBottom="120dp"
-        android:padding="16dp"/>
+        android:layout_marginBottom="30dp"
+        android:foregroundGravity="center"
+        android:padding="5dp"/>
+
+    <!-- Button for catalogs without users -->
+    <Button
+        android:id="@+id/btn_catalogs_without_users"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recyclerView_all_users"
+        android:layout_centerHorizontal="true"
+        android:text="Catalogs Without Users"
+        android:onClick="onCatalogsWithoutUsersClick"/>
 
     <!-- BottomNavigationView -->
     <include layout="@layout/bottom_navigation"

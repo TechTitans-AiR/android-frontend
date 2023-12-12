@@ -2,6 +2,7 @@ package com.example.ttpay.catalogItemManagement.activity_catalogItemManagement
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -53,6 +54,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
 
         // Retrieve catalogId from the intent
         catalogId = intent.getStringExtra("catalogId") ?: ""
+        Log.d("CatalogItemWithoutUserActivity", "Catalog id: $catalogId")
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this)
@@ -100,13 +102,28 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         textViewCatalogName.text = catalog.name
 
         // Set articles
-        fetchAndSetArticles(parseStringList(catalog.articles))
+        val articlesList = parseStringList(catalog.articles)
+        if (articlesList.isNullOrEmpty()) {
+            textViewArticles.text = ""
+        } else {
+            fetchAndSetArticles(articlesList)
+        }
 
         // Set services
-        fetchAndSetServices(parseStringList(catalog.services))
+        val servicesList = parseStringList(catalog.services)
+        if (servicesList.isNullOrEmpty()) {
+            textViewServices.text = ""
+        } else {
+            fetchAndSetServices(servicesList)
+        }
 
         // Fetch and set user names
-        fetchAndSetUserNames(parseStringList(catalog.users))
+        val usersList = parseStringList(catalog.users)
+        if (usersList.isNullOrEmpty()) {
+            textViewUsers.text = ""
+        } else {
+            fetchAndSetUserNames(usersList)
+        }
 
         // Set date created and date modified
         textViewDateCreated.text = "${catalog.date_created}"
@@ -115,7 +132,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
 
     private fun fetchAndSetArticles(articleIds: List<String>?) {
         if (articleIds.isNullOrEmpty()) {
-            textViewArticles.text = "Articles: "
+            textViewArticles.text = ""
             return
         }
 
@@ -150,7 +167,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
 
     private fun fetchAndSetServices(serviceIds: List<String>?) {
         if (serviceIds.isNullOrEmpty()) {
-            textViewServices.text = "Services: "
+            textViewServices.text = ""
             return
         }
 
@@ -229,11 +246,13 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
 
     // Function to parse a JSON array represented as a string into a list of strings
     private fun parseStringList(jsonArrayString: String?): List<String>? {
-        return try {
-            val jsonArray = JSONArray(jsonArrayString)
-            List(jsonArray.length()) { jsonArray.getString(it) }
-        } catch (e: JSONException) {
-            null
+        return jsonArrayString?.let {
+            try {
+                val jsonArray = JSONArray(it)
+                List(jsonArray.length()) { index -> jsonArray.getString(index) }
+            } catch (e: JSONException) {
+                null
+            }
         }
     }
 
