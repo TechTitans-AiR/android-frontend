@@ -30,6 +30,7 @@ class SelectUserActivity : AppCompatActivity() {
     private lateinit var progressBar:ProgressBar
 
     private lateinit var selectUserAdapter:SelectUserAdapter
+    private lateinit var addedUserAdapter: SelectUserAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,6 +92,7 @@ class SelectUserActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val users = response.body() ?: emptyList()
                     Log.d("AllMerchantsActivity", "Users fetched successfully: $users")
+                    //update data in adapter
                     selectUserAdapter.updateData(users)
                 } else {
                     showErrorDialog()

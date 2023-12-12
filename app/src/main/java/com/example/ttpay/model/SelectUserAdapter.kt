@@ -22,7 +22,7 @@ class SelectUserAdapter (
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
             val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_select_services, parent, false)
+                .inflate(R.layout.item_select_user, parent, false)
             return UserViewHolder(itemView)
         }
 
