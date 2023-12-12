@@ -6,15 +6,18 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.R
+import com.example.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
 import com.example.ttpay.catalogItemManagement.network_catalogItemManagement.ServiceCatalogItemManagement
 import com.example.ttpay.model.Catalog
 import com.example.ttpay.model.CatalogAdapter
 import com.example.ttpay.model.NavigationHandler
+import com.example.ttpay.model.User
 import com.example.ttpay.network.RetrofitClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
@@ -27,6 +30,7 @@ class CatalogItemActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CatalogAdapter
     private lateinit var progressBar: ProgressBar
+    private lateinit var textViewUserName: TextView
 
     private lateinit var catalogId: String
 
@@ -58,12 +62,16 @@ class CatalogItemActivity : AppCompatActivity() {
 
         fetchUserCatalogs()
 
+        textViewUserName = findViewById(R.id.textViewUserName)
+        fetchUserDetails(userId)
+
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
             val intent = Intent(this, AllCatalogsActivity::class.java)
             startActivity(intent)
             finish()
         }
+
     }
 
     private fun fetchUserCatalogs() {
@@ -118,5 +126,29 @@ class CatalogItemActivity : AppCompatActivity() {
 
         val dialog = builder.create()
         dialog.show()
+    }
+    private fun fetchUserDetails(userId: String) {
+        val retrofit = RetrofitClient.getInstance(8080)
+        val service = retrofit.create(ServiceAccountManagement::class.java)
+        val call = service.getUserDetails(userId)
+
+        call.enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) {
+                    val user = response.body()
+                    if (user != null) {
+                        textViewUserName.text = "${user.first_name} ${user.last_name}"
+                    }
+                } else {
+                    showErrorDialog()
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.e("CatalogItemActivity", "onFailure() called", t)
+                hideLoading()
+                showErrorDialog()
+            }
+        })
     }
 }

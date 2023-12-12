@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,8 +60,8 @@ class AllCatalogsActivity : AppCompatActivity() {
             finish()
         }
 
-        val btnCatalogsWithoutUsers: Button = findViewById(R.id.btn_catalogs_without_users)
-        btnCatalogsWithoutUsers.setOnClickListener {
+        val textViewCatalogName: TextView = findViewById(R.id.textViewCatalogName)
+        textViewCatalogName.setOnClickListener {
             openCatalogsWithoutUsersActivity()
         }
     }
