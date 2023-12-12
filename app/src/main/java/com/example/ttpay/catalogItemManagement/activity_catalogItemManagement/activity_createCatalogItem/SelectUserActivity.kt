@@ -116,7 +116,7 @@ class SelectUserActivity : AppCompatActivity() {
         continueButton = findViewById(R.id.btn_continue_see_data)
         continueButton.setOnClickListener {
             val intent = Intent(this, CreateCatalogDataActivity::class.java)
-            intent.putExtra("listArticels",ArrayList(listArticles))
+            intent.putExtra("listArticles",ArrayList(listArticles))
             intent.putExtra("listServices", ArrayList(listServices))
             intent.putExtra("listUsers", ArrayList(listSelectedUsers))
             startActivity(intent)

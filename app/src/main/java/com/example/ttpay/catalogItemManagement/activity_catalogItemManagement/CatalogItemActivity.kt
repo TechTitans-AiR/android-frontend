@@ -73,6 +73,7 @@ class CatalogItemActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Catalog>>, response: Response<List<Catalog>>) {
                 Log.d("CatalogItemActivity", "onResponse() called")
                 hideLoading()
+                Log.d("Response: ", response.toString())
                 if (response.isSuccessful) {
                     val catalogs = response.body()
                     if (catalogs != null) {

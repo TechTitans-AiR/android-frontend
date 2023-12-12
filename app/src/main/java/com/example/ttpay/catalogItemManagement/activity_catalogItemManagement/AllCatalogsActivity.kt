@@ -77,6 +77,7 @@ class AllCatalogsActivity : AppCompatActivity() {
 
         call.enqueue(object : Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                Log.d("Poruka: ", response.code().toString())
                 hideLoading()
                 if (response.isSuccessful) {
                     val users = response.body() ?: emptyList()

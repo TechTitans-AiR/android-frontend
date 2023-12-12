@@ -6,7 +6,7 @@ import com.example.ttpay.model.User
 
 data class NewCatalog(
     val name: String,
-    val listArticles:List<Article>,
-    val listServices:List<Service>,
-    val user: List<User>
+    val articles:List<String>,
+    val services:List<String>,
+    val user:List<String>?
 )
