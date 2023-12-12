@@ -1,4 +1,4 @@
-<!-- item_select_services.xml -->
+<!-- item_select_user.xml -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Service frame -->
+    <!-- User frame -->
     <FrameLayout
         android:layout_width="382dp"
         android:layout_height="0dp"
@@ -15,15 +15,15 @@
         tools:ignore="UselessParent">
 
         <TextView
-            android:id="@+id/textView_service_name"
+            android:id="@+id/textView_user_name"
             android:layout_width="200dp"
             android:layout_height="30dp"
             android:background="@drawable/red_border_item"
             android:gravity="center"
-            android:text="@string/service_name"
+            android:text="@string/user_name"
             android:textSize="16sp" />
 
-        <!-- Additional details for the service -->
+        <!-- Additional details for the user -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,19 +32,10 @@
             android:layout_marginTop="30dp">
 
             <TextView
-                android:id="@+id/textView_durationAndUnit"
+                android:id="@+id/textView_user_email"
                 android:layout_width="200dp"
                 android:layout_height="30dp"
-                android:text="@string/duration_durationunit"
-                android:textSize="14sp"
-                android:gravity="center"
-                android:layout_gravity="center_horizontal" />
-
-            <TextView
-                android:id="@+id/textView_priceAndCurrency"
-                android:layout_width="200dp"
-                android:layout_height="30dp"
-                android:text="@string/price_currency"
+                android:text="@string/user_email"
                 android:textSize="14sp"
                 android:gravity="center"
                 android:layout_gravity="center_horizontal" />
@@ -55,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|end"
-            android:text="@string/add"
-            android:layout_marginEnd="15dp"/>
+            android:layout_marginEnd="15dp"
+            android:text="Add" />
     </FrameLayout>
 </LinearLayout>

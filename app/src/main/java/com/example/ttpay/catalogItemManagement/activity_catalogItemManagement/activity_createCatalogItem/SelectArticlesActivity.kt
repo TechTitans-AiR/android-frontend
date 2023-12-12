@@ -3,6 +3,7 @@ package com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.a
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -25,15 +26,19 @@ import com.google.android.material.snackbar.Snackbar
 
 
 class SelectArticlesActivity : AppCompatActivity() {
-    private lateinit var selectArticleAdapter: SelectArticleAdapter
-    private lateinit var addedArticleAdapter: AddedArticleAdapter
+
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var continueButton: Button
     private lateinit var imgBack: ImageView
-    private lateinit var recyclerViewSelectArticles: RecyclerView
-    private lateinit var recyclerViewAddedArticles: RecyclerView
     private lateinit var progressBar: ProgressBar
-    private val articles = mutableListOf<Article>()
+
+    private lateinit var recyclerViewSelectArticles: RecyclerView
+    private lateinit var selectArticleAdapter: SelectArticleAdapter
+
+    private lateinit var addedArticleAdapter: AddedArticleAdapter
+    private lateinit var recyclerViewAddedArticles: RecyclerView
+
+    private val articles = mutableListOf<Article>()//article list
 
     private lateinit var userUsername: String
 
@@ -65,6 +70,7 @@ class SelectArticlesActivity : AppCompatActivity() {
         continueButton.setOnClickListener {
             //Sending the list to the next screen
             val intent = Intent(this, SelectServicesActivity::class.java)
+            Log.d("Articles: ",ArrayList(articles).toString())
             intent.putExtra("selected_articles", ArrayList(articles))
             intent.putExtra("username", userUsername)
             startActivity(intent)

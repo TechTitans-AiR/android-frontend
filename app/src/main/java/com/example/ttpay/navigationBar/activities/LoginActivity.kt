@@ -83,6 +83,15 @@ class LoginActivity : AppCompatActivity() {
 
                             when(role){
                                 "admin"-> {
+
+                                    startActivity(Intent(this@LoginActivity, AdminHomeActivity::class.java))
+                                    Toast.makeText(this@LoginActivity, "You are Admin!", Toast.LENGTH_SHORT).show()
+                                    finish()
+                                }
+                                "merchant"-> {
+                                    startActivity(Intent(this@LoginActivity, MerchantHomeActivity::class.java))
+                                    Toast.makeText(this@LoginActivity, "You are Merchant!", Toast.LENGTH_SHORT).show()
+
                                     val adminHomeIntent = Intent(this@LoginActivity, AdminHomeActivity::class.java)
                                     adminHomeIntent.putExtra("username", userUsername)
                                     startActivity(adminHomeIntent)
@@ -92,6 +101,7 @@ class LoginActivity : AppCompatActivity() {
                                     val merchantHomeIntent = Intent(this@LoginActivity, MerchantHomeActivity::class.java)
                                     merchantHomeIntent.putExtra("username", userUsername)
                                     startActivity(merchantHomeIntent)
+
                                     finish()
                                 }
                                 else->{

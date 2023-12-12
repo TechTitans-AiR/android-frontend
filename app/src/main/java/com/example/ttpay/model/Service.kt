@@ -1,5 +1,7 @@
 package com.example.ttpay.model
 
+import java.io.Serializable
+
 data class Service(
     val id: String,
     val serviceName: String,
@@ -11,4 +13,4 @@ data class Service(
     val availability: String,
     val serviceLocation: String,
     val durationUnit: String
-)
+): Serializable

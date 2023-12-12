@@ -54,6 +54,11 @@ class CatalogItemActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView_catalogs)
         progressBar = findViewById(R.id.loadingProgressBar)
 
+
+        // Set up RecyclerView
+        adapter = CatalogAdapter(emptyList()) {
+            // Handle catalog item click
+
         adapter = CatalogAdapter(emptyList()) { catalog ->
             val intent = Intent(this, DetailedCatalogItemActivity::class.java)
             intent.putExtra("catalogId", catalog.id)
@@ -90,6 +95,7 @@ class CatalogItemActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Catalog>>, response: Response<List<Catalog>>) {
                 Log.d("CatalogItemActivity", "onResponse() called")
                 hideLoading()
+                Log.d("Response: ", response.toString())
                 if (response.isSuccessful) {
                     val catalogs = response.body()
                     if (catalogs != null) {

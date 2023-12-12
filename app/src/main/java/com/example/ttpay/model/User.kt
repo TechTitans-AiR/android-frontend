@@ -1,5 +1,7 @@
 package com.example.ttpay.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -17,10 +19,56 @@ data class User(
     val date_modified: String?, // Change to String for date format "dd.MM.yyyy HH:mm:ss"
     val userRole: UserRole?,
     val userStatus: UserStatus?
-) {
-    companion object {
-        // function to create an admin user
-        fun createAdmin(): User {
+): Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString() ?: "",
+        parcel.readString(),
+        parcel.readParcelable(UserRole::class.java.classLoader),
+        parcel.readParcelable(UserStatus::class.java.classLoader)
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(id)
+        parcel.writeString(username)
+        parcel.writeString(password)
+        parcel.writeString(first_name)
+        parcel.writeString(last_name)
+        parcel.writeString(email)
+        parcel.writeString(address)
+        parcel.writeString(phone)
+        parcel.writeString(date_of_birth)
+        parcel.writeString(date_created)
+        parcel.writeString(date_modified)
+        parcel.writeParcelable(userRole, flags)
+        parcel.writeParcelable(userStatus, flags)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<User> {
+        override fun createFromParcel(parcel: Parcel): User {
+            return User(parcel)
+        }
+
+        override fun newArray(size: Int): Array<User?> {
+            return arrayOfNulls(size)
+        }
+    }
+
+    // Dodavanje dodatnih statičkih objekata
+    val admin: User
+        get() {
             val currentDate = SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(Date())
 
             return User(
@@ -39,7 +87,6 @@ data class User(
                 date_modified = currentDate
             )
         }
-    }
 }
 
 data class newUser(

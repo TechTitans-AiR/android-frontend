@@ -1,5 +1,7 @@
 package com.example.ttpay.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
 

@@ -22,7 +22,6 @@ import com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.ac
 import com.example.ttpay.catalogItemManagement.network_catalogItemManagement.ServiceCatalogItemManagement
 import com.example.ttpay.model.Catalog
 import com.example.ttpay.model.NavigationHandler
-import com.example.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
@@ -92,6 +91,7 @@ class AllCatalogsActivity : AppCompatActivity() {
 
         call.enqueue(object : Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                Log.d("Poruka: ", response.code().toString())
                 hideLoading()
                 if (response.isSuccessful) {
                     val users = response.body() ?: emptyList()
