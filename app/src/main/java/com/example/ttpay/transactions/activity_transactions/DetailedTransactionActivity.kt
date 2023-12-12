@@ -19,7 +19,7 @@ class DetailedTransactionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detailed_transaction)
 
-        transactionId = intent.getStringExtra("catalogId") ?: ""
+        transactionId = intent.getStringExtra("transactionId") ?: ""
         Log.d("DetailedTransactionActivity", "Transaction id: $transactionId")
 
         userUsername = intent.getStringExtra("username") ?: ""
