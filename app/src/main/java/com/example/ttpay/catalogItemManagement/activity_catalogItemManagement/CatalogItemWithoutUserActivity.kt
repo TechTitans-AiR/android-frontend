@@ -26,13 +26,16 @@ class CatalogItemWithoutUserActivity : AppCompatActivity() {
     private lateinit var adapter: CatalogAdapter
     private lateinit var progressBar: ProgressBar
     private lateinit var navigationHandler: NavigationHandler
+    private lateinit var userUsername: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog_item_without_user)
 
+        userUsername = intent.getStringExtra("username") ?: ""
+
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this)
+        navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
@@ -42,6 +45,7 @@ class CatalogItemWithoutUserActivity : AppCompatActivity() {
         adapter = CatalogAdapter(emptyList()) { catalog ->
             val intent = Intent(this, DetailedCatalogItemActivity::class.java)
             intent.putExtra("catalogId", catalog.id)
+            intent.putExtra("username", userUsername)
             startActivity(intent)
         }
 
@@ -53,6 +57,7 @@ class CatalogItemWithoutUserActivity : AppCompatActivity() {
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
             val intent = Intent(this, AllCatalogsActivity::class.java)
+            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }

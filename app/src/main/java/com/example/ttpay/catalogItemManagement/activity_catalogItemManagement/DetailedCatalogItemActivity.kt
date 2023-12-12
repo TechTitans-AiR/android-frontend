@@ -38,10 +38,13 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
     private lateinit var textViewDateCreated: TextView
     private lateinit var textViewDateModified: TextView
     private lateinit var navigationHandler: NavigationHandler
+    private lateinit var userUsername: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detailed_catalog_item)
+
+        userUsername = intent.getStringExtra("username") ?: ""
 
         progressBar = findViewById(R.id.loadingProgressBar)
         textViewCatalogName = findViewById(R.id.textView_catalogName)
@@ -55,7 +58,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         Log.d("CatalogItemWithoutUserActivity", "Catalog id: $catalogId")
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this)
+        navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
@@ -63,6 +66,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
+            intent.putExtra("username", userUsername)
             onBackPressed()
         }
     }

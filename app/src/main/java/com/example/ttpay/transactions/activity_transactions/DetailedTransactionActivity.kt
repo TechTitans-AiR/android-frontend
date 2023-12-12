@@ -13,6 +13,7 @@ class DetailedTransactionActivity : AppCompatActivity() {
 
     private lateinit var transactionId: String
     private lateinit var navigationHandler: NavigationHandler
+    private lateinit var userUsername: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,13 +22,16 @@ class DetailedTransactionActivity : AppCompatActivity() {
         transactionId = intent.getStringExtra("catalogId") ?: ""
         Log.d("DetailedTransactionActivity", "Transaction id: $transactionId")
 
+        userUsername = intent.getStringExtra("username") ?: ""
+
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this)
+        navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
+            intent.putExtra("username", userUsername)
             onBackPressed()
         }
     }

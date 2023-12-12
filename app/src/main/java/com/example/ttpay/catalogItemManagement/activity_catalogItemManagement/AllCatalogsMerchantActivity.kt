@@ -43,7 +43,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         Log.d("MerchantHomeActivity", "User username: $userUsername")
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this)
+        navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 

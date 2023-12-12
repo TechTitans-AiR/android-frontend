@@ -34,6 +34,7 @@ class TransactionItemActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var adapter: TransactionAdapter
     private lateinit var textViewUserName: TextView
+    private lateinit var userUsername: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +45,10 @@ class TransactionItemActivity : AppCompatActivity() {
 
         transactionId = intent.getStringExtra("transactionId") ?: ""
 
+        userUsername = intent.getStringExtra("username") ?: ""
+
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this)
+        navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
@@ -55,13 +58,14 @@ class TransactionItemActivity : AppCompatActivity() {
         adapter = TransactionAdapter(emptyList()) { transaction ->
             val intent = Intent(this, DetailedTransactionActivity::class.java)
             intent.putExtra("transactionId", transaction.id)
+            intent.putExtra("username", userUsername)
             startActivity(intent)
         }
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        fetchUserTransactions()
+        fetchUserTransactions(userId)
 
         textViewUserName = findViewById(R.id.textViewUserName)
         fetchUserDetails(userId)
@@ -69,12 +73,13 @@ class TransactionItemActivity : AppCompatActivity() {
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
             val intent = Intent(this, AllTransactionsActivity::class.java)
+            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }
     }
 
-    private fun fetchUserTransactions() {
+    private fun fetchUserTransactions(userId: String) {
         Log.d("TransactionActivity", "fetchUserTransactions() started")
         showLoading()
 
@@ -120,7 +125,7 @@ class TransactionItemActivity : AppCompatActivity() {
         builder.setTitle("Error")
             .setMessage("Error fetching transactions.")
             .setPositiveButton("Retry") { _, _ ->
-                fetchUserTransactions()
+                fetchUserTransactions(userId)
             }
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()

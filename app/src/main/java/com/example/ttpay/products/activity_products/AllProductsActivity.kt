@@ -33,9 +33,13 @@ class AllProductsActivity : AppCompatActivity() {
     private val articleAdapter = ArticleAdapter(emptyList())
     private val serviceAdapter = ServiceAdapter(emptyList())
 
+    private lateinit var userUsername: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_products)
+
+        userUsername = intent.getStringExtra("username") ?: ""
 
         recyclerViewArticles = findViewById(R.id.recyclerView_all_articles)
         recyclerViewServices = findViewById(R.id.recyclerView_all_services)
@@ -47,7 +51,7 @@ class AllProductsActivity : AppCompatActivity() {
         recyclerViewServices.adapter = serviceAdapter
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this)
+        navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
@@ -60,6 +64,7 @@ class AllProductsActivity : AppCompatActivity() {
 
         btnBack.setOnClickListener {
             val intent = Intent(this, AdminHomeActivity::class.java)
+            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }
@@ -67,6 +72,7 @@ class AllProductsActivity : AppCompatActivity() {
 
     fun onPlusIconProductsClick(view: View) {
         val intent = Intent(this, CreateProductActivity::class.java)
+        intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
     }

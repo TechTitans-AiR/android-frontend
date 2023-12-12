@@ -17,19 +17,23 @@ class SelectServicesActivity : AppCompatActivity() {
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var continueButton: Button
     private lateinit var imgBack: ImageView
+    private lateinit var userUsername: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_services)
 
+        userUsername = intent.getStringExtra("username") ?: ""
+
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this)
+        navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
         imgBack = findViewById(R.id.back_back)
         imgBack.setOnClickListener {
             val intent = Intent(this, SelectArticlesActivity::class.java)
+            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }
@@ -46,6 +50,7 @@ class SelectServicesActivity : AppCompatActivity() {
         continueButton = findViewById(R.id.btn_continue_select_services)
         continueButton.setOnClickListener {
             val intent = Intent(this, SelectUserActivity::class.java)
+            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }

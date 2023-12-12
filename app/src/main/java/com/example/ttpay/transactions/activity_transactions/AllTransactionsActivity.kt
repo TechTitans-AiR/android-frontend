@@ -27,6 +27,7 @@ class AllTransactionsActivity : AppCompatActivity() {
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
+    private lateinit var userUsername: String
     private val adapter = UserAdapter(emptyList()) { user ->
         openTransactionItemActivity(user.id)
     }
@@ -39,8 +40,10 @@ class AllTransactionsActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
+        userUsername = intent.getStringExtra("username") ?: ""
+
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this)
+        navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
@@ -51,6 +54,7 @@ class AllTransactionsActivity : AppCompatActivity() {
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
             val intent = Intent(this, AdminHomeActivity::class.java)
+            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }
@@ -58,12 +62,14 @@ class AllTransactionsActivity : AppCompatActivity() {
 
     fun onPlusTransactionIconClick(view: View) {
         val intent = Intent(this, CreateTransactionActivity::class.java)
+        intent.putExtra("username", userUsername)
         startActivity(intent)
     }
 
     private fun openTransactionItemActivity(userId: String?) {
         val intent = Intent(this, TransactionItemActivity::class.java)
         intent.putExtra("userId", userId)
+        intent.putExtra("username", userUsername)
         startActivity(intent)
     }
 
