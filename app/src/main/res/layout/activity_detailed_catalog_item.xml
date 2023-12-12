@@ -1,114 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".catalogItemManagement.activity_catalogItemManagement.DetailedCatalogItemActivity">
 
-    <RelativeLayout
+    <!-- Back button -->
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="40dp"
+        android:layout_height="28dp"
+        android:clickable="true"
+        android:contentDescription="Back Button"
+        android:src="@drawable/baseline_arrow_back"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp" />
+
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_below="@id/back_button"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/textView_catalogName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Catalog Name"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_below="@id/loadingProgressBar"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <TextView
+        android:id="@+id/textView_articles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Articles:"
+        android:textSize="18sp"
+        android:layout_below="@id/textView_catalogName"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/textView_services"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Services:"
+        android:textSize="18sp"
+        android:layout_below="@id/textView_articles"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/textView_users"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Users:"
+        android:textSize="18sp"
+        android:layout_below="@id/textView_services"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/textView_dateCreated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Date Created:"
+        android:textSize="18sp"
+        android:layout_below="@id/textView_users"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/textView_dateModified"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Date Modified:"
+        android:textSize="18sp"
+        android:layout_below="@id/textView_dateCreated"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <!-- BottomNavigationView -->
+    <include layout="@layout/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
 
-        <!-- Back button -->
-
-        <ImageView
-            android:id="@+id/back_button"
-            android:layout_width="40dp"
-            android:layout_height="28dp"
-            android:clickable="true"
-            android:contentDescription="Back Button"
-            android:src="@drawable/baseline_arrow_back"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp" />
-
-        <ProgressBar
-            android:id="@+id/loadingProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            android:layout_below="@id/back_button"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="16dp"/>
-
-        <TextView
-            android:id="@+id/textView_catalogName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-light"
-            android:text="Catalog Name"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_below="@id/loadingProgressBar"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp" />
-
-        <TextView
-            android:id="@+id/textView_articles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Articles:"
-            android:textSize="18sp"
-            android:layout_below="@id/textView_catalogName"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
-
-        <TextView
-            android:id="@+id/textView_services"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Services:"
-            android:textSize="18sp"
-            android:layout_below="@id/textView_articles"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
-
-        <TextView
-            android:id="@+id/textView_users"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Users:"
-            android:textSize="18sp"
-            android:layout_below="@id/textView_services"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
-
-        <TextView
-            android:id="@+id/textView_dateCreated"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Date Created:"
-            android:textSize="18sp"
-            android:layout_below="@id/textView_users"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
-
-        <TextView
-            android:id="@+id/textView_dateModified"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Date Modified:"
-            android:textSize="18sp"
-            android:layout_below="@id/textView_dateCreated"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
-
-        <!-- BottomNavigationView -->
-        <include layout="@layout/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"/>
-
-    </RelativeLayout>
-</ScrollView>
+</RelativeLayout>
