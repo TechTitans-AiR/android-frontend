@@ -1,0 +1,12 @@
+<!-- res/layout/item_transaction.xml -->
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textViewTransactionDescription"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/red_border_item"
+    android:gravity="center"
+    android:padding="16dp"
+    android:text="Transaction description"
+    android:layout_marginBottom="5dp"
+    android:textSize="16sp"/>
