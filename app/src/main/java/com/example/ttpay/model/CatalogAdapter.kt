@@ -7,10 +7,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.R
 
-class CatalogAdapter(private var catalogs: List<Catalog>, private val onItemClick: (Catalog) -> Unit) :
-    RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder>() {
+class CatalogAdapter(
+    private var catalogs: List<Catalog>,
+    private val onCatalogClick: (Catalog) -> Unit
+) : RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder>() {
 
-    class CatalogViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CatalogViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtViewCatalogName: TextView = itemView.findViewById(R.id.textViewCatalogName)
     }
 
@@ -25,7 +27,7 @@ class CatalogAdapter(private var catalogs: List<Catalog>, private val onItemClic
         holder.txtViewCatalogName.text = catalog.name
 
         holder.itemView.setOnClickListener {
-            onItemClick(catalog)
+            onCatalogClick(catalog)
         }
     }
 

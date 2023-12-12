@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,43 +7,108 @@
     android:layout_height="match_parent"
     tools:context=".catalogItemManagement.activity_catalogItemManagement.DetailedCatalogItemActivity">
 
-<ImageView
-    android:id="@+id/imgView_back"
-    android:layout_width="40dp"
-    android:layout_height="28dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="16dp"
-    android:clickable="true"
-    android:contentDescription="Back Button"
-    android:src="@drawable/baseline_arrow_back"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-<TextView
-    android:id="@+id/textView_title_details_catalog"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="16dp"
-    android:layout_toEndOf="@id/imgView_back"
-    android:fontFamily="sans-serif-light"
-    android:text="Catalog item"
-    android:textColor="@color/red"
-    android:textSize="24sp"
-    android:textStyle="bold"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.339"
-    app:layout_constraintStart_toEndOf="@+id/imgView_back"
-    app:layout_constraintTop_toTopOf="parent" />
+        <!-- Back button -->
 
-<include
-    layout="@layout/bottom_navigation"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/textView_title_details_merchant"
-    app:layout_constraintVertical_bias="1.0" />
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="40dp"
+            android:layout_height="28dp"
+            android:clickable="true"
+            android:contentDescription="Back Button"
+            android:src="@drawable/baseline_arrow_back"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ProgressBar
+            android:id="@+id/loadingProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_below="@id/back_button"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/textView_catalogName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Catalog Name"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_below="@id/loadingProgressBar"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
+
+        <TextView
+            android:id="@+id/textView_articles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Articles:"
+            android:textSize="18sp"
+            android:layout_below="@id/textView_catalogName"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/textView_services"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Services:"
+            android:textSize="18sp"
+            android:layout_below="@id/textView_articles"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/textView_users"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Users:"
+            android:textSize="18sp"
+            android:layout_below="@id/textView_services"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/textView_dateCreated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Date Created:"
+            android:textSize="18sp"
+            android:layout_below="@id/textView_users"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/textView_dateModified"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Date Modified:"
+            android:textSize="18sp"
+            android:layout_below="@id/textView_dateCreated"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <!-- BottomNavigationView -->
+        <include layout="@layout/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+</ScrollView>
