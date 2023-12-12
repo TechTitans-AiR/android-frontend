@@ -24,6 +24,7 @@ import com.example.ttpay.model.UserAdapter
 import com.example.ttpay.navigationBar.activities.AdminHomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+@Suppress("DEPRECATION")
 class CreateCatalogDataActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
@@ -73,7 +74,7 @@ class CreateCatalogDataActivity : AppCompatActivity() {
 
 
         //get catalog name
-        var catalogName=findViewById<EditText>(R.id.editText_nameOfCatalog)
+        val catalogName=findViewById<EditText>(R.id.editText_nameOfCatalog)
 
         usersAdapter=UserAdapter(listSelectedUsers,onItemClick)
 
@@ -92,7 +93,7 @@ class CreateCatalogDataActivity : AppCompatActivity() {
             //get just ids from lists
             val selectedArticleIds = listSelectedArticles.map { it.id }
             val selectedServicesIds=listSelectedServices.map{it.id}
-            val selectedUsersIds=listSelectedUsers.map{it.id}.filterNotNull()
+            val selectedUsersIds= listSelectedUsers.mapNotNull { it.id }
 
             //take catalog name
             val catalogNameText = catalogName.text.toString()

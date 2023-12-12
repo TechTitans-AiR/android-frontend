@@ -7,4 +7,18 @@
     <string name="catalog_item_title">Catalog items</string>
     <string name="home_baseline">Home</string>
     <string name="admin_home_create_merchant_button">Create new merchant</string>
+    <string name="service_name">Service Name</string>
+    <string name="duration_durationunit">Duration durationUnit</string>
+    <string name="price_currency">Price currency</string>
+    <string name="add">Add</string>
+    <string name="user_name">User Name</string>
+    <string name="user_email">User email</string>
+    <string name="article_name">Article Name</string>
+    <string name="weight">Weight</string>
+    <string name="back_button">Back Button</string>
+    <string name="all_collected_data">All collected data</string>
+    <string name="name_of_catalog">Name of catalog</string>
+    <string name="create_the_catalog_item">Create the catalog item</string>
+    <string name="write_here_the_name_of_catalog">Write here the name of catalog...</string>
+    <string name="all_collected_data_for_catalog_are">All collected data for catalog are:</string>
 </resources>

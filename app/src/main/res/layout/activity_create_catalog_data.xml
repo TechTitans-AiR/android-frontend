@@ -13,8 +13,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:clickable="true"
-        android:contentDescription="Back Button"
-        android:src="@drawable/baseline_arrow_back" />
+        android:contentDescription="@string/back_button"
+        android:src="@drawable/baseline_arrow_back"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/textView_title_data"
@@ -25,7 +26,7 @@
         android:layout_marginTop="16dp"
         android:layout_toEndOf="@id/imgView_back"
         android:fontFamily="sans-serif-light"
-        android:text="All collected data"
+        android:text="@string/all_collected_data"
         android:textColor="@color/red"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -37,8 +38,8 @@
         android:layout_below="@+id/textView_title_data"
         android:layout_marginTop="29dp"
         android:padding="5dp"
-        android:layout_marginLeft="16dp"
-        android:text="Name of catalog"
+        android:layout_marginStart="16dp"
+        android:text="@string/name_of_catalog"
         android:textColor="@android:color/black"
         android:textSize="18sp" />
 
@@ -52,7 +53,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="19dp"
         android:layout_marginEnd="13dp"
-        android:text="Create the catalog item"
+        android:text="@string/create_the_catalog_item"
         android:textSize="16sp" />
 
     <EditText
@@ -63,9 +64,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="-1dp"
         android:layout_marginEnd="16dp"
-        android:hint="Write here the name of catalog..."
+        android:hint="@string/write_here_the_name_of_catalog"
         android:inputType="text"
-        android:padding="15dp" />
+        android:padding="15dp"
+        android:autofillHints="" />
 
     <!-- BottomNavigationView -->
     <include
@@ -92,7 +94,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="79dp"
         android:padding="5dp"
-        android:text="All collected data for catalog are:"
+        android:text="@string/all_collected_data_for_catalog_are"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="18sp" />

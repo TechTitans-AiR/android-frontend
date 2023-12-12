@@ -45,7 +45,7 @@ class CatalogItemActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.loadingProgressBar)
 
         // Set up RecyclerView
-        adapter = CatalogAdapter(emptyList()) { catalog ->
+        adapter = CatalogAdapter(emptyList()) {
             // Handle catalog item click
         }
         recyclerView.layoutManager = LinearLayoutManager(this)

@@ -1,5 +1,6 @@
 package com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +40,7 @@ class AddedServiceAdapter  (
     }
 
     // Update data in adapter
+    @SuppressLint("NotifyDataSetChanged")
     fun updateData(newArticles: List<Service>) {
         services = newArticles
         notifyDataSetChanged()

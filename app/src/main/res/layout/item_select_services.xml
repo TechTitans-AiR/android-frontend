@@ -1,6 +1,7 @@
 <!-- item_select_services.xml -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -9,8 +10,9 @@
     <!-- Service frame -->
     <FrameLayout
         android:layout_width="382dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:ignore="UselessParent">
 
         <TextView
             android:id="@+id/textView_service_name"
@@ -18,7 +20,7 @@
             android:layout_height="30dp"
             android:background="@drawable/red_border_item"
             android:gravity="center"
-            android:text="Service Name"
+            android:text="@string/service_name"
             android:textSize="16sp" />
 
         <!-- Additional details for the service -->
@@ -33,7 +35,7 @@
                 android:id="@+id/textView_durationAndUnit"
                 android:layout_width="200dp"
                 android:layout_height="30dp"
-                android:text="Duration durationUnit"
+                android:text="@string/duration_durationunit"
                 android:textSize="14sp"
                 android:gravity="center"
                 android:layout_gravity="center_horizontal" />
@@ -42,7 +44,7 @@
                 android:id="@+id/textView_priceAndCurrency"
                 android:layout_width="200dp"
                 android:layout_height="30dp"
-                android:text="Price currency"
+                android:text="@string/price_currency"
                 android:textSize="14sp"
                 android:gravity="center"
                 android:layout_gravity="center_horizontal" />
@@ -53,6 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|end"
-            android:text="Add" />
+            android:text="@string/add"
+            android:layout_marginEnd="15dp"/>
     </FrameLayout>
 </LinearLayout>
