@@ -31,15 +31,34 @@
         android:textStyle="bold" />
 
     <!-- RecyclerView for selecting articles -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_title_select_users"
+        android:layout_marginTop="14dp"
+        android:text="User for catalog can be selected later in app."
+        android:textAlignment="center"/>
+
+    <!-- Added articles container -->
+
+    <!-- RecyclerView for added articles -->
+
+    <!-- Continue button -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_added_users"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_added_users_title"
+        android:layout_marginTop="5dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_select_users"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView_title_select_users"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_alignTop="@+id/textView_title_select_users"
+        android:layout_marginTop="66dp"
+        android:layout_marginBottom="10dp" />
 
-    <!-- Added articles container -->
     <TextView
         android:id="@+id/textView_added_users_title"
         android:layout_width="wrap_content"
@@ -52,22 +71,13 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <!-- RecyclerView for added articles -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView_added_users"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView_added_users_title"
-        android:layout_marginTop="5dp"/>
-
-    <!-- Continue button -->
     <Button
         android:id="@+id/btn_continue_see_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/recyclerView_added_users"
-        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:text="Continue - see all data"
         android:textSize="16sp" />
 

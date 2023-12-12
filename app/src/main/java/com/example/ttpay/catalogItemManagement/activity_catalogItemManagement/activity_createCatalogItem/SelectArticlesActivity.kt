@@ -26,16 +26,19 @@ import com.google.android.material.snackbar.Snackbar
 
 
 class SelectArticlesActivity : AppCompatActivity() {
-    private lateinit var selectArticleAdapter: SelectArticleAdapter
-    private lateinit var addedArticleAdapter: AddedArticleAdapter
+
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var continueButton: Button
     private lateinit var imgBack: ImageView
-    private lateinit var recyclerViewSelectArticles: RecyclerView
-    private lateinit var recyclerViewAddedArticles: RecyclerView
     private lateinit var progressBar: ProgressBar
-    private val articles = mutableListOf<Article>()
 
+    private lateinit var recyclerViewSelectArticles: RecyclerView
+    private lateinit var selectArticleAdapter: SelectArticleAdapter
+
+    private lateinit var addedArticleAdapter: AddedArticleAdapter
+    private lateinit var recyclerViewAddedArticles: RecyclerView
+
+    private val articles = mutableListOf<Article>()//article list
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_articles)
