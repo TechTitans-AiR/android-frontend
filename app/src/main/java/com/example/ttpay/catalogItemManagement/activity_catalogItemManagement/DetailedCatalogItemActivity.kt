@@ -64,9 +64,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
-            val intent = Intent(this, AdminHomeActivity::class.java)
-            startActivity(intent)
-            finish()
+            onBackPressed()
         }
     }
 
@@ -111,8 +109,8 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         fetchAndSetUserNames(parseStringList(catalog.users))
 
         // Set date created and date modified
-        textViewDateCreated.text = "Date Created: ${catalog.date_created}"
-        textViewDateModified.text = "Date Modified: ${catalog.date_modified}"
+        textViewDateCreated.text = "${catalog.date_created}"
+        textViewDateModified.text = "${catalog.date_modified}"
     }
 
     private fun fetchAndSetArticles(articleIds: List<String>?) {
@@ -137,7 +135,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
                     }
 
                     if (remainingCount.decrementAndGet() == 0) {
-                        textViewArticles.text = "Articles: ${articleNames.joinToString(", ")}"
+                        textViewArticles.text = "${articleNames.joinToString(", ")}"
                     }
                 }
 
@@ -172,7 +170,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
                     }
 
                     if (remainingCount.decrementAndGet() == 0) {
-                        textViewServices.text = "Services: ${serviceNames.joinToString(", ")}"
+                        textViewServices.text = "${serviceNames.joinToString(", ")}"
                     }
                 }
 
@@ -200,7 +198,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
                 userNames.add("${user.first_name} ${user.last_name}")
                 if (remainingCount.decrementAndGet() == 0) {
                     // All user names fetched, update the UI
-                    textViewUsers.text = "Users: ${userNames.joinToString(", ")}"
+                    textViewUsers.text = "${userNames.joinToString(", ")}"
                 }
             }
         }
