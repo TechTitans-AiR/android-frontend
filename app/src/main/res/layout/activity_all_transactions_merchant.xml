@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".catalogItemManagement.activity_catalogItemManagement.AllCatalogsActivity">
+    tools:context=".transactions.activity_transactions.AllTransactionsMerchantActivity">
 
     <!-- Back button -->
     <ImageView
@@ -18,13 +18,13 @@
 
     <!-- Title "All catalogs" -->
     <TextView
-        android:id="@+id/tv_all_catalogs_title"
+        android:id="@+id/tv_all_transactions_merchant_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-light"
-        android:text="All catalogs"
+        android:text="All transactions"
         android:textColor="@color/red"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -34,7 +34,7 @@
         android:id="@+id/rl_plus_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_all_catalogs_title"
+        android:layout_below="@id/tv_all_transactions_merchant_title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp">
 
@@ -44,63 +44,31 @@
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="10dp"
-            android:onClick="onPlusCatalogIconClick"
+            android:onClick="onPlusTransactionIconClick"
             android:src="@drawable/add_circle" />
 
     </RelativeLayout>
-
-    <!-- Message above RecyclerView -->
-    <TextView
-        android:id="@+id/tv_select_user_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl_plus_icon"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="Select the user whose catalog you want to see"
-        android:textSize="18sp" />
 
     <!-- ProgressBar for loading -->
     <ProgressBar
         android:id="@+id/loadingProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_select_user_message"
+        android:layout_below="@id/rl_plus_icon"
         android:layout_centerInParent="true"
         android:indeterminate="true"
         android:visibility="gone" />
 
-    <!-- RecyclerView for all users -->
+    <!-- RecyclerView for all transactions -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView_all_users"
+        android:id="@+id/recyclerView_all_transactions"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="match_parent"
         android:layout_below="@+id/loadingProgressBar"
-        android:layout_marginBottom="30dp"
-        android:foregroundGravity="center"
-        android:padding="5dp"/>
-
-    <!-- Clickable TextView for catalogs without users -->
+        android:layout_marginBottom="120dp"
+        android:padding="16dp"/>
 
     <!-- BottomNavigationView -->
-
-    <TextView
-        android:id="@+id/textViewCatalogName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/recyclerView_all_users"
-        android:layout_marginBottom="2dp"
-        android:background="@drawable/red_border_item"
-        android:clickable="true"
-        android:layout_centerHorizontal="true"
-        android:focusable="true"
-        android:gravity="center"
-        android:padding="16dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:text="Catalogs Without Users"
-        android:textSize="16sp" />
-
     <include layout="@layout/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

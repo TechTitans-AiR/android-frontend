@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".transactions.activity_transactions.PaymentOptionsActivity">
+
+    <!-- Payment options go here -->
+    <!-- You can add radio buttons for "Cash" and "Bank Card" -->
+
+    <!-- Radio Group for payment options -->
+    <RadioGroup
+        android:id="@+id/radioGroupPaymentOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <!-- Cash radio button -->
+        <RadioButton
+            android:id="@+id/radioCash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cash"/>
+
+        <!-- Bank Card radio button -->
+        <RadioButton
+            android:id="@+id/radioBankCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bank Card"
+            android:layout_marginStart="16dp"/>
+    </RadioGroup>
+
+    <!-- Amount input for "Cash" -->
+    <EditText
+        android:id="@+id/edt_cash_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Cash Amount"
+        android:layout_below="@id/radioGroupPaymentOptions"
+        android:layout_marginTop="16dp"/>
+
+    <!-- COMPLETE PAYMENT button -->
+    <Button
+        android:id="@+id/btn_complete_payment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="COMPLETE PAYMENT"
+        android:layout_below="@id/edt_cash_amount"
+        android:layout_marginTop="16dp"/>
+
+    <!-- BottomNavigationView -->
+    <include layout="@layout/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

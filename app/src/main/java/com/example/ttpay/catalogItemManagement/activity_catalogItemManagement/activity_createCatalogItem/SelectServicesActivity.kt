@@ -35,7 +35,11 @@ class SelectServicesActivity : AppCompatActivity() {
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var continueButton: Button
     private lateinit var imgBack: ImageView
+
     private lateinit var progressBar: ProgressBar
+
+    private lateinit var userUsername: String
+
 
     //for selecting service
     private lateinit var recyclerViewSelectServices: RecyclerView
@@ -54,8 +58,10 @@ class SelectServicesActivity : AppCompatActivity() {
         recyclerViewAddedServices = findViewById(R.id.recyclerView_added_services)
 
         //nav
+        userUsername = intent.getStringExtra("username") ?: ""
+
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this)
+        navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
@@ -65,6 +71,7 @@ class SelectServicesActivity : AppCompatActivity() {
         imgBack = findViewById(R.id.back_back)
         imgBack.setOnClickListener {
             val intent = Intent(this, SelectArticlesActivity::class.java)
+            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }
@@ -114,8 +121,10 @@ class SelectServicesActivity : AppCompatActivity() {
         continueButton = findViewById(R.id.btn_continue_select_user)
         continueButton.setOnClickListener {
             val intent = Intent(this, SelectUserActivity::class.java)
+
             intent.putExtra("selectedServices", ArrayList(listSelectedServices))
             intent.putExtra("selectedArticles", ArrayList(selectedArticles))
+            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }

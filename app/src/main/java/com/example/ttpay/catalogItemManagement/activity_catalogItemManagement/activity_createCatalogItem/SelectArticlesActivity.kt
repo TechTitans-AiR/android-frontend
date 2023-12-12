@@ -39,21 +39,27 @@ class SelectArticlesActivity : AppCompatActivity() {
     private lateinit var recyclerViewAddedArticles: RecyclerView
 
     private val articles = mutableListOf<Article>()//article list
+
+    private lateinit var userUsername: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_articles)
+
+        userUsername = intent.getStringExtra("username") ?: ""
 
         recyclerViewSelectArticles = findViewById(R.id.recyclerView_select_articles)
         recyclerViewAddedArticles = findViewById(R.id.recyclerView_added_articles)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this)
+        navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
         imgBack = findViewById(R.id.back_back)
         imgBack.setOnClickListener {
             val intent = Intent(this, CreateCatalogItemActivity::class.java)
+            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }
@@ -66,6 +72,7 @@ class SelectArticlesActivity : AppCompatActivity() {
             val intent = Intent(this, SelectServicesActivity::class.java)
             Log.d("Articles: ",ArrayList(articles).toString())
             intent.putExtra("selected_articles", ArrayList(articles))
+            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }

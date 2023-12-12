@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.R
-import com.example.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
 import com.example.ttpay.model.Article
 import com.example.ttpay.model.ArticleAdapter
 import com.example.ttpay.model.NavigationHandler
@@ -34,9 +33,13 @@ class AllProductsActivity : AppCompatActivity() {
     private val articleAdapter = ArticleAdapter(emptyList())
     private val serviceAdapter = ServiceAdapter(emptyList())
 
+    private lateinit var userUsername: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_products)
+
+        userUsername = intent.getStringExtra("username") ?: ""
 
         recyclerViewArticles = findViewById(R.id.recyclerView_all_articles)
         recyclerViewServices = findViewById(R.id.recyclerView_all_services)
@@ -48,7 +51,7 @@ class AllProductsActivity : AppCompatActivity() {
         recyclerViewServices.adapter = serviceAdapter
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this)
+        navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
@@ -61,20 +64,22 @@ class AllProductsActivity : AppCompatActivity() {
 
         btnBack.setOnClickListener {
             val intent = Intent(this, AdminHomeActivity::class.java)
+            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }
     }
 
     fun onPlusIconProductsClick(view: View) {
-        val intent = Intent(this, CreateNewProductActivity::class.java)
+        val intent = Intent(this, CreateProductActivity::class.java)
+        intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
     }
 
     private fun fetchArticles() {
         showLoading()
-        val retrofit = RetrofitClient.getInstance(8081)//za catalog_item_management
+        val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
         val call = service.getArticles()
 
@@ -99,7 +104,7 @@ class AllProductsActivity : AppCompatActivity() {
 
     private fun fetchServices() {
         showLoading()
-        val retrofit = RetrofitClient.getInstance(8081)//za catalog_item_management
+        val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
         val call = service.getServices()
 

@@ -7,15 +7,18 @@ import android.widget.ImageView
 import com.example.ttpay.R
 
 class UpdateServiceActivity : AppCompatActivity() {
+
+    private lateinit var userUsername: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_service)
 
+        userUsername = intent.getStringExtra("username") ?: ""
+
         val btnBack: ImageView = findViewById(R.id.imgView_back)
 
         btnBack.setOnClickListener {
-            val intent = Intent(this, AllProductsActivity::class.java)
-            startActivity(intent)
+            intent.putExtra("username", userUsername)
             finish()
         }
     }

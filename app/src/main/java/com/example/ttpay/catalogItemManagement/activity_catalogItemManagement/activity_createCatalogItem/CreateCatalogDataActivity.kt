@@ -30,6 +30,8 @@ class CreateCatalogDataActivity : AppCompatActivity() {
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var createButton: Button
     private lateinit var imgBack: ImageView
+    private lateinit var userUsername: String
+
 
     //adapters
     private lateinit var articlesAdapter:ArticleAdapter
@@ -48,14 +50,17 @@ class CreateCatalogDataActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_catalog_data)
 
+        userUsername = intent.getStringExtra("username") ?: ""
+
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this)
+        navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
         imgBack = findViewById(R.id.back_back)
         imgBack.setOnClickListener {
             val intent = Intent(this, SelectUserActivity::class.java)
+            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }

@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".navigationBar.activities.AdminHomeActivity">
 
-    <!-- RecyclerView for the list of merchants -->
-
     <TextView
         android:id="@+id/textView_title"
         android:layout_width="0dp"
@@ -26,6 +24,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textViewUserName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="30dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Ime i Prezime"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_title" />
+
     <!-- CardView for the first group -->
 
     <androidx.cardview.widget.CardView
@@ -41,7 +56,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_title">
+        app:layout_constraintTop_toBottomOf="@+id/textViewUserName">
 
         <LinearLayout
             android:layout_width="match_parent"

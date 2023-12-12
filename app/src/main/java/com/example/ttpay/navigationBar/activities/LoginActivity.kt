@@ -45,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun callServerLogin(enteredUsername: String, enteredPassword: String) {
-        val retrofit = RetrofitClient.getInstance(8080)//za account_management
+        val retrofit = RetrofitClient.getInstance(8080)
         val loginService = retrofit.create(LoginService::class.java)
         val loginRequest = LoginRequest(enteredUsername, enteredPassword)
 
@@ -76,11 +76,14 @@ class LoginActivity : AppCompatActivity() {
                         // which role is user
                         Log.d("Role:", role)
 
+                        val userUsername = decodedJWT.getClaim("username").asString()
+
 
                         if (token.isNotEmpty()) {
 
                             when(role){
                                 "admin"-> {
+
                                     startActivity(Intent(this@LoginActivity, AdminHomeActivity::class.java))
                                     Toast.makeText(this@LoginActivity, "You are Admin!", Toast.LENGTH_SHORT).show()
                                     finish()
@@ -88,6 +91,17 @@ class LoginActivity : AppCompatActivity() {
                                 "merchant"-> {
                                     startActivity(Intent(this@LoginActivity, MerchantHomeActivity::class.java))
                                     Toast.makeText(this@LoginActivity, "You are Merchant!", Toast.LENGTH_SHORT).show()
+
+                                    val adminHomeIntent = Intent(this@LoginActivity, AdminHomeActivity::class.java)
+                                    adminHomeIntent.putExtra("username", userUsername)
+                                    startActivity(adminHomeIntent)
+                                    finish()
+                                }
+                                "merchant"-> {
+                                    val merchantHomeIntent = Intent(this@LoginActivity, MerchantHomeActivity::class.java)
+                                    merchantHomeIntent.putExtra("username", userUsername)
+                                    startActivity(merchantHomeIntent)
+
                                     finish()
                                 }
                                 else->{
@@ -101,7 +115,7 @@ class LoginActivity : AppCompatActivity() {
                         }
                     }
                 } else {
-                    // Ispiši statusni kod ili ga obradi na odgovarajući način
+                    // print the status code
                     Log.d("Status Code Failure Call:", statusCode.toString())
                     Toast.makeText(this@LoginActivity, "Invalid username or password", Toast.LENGTH_SHORT).show()
                 }
