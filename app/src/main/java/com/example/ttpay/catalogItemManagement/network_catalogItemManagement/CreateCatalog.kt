@@ -25,7 +25,7 @@ class CreateCatalog {
                     Log.d("Response: ", response.raw().toString())
                     if (created != null) {
                         Log.d("CATALOG: ", "$created")
-                        Toast.makeText(context, "Created catalog ${created.name}!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Created catalog ${newCatalog.name}!", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(context, "ERROR: Catalog object is null!", Toast.LENGTH_SHORT).show()
                     }

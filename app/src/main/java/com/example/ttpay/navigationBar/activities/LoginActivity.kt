@@ -82,10 +82,12 @@ class LoginActivity : AppCompatActivity() {
                             when(role){
                                 "admin"-> {
                                     startActivity(Intent(this@LoginActivity, AdminHomeActivity::class.java))
+                                    Toast.makeText(this@LoginActivity, "You are Admin!", Toast.LENGTH_SHORT).show()
                                     finish()
                                 }
                                 "merchant"-> {
                                     startActivity(Intent(this@LoginActivity, MerchantHomeActivity::class.java))
+                                    Toast.makeText(this@LoginActivity, "You are Merchant!", Toast.LENGTH_SHORT).show()
                                     finish()
                                 }
                                 else->{
