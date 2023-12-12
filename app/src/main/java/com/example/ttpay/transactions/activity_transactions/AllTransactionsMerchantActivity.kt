@@ -3,6 +3,7 @@ package com.example.ttpay.transactions.activity_transactions
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -20,15 +21,14 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var progressBar: ProgressBar
 
-    /**
-     * add adapter
-     * private val adapter = UserAdapter(emptyList()) { user ->
-            openCatalogItemActivity(user.id)
-    }
-    */
+    private lateinit var userUsername: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_transactions_merchant)
+
+        userUsername = intent.getStringExtra("username") ?: ""
+        Log.d("MerchantHomeActivity", "User username: $userUsername")
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this)
@@ -40,6 +40,7 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
             val intent = Intent(this, MerchantHomeActivity::class.java)
+            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }

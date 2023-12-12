@@ -9,7 +9,6 @@ import android.widget.ProgressBar
 import com.example.ttpay.R
 import com.example.ttpay.model.NavigationHandler
 import com.example.ttpay.navigationBar.activities.AdminHomeActivity
-import com.example.ttpay.navigationBar.activities.MerchantHomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class AllTransactionsActivity : AppCompatActivity() {

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
@@ -17,6 +18,8 @@ import com.example.ttpay.model.UserAdapter
 import com.example.ttpay.network.RetrofitClient
 import com.example.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
 import com.example.ttpay.catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem.CreateCatalogItemActivity
+import com.example.ttpay.catalogItemManagement.network_catalogItemManagement.ServiceCatalogItemManagement
+import com.example.ttpay.model.Catalog
 import com.example.ttpay.model.NavigationHandler
 import com.example.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -54,6 +57,11 @@ class AllCatalogsActivity : AppCompatActivity() {
             val intent = Intent(this, AdminHomeActivity::class.java)
             startActivity(intent)
             finish()
+        }
+
+        val btnCatalogsWithoutUsers: Button = findViewById(R.id.btn_catalogs_without_users)
+        btnCatalogsWithoutUsers.setOnClickListener {
+            openCatalogsWithoutUsersActivity()
         }
     }
 
@@ -116,5 +124,10 @@ class AllCatalogsActivity : AppCompatActivity() {
 
         val dialog = builder.create()
         dialog.show()
+    }
+
+    private fun openCatalogsWithoutUsersActivity() {
+        val intent = Intent(this, CatalogItemWithoutUserActivity::class.java)
+        startActivity(intent)
     }
 }

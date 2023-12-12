@@ -28,13 +28,16 @@ class CatalogItemActivity : AppCompatActivity() {
     private lateinit var adapter: CatalogAdapter
     private lateinit var progressBar: ProgressBar
 
+    private lateinit var catalogId: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog_item)
 
-        // Retrieve user ID from the intent
         userId = intent.getStringExtra("userId") ?: ""
         Log.d("CatalogItemActivity", "UserID: $userId")
+
+        catalogId = intent.getStringExtra("catalogId") ?: ""
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this)
@@ -44,14 +47,15 @@ class CatalogItemActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView_catalogs)
         progressBar = findViewById(R.id.loadingProgressBar)
 
-        // Set up RecyclerView
         adapter = CatalogAdapter(emptyList()) { catalog ->
-            // Handle catalog item click
+            val intent = Intent(this, DetailedCatalogItemActivity::class.java)
+            intent.putExtra("catalogId", catalog.id)
+            startActivity(intent)
         }
+
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        // Fetch and display user catalogs
         fetchUserCatalogs()
 
         val imgBack: ImageView = findViewById(R.id.back_button)
