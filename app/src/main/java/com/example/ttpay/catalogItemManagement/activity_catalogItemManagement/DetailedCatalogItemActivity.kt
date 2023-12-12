@@ -15,6 +15,7 @@ import com.example.ttpay.catalogItemManagement.network_catalogItemManagement.Ser
 import com.example.ttpay.model.Article
 import com.example.ttpay.model.Catalog
 import com.example.ttpay.model.NavigationHandler
+import com.example.ttpay.model.Service
 import com.example.ttpay.model.User
 import com.example.ttpay.navigationBar.activities.AdminHomeActivity
 import com.example.ttpay.products.network_products.ServiceProducts
@@ -24,6 +25,7 @@ import org.json.JSONException
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.concurrent.atomic.AtomicInteger
 
 class DetailedCatalogItemActivity : AppCompatActivity() {
     private lateinit var catalogId: String
@@ -100,15 +102,10 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         textViewCatalogName.text = catalog.name
 
         // Set articles
-        // in future when the endpoint will be implemented add retrieve name not id
-        val articles = parseStringList(catalog.articles)?.joinToString(", ")
-        textViewArticles.text = "Articles: $articles"
+        fetchAndSetArticles(parseStringList(catalog.articles))
 
         // Set services
-        // in future when the endpoint will be implemented retrieve name not id
-        val services = parseStringList(catalog.services)?.joinToString(", ")
-        textViewServices.text = "Services: $services"
-
+        fetchAndSetServices(parseStringList(catalog.services))
 
         // Fetch and set user names
         fetchAndSetUserNames(parseStringList(catalog.users))
@@ -116,6 +113,76 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         // Set date created and date modified
         textViewDateCreated.text = "Date Created: ${catalog.date_created}"
         textViewDateModified.text = "Date Modified: ${catalog.date_modified}"
+    }
+
+    private fun fetchAndSetArticles(articleIds: List<String>?) {
+        if (articleIds.isNullOrEmpty()) {
+            textViewArticles.text = "Articles: "
+            return
+        }
+
+        val retrofit = RetrofitClient.getInstance(8081)
+        val service = retrofit.create(ServiceProducts::class.java)
+
+        val articleNames = mutableListOf<String>()
+        val remainingCount = AtomicInteger(articleIds.size)
+
+        for (articleId in articleIds) {
+            service.getArticles().enqueue(object : Callback<List<Article>> {
+                override fun onResponse(call: Call<List<Article>>, response: Response<List<Article>>) {
+                    if (response.isSuccessful) {
+                        val articles = response.body()
+                        val article = articles?.find { it.id == articleId }
+                        article?.let { articleNames.add(it.name) }
+                    }
+
+                    if (remainingCount.decrementAndGet() == 0) {
+                        textViewArticles.text = "Articles: ${articleNames.joinToString(", ")}"
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Article>>, t: Throwable) {
+                    remainingCount.decrementAndGet()
+                    hideLoading()
+                    showErrorDialog()
+                }
+            })
+        }
+    }
+
+    private fun fetchAndSetServices(serviceIds: List<String>?) {
+        if (serviceIds.isNullOrEmpty()) {
+            textViewServices.text = "Services: "
+            return
+        }
+
+        val retrofit = RetrofitClient.getInstance(8081)
+        val service = retrofit.create(ServiceProducts::class.java)
+
+        val serviceNames = mutableListOf<String>()
+        val remainingCount = AtomicInteger(serviceIds.size)
+
+        for (serviceId in serviceIds) {
+            service.getServices().enqueue(object : Callback<List<Service>> {
+                override fun onResponse(call: Call<List<Service>>, response: Response<List<Service>>) {
+                    if (response.isSuccessful) {
+                        val services = response.body()
+                        val service = services?.find { it.id == serviceId }
+                        service?.let { serviceNames.add(it.serviceName) }
+                    }
+
+                    if (remainingCount.decrementAndGet() == 0) {
+                        textViewServices.text = "Services: ${serviceNames.joinToString(", ")}"
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Service>>, t: Throwable) {
+                    remainingCount.decrementAndGet()
+                    hideLoading()
+                    showErrorDialog()
+                }
+            })
+        }
     }
 
     // Function to fetch user names and update the UI
@@ -126,10 +193,12 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         }
 
         val userNames = mutableListOf<String>()
+        val remainingCount = AtomicInteger(userIds.size)
+
         for (userId in userIds) {
             fetchUserDetails(userId) { user ->
                 userNames.add("${user.first_name} ${user.last_name}")
-                if (userNames.size == userIds.size) {
+                if (remainingCount.decrementAndGet() == 0) {
                     // All user names fetched, update the UI
                     textViewUsers.text = "Users: ${userNames.joinToString(", ")}"
                 }
@@ -154,7 +223,8 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
-                // Handle failure
+                hideLoading()
+                showErrorDialog()
             }
         })
     }
