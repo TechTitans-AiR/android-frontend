@@ -1,25 +1,36 @@
 package com.example.ttpay.accountManagement.activity_accountManagement
 
 
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.example.ttpay.R
 import com.example.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
 import com.example.ttpay.model.NavigationHandler
 import com.example.ttpay.model.User
 import com.example.ttpay.model.UserRole
 import com.example.ttpay.model.UserStatus
+import com.example.ttpay.model.newUser
+import com.example.ttpay.model.updateUser
+import com.example.ttpay.navigationBar.activities.AdminHomeActivity
 import com.example.ttpay.network.RetrofitClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
 
 
 class UpdateMerchantActivity : AppCompatActivity() {
@@ -27,7 +38,7 @@ class UpdateMerchantActivity : AppCompatActivity() {
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var userUsername: String
     private lateinit var userID: String
-    private lateinit var user: User
+
 
     //prepare fields for write data
     private lateinit var editTxtFirstName: EditText
@@ -40,9 +51,15 @@ class UpdateMerchantActivity : AppCompatActivity() {
     private lateinit var editTxtPassword: EditText
     private lateinit var spinnerStatus: Spinner
     private lateinit var spinnerRole: Spinner
+
+
+    private var user: updateUser= updateUser("", "", "", "", "", null, null, null, "", null)
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_merchant)
+
 
         userUsername = intent.getStringExtra("username") ?: ""
 
@@ -75,24 +92,37 @@ class UpdateMerchantActivity : AppCompatActivity() {
         userID = intent.getStringExtra("userId") ?: ""
         Log.d("UpdateMerchantActivity userID:", userID)
 
+
+        //lists for spinner value
+        val userRoleList = arrayOf(
+            UserRole.merchant,
+            UserRole.admin
+        )
+
+        val userStatusList = arrayOf(
+            UserStatus.active,
+            UserStatus.inactive,
+            UserStatus.blocked
+        )
+
+        var oldRole:UserRole?=UserRole.merchant
+        var oldStatus:UserStatus?=UserStatus.active
+        var dateCreated=""
+
         //call endpoint for user details
         Log.d("FetchMerchant: ", userID)
-        fetchMerchants(userID) { user ->
-            if (user != null) {
-                editTxtFirstName.setText(user.first_name)
-                editTxtLastName.setText(user.last_name)
-                editTxtDateOfBirth.setText(user.date_of_birth)
-                editTxtAddress.setText(user.address)
-                editTxtPhone.setText(user.phone)
-                editTxtEmail.setText(user.email)
-                editTxtUsername.setText(user.username)
-                editTxtPassword.setText(user.password)
+        fetchMerchants(userID) { fetchedUser ->
+            if (fetchedUser != null && fetchedUser.id==userID) {
+                editTxtFirstName.setText(fetchedUser.first_name)
+                editTxtLastName.setText(fetchedUser.last_name)
+                editTxtDateOfBirth.setText(fetchedUser.date_of_birth)
+                editTxtAddress.setText(fetchedUser.address)
+                editTxtPhone.setText(fetchedUser.phone)
+                editTxtEmail.setText(fetchedUser.email)
+                editTxtUsername.setText(fetchedUser.username)
+                editTxtPassword.setText(fetchedUser.password)
+                dateCreated=fetchedUser.date_created
 
-                //Update the Spinner for the user's role
-                val userRoleList = arrayOf(
-                    UserRole.merchant,
-                    UserRole.admin
-                )
 
                 // Adapter initialization for user role spinner
                 val userRoleAdapter = ArrayAdapter(
@@ -101,15 +131,8 @@ class UpdateMerchantActivity : AppCompatActivity() {
                     userRoleList.map { it.name } // Use enum names for display
                 )
                 spinnerRole.adapter = userRoleAdapter
-                Log.d("User Role: ", user.userRole?.id.toString())
-
-
-                // Update the Spinner with the user's status
-                val userStatusList = arrayOf(
-                    UserStatus.active,
-                    UserStatus.inactive,
-                    UserStatus.blocked
-                )
+                oldRole=fetchedUser.userRole
+                Log.d("User Role: ", fetchedUser.userRole?.name.toString())
 
                 // Adapter initialization for user status spinner
                 val userStatusAdapter = ArrayAdapter(
@@ -118,7 +141,8 @@ class UpdateMerchantActivity : AppCompatActivity() {
                     userStatusList.map { it.name } // Use enum names for display
                 )
                 spinnerStatus.adapter = userStatusAdapter
-                Log.d("User status: ", user.userStatus?.id.toString())
+                oldStatus=fetchedUser.userStatus
+                Log.d("User status: ", fetchedUser.userStatus?.name.toString())
             } else {
                 Toast.makeText(
                     this@UpdateMerchantActivity,
@@ -128,27 +152,132 @@ class UpdateMerchantActivity : AppCompatActivity() {
                 Log.d("fetchMerchants(userId)", "User details are null!")
             }
         }
-    }
-}
-private fun fetchMerchants(userId:String, callback: (User?) -> Unit) {
-    val retrofit = RetrofitClient.getInstance(8080)//za account_management
-    val service = retrofit.create(ServiceAccountManagement::class.java)
-    val call = service.getUserDetails(userId)
 
-    call.enqueue(object : Callback<User> {
-        override fun onResponse(call: Call<User>, response: Response<User>) {
-            val user: User? = if (response.isSuccessful) {
-                response.body()
-            } else {
-                Log.d("Response message is: ", response.message())
-                null
+
+
+        // For the user role spinner
+        spinnerRole.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedRole = userRoleList[position]
+                user.user_role = selectedRole.id
+                Log.d("New role: ", user.user_role.toString())
             }
-            callback(user)
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                Log.d("Old role: ", oldRole?.id.toString())
+                user.user_role = oldRole?.id ?: "DefaultUserRole"
+            }
         }
 
-        override fun onFailure(call: Call<User>, t: Throwable) {
-            Log.d("Failed getting user information: ", t.message.toString())
-            callback(null)
+        // For the user status spinner
+        spinnerStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedStatus = userStatusList[position]
+                user.user_status = selectedStatus.id
+                Log.d("New status: ", user.user_status.toString())
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                Log.d("Old status: ", oldStatus?.id.toString())
+                user.user_status = oldStatus?.id ?: "DefaultUserStatus"
+            }
+
+    }
+
+
+
+        val btnUpdate:Button=findViewById(R.id.btn_update_merchant)
+        btnUpdate.setOnClickListener{
+
+            //fetch NEW data from fields
+            var txtFirstName: String = editTxtFirstName.text.toString()
+            var txtLastName: String = editTxtLastName.text.toString()
+            var txtDateOfBirth: String = editTxtDateOfBirth.text.toString()
+            var txtAddress: String = editTxtAddress.text.toString()
+            var txtPhone: String = editTxtPhone.text.toString()
+            var txtEmail: String = editTxtEmail.text.toString()
+            var txtUsername: String = editTxtUsername.text.toString()
+            var txtPassword: String = editTxtPassword.text.toString()
+            val dateModified = LocalDate.now().toString()
+
+
+            var newDataUser = updateUser(
+                txtUsername,
+                txtPassword,
+                txtFirstName,
+                txtLastName,
+                txtEmail,
+                txtAddress,
+                txtPhone,
+                txtDateOfBirth,
+                user.user_role,
+                user.user_status
+            )
+            Log.d("new data: ", newDataUser.toString())
+
+            updateMerchantData(this, newDataUser, userID)
+            val intent = Intent(this@UpdateMerchantActivity, AllMerchantsActivity::class.java)
+            intent.putExtra("username", userUsername)
+            Toast.makeText(this@UpdateMerchantActivity, "Updating merchant ${newDataUser.first_name}!", Toast.LENGTH_SHORT).show()
+            startActivity(intent)
+            finish()
+        }
+
+
+    }
+}
+
+    private fun fetchMerchants(userId: String, callback: (User?) -> Unit) {
+        val retrofit = RetrofitClient.getInstance(8080)//za account_management
+        val service = retrofit.create(ServiceAccountManagement::class.java)
+        val call = service.getUserDetails(userId)
+
+        call.enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                val user: User? = if (response.isSuccessful) {
+                    response.body()
+                } else {
+                    Log.d("Response message is: ", response.message())
+                    null
+                }
+                callback(user)
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.d("Failed getting user information: ", t.message.toString())
+                callback(null)
+            }
+        })
+    }
+
+fun updateMerchantData(context: Context, updatedData: updateUser, userID: String) {
+    val retrofit = RetrofitClient.getInstance(8080) // Replace 8080 with your specific port
+    val service = retrofit.create(ServiceAccountManagement::class.java)
+
+    // Call for method updateMerchantData
+    val call = service.updateMerchantData(userID, updatedData)
+
+    call.enqueue(object : Callback<updateUser> {
+        override fun onResponse(call: Call<updateUser>, response: Response<updateUser>) {
+            if (response.isSuccessful) {
+                val updatedUser: updateUser? = response.body()
+                if (updatedUser != null) {
+                    Log.d("UpdatedUser: ", "$updatedUser")
+                    Toast.makeText(context, "Updated user ${updatedUser.first_name} ${updatedUser.last_name}!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Log.d("User: ", "$updatedUser")
+                    Toast.makeText(context, "ERROR: User object is null!", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Log.d("Response: ", "${response.message()}")
+                Toast.makeText(context, "ERROR: User not updated!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        override fun onFailure(call: Call<updateUser>, t: Throwable) {
+            Log.e("NetworkError", "Error: ${t.message}") // Show error message in Logcat
+            Toast.makeText(context, "Network error occurred", Toast.LENGTH_SHORT).show()
         }
     })
 }
+

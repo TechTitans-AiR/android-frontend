@@ -36,8 +36,8 @@ data class UserRole(
         }
 
         // Definicija statičkih objekata
-        val admin = UserRole("1", "admin", "A")
-        val merchant = UserRole("2", "merchant", "M")
+        val admin = UserRole("655509aa074f8ba48dd82a12", "admin", "A")
+        val merchant = UserRole("655509aa074f8ba48dd82a13", "merchant", "M")
     }
 
 }

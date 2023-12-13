@@ -89,16 +89,29 @@ data class User(
 }
 
 data class newUser(
-    val username: String,
-    val password: String,
-    val first_name: String,
-    val last_name: String,
-    val email: String,
-    val address: String?,
-    val phone: String?,
-    val date_of_birth: String?, // date format "dd.MM.yyyy"
+    var username: String,
+    var password: String,
+    var first_name: String,
+    var last_name: String,
+    var email: String,
+    var address: String?,
+    var phone: String?,
+    var date_of_birth: String?, // date format "dd.MM.yyyy"
     val date_created: String, // date format "dd.MM.yyyy HH:mm:ss"
-    val date_modified: String?, // date format "dd.MM.yyyy HH:mm:ss"
-    val userRole: String?,
-    val userStatus: String?
+    var date_modified: String?, // date format "dd.MM.yyyy HH:mm:ss"
+    var userRole: String?,
+    var userStatus: String?
+)
+
+data class updateUser(
+    var username: String,
+    var password: String,
+    var first_name: String,
+    var last_name: String,
+    var email: String,
+    var address: String?,
+    var phone: String?,
+    var date_of_birth: String?, // date format "dd.MM.yyyy"
+    var user_role: String?,
+    var user_status: String?
 )
