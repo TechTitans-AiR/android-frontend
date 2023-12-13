@@ -88,12 +88,14 @@ class PaymentOptionsActivity : AppCompatActivity() {
                     // Ako iznos nije dovoljan, onemogući gumb za dovršavanje plaćanja
                     completePayment.isEnabled = false
                     showToast("Entered amount is insufficient.")
+                    Log.d("PaymentOptionsActivity", "Entered amount is insufficient.")
                     return
                 }
             } else {
                 // Ako unos nije valjan, onemogući gumb za dovršavanje plaćanja
                 completePayment.isEnabled = false
                 showToast("Please enter a valid cash amount.")
+                Log.d("PaymentOptionsActivity", "Invalid cash amount entered.")
                 return
             }
         }
@@ -149,10 +151,11 @@ class PaymentOptionsActivity : AppCompatActivity() {
     private fun showErrorDialog(username: String) {
         // Implementirajte logiku prikaza dijaloga za pogrešku
         showToast("Error fetching data for $username")
+        Log.d("PaymentOptionsActivity", "Error fetching data for $username")
     }
 
     private fun sendTransactionToBackend(newTransaction: NewTransaction) {
-        val retrofit = RetrofitClient.getInstance(8080)
+        val retrofit = RetrofitClient.getInstance(8082)
         val service = retrofit.create(ServiceTransaction_SellingItems::class.java)
 
         val call = service.createTransaction(newTransaction)
@@ -167,20 +170,26 @@ class PaymentOptionsActivity : AppCompatActivity() {
                     val newTransactionResponse = response.body()
                     if (newTransactionResponse != null) {
                         handleTransactionCreationSuccess(newTransactionResponse)
+                        Log.d("PaymentOptionsActivity", "Transaction created successfully.")
                     }
                 } else {
                     // Pogreška prilikom kreiranja transakcije
                     // Ovdje možete obraditi pogrešku
+                    Log.e("PaymentOptionsActivity", "Error creating transaction. Code: ${response.code()}")
+
+                    // Dodajte ispis tijela odgovora kako biste dobili dodatne informacije o pogrešci
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("PaymentOptionsActivity", "Error Body: $errorBody")
                 }
             }
 
             override fun onFailure(call: Call<NewTransaction>, t: Throwable) {
                 // Greška prilikom komunikacije s backendom
                 // Ovdje možete obraditi grešku
+                Log.d("PaymentOptionsActivity", "Communication error with backend.")
             }
         })
     }
-
     private fun handleTransactionCreationSuccess(newTransaction: NewTransaction) {
         val intent = Intent(this, TransactionCompletionActivity::class.java)
         intent.putExtra("newTransaction", newTransaction)

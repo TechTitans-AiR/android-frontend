@@ -7,5 +7,5 @@ import retrofit2.http.POST
 
 interface ServiceTransaction_SellingItems {
     @POST("/api/v1/transactions/create")//create new transaction for selling items
-    fun createTransaction(@Body new: NewTransaction): Call<NewTransaction>
+    fun createTransaction(@Body newTransaction: NewTransaction): Call<NewTransaction>
 }
