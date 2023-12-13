@@ -31,11 +31,37 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
+    <!-- TextView for displaying collected data message -->
+    <TextView
+        android:id="@+id/textView_collected_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_title_data"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:padding="5dp"
+        android:text="@string/all_collected_data_for_catalog_are"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <!-- RecyclerView for collected data -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleView_all_collected_data_catalog"
+        android:layout_width="401dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_collected_data"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="20dp" />
+
+    <!-- TextView for entering catalog name -->
     <TextView
         android:id="@+id/textView_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView_title_data"
+        android:layout_below="@+id/recycleView_all_collected_data_catalog"
         android:layout_marginTop="29dp"
         android:padding="5dp"
         android:layout_marginStart="16dp"
@@ -43,19 +69,7 @@
         android:textColor="@android:color/black"
         android:textSize="18sp" />
 
-    <!--Input field for name of catalog-->
-
-    <Button
-        android:id="@+id/btn_create_catalog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText_nameOfCatalog"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="13dp"
-        android:text="@string/create_the_catalog_item"
-        android:textSize="16sp" />
-
+    <!-- Input field for name of catalog -->
     <EditText
         android:id="@+id/editText_nameOfCatalog"
         android:layout_width="match_parent"
@@ -69,34 +83,23 @@
         android:padding="15dp"
         android:autofillHints="" />
 
+    <!-- Button to create the catalog item -->
+    <Button
+        android:id="@+id/btn_create_catalog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_nameOfCatalog"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="13dp"
+        android:text="@string/create_the_catalog_item"
+        android:textSize="16sp" />
+
     <!-- BottomNavigationView -->
     <include
         layout="@layout/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleView_all_collected_data_catalog"
-        android:layout_width="401dp"
-        android:layout_height="258dp"
-        android:layout_below="@+id/textView_collected_data"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="50dp" />
-
-    <TextView
-        android:id="@+id/textView_collected_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText_nameOfCatalog"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="79dp"
-        android:padding="5dp"
-        android:text="@string/all_collected_data_for_catalog_are"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="18sp" />
 
 </RelativeLayout>

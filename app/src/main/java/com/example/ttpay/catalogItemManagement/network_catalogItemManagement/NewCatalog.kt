@@ -8,5 +8,5 @@ data class NewCatalog(
     val name: String,
     val articles:List<String>,
     val services:List<String>,
-    val user:List<String>?
+    val users:List<String>?
 )

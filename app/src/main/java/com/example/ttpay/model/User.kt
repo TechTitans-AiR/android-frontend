@@ -14,9 +14,9 @@ data class User(
     val email: String,
     val address: String?,
     val phone: String?,
-    val date_of_birth: String?, // Change to String for date format "dd.MM.yyyy"
-    val date_created: String, // Change to String for date format "dd.MM.yyyy HH:mm:ss"
-    val date_modified: String?, // Change to String for date format "dd.MM.yyyy HH:mm:ss"
+    val date_of_birth: String?, // date format "dd.MM.yyyy"
+    val date_created: String, // date format "dd.MM.yyyy HH:mm:ss"
+    val date_modified: String?, // date format "dd.MM.yyyy HH:mm:ss"
     val userRole: UserRole?,
     val userStatus: UserStatus?
 ): Parcelable {
@@ -66,7 +66,6 @@ data class User(
         }
     }
 
-    // Dodavanje dodatnih statičkih objekata
     val admin: User
         get() {
             val currentDate = SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(Date())
@@ -97,9 +96,9 @@ data class newUser(
     val email: String,
     val address: String?,
     val phone: String?,
-    val date_of_birth: String?, // Change to String for date format "dd.MM.yyyy"
-    val date_created: String, // Change to String for date format "dd.MM.yyyy HH:mm:ss"
-    val date_modified: String?, // Change to String for date format "dd.MM.yyyy HH:mm:ss"
+    val date_of_birth: String?, // date format "dd.MM.yyyy"
+    val date_created: String, // date format "dd.MM.yyyy HH:mm:ss"
+    val date_modified: String?, // date format "dd.MM.yyyy HH:mm:ss"
     val userRole: String?,
     val userStatus: String?
 )

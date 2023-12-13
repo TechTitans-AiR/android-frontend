@@ -118,6 +118,7 @@ class CreateCatalogDataActivity : AppCompatActivity() {
             Log.d("NewCatalog Object: ", newCatalog.toString())
             createNew.createNewCatalog(this,newCatalog)
             val intent = Intent(this, AdminHomeActivity::class.java)
+            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }
