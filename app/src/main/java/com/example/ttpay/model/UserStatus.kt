@@ -37,4 +37,7 @@ data class UserStatus(
         val inactive = UserStatus("2", "inactive")
         val blocked = UserStatus("3", "blocked")
     }
+    override fun toString(): String {
+        return name
+    }
 }
