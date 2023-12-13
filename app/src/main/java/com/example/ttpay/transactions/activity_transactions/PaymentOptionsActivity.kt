@@ -102,7 +102,6 @@ class PaymentOptionsActivity : AppCompatActivity() {
 
         completePayment.isEnabled = true
 
-        // Dohvati merchantId
         fetchUserId(userUsername) { merchantId ->
             val description = edtDescription.text.toString()
             val currency = "EUR"
@@ -192,6 +191,7 @@ class PaymentOptionsActivity : AppCompatActivity() {
         intent.putExtra("username", userUsername)
         intent.putExtra("differenceAmount", differenceAmount)
         startActivity(intent)
+        finish()
     }
 
     private fun showToast(message: String) {

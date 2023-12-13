@@ -85,6 +85,7 @@ class CreateTransactionActivity : AppCompatActivity() {
             Log.d("CreateTransactionActivity", "btn_pay onClick: Starting TransactionSummaryActivity")
             // transfer on TransactionSummaryActivity
             startActivity(intent)
+            finish()
         }
     }
 

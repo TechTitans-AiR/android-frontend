@@ -64,6 +64,7 @@ class TransactionSummaryActivity : AppCompatActivity() {
             intent.putExtra("totalAmount", totalAmount)
             intent.putExtra("username", userUsername)
             startActivity(intent)
+            finish()
         }
     }
 }
