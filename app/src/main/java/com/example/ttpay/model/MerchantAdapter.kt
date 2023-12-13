@@ -52,7 +52,6 @@ class MerchantAdapter(private var users: List<User>) :
             builder.setTitle("Confirm")
                 .setMessage("Are you sure you want to delete this merchant?")
                 .setPositiveButton("OK") { _, _ ->
-                    // TODO: Implement deletion logic
                     val userIdToDelete = user.id // Get the user ID to delete
                     val delete= DeleteUser()
 
