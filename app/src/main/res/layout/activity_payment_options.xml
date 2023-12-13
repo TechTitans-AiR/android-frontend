@@ -41,13 +41,22 @@
         android:layout_below="@id/radioGroupPaymentOptions"
         android:layout_marginTop="16dp"/>
 
+    <!-- Amount input for "Cash" -->
+    <EditText
+        android:id="@+id/edt_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter description"
+        android:layout_below="@id/edt_cash_amount"
+        android:layout_marginTop="16dp"/>
+
     <!-- COMPLETE PAYMENT button -->
     <Button
         android:id="@+id/btn_complete_payment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="COMPLETE PAYMENT"
-        android:layout_below="@id/edt_cash_amount"
+        android:layout_below="@id/edt_description"
         android:layout_marginTop="16dp"/>
 
     <!-- BottomNavigationView -->

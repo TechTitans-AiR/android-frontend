@@ -13,4 +13,9 @@ data class Service(
     val availability: String,
     val serviceLocation: String,
     val durationUnit: String
-): Serializable
+): Serializable {
+
+    fun convertPriceToDouble(): Double {
+        return price.toDouble()
+    }
+}

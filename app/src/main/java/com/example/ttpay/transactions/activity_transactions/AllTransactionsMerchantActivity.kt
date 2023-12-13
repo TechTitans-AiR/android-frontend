@@ -78,6 +78,7 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
 
     fun onPlusTransactionIconClick(view: View) {
         val intent = Intent(this, CreateTransactionActivity::class.java)
+        intent.putExtra("username", userUsername)
         startActivity(intent)
     }
 
