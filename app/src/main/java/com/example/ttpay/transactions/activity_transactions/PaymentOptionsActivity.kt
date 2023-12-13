@@ -33,6 +33,7 @@ class PaymentOptionsActivity : AppCompatActivity() {
     private lateinit var completePayment: Button
     private lateinit var radioGroupPaymentOptions: RadioGroup
     private lateinit var edtCashAmount: EditText
+    private lateinit var edtDescription: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +56,8 @@ class PaymentOptionsActivity : AppCompatActivity() {
         radioGroupPaymentOptions = findViewById(R.id.radioGroupPaymentOptions)
         edtCashAmount = findViewById(R.id.edt_cash_amount)
         edtCashAmount.visibility = View.GONE
+        edtDescription = findViewById(R.id.edt_description)
+        edtDescription.visibility = View.GONE
 
         completePayment = findViewById(R.id.btn_complete_payment)
         completePayment.setOnClickListener {
@@ -70,9 +73,11 @@ class PaymentOptionsActivity : AppCompatActivity() {
         when (checkedId) {
             R.id.radioCash -> {
                 edtCashAmount.visibility = View.VISIBLE
+                edtDescription.visibility = View.VISIBLE
             }
             R.id.radioBankCard -> {
                 edtCashAmount.visibility = View.GONE
+                edtDescription.visibility = View.VISIBLE
             }
         }
     }
@@ -99,7 +104,7 @@ class PaymentOptionsActivity : AppCompatActivity() {
 
         // Dohvati merchantId
         fetchUserId(userUsername) { merchantId ->
-            val description = "Transaction"
+            val description = edtDescription.text.toString()
             val currency = "EUR"
             val newTransaction = NewTransaction(merchantId, description, totalAmount, currency)
             sendTransactionToBackend(newTransaction, getYourCashAmount())
