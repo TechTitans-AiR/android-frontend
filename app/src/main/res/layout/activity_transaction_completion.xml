@@ -16,6 +16,17 @@
         android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true"/>
 
+    <!-- Success message TextView -->
+    <TextView
+        android:id="@+id/tv_success_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Payment successful!"
+        android:textSize="24sp"
+        android:layout_below="@id/tv_completion_details"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"/>
+
     <!-- Amount difference TextView -->
     <TextView
         android:id="@+id/tv_amount_difference"
@@ -24,31 +35,8 @@
         android:text="Amount Difference: $0.00"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_below="@id/tv_completion_details"
-        android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true"/>
-
-    <!-- Success message TextView -->
-    <TextView
-        android:id="@+id/tv_success_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Payment successful!"
-        android:textSize="18sp"
-        android:layout_below="@id/tv_amount_difference"
-        android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true"/>
-
-    <!-- Redirect message TextView -->
-    <TextView
-        android:id="@+id/tv_redirect_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Please wait, redirecting you to My Transactions page"
-        android:textSize="18sp"
         android:layout_below="@id/tv_success_message"
         android:layout_marginTop="16dp"
-        android:layout_marginStart="10dp"
         android:layout_centerHorizontal="true"/>
 
     <!-- BottomNavigationView -->

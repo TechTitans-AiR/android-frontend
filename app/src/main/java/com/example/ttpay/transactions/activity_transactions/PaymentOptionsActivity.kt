@@ -22,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.DecimalFormat
 
 class PaymentOptionsActivity : AppCompatActivity() {
 
@@ -32,7 +33,6 @@ class PaymentOptionsActivity : AppCompatActivity() {
     private lateinit var completePayment: Button
     private lateinit var radioGroupPaymentOptions: RadioGroup
     private lateinit var edtCashAmount: EditText
-    private lateinit var userId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,13 +54,13 @@ class PaymentOptionsActivity : AppCompatActivity() {
 
         radioGroupPaymentOptions = findViewById(R.id.radioGroupPaymentOptions)
         edtCashAmount = findViewById(R.id.edt_cash_amount)
+        edtCashAmount.visibility = View.GONE
 
         completePayment = findViewById(R.id.btn_complete_payment)
         completePayment.setOnClickListener {
             handleCompletePayment()
         }
 
-        // Postavite slušatelja promjene odabrane opcije plaćanja
         radioGroupPaymentOptions.setOnCheckedChangeListener { _, checkedId ->
             handlePaymentOptionChange(checkedId)
         }
@@ -69,30 +69,25 @@ class PaymentOptionsActivity : AppCompatActivity() {
     private fun handlePaymentOptionChange(checkedId: Int) {
         when (checkedId) {
             R.id.radioCash -> {
-                // Ako je odabrana opcija plaćanja gotovinom, prikaži polje za unos gotovine
                 edtCashAmount.visibility = View.VISIBLE
             }
             R.id.radioBankCard -> {
-                // Ako je odabrana opcija plaćanja karticom, sakrij polje za unos gotovine
                 edtCashAmount.visibility = View.GONE
             }
         }
     }
 
     private fun handleCompletePayment() {
-        // Ako je odabrana opcija plaćanja gotovinom, provjeri iznos gotovine
         if (radioGroupPaymentOptions.checkedRadioButtonId == R.id.radioCash) {
             val cashAmount = edtCashAmount.text.toString().toDoubleOrNull()
             if (cashAmount != null && cashAmount >= 0) {
                 if (cashAmount < totalAmount) {
-                    // Ako iznos nije dovoljan, onemogući gumb za dovršavanje plaćanja
                     completePayment.isEnabled = false
                     showToast("Entered amount is insufficient.")
                     Log.d("PaymentOptionsActivity", "Entered amount is insufficient.")
                     return
                 }
             } else {
-                // Ako unos nije valjan, onemogući gumb za dovršavanje plaćanja
                 completePayment.isEnabled = false
                 showToast("Please enter a valid cash amount.")
                 Log.d("PaymentOptionsActivity", "Invalid cash amount entered.")
@@ -100,21 +95,19 @@ class PaymentOptionsActivity : AppCompatActivity() {
             }
         }
 
-        // Ako su zadovoljeni uvjeti, omogući gumb za dovršavanje plaćanja i pokreni TransactionCompletionActivity
         completePayment.isEnabled = true
 
         // Dohvati merchantId
         fetchUserId(userUsername) { merchantId ->
-            // Koristi merchantId
             val description = "Transaction"
             val currency = "EUR"
-
-            // Kreiraj objekt NewTransaction
             val newTransaction = NewTransaction(merchantId, description, totalAmount, currency)
-
-            // Pošalji transakciju na backend
-            sendTransactionToBackend(newTransaction)
+            sendTransactionToBackend(newTransaction, getYourCashAmount())
         }
+    }
+
+    private fun getYourCashAmount(): Double {
+        return edtCashAmount.text.toString().toDoubleOrNull() ?: 0.0
     }
 
     private fun fetchUserId(username: String, callback: (String) -> Unit) {
@@ -129,10 +122,8 @@ class PaymentOptionsActivity : AppCompatActivity() {
                     val users = response.body()
                     val user = users?.find { it.username == username }
                     if (user != null) {
-                        val merchantId = user.id.toString() // Pretvori u String
+                        val merchantId = user.id.toString()
                         Log.d("PaymentOptionsActivity", "Fetched merchant ID: $merchantId")
-
-                        // Pozovi callback funkciju s dobivenim merchantId
                         callback.invoke(merchantId)
                     } else {
                         showErrorDialog(username)
@@ -149,12 +140,11 @@ class PaymentOptionsActivity : AppCompatActivity() {
     }
 
     private fun showErrorDialog(username: String) {
-        // Implementirajte logiku prikaza dijaloga za pogrešku
         showToast("Error fetching data for $username")
         Log.d("PaymentOptionsActivity", "Error fetching data for $username")
     }
 
-    private fun sendTransactionToBackend(newTransaction: NewTransaction) {
+    private fun sendTransactionToBackend(newTransaction: NewTransaction, cashAmount: Double) {
         val retrofit = RetrofitClient.getInstance(8082)
         val service = retrofit.create(ServiceTransaction_SellingItems::class.java)
 
@@ -166,36 +156,36 @@ class PaymentOptionsActivity : AppCompatActivity() {
                 response: Response<NewTransaction>
             ) {
                 if (response.isSuccessful) {
-                    // Uspješno kreirana transakcija
                     val newTransactionResponse = response.body()
                     if (newTransactionResponse != null) {
-                        handleTransactionCreationSuccess(newTransactionResponse)
+                        handleTransactionCreationSuccess(newTransactionResponse, cashAmount)
                         Log.d("PaymentOptionsActivity", "Transaction created successfully.")
                     }
                 } else {
-                    // Pogreška prilikom kreiranja transakcije
-                    // Ovdje možete obraditi pogrešku
                     Log.e("PaymentOptionsActivity", "Error creating transaction. Code: ${response.code()}")
 
-                    // Dodajte ispis tijela odgovora kako biste dobili dodatne informacije o pogrešci
                     val errorBody = response.errorBody()?.string()
                     Log.e("PaymentOptionsActivity", "Error Body: $errorBody")
                 }
             }
 
             override fun onFailure(call: Call<NewTransaction>, t: Throwable) {
-                // Greška prilikom komunikacije s backendom
-                // Ovdje možete obraditi grešku
                 Log.d("PaymentOptionsActivity", "Communication error with backend.")
             }
         })
     }
-    private fun handleTransactionCreationSuccess(newTransaction: NewTransaction) {
+
+    private fun handleTransactionCreationSuccess(newTransaction: NewTransaction, cashAmount: Double) {
+        Log.d("PaymentOptionsActivity", "Cash Amount: $cashAmount")
+        Log.d("PaymentOptionsActivity", "Total Amount: $totalAmount")
+        val differenceAmount = cashAmount - totalAmount
+
         val intent = Intent(this, TransactionCompletionActivity::class.java)
         intent.putExtra("newTransaction", newTransaction)
         intent.putExtra("shoppingCartItems", ArrayList(shoppingCartItems))
         intent.putExtra("totalAmount", totalAmount)
         intent.putExtra("username", userUsername)
+        intent.putExtra("differenceAmount", differenceAmount)
         startActivity(intent)
     }
 
