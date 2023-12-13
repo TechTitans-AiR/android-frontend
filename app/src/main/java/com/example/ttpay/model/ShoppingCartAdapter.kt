@@ -3,17 +3,23 @@ package com.example.ttpay.model
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.R
 import com.example.ttpay.transactions.network_transactions.ShoppingCartItem
 
-class ShoppingCartAdapter(private val items: List<ShoppingCartItem>) : RecyclerView.Adapter<ShoppingCartAdapter.ViewHolder>() {
+class ShoppingCartAdapter(
+    private val items: MutableList<ShoppingCartItem>,
+    private val onQuantityChanged: (item: ShoppingCartItem, unitPrice: Double) -> Unit
+) : RecyclerView.Adapter<ShoppingCartAdapter.ViewHolder>(){
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val productName: TextView = itemView.findViewById(R.id.tv_product_name)
         val quantity: TextView = itemView.findViewById(R.id.tv_quantity)
         val price: TextView = itemView.findViewById(R.id.tv_price)
+        val plusButton: ImageView = itemView.findViewById(R.id.img_plus)
+        val minusButton: ImageView = itemView.findViewById(R.id.img_minus)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,10 +32,40 @@ class ShoppingCartAdapter(private val items: List<ShoppingCartItem>) : RecyclerV
 
         holder.productName.text = item.name
         holder.quantity.text = item.quantity.toString()
-        holder.price.text = "€${item.price}"
+
+        // Prilagodi cijenu prema formuli
+        val totalPrice = item.quantity * item.unitPrice
+        holder.price.text = "€${"%.2f".format(totalPrice)}"
+
+        holder.plusButton.setOnClickListener {
+            // Povećajte količinu i ažurirajte tekstualni prikaz
+            item.quantity++
+            notifyDataSetChanged()
+
+            // Ažuriraj ukupni iznos na zaslonu
+            onQuantityChanged.invoke(item, item.unitPrice)
+        }
+
+        holder.minusButton.setOnClickListener {
+            // Smanjite količinu i ažurirajte tekstualni prikaz
+            if (item.quantity > 0) {
+                item.quantity--
+                notifyDataSetChanged()
+
+                // Ažuriraj ukupni iznos na zaslonu
+                onQuantityChanged.invoke(item, item.unitPrice)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
+
+    fun updateData(newItems: List<ShoppingCartItem>) {
+        items.clear()
+        items.addAll(newItems)
+        notifyDataSetChanged()
+    }
+
 }
