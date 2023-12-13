@@ -42,12 +42,15 @@ class TransactionSummaryActivity : AppCompatActivity() {
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
+        // Filtriraj stavke s količinom većom od 0
+        val nonZeroQuantityItems = shoppingCartItems.filter { it.quantity > 0 }
+
         // set Recycler View for shoppingCartItems
         val recycler_transaction_details = findViewById<RecyclerView>(R.id.recycler_transaction_details)
         val layoutManager = LinearLayoutManager(this)
         recycler_transaction_details.layoutManager = layoutManager
 
-        val adapter = TransactionSummaryAdapter(shoppingCartItems)
+        val adapter = TransactionSummaryAdapter(nonZeroQuantityItems)
         recycler_transaction_details.adapter = adapter
 
         // set text for total amount
