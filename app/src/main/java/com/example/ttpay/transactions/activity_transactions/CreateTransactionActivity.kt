@@ -1,8 +1,10 @@
 package com.example.ttpay.transactions.activity_transactions
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -30,6 +32,7 @@ class CreateTransactionActivity : AppCompatActivity() {
     private lateinit var articlesAdapter: ShoppingCartAdapter
     private lateinit var servicesAdapter: ShoppingCartAdapter
     private lateinit var progressBar: ProgressBar
+    private lateinit var btn_pay: Button
 
     private lateinit var userUsername: String
     private lateinit var totalAmountTextView: TextView
@@ -48,6 +51,7 @@ class CreateTransactionActivity : AppCompatActivity() {
         bottomNavigationView.visibility = View.VISIBLE
 
         progressBar = findViewById(R.id.loadingProgressBar)
+        btn_pay = findViewById(R.id.btn_pay)
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
@@ -55,10 +59,33 @@ class CreateTransactionActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        // Pozovite funkciju za postavljanje recyclerview-a i ukupnog iznosa
+        // set recyclerview and total amount
+        Log.d("CreateTransactionActivity", "onCreate: Setting up RecyclerViews and total amount")
         setupRecyclerViews()
         fetchArticles()
         fetchServices()
+
+        btn_pay.setOnClickListener {
+            Log.d("CreateTransactionActivity", "btn_pay onClick: Transferring data to TransactionSummaryActivity")
+
+            // transfer data on TransactionSummaryActivity
+            val intent = Intent(this, TransactionSummaryActivity::class.java)
+
+            // transfer shoppingCartItems
+            intent.putExtra("shoppingCartItems", ArrayList(shoppingCartItems))
+            Log.d("CreateTransactionActivity", "btn_pay onClick: shoppingCartItems: $shoppingCartItems")
+
+            // transfer totalAmount
+            val totalAmount = shoppingCartItems.sumByDouble { it.quantity * it.unitPrice }
+            intent.putExtra("totalAmount", totalAmount)
+            Log.d("CreateTransactionActivity", "btn_pay onClick: totalAmount: $totalAmount")
+
+            intent.putExtra("username", userUsername)
+
+            Log.d("CreateTransactionActivity", "btn_pay onClick: Starting TransactionSummaryActivity")
+            // transfer on TransactionSummaryActivity
+            startActivity(intent)
+        }
     }
 
     private fun updateTotalAmount() {
@@ -67,7 +94,7 @@ class CreateTransactionActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerViews() {
-        // RecyclerView za artikle
+        // RecyclerView articles
         val articlesRecyclerView = findViewById<RecyclerView>(R.id.recycler_articles)
         articlesRecyclerView.layoutManager = LinearLayoutManager(this)
         articlesAdapter = ShoppingCartAdapter(shoppingCartItems.filter { it.isArticle }.toMutableList()) { item, unitPrice ->
@@ -75,7 +102,7 @@ class CreateTransactionActivity : AppCompatActivity() {
         }
         articlesRecyclerView.adapter = articlesAdapter
 
-        // RecyclerView za usluge
+        // RecyclerView services
         val servicesRecyclerView = findViewById<RecyclerView>(R.id.recycler_services)
         servicesRecyclerView.layoutManager = LinearLayoutManager(this)
         servicesAdapter = ShoppingCartAdapter(shoppingCartItems.filter { !it.isArticle }.toMutableList()) { item, unitPrice ->
@@ -101,15 +128,15 @@ class CreateTransactionActivity : AppCompatActivity() {
                 hideLoading()
                 if (response.isSuccessful) {
                     val articles = response.body() ?: emptyList()
-                    Log.d("AllProductsActivity", "Articles fetched successfully: $articles")
+                    Log.d("CreateTransactionActivity", "Articles fetched successfully: $articles")
 
-                    // Dodajte artikle u shoppingCartItems s početnom jediničnom cijenom
+                    // add articles in the shoppingCartItems with initial unit price
                     val shoppingCartArticles = articles.map { article ->
                         ShoppingCartItem(article.name, 0, article.price, true)
                     }
                     shoppingCartItems.addAll(shoppingCartArticles)
 
-                    // Ažurirajte prikaz
+                    // Update presenting data
                     articlesAdapter.updateData(shoppingCartArticles)
                 } else {
                     showErrorDialog()
@@ -136,13 +163,13 @@ class CreateTransactionActivity : AppCompatActivity() {
                     val services = response.body() ?: emptyList()
                     Log.d("AllProductsActivity", "Services fetched successfully: $services")
 
-                    // Dodajte usluge u shoppingCartItems s početnom jediničnom cijenom
+                    // add services in the shoppingCartItems with initial unit price
                     val shoppingCartServices = services.map { service ->
                         ShoppingCartItem(service.serviceName, 0, service.convertPriceToDouble(), false)
                     }
                     shoppingCartItems.addAll(shoppingCartServices)
 
-                    // Ažurirajte prikaz
+                    // update presenting data
                     servicesAdapter.updateData(shoppingCartServices)
                 } else {
                     showErrorDialog()

@@ -33,26 +33,26 @@ class ShoppingCartAdapter(
         holder.productName.text = item.name
         holder.quantity.text = item.quantity.toString()
 
-        // Prilagodi cijenu prema formuli
+        // Adjust the price according to the formula
         val totalPrice = item.quantity * item.unitPrice
         holder.price.text = "€${"%.2f".format(totalPrice)}"
 
         holder.plusButton.setOnClickListener {
-            // Povećajte količinu i ažurirajte tekstualni prikaz
+            // Increase the quantity and update the textual display
             item.quantity++
             notifyDataSetChanged()
 
-            // Ažuriraj ukupni iznos na zaslonu
+            // Update the total amount on the screen
             onQuantityChanged.invoke(item, item.unitPrice)
         }
 
         holder.minusButton.setOnClickListener {
-            // Smanjite količinu i ažurirajte tekstualni prikaz
+            // Decrease the quantity and update the textual display
             if (item.quantity > 0) {
                 item.quantity--
                 notifyDataSetChanged()
 
-                // Ažuriraj ukupni iznos na zaslonu
+                // Update the total amount on the screen
                 onQuantityChanged.invoke(item, item.unitPrice)
             }
         }
