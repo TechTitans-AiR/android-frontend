@@ -1,9 +1,11 @@
 package com.example.ttpay.transactions.activity_transactions
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +22,7 @@ class TransactionSummaryActivity : AppCompatActivity() {
     private var totalAmount: Double = 0.0
     private lateinit var tv_total_amount_summary: TextView
     private lateinit var navigationHandler: NavigationHandler
+    private lateinit var btn_continue: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,5 +53,14 @@ class TransactionSummaryActivity : AppCompatActivity() {
         // set text for total amount
         tv_total_amount_summary = findViewById(R.id.tv_total_amount_summary)
         tv_total_amount_summary.text = "Total Amount: €${"%.2f".format(totalAmount)}"
+
+        btn_continue = findViewById(R.id.btn_continue_payment)
+        btn_continue.setOnClickListener {
+            val intent = Intent(this, PaymentOptionsActivity::class.java)
+            intent.putExtra("shoppingCartItems", ArrayList(shoppingCartItems))
+            intent.putExtra("totalAmount", totalAmount)
+            intent.putExtra("username", userUsername)
+            startActivity(intent)
+        }
     }
 }

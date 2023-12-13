@@ -5,6 +5,4 @@ data class NewTransaction(
     val description: String,
     val amount: Double,
     val currency: String,
-    val createdAt: String, //need to formated time before sending
-    val updatedAt: String? = null
 )
