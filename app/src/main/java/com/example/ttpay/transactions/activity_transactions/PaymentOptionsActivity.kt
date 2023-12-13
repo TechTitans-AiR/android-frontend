@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.ttpay.R
 import com.example.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
@@ -42,9 +43,9 @@ class PaymentOptionsActivity : AppCompatActivity() {
             intent.getSerializableExtra("shoppingCartItems") as MutableList<ShoppingCartItem>
         totalAmount = intent.getDoubleExtra("totalAmount", 0.0)
 
-        Log.d("TransactionSummaryActivity", "onCreate: username: $userUsername")
-        Log.d("TransactionSummaryActivity", "onCreate: shoppingCartItems: $shoppingCartItems")
-        Log.d("TransactionSummaryActivity", "onCreate: totalAmount: $totalAmount")
+        Log.d("PaymentOptionsActivity", "onCreate: username: $userUsername")
+        Log.d("PaymentOptionsActivity", "onCreate: shoppingCartItems: $shoppingCartItems")
+        Log.d("PaymentOptionsActivity", "onCreate: totalAmount: $totalAmount")
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, userUsername)
@@ -58,9 +59,48 @@ class PaymentOptionsActivity : AppCompatActivity() {
         completePayment.setOnClickListener {
             handleCompletePayment()
         }
+
+        // Postavite slušatelja promjene odabrane opcije plaćanja
+        radioGroupPaymentOptions.setOnCheckedChangeListener { _, checkedId ->
+            handlePaymentOptionChange(checkedId)
+        }
+    }
+
+    private fun handlePaymentOptionChange(checkedId: Int) {
+        when (checkedId) {
+            R.id.radioCash -> {
+                // Ako je odabrana opcija plaćanja gotovinom, prikaži polje za unos gotovine
+                edtCashAmount.visibility = View.VISIBLE
+            }
+            R.id.radioBankCard -> {
+                // Ako je odabrana opcija plaćanja karticom, sakrij polje za unos gotovine
+                edtCashAmount.visibility = View.GONE
+            }
+        }
     }
 
     private fun handleCompletePayment() {
+        // Ako je odabrana opcija plaćanja gotovinom, provjeri iznos gotovine
+        if (radioGroupPaymentOptions.checkedRadioButtonId == R.id.radioCash) {
+            val cashAmount = edtCashAmount.text.toString().toDoubleOrNull()
+            if (cashAmount != null && cashAmount >= 0) {
+                if (cashAmount < totalAmount) {
+                    // Ako iznos nije dovoljan, onemogući gumb za dovršavanje plaćanja
+                    completePayment.isEnabled = false
+                    showToast("Entered amount is insufficient.")
+                    return
+                }
+            } else {
+                // Ako unos nije valjan, onemogući gumb za dovršavanje plaćanja
+                completePayment.isEnabled = false
+                showToast("Please enter a valid cash amount.")
+                return
+            }
+        }
+
+        // Ako su zadovoljeni uvjeti, omogući gumb za dovršavanje plaćanja i pokreni TransactionCompletionActivity
+        completePayment.isEnabled = true
+
         // Dohvati merchantId
         fetchUserId(userUsername) { merchantId ->
             // Koristi merchantId
@@ -87,42 +127,29 @@ class PaymentOptionsActivity : AppCompatActivity() {
                     val users = response.body()
                     val user = users?.find { it.username == username }
                     if (user != null) {
-                        val merchantId = user.id!!
-                        Log.d("AllCatalogsMerchant", "Fetched merchant ID: $merchantId")
+                        val merchantId = user.id.toString() // Pretvori u String
+                        Log.d("PaymentOptionsActivity", "Fetched merchant ID: $merchantId")
 
                         // Pozovi callback funkciju s dobivenim merchantId
                         callback.invoke(merchantId)
                     } else {
-                        showErrorDialog(userUsername)
+                        showErrorDialog(username)
                     }
                 } else {
-                    showErrorDialog(userUsername)
+                    showErrorDialog(username)
                 }
             }
 
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                showErrorDialog(userUsername)
+                showErrorDialog(username)
             }
         })
     }
+
     private fun showErrorDialog(username: String) {
-        val builder = AlertDialog.Builder(this)
-
-        builder.setTitle("Error")
-            .setMessage("Error fetching data.")
-            .setPositiveButton("Retry") { _, _ ->
-                fetchUserId(username) { merchantId ->
-                    // Ovdje možete dodati dodatnu logiku ako je potrebno
-                }
-            }
-            .setNegativeButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-            }
-
-        val dialog = builder.create()
-        dialog.show()
+        // Implementirajte logiku prikaza dijaloga za pogrešku
+        showToast("Error fetching data for $username")
     }
-
 
     private fun sendTransactionToBackend(newTransaction: NewTransaction) {
         val retrofit = RetrofitClient.getInstance(8080)
@@ -161,5 +188,9 @@ class PaymentOptionsActivity : AppCompatActivity() {
         intent.putExtra("totalAmount", totalAmount)
         intent.putExtra("username", userUsername)
         startActivity(intent)
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
