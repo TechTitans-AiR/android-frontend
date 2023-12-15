@@ -40,7 +40,7 @@ class UpdateMerchantActivity : AppCompatActivity() {
     private lateinit var userID: String
 
 
-    //prepare fields for write data
+    //Prepare fields for write data
     private lateinit var editTxtFirstName: EditText
     private lateinit var editTxtLastName: EditText
     private lateinit var editTxtDateOfBirth: EditText
@@ -75,7 +75,7 @@ class UpdateMerchantActivity : AppCompatActivity() {
             finish()
         }
 
-        //initializing fields for data
+        //Initializing fields for data
         editTxtFirstName = findViewById(R.id.editText_first_name)
         editTxtLastName = findViewById(R.id.editText_last_name)
         editTxtDateOfBirth = findViewById(R.id.editText_date_of_birth)
@@ -88,12 +88,12 @@ class UpdateMerchantActivity : AppCompatActivity() {
         spinnerRole = findViewById(R.id.spinner_user_role)
 
 
-        //for userID
+        //For userID
         userID = intent.getStringExtra("userId") ?: ""
         Log.d("UpdateMerchantActivity userID:", userID)
 
 
-        //lists for spinner value
+        //Lists for spinner value
         val userRoleList = arrayOf(
             UserRole.merchant,
             UserRole.admin
@@ -112,6 +112,7 @@ class UpdateMerchantActivity : AppCompatActivity() {
         //call endpoint for user details
         Log.d("FetchMerchant: ", userID)
         fetchMerchants(userID) { fetchedUser ->
+            //User is found and his data will be updated
             if (fetchedUser != null && fetchedUser.id==userID) {
                 editTxtFirstName.setText(fetchedUser.first_name)
                 editTxtLastName.setText(fetchedUser.last_name)
@@ -184,8 +185,7 @@ class UpdateMerchantActivity : AppCompatActivity() {
 
     }
 
-
-
+        //When clicking button update
         val btnUpdate:Button=findViewById(R.id.btn_update_merchant)
         btnUpdate.setOnClickListener{
 
@@ -275,7 +275,7 @@ fun updateMerchantData(context: Context, updatedData: updateUser, userID: String
         }
 
         override fun onFailure(call: Call<updateUser>, t: Throwable) {
-            Log.e("NetworkError", "Error: ${t.message}") // Show error message in Logcat
+            Log.e("NetworkError", "Error: ${t.message}")
             Toast.makeText(context, "Network error occurred", Toast.LENGTH_SHORT).show()
         }
     })
