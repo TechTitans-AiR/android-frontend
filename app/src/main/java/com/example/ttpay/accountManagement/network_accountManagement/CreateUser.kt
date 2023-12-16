@@ -27,7 +27,7 @@ class CreateUser {
                     val createdUser: newUser?= response.body()
                     if (createdUser != null) {
                         Log.d("Userrrr: ", "$createdUser")
-                        Toast.makeText(context, "Created user ${createdUser.first_name} ${createdUser.last_name}!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Created user!", Toast.LENGTH_SHORT).show()
                     } else {
 
                         Toast.makeText(context, "ERROR: User object is null!", Toast.LENGTH_SHORT).show()
