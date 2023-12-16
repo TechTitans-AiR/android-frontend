@@ -33,8 +33,11 @@ data class UserStatus(
         }
 
         // Definicija statičkih objekata
-        val active = UserStatus("1", "active")
-        val inactive = UserStatus("2", "inactive")
-        val blocked = UserStatus("3", "blocked")
+        val active = UserStatus("65550a49074f8ba48dd82a19", "active")
+        val inactive = UserStatus("65550a49074f8ba48dd82a1a", "inactive")
+        val blocked = UserStatus("65550a49074f8ba48dd82a1b", "blocked")
+    }
+    override fun toString(): String {
+        return name
     }
 }
