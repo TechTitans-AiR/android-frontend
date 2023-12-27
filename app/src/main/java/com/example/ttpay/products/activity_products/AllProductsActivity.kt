@@ -30,9 +30,10 @@ class AllProductsActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerViewArticles: RecyclerView
     private lateinit var recyclerViewServices: RecyclerView
-    private val articleAdapter = ArticleAdapter(emptyList())
+    private var articleAdapter = ArticleAdapter(emptyList())
     private val serviceAdapter = ServiceAdapter(emptyList())
 
+    private var listArticles:List<Article> = emptyList()
     private lateinit var userUsername: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +47,12 @@ class AllProductsActivity : AppCompatActivity() {
 
         recyclerViewArticles.layoutManager = LinearLayoutManager(this)
         recyclerViewServices.layoutManager = LinearLayoutManager(this)
+
+        articleAdapter = ArticleAdapter(listArticles)
+        articleAdapter.setOnItemClickListener { articleId ->
+            articleAdapter.setSelectedArticleId(articleId)
+            articleAdapter.notifyDataSetChanged()
+        }
 
         recyclerViewArticles.adapter = articleAdapter
         recyclerViewServices.adapter = serviceAdapter
@@ -89,9 +96,9 @@ class AllProductsActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Article>>, response: Response<List<Article>>) {
                 hideLoading()
                 if (response.isSuccessful) {
-                    val articles = response.body() ?: emptyList()
-                    Log.d("AllProductsActivity", "Articles fetched successfully: $articles")
-                    articleAdapter.updateData(articles)
+                    listArticles = response.body() ?: emptyList()
+                    Log.d("AllProductsActivity", "Articles fetched successfully: $listArticles")
+                    articleAdapter.updateData(listArticles)
                 } else {
                     showErrorDialog()
                 }

@@ -16,6 +16,11 @@ class ArticleAdapter(private var articles: List<Article>) :
     RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
 
     private var selectedArticleId: Int = -1
+    private var onItemClickListener: ((Int) -> Unit)? = null // Listener za klik na artikl
+
+    fun setOnItemClickListener(listener: (Int) -> Unit) {
+        onItemClickListener = listener
+    }
     class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtViewName: TextView = itemView.findViewById(R.id.textView_article_name)
         val imgViewEye: ImageView = itemView.findViewById(R.id.imgView_eye)
