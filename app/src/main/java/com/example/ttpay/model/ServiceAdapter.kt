@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.R
 import com.example.ttpay.products.activity_products.DetailsServiceActivity
 import com.example.ttpay.products.activity_products.UpdateServiceActivity
+import com.example.ttpay.products.network_products.DeleteArticle
+import com.example.ttpay.products.network_products.DeleteService
 
 class ServiceAdapter(private var services: List<Service>) :
     RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder>() {
@@ -75,8 +77,10 @@ class ServiceAdapter(private var services: List<Service>) :
         }
     }
 
-    private fun deleteSelectedServices(id: Any) {
-
+    private fun deleteSelectedServices(serviceID: String) {
+        DeleteService().deleteService(serviceID)
+        val updatedServices = services.filterNot { it.id == serviceID } //select all articles except deleted one
+        updateData(updatedServices)//update recyclerView to show rest of the articles
     }
 
     override fun getItemCount(): Int {

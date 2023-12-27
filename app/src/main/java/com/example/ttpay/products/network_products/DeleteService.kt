@@ -17,10 +17,10 @@ class DeleteService {
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    // Handle successful deletion
+                    // successful deletion
                     Log.d("Service Deletion", "Service with ID $itemIdToDelete deleted successfully")
                 } else {
-                    // Handle unsuccessful deletion
+                    // unsuccessful deletion
                     Log.e("Service Deletion", "Failed to delete service with ID $itemIdToDelete")
                 }
             }
