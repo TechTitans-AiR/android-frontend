@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.R
 import com.example.ttpay.products.activity_products.DetailsArticleActivity
 import com.example.ttpay.products.activity_products.UpdateArticleActivity
+import com.example.ttpay.products.network_products.DeleteArticle
 
 class ArticleAdapter(private var articles: List<Article>) :
     RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
 
-    private var selectedArticleId: Int = -1
+    private var selectedArticleId: String = ""
     private var onItemClickListener: ((Int) -> Unit)? = null // listener for clicked article
 
     fun setOnItemClickListener(listener: (Int) -> Unit) {
@@ -61,11 +62,12 @@ class ArticleAdapter(private var articles: List<Article>) :
             builder.setTitle("Confirm")
                 .setMessage("Are you sure you want to delete this article?")
                 .setPositiveButton("OK") { _, _ ->
-                    val selectedArticle=articles.find { it.id==selectedArticleId.toString() }
+                    selectedArticleId=article.id
+                    val selectedArticle=articles.find { it.id==selectedArticleId }
 
                     if(selectedArticle != null){
                         Log.d("Deleting article: ", selectedArticle.name)
-                        deleteSelectedArticle(selectedArticle)
+                        deleteSelectedArticle(selectedArticle.id)
                     }
 
                 }
@@ -78,12 +80,10 @@ class ArticleAdapter(private var articles: List<Article>) :
         }
     }
 
-    fun setSelectedArticleId(articleId: Int) {
-        selectedArticleId = articleId
-    }
-
-    private fun deleteSelectedArticle(selectedArticle: Article?) {
-
+    private fun deleteSelectedArticle(selectedArticle: String?) {
+        DeleteArticle().deleteArticle(selectedArticle)
+        val updatedArticles = articles.filterNot { it.id == selectedArticle } //select all articles except deleted one
+        updateData(updatedArticles)//update recyclerView to show rest of the articles
     }
 
     override fun getItemCount(): Int {
@@ -95,4 +95,6 @@ class ArticleAdapter(private var articles: List<Article>) :
         articles = newArticles
         notifyDataSetChanged()
     }
+
+
 }

@@ -27,7 +27,7 @@ import retrofit2.Response
 class AllProductsActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
-    private lateinit var progressBar: ProgressBar
+    private var progressBar: ProgressBar? = null
     private lateinit var recyclerViewArticles: RecyclerView
     private lateinit var recyclerViewServices: RecyclerView
     private var articleAdapter = ArticleAdapter(emptyList())
@@ -40,6 +40,8 @@ class AllProductsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_products)
 
+        progressBar = findViewById(R.id.loadingProgressBar)
+
         userUsername = intent.getStringExtra("username") ?: ""
 
         recyclerViewArticles = findViewById(R.id.recyclerView_all_articles)
@@ -49,10 +51,7 @@ class AllProductsActivity : AppCompatActivity() {
         recyclerViewServices.layoutManager = LinearLayoutManager(this)
 
         articleAdapter = ArticleAdapter(listArticles)
-        articleAdapter.setOnItemClickListener { articleId ->
-            articleAdapter.setSelectedArticleId(articleId)
-            articleAdapter.notifyDataSetChanged()
-        }
+
 
         recyclerViewArticles.adapter = articleAdapter
         recyclerViewServices.adapter = serviceAdapter
@@ -64,7 +63,7 @@ class AllProductsActivity : AppCompatActivity() {
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
-        progressBar = findViewById(R.id.loadingProgressBar)
+
 
         fetchArticles()
         fetchServices()
@@ -86,7 +85,8 @@ class AllProductsActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun fetchArticles() {
+    fun fetchArticles() {
+        listArticles= emptyList()
         showLoading()
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
@@ -99,6 +99,7 @@ class AllProductsActivity : AppCompatActivity() {
                     listArticles = response.body() ?: emptyList()
                     Log.d("AllProductsActivity", "Articles fetched successfully: $listArticles")
                     articleAdapter.updateData(listArticles)
+                    articleAdapter.notifyDataSetChanged()
                 } else {
                     showErrorDialog()
                 }
@@ -134,14 +135,16 @@ class AllProductsActivity : AppCompatActivity() {
                 showErrorDialog()
             }
         })
+
     }
 
+
     private fun showLoading() {
-        progressBar.visibility = View.VISIBLE
+        progressBar?.visibility = View.VISIBLE
     }
 
     private fun hideLoading() {
-        progressBar.visibility = View.GONE
+        progressBar?.visibility = View.GONE
     }
 
     private fun showErrorDialog() {
@@ -160,4 +163,5 @@ class AllProductsActivity : AppCompatActivity() {
         val dialog = builder.create()
         dialog.show()
     }
+
 }
