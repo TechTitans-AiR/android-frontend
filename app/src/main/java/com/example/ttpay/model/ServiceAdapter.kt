@@ -1,6 +1,7 @@
 package com.example.ttpay.model
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,8 @@ import com.example.ttpay.products.activity_products.UpdateServiceActivity
 
 class ServiceAdapter(private var services: List<Service>) :
     RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder>() {
+
+    private var selectedServiceId: String = ""
 
     class ServiceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtViewName: TextView = itemView.findViewById(R.id.textView_service_name)
@@ -55,7 +58,13 @@ class ServiceAdapter(private var services: List<Service>) :
             builder.setTitle("Confirm")
                 .setMessage("Are you sure you want to delete this service?")
                 .setPositiveButton("OK") { _, _ ->
-                    // Implement deletion logic
+                    selectedServiceId=service.id
+                    val selectedService=services.find { it.id==selectedServiceId }
+
+                    if(selectedService != null){
+                        Log.d("Deleting article: ", selectedService.id)
+                        deleteSelectedServices(selectedService.id)
+                    }
                 }
                 .setNegativeButton("Cancel") { dialog, _ ->
                     dialog.dismiss()
@@ -64,6 +73,10 @@ class ServiceAdapter(private var services: List<Service>) :
             val dialog = builder.create()
             dialog.show()
         }
+    }
+
+    private fun deleteSelectedServices(id: Any) {
+
     }
 
     override fun getItemCount(): Int {
