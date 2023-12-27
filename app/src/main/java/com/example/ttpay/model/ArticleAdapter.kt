@@ -1,6 +1,7 @@
 package com.example.ttpay.model
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,7 @@ class ArticleAdapter(private var articles: List<Article>) :
     RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
 
     private var selectedArticleId: Int = -1
-    private var onItemClickListener: ((Int) -> Unit)? = null // Listener za klik na artikl
+    private var onItemClickListener: ((Int) -> Unit)? = null // listener for clicked article
 
     fun setOnItemClickListener(listener: (Int) -> Unit) {
         onItemClickListener = listener
@@ -63,6 +64,7 @@ class ArticleAdapter(private var articles: List<Article>) :
                     val selectedArticle=articles.find { it.id==selectedArticleId.toString() }
 
                     if(selectedArticle != null){
+                        Log.d("Deleting article: ", selectedArticle.name)
                         deleteSelectedArticle(selectedArticle)
                     }
 
