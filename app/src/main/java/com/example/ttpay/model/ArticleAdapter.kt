@@ -15,6 +15,7 @@ import com.example.ttpay.products.activity_products.UpdateArticleActivity
 class ArticleAdapter(private var articles: List<Article>) :
     RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
 
+    private var selectedArticleId: Int = -1
     class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtViewName: TextView = itemView.findViewById(R.id.textView_article_name)
         val imgViewEye: ImageView = itemView.findViewById(R.id.imgView_eye)
@@ -54,7 +55,12 @@ class ArticleAdapter(private var articles: List<Article>) :
             builder.setTitle("Confirm")
                 .setMessage("Are you sure you want to delete this article?")
                 .setPositiveButton("OK") { _, _ ->
-                   // deleteSelectedArticle(selectedArticle)
+                    val selectedArticle=articles.find { it.id==selectedArticleId.toString() }
+
+                    if(selectedArticle != null){
+                        deleteSelectedArticle(selectedArticle)
+                    }
+
                 }
                 .setNegativeButton("Cancel") { dialog, _ ->
                     dialog.dismiss()
@@ -65,7 +71,11 @@ class ArticleAdapter(private var articles: List<Article>) :
         }
     }
 
-    private fun deleteSelectedArticle(selectedArticle: Article) {
+    fun setSelectedArticleId(articleId: Int) {
+        selectedArticleId = articleId
+    }
+
+    private fun deleteSelectedArticle(selectedArticle: Article?) {
 
     }
 
