@@ -64,7 +64,7 @@ class ServiceAdapter(private var services: List<Service>) :
                     val selectedService=services.find { it.id==selectedServiceId }
 
                     if(selectedService != null){
-                        Log.d("Deleting article: ", selectedService.id)
+                        Log.d("Deleting service: ", selectedService.id)
                         deleteSelectedServices(selectedService.id)
                     }
                 }

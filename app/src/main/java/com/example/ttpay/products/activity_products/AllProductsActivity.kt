@@ -34,6 +34,7 @@ class AllProductsActivity : AppCompatActivity() {
     private val serviceAdapter = ServiceAdapter(emptyList())
 
     private var listArticles:List<Article> = emptyList()
+    private var listServices:List<Service> = emptyList()
     private lateinit var userUsername: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,6 +114,7 @@ class AllProductsActivity : AppCompatActivity() {
     }
 
     private fun fetchServices() {
+        listServices= emptyList()
         showLoading()
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
@@ -122,9 +124,9 @@ class AllProductsActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Service>>, response: Response<List<Service>>) {
                 hideLoading()
                 if (response.isSuccessful) {
-                    val services = response.body() ?: emptyList()
-                    Log.d("AllProductsActivity", "Services fetched successfully: $services")
-                    serviceAdapter.updateData(services)
+                    listServices = response.body() ?: emptyList()
+                    Log.d("AllProductsActivity", "Services fetched successfully: $listServices")
+                    serviceAdapter.updateData(listServices)
                 } else {
                     showErrorDialog()
                 }
