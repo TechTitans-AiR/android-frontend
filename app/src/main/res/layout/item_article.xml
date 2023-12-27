@@ -8,7 +8,8 @@
 
     <!-- Article frame -->
     <FrameLayout
-        android:layout_width="382dp"
+        android:layout_width="350dp"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
@@ -16,6 +17,7 @@
             android:id="@+id/textView_article_name"
             android:layout_width="200dp"
             android:layout_height="30dp"
+            android:layout_marginStart="2dp"
             android:background="@drawable/red_border_item"
             android:gravity="center"
             android:text="Article Name"
@@ -49,6 +51,7 @@
         </LinearLayout>
 
         <!-- ImageView elements -->
+
         <ImageView
             android:id="@+id/imgView_eye"
             android:layout_width="wrap_content"
@@ -62,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_gravity="top|end"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="50dp"
             android:src="@drawable/ic_pencil" />
 
         <ImageView
@@ -70,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_gravity="top|end"
-            android:layout_marginEnd="0dp"
+            android:layout_marginEnd="20dp"
             android:src="@drawable/ic_delete" />
     </FrameLayout>
 </LinearLayout>

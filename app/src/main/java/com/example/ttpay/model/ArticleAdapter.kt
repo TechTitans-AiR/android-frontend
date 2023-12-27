@@ -54,7 +54,7 @@ class ArticleAdapter(private var articles: List<Article>) :
             builder.setTitle("Confirm")
                 .setMessage("Are you sure you want to delete this article?")
                 .setPositiveButton("OK") { _, _ ->
-                    // Implement deletion logic
+                   // deleteSelectedArticle(selectedArticle)
                 }
                 .setNegativeButton("Cancel") { dialog, _ ->
                     dialog.dismiss()
@@ -63,6 +63,10 @@ class ArticleAdapter(private var articles: List<Article>) :
             val dialog = builder.create()
             dialog.show()
         }
+    }
+
+    private fun deleteSelectedArticle(selectedArticle: Article) {
+
     }
 
     override fun getItemCount(): Int {

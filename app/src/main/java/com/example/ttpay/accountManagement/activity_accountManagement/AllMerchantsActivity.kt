@@ -79,18 +79,30 @@ class AllMerchantsActivity : AppCompatActivity() {
         call.enqueue(object : Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                 hideLoading()
-                if (response.isSuccessful) {
-                    val users = response.body() ?: emptyList()
-                    Log.d("AllMerchantsActivity", "Users fetched successfully: $users")
-                    adapter.updateData(users)
-                } else {
+                try {
+                    if (response.isSuccessful) {
+                        val users = response.body() ?: emptyList()
+                        Log.d("AllMerchantsActivity", "Users fetched successfully: $users")
+                        adapter.updateData(users)
+                    } else {
+                        showErrorDialog()
+                    }
+                } catch (e: Exception) {
+                    // Uhvati i obradi iznimku ako se dogodi
+                    e.printStackTrace()
                     showErrorDialog()
                 }
             }
 
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
                 hideLoading()
-                showErrorDialog()
+                try {
+                    showErrorDialog()
+                } catch (e: Exception) {
+                    // Uhvati i obradi iznimku ako se dogodi
+                    e.printStackTrace()
+                    showErrorDialog()
+                }
             }
         })
     }

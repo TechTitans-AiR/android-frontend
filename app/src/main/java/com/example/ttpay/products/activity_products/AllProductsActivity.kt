@@ -50,6 +50,8 @@ class AllProductsActivity : AppCompatActivity() {
         recyclerViewArticles.adapter = articleAdapter
         recyclerViewServices.adapter = serviceAdapter
 
+
+
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
