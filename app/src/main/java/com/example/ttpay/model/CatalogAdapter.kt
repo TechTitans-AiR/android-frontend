@@ -19,7 +19,7 @@ import retrofit2.Response
 
 class CatalogAdapter(
     private var catalogs: List<Catalog>,
-    private val onItemClick: (Catalog) -> Unit
+    private val onItemClick: (Catalog) -> Unit,
 ) :
     RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder>() {
 
@@ -38,12 +38,11 @@ class CatalogAdapter(
         val catalog = catalogs[position]
         holder.txtViewCatalogName.text = catalog.name
 
-        // Ako je catalog.disabled true, to znači da treba biti isključen Switch
-        // pa ga postavljamo na false
+        // If catalog.disabled is true, it means Switch should be disabled so set it to false
         holder.switchEnableDisable.isChecked = !catalog.disabled
 
         holder.switchEnableDisable.setOnClickListener {
-            // Ažuriranje stanja kataloga kada se klikne Switch
+            // Update catalog state when Switch is clicked
             val isEnabled = holder.switchEnableDisable.isChecked
             catalog.disabled = !isEnabled
             updateCatalogStatus(catalog.id, isEnabled, holder)
@@ -62,7 +61,6 @@ class CatalogAdapter(
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceCatalogItemManagement::class.java)
 
-        // Odaberi odgovarajući Retrofit poziv na osnovu stanja isEnabled
         val call: Call<Catalog> = if (isEnabled) {
             service.enableCatalog(catalogId!!)
         } else {
@@ -71,18 +69,13 @@ class CatalogAdapter(
 
         call.enqueue(object : Callback<Catalog> {
             override fun onResponse(call: Call<Catalog>, response: Response<Catalog>) {
-                // Omogući Switch nakon završetka Retrofit poziva
-                holder.switchEnableDisable.isEnabled = true
 
                 if (response.isSuccessful) {
-                    // Ažurirajte stanje kataloga na frontendu ili obavite dodatne akcije
                     val updatedCatalog = response.body()
                     if (updatedCatalog != null) {
-                        // Ovde možete ažurirati UI ili obaviti dodatne akcije
                         Log.d("CatalogItemActivity", "Catalog status updated: $updatedCatalog")
                     }
                 } else {
-                    // Prikazivanje greške u slučaju neuspeha
                     Log.e(
                         "CatalogItemActivity",
                         "Failed to update catalog status: ${response.code()}"
@@ -92,10 +85,6 @@ class CatalogAdapter(
             }
 
             override fun onFailure(call: Call<Catalog>, t: Throwable) {
-                // Omogući Switch nakon završetka Retrofit poziva
-                holder.switchEnableDisable.isEnabled = true
-
-                // Prikazivanje greške u slučaju neuspeha
                 Log.e("CatalogItemActivity", "Failed to update catalog status", t)
                 showErrorToast(holder.itemView.context)
             }
@@ -103,7 +92,6 @@ class CatalogAdapter(
     }
 
     private fun showErrorToast(context: Context) {
-        // Prikaži Toast poruku u slučaju greške
         Toast.makeText(context, "Error updating catalog status", Toast.LENGTH_SHORT).show()
     }
 

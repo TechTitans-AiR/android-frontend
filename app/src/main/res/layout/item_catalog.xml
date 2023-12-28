@@ -15,6 +15,7 @@
         android:layout_weight="1"
         android:background="@drawable/red_border_item"
         android:gravity="center"
+        android:padding="16dp"
         android:text="Catalog name"
         android:textSize="16sp"
         android:layout_gravity="center"/>

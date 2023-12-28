@@ -15,6 +15,7 @@ import com.example.ttpay.accountManagement.network_accountManagement.ServiceAcco
 import com.example.ttpay.catalogItemManagement.network_catalogItemManagement.ServiceCatalogItemManagement
 import com.example.ttpay.model.Catalog
 import com.example.ttpay.model.CatalogAdapter
+import com.example.ttpay.model.MerchantCatalogAdapter
 import com.example.ttpay.model.NavigationHandler
 import com.example.ttpay.model.User
 import com.example.ttpay.navigationBar.activities.MerchantHomeActivity
@@ -33,7 +34,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
     private lateinit var userId: String
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: CatalogAdapter
+    private lateinit var adapter: MerchantCatalogAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +51,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView_all_catalogs_merchant)
         progressBar = findViewById(R.id.loadingProgressBar)
 
-        adapter = CatalogAdapter(emptyList()) { catalog ->
+        adapter = MerchantCatalogAdapter(emptyList()) { catalog ->
             val intent = Intent(this, DetailedCatalogItemActivity::class.java)
             intent.putExtra("catalogId", catalog.id)
             startActivity(intent)
@@ -111,7 +112,9 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val catalogs = response.body()
                     if (catalogs != null) {
-                        adapter.updateData(catalogs)
+                        // Filter catalogs by the disabled property (disable = false)
+                        val activeCatalogs = catalogs.filter { !it.disabled }
+                        adapter.updateData(activeCatalogs)
                     }
                 } else {
                     showErrorDialog()
