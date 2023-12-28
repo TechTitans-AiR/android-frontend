@@ -108,7 +108,8 @@ class CreateCatalogDataActivity : AppCompatActivity() {
                 catalogNameText,
                 selectedArticleIds,
                 selectedServicesIds,
-                selectedUsersIds
+                selectedUsersIds,
+                disabled = false //disabled property set to false
             )
 
 

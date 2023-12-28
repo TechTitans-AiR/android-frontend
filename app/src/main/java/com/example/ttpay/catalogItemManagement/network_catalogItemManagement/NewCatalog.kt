@@ -8,5 +8,6 @@ data class NewCatalog(
     val name: String,
     val articles:List<String>,
     val services:List<String>,
-    val users:List<String>?
+    val users:List<String>?,
+    var disabled: Boolean
 )
