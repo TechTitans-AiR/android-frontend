@@ -12,5 +12,6 @@ class Catalog (
     val services: String,
     val users: String,
     val date_created: String?,
-    val date_modified: String?
+    val date_modified: String?,
+    val disabled: Boolean
 )
