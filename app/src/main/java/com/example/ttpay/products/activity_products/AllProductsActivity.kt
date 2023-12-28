@@ -27,17 +27,21 @@ import retrofit2.Response
 class AllProductsActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
-    private lateinit var progressBar: ProgressBar
+    private var progressBar: ProgressBar? = null
     private lateinit var recyclerViewArticles: RecyclerView
     private lateinit var recyclerViewServices: RecyclerView
-    private val articleAdapter = ArticleAdapter(emptyList())
+    private var articleAdapter = ArticleAdapter(emptyList())
     private val serviceAdapter = ServiceAdapter(emptyList())
 
+    private var listArticles:List<Article> = emptyList()
+    private var listServices:List<Service> = emptyList()
     private lateinit var userUsername: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_products)
+
+        progressBar = findViewById(R.id.loadingProgressBar)
 
         userUsername = intent.getStringExtra("username") ?: ""
 
@@ -47,15 +51,20 @@ class AllProductsActivity : AppCompatActivity() {
         recyclerViewArticles.layoutManager = LinearLayoutManager(this)
         recyclerViewServices.layoutManager = LinearLayoutManager(this)
 
+        articleAdapter = ArticleAdapter(listArticles)
+
+
         recyclerViewArticles.adapter = articleAdapter
         recyclerViewServices.adapter = serviceAdapter
+
+
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, userUsername)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
-        progressBar = findViewById(R.id.loadingProgressBar)
+
 
         fetchArticles()
         fetchServices()
@@ -77,7 +86,8 @@ class AllProductsActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun fetchArticles() {
+    fun fetchArticles() {
+        listArticles= emptyList()
         showLoading()
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
@@ -87,9 +97,10 @@ class AllProductsActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Article>>, response: Response<List<Article>>) {
                 hideLoading()
                 if (response.isSuccessful) {
-                    val articles = response.body() ?: emptyList()
-                    Log.d("AllProductsActivity", "Articles fetched successfully: $articles")
-                    articleAdapter.updateData(articles)
+                    listArticles = response.body() ?: emptyList()
+                    Log.d("AllProductsActivity", "Articles fetched successfully: $listArticles")
+                    articleAdapter.updateData(listArticles)
+                    articleAdapter.notifyDataSetChanged()
                 } else {
                     showErrorDialog()
                 }
@@ -103,6 +114,7 @@ class AllProductsActivity : AppCompatActivity() {
     }
 
     private fun fetchServices() {
+        listServices= emptyList()
         showLoading()
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
@@ -112,9 +124,9 @@ class AllProductsActivity : AppCompatActivity() {
             override fun onResponse(call: Call<List<Service>>, response: Response<List<Service>>) {
                 hideLoading()
                 if (response.isSuccessful) {
-                    val services = response.body() ?: emptyList()
-                    Log.d("AllProductsActivity", "Services fetched successfully: $services")
-                    serviceAdapter.updateData(services)
+                    listServices = response.body() ?: emptyList()
+                    Log.d("AllProductsActivity", "Services fetched successfully: $listServices")
+                    serviceAdapter.updateData(listServices)
                 } else {
                     showErrorDialog()
                 }
@@ -125,14 +137,16 @@ class AllProductsActivity : AppCompatActivity() {
                 showErrorDialog()
             }
         })
+
     }
 
+
     private fun showLoading() {
-        progressBar.visibility = View.VISIBLE
+        progressBar?.visibility = View.VISIBLE
     }
 
     private fun hideLoading() {
-        progressBar.visibility = View.GONE
+        progressBar?.visibility = View.GONE
     }
 
     private fun showErrorDialog() {
@@ -151,4 +165,5 @@ class AllProductsActivity : AppCompatActivity() {
         val dialog = builder.create()
         dialog.show()
     }
+
 }

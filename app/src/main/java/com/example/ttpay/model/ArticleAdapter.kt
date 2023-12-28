@@ -1,6 +1,7 @@
 package com.example.ttpay.model
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.R
 import com.example.ttpay.products.activity_products.DetailsArticleActivity
 import com.example.ttpay.products.activity_products.UpdateArticleActivity
+import com.example.ttpay.products.network_products.DeleteArticle
 
 class ArticleAdapter(private var articles: List<Article>) :
     RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
+
+    private var selectedArticleId: String = ""
 
     class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtViewName: TextView = itemView.findViewById(R.id.textView_article_name)
@@ -54,7 +58,14 @@ class ArticleAdapter(private var articles: List<Article>) :
             builder.setTitle("Confirm")
                 .setMessage("Are you sure you want to delete this article?")
                 .setPositiveButton("OK") { _, _ ->
-                    // Implement deletion logic
+                    selectedArticleId=article.id
+                    val selectedArticle=articles.find { it.id==selectedArticleId }
+
+                    if(selectedArticle != null){
+                        Log.d("Deleting article: ", selectedArticle.name)
+                        deleteSelectedArticle(selectedArticle.id)
+                    }
+
                 }
                 .setNegativeButton("Cancel") { dialog, _ ->
                     dialog.dismiss()
@@ -63,6 +74,12 @@ class ArticleAdapter(private var articles: List<Article>) :
             val dialog = builder.create()
             dialog.show()
         }
+    }
+
+    private fun deleteSelectedArticle(selectedArticle: String?) {
+        DeleteArticle().deleteArticle(selectedArticle)
+        val updatedArticles = articles.filterNot { it.id == selectedArticle } //select all articles except deleted one
+        updateData(updatedArticles)//update recyclerView to show rest of the articles
     }
 
     override fun getItemCount(): Int {
@@ -74,4 +91,6 @@ class ArticleAdapter(private var articles: List<Article>) :
         articles = newArticles
         notifyDataSetChanged()
     }
+
+
 }
