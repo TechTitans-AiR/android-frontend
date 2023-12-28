@@ -5,8 +5,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import com.auth0.jwt.JWT
 import com.example.ttpay.R
@@ -22,11 +24,13 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var usernameEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        progressBar = findViewById(R.id.progressBar)
         usernameEditText = findViewById(R.id.editTextUsername)
         passwordEditText = findViewById(R.id.editTextPassword)
         loginButton = findViewById(R.id.btn_login_login_activity)
@@ -37,11 +41,21 @@ class LoginActivity : AppCompatActivity() {
             val enteredPassword = passwordEditText.text.toString()
 
             if(enteredPassword.isNotEmpty() && enteredUsername.isNotEmpty()){
-                //for login
+                // Show progress bar when login button is clicked
+                showProgressBar()
+                // Call the server for login
                 callServerLogin(enteredUsername,enteredPassword)
             }
 
         }
+    }
+
+    private fun showProgressBar() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideProgressBar() {
+        progressBar.visibility = View.GONE
     }
 
     private fun callServerLogin(enteredUsername: String, enteredPassword: String) {
@@ -51,6 +65,7 @@ class LoginActivity : AppCompatActivity() {
 
         loginService.login(loginRequest).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                hideProgressBar() // Hide the progress bar when the response is received
                 Log.d("Response 1: ", response.body().toString())//check if response have something
 
                 val statusCode = response.code() // get status code
@@ -115,6 +130,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                hideProgressBar() // Hide the progress bar when the call fails
                 Toast.makeText(this@LoginActivity, "Login failed: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
