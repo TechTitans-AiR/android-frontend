@@ -41,11 +41,9 @@ class CatalogAdapter(
         val catalog = catalogs[position]
         holder.txtViewCatalogName.text = catalog.name
 
-        // If catalog.disabled is true, it means Switch should be disabled so set it to false
         holder.switchEnableDisable.isChecked = !catalog.disabled
 
         holder.switchEnableDisable.setOnClickListener {
-            // Update catalog state when Switch is clicked
             val isEnabled = holder.switchEnableDisable.isChecked
             catalog.disabled = !isEnabled
             updateCatalogStatus(catalog.id, catalog.name, isEnabled, holder)
@@ -70,7 +68,6 @@ class CatalogAdapter(
         } else if (!isEnabled && catalogId != null) {
             service.disableCatalog(catalogId)
         } else {
-            //the case when catalogId is not available
             return
         }
 
