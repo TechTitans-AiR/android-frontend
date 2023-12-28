@@ -13,5 +13,5 @@ class Catalog (
     val users: String,
     val date_created: String?,
     val date_modified: String?,
-    val disabled: Boolean
+    var disabled: Boolean
 )
