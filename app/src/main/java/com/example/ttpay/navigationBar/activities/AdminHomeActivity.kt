@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.example.ttpay.R
@@ -27,6 +28,7 @@ class AdminHomeActivity : AppCompatActivity() {
     private lateinit var userUsername: String
     private lateinit var textViewUserName: TextView
     private lateinit var userId: String
+    private lateinit var progressBarUserName: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,8 @@ class AdminHomeActivity : AppCompatActivity() {
         Log.d("AdminHomeActivity", "User username: $userUsername")
 
         textViewUserName = findViewById(R.id.textViewUserName)
+        progressBarUserName = findViewById(R.id.progressBarUserName)
+
         fetchUserId(userUsername)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
@@ -78,8 +82,14 @@ class AdminHomeActivity : AppCompatActivity() {
 
         val call = service.getUsers()
 
+        // Show the progress bar
+        progressBarUserName.visibility = View.VISIBLE
+
         call.enqueue(object : Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                // Hide the progress bar
+                progressBarUserName.visibility = View.GONE
+
                 if (response.isSuccessful) {
                     val users = response.body()
                     val user = users?.find { it.username == username }
@@ -96,6 +106,9 @@ class AdminHomeActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                // Hide the progress bar
+                progressBarUserName.visibility = View.GONE
+
                 showErrorDialog()
             }
         })
@@ -106,8 +119,14 @@ class AdminHomeActivity : AppCompatActivity() {
         val service = retrofit.create(ServiceAccountManagement::class.java)
         val call = service.getUserDetails(userId)
 
+        // Show the progress bar
+        progressBarUserName.visibility = View.VISIBLE
+
         call.enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
+                // Hide the progress bar
+                progressBarUserName.visibility = View.GONE
+
                 if (response.isSuccessful) {
                     val user = response.body()
                     if (user != null) {
@@ -119,6 +138,9 @@ class AdminHomeActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
+                // Hide the progress bar
+                progressBarUserName.visibility = View.GONE
+
                 Log.e("CatalogItemActivity", "onFailure() called", t)
                 showErrorDialog()
             }
