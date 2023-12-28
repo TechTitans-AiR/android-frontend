@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.R
 import com.example.ttpay.catalogItemManagement.network_catalogItemManagement.ServiceCatalogItemManagement
 import com.example.ttpay.network.RetrofitClient
+import com.google.gson.Gson
+import com.google.gson.JsonSyntaxException
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,7 +48,7 @@ class CatalogAdapter(
             // Update catalog state when Switch is clicked
             val isEnabled = holder.switchEnableDisable.isChecked
             catalog.disabled = !isEnabled
-            updateCatalogStatus(catalog.id, isEnabled, holder)
+            updateCatalogStatus(catalog.id, catalog.name, isEnabled, holder)
         }
 
         holder.itemView.setOnClickListener {
@@ -55,36 +58,47 @@ class CatalogAdapter(
 
     private fun updateCatalogStatus(
         catalogId: String?,
+        catalogName: String,
         isEnabled: Boolean,
         holder: CatalogViewHolder
     ) {
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceCatalogItemManagement::class.java)
 
-        val call: Call<Catalog> = if (isEnabled) {
-            service.enableCatalog(catalogId!!)
+        val call: Call<ResponseBody> = if (isEnabled && catalogId != null) {
+            service.enableCatalog(catalogId)
+        } else if (!isEnabled && catalogId != null) {
+            service.disableCatalog(catalogId)
         } else {
-            service.disableCatalog(catalogId!!)
+            //the case when catalogId is not available
+            return
         }
 
-        call.enqueue(object : Callback<Catalog> {
-            override fun onResponse(call: Call<Catalog>, response: Response<Catalog>) {
-
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
-                    val updatedCatalog = response.body()
-                    if (updatedCatalog != null) {
-                        Log.d("CatalogItemActivity", "Catalog status updated: $updatedCatalog")
+                    val statusMessage = if (isEnabled) {
+                        "Catalog $catalogName is enabled."
+                    } else {
+                        "Catalog $catalogName is disabled."
                     }
+
+                    Log.d("CatalogItemActivity", "Catalog status updated: $statusMessage")
+
+                    val toastMessage = if (isEnabled) {
+                        "Catalog $catalogName is enabled."
+                    } else {
+                        "Catalog $catalogName is disabled."
+                    }
+
+                    Toast.makeText(holder.itemView.context, toastMessage, Toast.LENGTH_SHORT).show()
                 } else {
-                    Log.e(
-                        "CatalogItemActivity",
-                        "Failed to update catalog status: ${response.code()}"
-                    )
+                    Log.e("CatalogItemActivity", "Failed to update catalog status: ${response.code()}")
                     showErrorToast(holder.itemView.context)
                 }
             }
 
-            override fun onFailure(call: Call<Catalog>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Log.e("CatalogItemActivity", "Failed to update catalog status", t)
                 showErrorToast(holder.itemView.context)
             }
