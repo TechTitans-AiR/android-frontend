@@ -17,7 +17,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ttpay_logo_app" />
+        app:srcCompat="@drawable/ttpay_logo_app"
+        android:importantForAccessibility="no" />
 
     <TextView
         android:id="@+id/txtView_developers"
@@ -30,7 +31,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/imgView_logo_app"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="HardcodedText,SmallSp" />
 
     <ImageView
         android:id="@+id/imgView_paying"
@@ -42,7 +44,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgView_logo_app"
-        app:srcCompat="@drawable/paying" />
+        app:srcCompat="@drawable/paying"
+        android:contentDescription="@string/todo" />
 
     <Button
         android:id="@+id/btn_login"
@@ -53,7 +56,7 @@
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="50dp"
         android:fontFamily="sans-serif-light"
-        android:text="Login"
+        android:text="@string/login"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
