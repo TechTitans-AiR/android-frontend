@@ -50,14 +50,28 @@
         android:layout_below="@id/edt_cash_amount"
         android:layout_marginTop="16dp"/>
 
-    <!-- COMPLETE PAYMENT button -->
-    <Button
-        android:id="@+id/btn_complete_payment"
+    <RelativeLayout
+        android:id="@+id/rlCompletePayment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="COMPLETE PAYMENT"
         android:layout_below="@id/edt_description"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/btn_complete_payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="COMPLETE PAYMENT" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_complete_payment"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:visibility="gone" />
+    </RelativeLayout>
 
     <!-- BottomNavigationView -->
     <include layout="@layout/bottom_navigation"

@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.RadioGroup
 import android.widget.Toast
 import hr.foi.techtitans.ttpay.R
@@ -32,6 +33,8 @@ class PaymentOptionsActivity : AppCompatActivity() {
     private lateinit var radioGroupPaymentOptions: RadioGroup
     private lateinit var edtCashAmount: EditText
     private lateinit var edtDescription: EditText
+    private lateinit var progressBar: ProgressBar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +60,8 @@ class PaymentOptionsActivity : AppCompatActivity() {
         edtDescription = findViewById(R.id.edt_description)
         edtDescription.visibility = View.GONE
 
+        progressBar = findViewById(R.id.progressBar)
+
         completePayment = findViewById(R.id.btn_complete_payment)
         completePayment.setOnClickListener {
             handleCompletePayment()
@@ -81,6 +86,9 @@ class PaymentOptionsActivity : AppCompatActivity() {
     }
 
     private fun handleCompletePayment() {
+        // Show progress bar
+        progressBar.visibility = View.VISIBLE
+
         if (radioGroupPaymentOptions.checkedRadioButtonId == R.id.radioCash) {
             val cashAmount = edtCashAmount.text.toString().toDoubleOrNull()
             if (cashAmount != null && cashAmount >= 0) {
@@ -88,12 +96,16 @@ class PaymentOptionsActivity : AppCompatActivity() {
                     completePayment.isEnabled = false
                     showToast("Entered amount is insufficient.")
                     Log.d("PaymentOptionsActivity", "Entered amount is insufficient.")
+                    // Hide progress bar
+                    progressBar.visibility = View.GONE
                     return
                 }
             } else {
                 completePayment.isEnabled = false
                 showToast("Please enter a valid cash amount.")
                 Log.d("PaymentOptionsActivity", "Invalid cash amount entered.")
+                // Hide progress bar
+                progressBar.visibility = View.GONE
                 return
             }
         }
