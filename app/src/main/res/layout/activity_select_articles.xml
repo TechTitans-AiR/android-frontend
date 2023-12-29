@@ -43,10 +43,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_select_articles"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:layout_below="@+id/textView_title_select_articles"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="40dp"/>
 
     <!-- Added articles container -->
     <TextView
@@ -56,6 +55,7 @@
         android:layout_below="@+id/recyclerView_select_articles"
         android:layout_centerHorizontal="true"
         android:fontFamily="sans-serif-light"
+        android:layout_marginTop="40dp"
         android:text="Added articles"
         android:textColor="@color/red"
         android:textSize="18sp"
@@ -65,7 +65,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_added_articles"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:layout_below="@+id/textView_added_articles_title"
         android:layout_marginTop="5dp"/>
 
@@ -75,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/recyclerView_added_articles"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
         android:text="Continue with selecting services"
         android:textSize="16sp" />

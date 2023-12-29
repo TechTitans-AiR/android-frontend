@@ -39,10 +39,8 @@ class SelectUserActivity : AppCompatActivity() {
     private lateinit var recyclerViewSelectUser:RecyclerView
     private lateinit var selectUserAdapter:SelectUserAdapter
 
-    //which user is selected
-    /*private lateinit var recycleViewAddedUser: RecyclerView
+    private lateinit var recycleViewAddedUser: RecyclerView
     private lateinit var addedUserAdapter: AddedUserAdapter
-    */
 
     private var listSelectedUsers= mutableListOf<User>()
     private var listArticles= mutableListOf<Article>()
@@ -93,30 +91,36 @@ class SelectUserActivity : AppCompatActivity() {
             }
         }
 
-        //fecth mercants
+        //fetch merchants
         fetchMerchants()
 
         //initializing recycler view
         recyclerViewSelectUser = findViewById(R.id.recyclerView_select_users)
+        recycleViewAddedUser = findViewById(R.id.recyclerView_added_users)
 
         //for adapter Select user
         recyclerViewSelectUser.layoutManager = LinearLayoutManager(this)
         selectUserAdapter = SelectUserAdapter(emptyList()) { user ->
             //Adding selected service to list
             listSelectedUsers.add(user)
-
-            /*Updating the display of added articles
-            Log.d("Add user:", user.first_name)
             addedUserAdapter.updateData(listSelectedUsers)
-            */
 
             //Snackbar message
             showSnackbar("The user is added to the list of users.")
         }
 
+        recycleViewAddedUser.layoutManager = LinearLayoutManager(this)
+        addedUserAdapter = AddedUserAdapter(emptyList()) { position ->
+            // Remove selected user from the list
+            listSelectedUsers.removeAt(position)
+            addedUserAdapter.updateData(listSelectedUsers)
 
+            //Snackbar message
+            showSnackbar("The user is deleted from the list of users.")
+        }
 
-        recyclerViewSelectUser.adapter=selectUserAdapter
+        recyclerViewSelectUser.adapter = selectUserAdapter
+        recycleViewAddedUser.adapter = addedUserAdapter
 
         //go to next activity
         continueButton = findViewById(R.id.btn_continue_see_data)

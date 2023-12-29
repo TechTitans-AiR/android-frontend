@@ -18,7 +18,7 @@
     <string name="back_button">Back Button</string>
     <string name="all_collected_data">All collected data</string>
     <string name="name_of_catalog">Name of catalog</string>
-    <string name="create_the_catalog_item">Create the catalog item</string>
+    <string name="create_the_catalog_item">Create the catalog</string>
     <string name="write_here_the_name_of_catalog">Write here the name of catalog...</string>
-    <string name="all_collected_data_for_catalog_are">All collected data for catalog:</string>
+    <string name="all_collected_data_for_catalog_are">All collected data for the catalog:</string>
 </resources>

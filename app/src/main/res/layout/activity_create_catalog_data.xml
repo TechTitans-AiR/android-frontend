@@ -26,8 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_create_catalog"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="75dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="151dp"
         android:padding="5dp"
         android:text="@string/all_collected_data_for_catalog_are"
         android:textAlignment="center"
@@ -36,11 +36,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleView_all_collected_data_catalog"
-        android:layout_width="401dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
         android:layout_below="@+id/textView_collected_data"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="5dp"
         android:layout_marginBottom="20dp" />
 
