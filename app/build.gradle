@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.ttpay'
+    namespace 'hr.foi.techtitans.ttpay'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.ttpay"
+        applicationId "hr.foi.techtitans.ttpay"
         minSdk 24
         targetSdk 33
         versionCode 1

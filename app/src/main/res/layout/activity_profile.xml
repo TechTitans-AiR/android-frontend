@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".navigationBar.activity_navigationBar.ProfileActivity">
+    tools:context="hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.ProfileActivity">
 
     <ImageView
         android:id="@+id/imgView_back"

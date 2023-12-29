@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".products.activity_products.DetailsArticleActivity">
+    tools:context="hr.foi.techtitans.ttpay.products.activity_products.DetailsArticleActivity">
 
     <!-- back -->
     <ImageView

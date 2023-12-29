@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".catalogItemManagement.activity_catalogItemManagement.CatalogItemActivity">
+    tools:context="hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.CatalogItemActivity">
 
     <!-- Back button -->
     <ImageView

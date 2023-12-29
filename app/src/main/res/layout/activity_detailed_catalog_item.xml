@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".catalogItemManagement.activity_catalogItemManagement.DetailedCatalogItemActivity">
+    tools:context="hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.DetailedCatalogItemActivity">
 
     <!-- Linear Layout for Back Button and Catalog Name -->
     <LinearLayout

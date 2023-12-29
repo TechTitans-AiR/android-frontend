@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".transactions.activity_transactions.DetailedTransactionActivity">
+    tools:context="hr.foi.techtitans.ttpay.transactions.activity_transactions.DetailedTransactionActivity">
 
 <!-- Linear Layout for Back Button and Catalog Name -->
 <LinearLayout
