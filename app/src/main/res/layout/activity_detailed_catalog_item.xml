@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -23,7 +21,9 @@
             android:layout_height="28dp"
             android:clickable="true"
             android:contentDescription="Back Button"
-            android:src="@drawable/baseline_arrow_back"/>
+            android:src="@drawable/baseline_arrow_back"
+            android:focusable="true"
+            tools:ignore="HardcodedText" />
 
         <!-- Catalog Name TextView -->
         <TextView
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="sans-serif-light"
-            android:text="Catalog Name"
+            android:text="@string/catalog_name"
             android:textColor="@color/red"
             android:gravity="center"
             android:textSize="24sp"
@@ -74,7 +74,8 @@
                 android:layout_height="wrap_content"
                 android:text="Articles: "
                 android:textColor="@color/red"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/textView_articles"
@@ -95,7 +96,8 @@
                 android:layout_height="wrap_content"
                 android:text="Services: "
                 android:textColor="@color/red"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/textView_services"
@@ -116,7 +118,8 @@
                 android:layout_height="wrap_content"
                 android:text="Users: "
                 android:textColor="@color/red"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/textView_users"
@@ -137,7 +140,8 @@
                 android:layout_height="wrap_content"
                 android:text="Date Created: "
                 android:textColor="@color/red"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/textView_dateCreated"
@@ -158,7 +162,8 @@
                 android:layout_height="wrap_content"
                 android:text="Date Modified: "
                 android:textColor="@color/red"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/textView_dateModified"

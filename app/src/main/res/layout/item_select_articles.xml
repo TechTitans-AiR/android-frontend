@@ -45,7 +45,7 @@
                 android:id="@+id/textView_price_currency"
                 android:layout_width="200dp"
                 android:layout_height="30dp"
-                android:text="Price Currency"
+                android:text="@string/Price_currency"
                 android:textSize="14sp"
                 android:gravity="center"
                 android:layout_gravity="center_horizontal" />
@@ -56,6 +56,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|end"
-            android:text="Add" />
+            android:text="@string/Add" />
     </FrameLayout>
 </LinearLayout>

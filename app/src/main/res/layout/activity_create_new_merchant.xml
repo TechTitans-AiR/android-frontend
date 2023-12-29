@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,7 +14,9 @@
         android:layout_marginTop="16dp"
         android:clickable="true"
         android:contentDescription="Back Button"
-        android:src="@drawable/baseline_arrow_back" />
+        android:src="@drawable/baseline_arrow_back"
+        android:focusable="true"
+        tools:ignore="HardcodedText" />
 
     <!-- Title "Create new merchant" -->
 
@@ -30,7 +31,7 @@
         android:layout_marginTop="16dp"
         android:layout_toEndOf="@id/imgView_back"
         android:fontFamily="sans-serif-light"
-        android:text="Create new merchant"
+        android:text="@string/create_new_merchant"
         android:textColor="@color/red"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -52,22 +53,23 @@
                 android:id="@+id/textView_first_name_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="First Name"
+                android:text="@string/first_name"
                 android:layout_marginTop="8dp" />
 
             <EditText
                 android:id="@+id/editText_first_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter First Name"
+                android:hint="@string/enter_first_name"
                 android:inputType="text"
-                android:layout_below="@+id/textView_first_name_label" />
+                android:layout_below="@+id/textView_first_name_label"
+                android:importantForAutofill="no" />
 
             <TextView
                 android:id="@+id/textView_last_name_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Last Name"
+                android:text="@string/last_name"
                 android:layout_below="@+id/editText_first_name"
                 android:layout_marginTop="16dp" />
 
@@ -75,9 +77,10 @@
                 android:id="@+id/editText_last_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Last Name"
+                android:hint="@string/enter_last_name"
                 android:inputType="text"
-                android:layout_below="@+id/textView_last_name_label" />
+                android:layout_below="@+id/textView_last_name_label"
+                android:importantForAutofill="no" />
 
             <!-- Dodaj ostale TextView i EditText za ostale atribute -->
 
@@ -86,7 +89,7 @@
                 android:id="@+id/textView_date_of_birth_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date of Birth"
+                android:text="@string/date_of_birth"
                 android:layout_below="@+id/editText_last_name"
                 android:layout_marginTop="16dp" />
 
@@ -94,16 +97,17 @@
                 android:id="@+id/editText_date_of_birth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Date of Birth"
+                android:hint="@string/enter_date_of_birth"
                 android:inputType="date"
-                android:layout_below="@+id/textView_date_of_birth_label" />
+                android:layout_below="@+id/textView_date_of_birth_label"
+                android:importantForAutofill="no" />
 
             <!-- Address -->
             <TextView
                 android:id="@+id/textView_address_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Address"
+                android:text="@string/address"
                 android:layout_below="@+id/editText_date_of_birth"
                 android:layout_marginTop="16dp" />
 
@@ -111,16 +115,17 @@
                 android:id="@+id/editText_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Address"
+                android:hint="@string/enter_address"
                 android:inputType="text"
-                android:layout_below="@+id/textView_address_label" />
+                android:layout_below="@+id/textView_address_label"
+                android:importantForAutofill="no" />
 
             <!-- Phone -->
             <TextView
                 android:id="@+id/textView_phone_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phone"
+                android:text="@string/phone"
                 android:layout_below="@+id/editText_address"
                 android:layout_marginTop="16dp" />
 
@@ -128,16 +133,17 @@
                 android:id="@+id/editText_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Phone"
+                android:hint="@string/enter_phone"
                 android:inputType="phone"
-                android:layout_below="@+id/textView_phone_label" />
+                android:layout_below="@+id/textView_phone_label"
+                android:importantForAutofill="no" />
 
             <!-- Email -->
             <TextView
                 android:id="@+id/textView_email_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"
+                android:text="@string/email"
                 android:layout_below="@+id/editText_phone"
                 android:layout_marginTop="16dp" />
 
@@ -145,16 +151,17 @@
                 android:id="@+id/editText_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Email"
+                android:hint="@string/enter_email"
                 android:inputType="textEmailAddress"
-                android:layout_below="@+id/textView_email_label" />
+                android:layout_below="@+id/textView_email_label"
+                android:importantForAutofill="no" />
 
             <!-- Username -->
             <TextView
                 android:id="@+id/textView_username_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Username"
+                android:text="@string/username"
                 android:layout_below="@+id/editText_email"
                 android:layout_marginTop="16dp" />
 
@@ -162,16 +169,17 @@
                 android:id="@+id/editText_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Username"
+                android:hint="@string/enter_username"
                 android:inputType="text"
-                android:layout_below="@+id/textView_username_label" />
+                android:layout_below="@+id/textView_username_label"
+                android:importantForAutofill="no" />
 
             <!-- Password -->
             <TextView
                 android:id="@+id/textView_password_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Password"
+                android:text="@string/password"
                 android:layout_below="@+id/editText_username"
                 android:layout_marginTop="16dp" />
 
@@ -179,16 +187,17 @@
                 android:id="@+id/editText_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Password"
+                android:hint="@string/enter_password"
                 android:inputType="textPassword"
-                android:layout_below="@+id/textView_password_label" />
+                android:layout_below="@+id/textView_password_label"
+                android:importantForAutofill="no" />
 
             <!-- UserRole Spinner -->
             <TextView
                 android:id="@+id/textView_user_role_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Role"
+                android:text="@string/role"
                 android:layout_below="@+id/editText_password"
                 android:layout_marginTop="16dp" />
 
@@ -204,7 +213,7 @@
                 android:id="@+id/textView_user_status_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Status"
+                android:text="@string/status"
                 android:layout_below="@+id/spinner_user_role"
                 android:layout_marginTop="16dp" />
 
@@ -231,7 +240,7 @@
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="20dp"
         android:fontFamily="sans-serif-light"
-        android:text="Create merchant"
+        android:text="@string/create_merchant"
         android:textSize="16sp" />
 
     <!-- BottomNavigationView -->

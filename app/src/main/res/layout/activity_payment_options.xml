@@ -21,7 +21,8 @@
             android:id="@+id/radioCash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cash"/>
+            android:text="Cash"
+            tools:ignore="HardcodedText" />
 
         <!-- Bank Card radio button -->
         <RadioButton
@@ -29,7 +30,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bank Card"
-            android:layout_marginStart="16dp"/>
+            android:layout_marginStart="16dp"
+            tools:ignore="HardcodedText" />
     </RadioGroup>
 
     <!-- Amount input for "Cash" -->
@@ -39,7 +41,9 @@
         android:layout_height="wrap_content"
         android:hint="Enter Cash Amount"
         android:layout_below="@id/radioGroupPaymentOptions"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:importantForAutofill="no"
+        tools:ignore="HardcodedText,TextFields" />
 
     <!-- Amount input for "Cash" -->
     <EditText
@@ -48,7 +52,9 @@
         android:layout_height="wrap_content"
         android:hint="Enter description"
         android:layout_below="@id/edt_cash_amount"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:importantForAutofill="no"
+        tools:ignore="HardcodedText,TextFields" />
 
     <RelativeLayout
         android:id="@+id/rlCompletePayment"
@@ -61,7 +67,8 @@
             android:id="@+id/btn_complete_payment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="COMPLETE PAYMENT" />
+            android:text="COMPLETE PAYMENT"
+            tools:ignore="HardcodedText" />
 
         <ProgressBar
             android:id="@+id/progressBar"

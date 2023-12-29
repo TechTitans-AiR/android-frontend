@@ -14,7 +14,9 @@ tools:context="hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogIte
     android:layout_marginTop="16dp"
     android:clickable="true"
     android:contentDescription="Back Button"
-    android:src="@drawable/baseline_arrow_back" />
+    android:src="@drawable/baseline_arrow_back"
+    android:focusable="true"
+    tools:ignore="HardcodedText" />
 
 <!-- Title "All catalogs" -->
 <TextView
@@ -27,7 +29,8 @@ tools:context="hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogIte
     android:text="Catalog item without users"
     android:textColor="@color/red"
     android:textSize="24sp"
-    android:textStyle="bold" />
+    android:textStyle="bold"
+    tools:ignore="HardcodedText" />
 
 <!-- ProgressBar for loading -->
 <ProgressBar

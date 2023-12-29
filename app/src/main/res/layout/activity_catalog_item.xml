@@ -14,7 +14,9 @@
         android:layout_marginTop="16dp"
         android:clickable="true"
         android:contentDescription="Back Button"
-        android:src="@drawable/baseline_arrow_back" />
+        android:src="@drawable/baseline_arrow_back"
+        android:focusable="true"
+        tools:ignore="HardcodedText" />
 
     <!-- Title "Catalog Item" -->
     <TextView
@@ -27,7 +29,8 @@
         android:text="Catalog Item"
         android:textColor="@color/red"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
 
     <!-- TextView for displaying user's name and surname -->
     <TextView

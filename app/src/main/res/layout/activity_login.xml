@@ -21,7 +21,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -55,7 +56,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/editTextUsername"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
 
             <EditText
                 android:id="@+id/editTextUsername"
@@ -71,7 +73,9 @@
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/baselineCircleOverlap" />
+                app:layout_constraintTop_toBottomOf="@+id/baselineCircleOverlap"
+                android:importantForAutofill="no"
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:id="@+id/editTextPassword"
@@ -87,7 +91,9 @@
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextUsername" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextUsername"
+                android:importantForAutofill="no"
+                tools:ignore="HardcodedText" />
 
             <Button
                 android:id="@+id/btn_login_login_activity"
@@ -101,7 +107,8 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
+                tools:ignore="HardcodedText" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -120,7 +127,8 @@
                 android:layout_height="128dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="30dp"
-                android:src="@drawable/ttpay_logo_app" />
+                android:src="@drawable/ttpay_logo_app"
+                android:importantForAccessibility="no" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

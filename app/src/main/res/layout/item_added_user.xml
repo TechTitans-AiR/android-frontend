@@ -20,13 +20,15 @@
             android:background="@drawable/red_border_item"
             android:gravity="center"
             android:text="User Name"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/btn_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|end"
-            android:text="Delete" />
+            android:text="Delete"
+            tools:ignore="HardcodedText" />
     </FrameLayout>
 </LinearLayout>

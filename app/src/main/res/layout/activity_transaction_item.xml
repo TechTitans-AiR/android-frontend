@@ -14,7 +14,8 @@ tools:context="hr.foi.techtitans.ttpay.transactions.activity_transactions.Transa
     android:layout_marginTop="16dp"
     android:clickable="true"
     android:contentDescription="Back Button"
-    android:src="@drawable/baseline_arrow_back" />
+    android:src="@drawable/baseline_arrow_back"
+    tools:ignore="HardcodedText,KeyboardInaccessibleWidget" />
 
 <!-- Title "Catalog Item" -->
 <TextView
@@ -27,7 +28,8 @@ tools:context="hr.foi.techtitans.ttpay.transactions.activity_transactions.Transa
     android:text="Transaction Item"
     android:textColor="@color/red"
     android:textSize="24sp"
-    android:textStyle="bold" />
+    android:textStyle="bold"
+    tools:ignore="HardcodedText" />
 
     <!-- TextView for displaying user's name and surname -->
     <TextView

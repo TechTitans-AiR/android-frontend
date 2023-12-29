@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -14,7 +12,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:clickable="true"
-        android:contentDescription="Back Button"
+        android:contentDescription="@string/bb"
         android:focusable="true"
         android:src="@drawable/baseline_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
-        android:text="All Products"
+        android:text="@string/all_products"
         android:textColor="@color/red"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -45,7 +43,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_all_products_title"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp" />
+        android:layout_marginEnd="10dp"
+        android:importantForAccessibility="no" />
 
     <!-- ProgressBar for loading -->
     <ProgressBar
@@ -63,7 +62,7 @@
         android:id="@+id/tv_articles_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Articles"
+        android:text="@string/articles"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/img_plus_icon_products"
@@ -88,7 +87,7 @@
         android:id="@+id/tv_services_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Services"
+        android:text="@string/services"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/recyclerView_all_articles"

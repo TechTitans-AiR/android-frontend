@@ -14,7 +14,9 @@
         android:layout_marginTop="16dp"
         android:clickable="true"
         android:contentDescription="Back Button"
-        android:src="@drawable/baseline_arrow_back" />
+        android:src="@drawable/baseline_arrow_back"
+        android:focusable="true"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/textView_title_select_services"
@@ -28,7 +30,8 @@
         android:text="Select the services"
         android:textColor="@color/red"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
 
     <!-- RecyclerView for selecting articles -->
     <androidx.recyclerview.widget.RecyclerView
@@ -50,7 +53,8 @@
         android:layout_margin="40dp"
         android:textColor="@color/red"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
 
     <!-- RecyclerView for added articles -->
     <androidx.recyclerview.widget.RecyclerView
@@ -69,7 +73,8 @@
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:text="Continue with selecting users"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        tools:ignore="HardcodedText" />
 
     <!-- ProgressBar for loading -->
     <ProgressBar

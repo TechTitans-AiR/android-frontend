@@ -14,7 +14,9 @@
         android:layout_marginTop="16dp"
         android:clickable="true"
         android:contentDescription="Back Button"
-        android:src="@drawable/baseline_arrow_back" />
+        android:src="@drawable/baseline_arrow_back"
+        android:focusable="true"
+        tools:ignore="HardcodedText" />
 
     <!-- Title "Create catalog" -->
     <TextView
@@ -27,7 +29,8 @@
         android:text="Create catalog"
         android:textColor="@color/red"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="HardcodedText" />
 
     <!-- Text for steps to create catalog -->
     <LinearLayout
@@ -44,32 +47,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Follow steps to create catalog item:"
+            android:text="@string/follow_steps_to_create_catalog_item"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Choose the services you want to add to the catalog."
+            android:text="@string/choose_the_services_you_want_to_add_to_the_catalog"
             android:textSize="16sp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Choose the items you want to add to the catalog."
+            android:text="@string/choose_the_items_you_want_to_add_to_the_catalog"
             android:textSize="16sp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Choose the user(s) you want to assign the catalog to."
+            android:text="@string/choose_the_user_s_you_want_to_assign_the_catalog_to"
             android:textSize="16sp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="and ... The catalog is created!"
+            android:text="@string/and_the_catalog_is_created"
             android:textSize="16sp"/>
     </LinearLayout>
 
@@ -81,7 +84,7 @@
         android:layout_below="@+id/layout_steps"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
-        android:text="Start creating catalog"
+        android:text="@string/start_creating_catalog"
         android:textSize="18sp"/>
 
     <!-- BottomNavigationView -->
