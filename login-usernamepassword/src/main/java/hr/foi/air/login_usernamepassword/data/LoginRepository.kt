@@ -21,7 +21,7 @@ class LoginRepository(val dataSource: LoginDataSource) {
     fun callServerLogin(
         enteredUsername: String,
         enteredPassword: String,
-        callback: (Result<LoggedInUser>) -> Unit
+        callback: (LoginResult<LoggedInUser>) -> Unit
     ) {
         dataSource.callServerLogin(enteredUsername, enteredPassword, callback)
     }

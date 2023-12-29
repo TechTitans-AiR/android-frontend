@@ -5,12 +5,12 @@ import com.auth0.jwt.JWT
 import hr.foi.air.login_usernamepassword.data.model.LoggedInUser
 import hr.foi.air.login_usernamepassword.data.model.LoginRequestData
 import hr.foi.air.login_usernamepassword.data.model.LoginResponseData
+import hr.foi.air.login_usernamepassword.data.network.RetrofitClient
 import hr.foi.air.login_usernamepassword.data.service.LoginServiceUsernamePassword
-import hr.foi.techtitans.ttpay.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.IOException
+import retrofit2.Retrofit
 
 /**
  * Class that handles authentication w/ login credentials and retrieves user information.
@@ -23,7 +23,7 @@ class LoginDataSource {
     fun callServerLogin(
         enteredUsername: String,
         enteredPassword: String,
-        callback: (Result<LoggedInUser>) -> Unit
+        callback: (LoginResult<LoggedInUser>) -> Unit
     ) {
         val loginRequest = LoginRequestData(enteredUsername, enteredPassword)
 
@@ -53,15 +53,15 @@ class LoginDataSource {
                             role = role
                         )
 
-                        callback(Result.Success(loggedInUser))
+                        callback(LoginResult.Success(loggedInUser))
                     }
                 } else {
-                    callback(Result.Error(Exception("Invalid username or password")))
+                    callback(LoginResult.Error(Exception("Invalid username or password")))
                 }
             }
 
             override fun onFailure(call: Call<LoginResponseData>, t: Throwable) {
-                callback(Result.Error(Exception(t.message)))
+                callback(LoginResult.Error(Exception(t.message)))
             }
         })
     }
