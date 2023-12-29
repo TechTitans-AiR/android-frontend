@@ -18,6 +18,9 @@ import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.UserAda
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.transactions.model_transactions.Transaction
+import hr.foi.techtitans.ttpay.transactions.model_transactions.TransactionAdapter
+import hr.foi.techtitans.ttpay.transactions.network_transactions.ServiceTransactionManagement
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,19 +31,19 @@ class AllTransactionsActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
     private lateinit var userUsername: String
-    private val adapter = UserAdapter(emptyList()) { user ->
-        openTransactionItemActivity(user.id)
+    private val transactionAdapter = TransactionAdapter(emptyList()) { transaction ->
+        openDetailedTransactionActivity(transaction.id)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_transactions)
 
-        recyclerView = findViewById(R.id.recyclerView_all_users)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
-
         userUsername = intent.getStringExtra("username") ?: ""
+
+        recyclerView = findViewById(R.id.recyclerView_all_transactions)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = transactionAdapter
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, userUsername)
@@ -49,7 +52,7 @@ class AllTransactionsActivity : AppCompatActivity() {
 
         progressBar = findViewById(R.id.loadingProgressBar)
 
-        fetchUsers()
+        fetchTransactions()
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
@@ -64,34 +67,36 @@ class AllTransactionsActivity : AppCompatActivity() {
         val intent = Intent(this, CreateTransactionActivity::class.java)
         intent.putExtra("username", userUsername)
         startActivity(intent)
+        finish()
     }
 
-    private fun openTransactionItemActivity(userId: String?) {
-        val intent = Intent(this, TransactionItemActivity::class.java)
-        intent.putExtra("userId", userId)
+    private fun openDetailedTransactionActivity(transactionId: String?) {
+        val intent = Intent(this, DetailedTransactionActivity::class.java)
+        intent.putExtra("transactionId", transactionId)
         intent.putExtra("username", userUsername)
         startActivity(intent)
     }
 
-    private fun fetchUsers() {
+    private fun fetchTransactions() {
         showLoading()
-        val retrofit = RetrofitClient.getInstance(8080)//za account_management
-        val service = retrofit.create(ServiceAccountManagement::class.java)
-        val call = service.getUsers()
+        val retrofit = RetrofitClient.getInstance(8082)
+        val service = retrofit.create(ServiceTransactionManagement::class.java)
+        val call = service.getTransactions()
 
-        call.enqueue(object : Callback<List<User>> {
-            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+        call.enqueue(object : Callback<List<Transaction>> {
+            override fun onResponse(call: Call<List<Transaction>>, response: Response<List<Transaction>>) {
+                Log.d("AllTransactionsActivity", "Response code: ${response.code()}")
                 hideLoading()
                 if (response.isSuccessful) {
-                    val users = response.body() ?: emptyList()
-                    Log.d("AllTransactionsActivity", "Users fetched successfully: $users")
-                    adapter.updateData(users)
+                    val transactions = response.body() ?: emptyList()
+                    Log.d("AllTransactionsActivity", "Transactions fetched successfully: $transactions")
+                    transactionAdapter.updateData(transactions)
                 } else {
                     showErrorDialog()
                 }
             }
 
-            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Transaction>>, t: Throwable) {
                 hideLoading()
                 showErrorDialog()
             }
@@ -110,9 +115,9 @@ class AllTransactionsActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
 
         builder.setTitle("Error")
-            .setMessage("Error fetching data.")
+            .setMessage("Error fetching transactions.")
             .setPositiveButton("Retry") { _, _ ->
-                fetchUsers()
+                fetchTransactions()
             }
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
@@ -121,5 +126,4 @@ class AllTransactionsActivity : AppCompatActivity() {
         val dialog = builder.create()
         dialog.show()
     }
-
 }
