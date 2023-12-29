@@ -12,16 +12,14 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import com.example.ttpay.navigationBar.activities.AdminHomeActivity
 import com.example.ttpay.R
-import com.example.ttpay.model.NavigationHandler
-import com.example.ttpay.model.User
-import com.example.ttpay.model.UserRole
-import com.example.ttpay.model.UserStatus
+import com.example.ttpay.navigationBar.model_navigationBar.NavigationHandler
+import com.example.ttpay.accountManagement.model_accountManagement.UserRole
+import com.example.ttpay.accountManagement.model_accountManagement.UserStatus
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.time.LocalDate
 import com.example.ttpay.accountManagement.network_accountManagement.CreateUser
-import com.example.ttpay.model.newUser
+import com.example.ttpay.accountManagement.model_accountManagement.newUser
 
 class CreateNewMerchantActivity : AppCompatActivity() {
 

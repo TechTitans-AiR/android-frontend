@@ -18,13 +18,11 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.ttpay.R
 import com.example.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
-import com.example.ttpay.model.NavigationHandler
-import com.example.ttpay.model.User
-import com.example.ttpay.model.UserRole
-import com.example.ttpay.model.UserStatus
-import com.example.ttpay.model.newUser
-import com.example.ttpay.model.updateUser
-import com.example.ttpay.navigationBar.activities.AdminHomeActivity
+import com.example.ttpay.navigationBar.model_navigationBar.NavigationHandler
+import com.example.ttpay.accountManagement.model_accountManagement.User
+import com.example.ttpay.accountManagement.model_accountManagement.UserRole
+import com.example.ttpay.accountManagement.model_accountManagement.UserStatus
+import com.example.ttpay.accountManagement.model_accountManagement.updateUser
 import com.example.ttpay.network.RetrofitClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
@@ -53,7 +51,7 @@ class UpdateMerchantActivity : AppCompatActivity() {
     private lateinit var spinnerRole: Spinner
 
 
-    private var user: updateUser= updateUser("", "", "", "", "", null, null, null, "", null)
+    private var user: updateUser = updateUser("", "", "", "", "", null, null, null, "", null)
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,8 +103,8 @@ class UpdateMerchantActivity : AppCompatActivity() {
             UserStatus.blocked
         )
 
-        var oldRole:UserRole?=UserRole.merchant
-        var oldStatus:UserStatus?=UserStatus.active
+        var oldRole: UserRole?= UserRole.merchant
+        var oldStatus: UserStatus?= UserStatus.active
         var dateCreated=""
 
         //call endpoint for user details

@@ -1,9 +1,9 @@
 package com.example.ttpay.accountManagement.network_accountManagement
 
 import retrofit2.Call
-import com.example.ttpay.model.User
-import com.example.ttpay.model.newUser
-import com.example.ttpay.model.updateUser
+import com.example.ttpay.accountManagement.model_accountManagement.User
+import com.example.ttpay.accountManagement.model_accountManagement.newUser
+import com.example.ttpay.accountManagement.model_accountManagement.updateUser
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET

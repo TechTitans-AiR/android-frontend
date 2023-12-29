@@ -9,20 +9,18 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import com.example.ttpay.R
 import com.example.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
-import com.example.ttpay.model.NavigationHandler
-import com.example.ttpay.model.User
+import com.example.ttpay.navigationBar.model_navigationBar.NavigationHandler
+import com.example.ttpay.accountManagement.model_accountManagement.User
 import com.example.ttpay.network.RetrofitClient
-import com.example.ttpay.sellingItems.network_sellingItems.ServiceTransaction_SellingItems
-import com.example.ttpay.transactions.network_transactions.NewTransaction
-import com.example.ttpay.transactions.network_transactions.ShoppingCartItem
+import com.example.ttpay.transactions.model_transactions.NewTransaction
+import com.example.ttpay.transactions.model_transactions.ShoppingCartItem
+import com.example.ttpay.transactions.network_transactions.ServiceTransactionManagement
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.DecimalFormat
 
 class PaymentOptionsActivity : AppCompatActivity() {
 
@@ -150,7 +148,7 @@ class PaymentOptionsActivity : AppCompatActivity() {
 
     private fun sendTransactionToBackend(newTransaction: NewTransaction, cashAmount: Double) {
         val retrofit = RetrofitClient.getInstance(8082)
-        val service = retrofit.create(ServiceTransaction_SellingItems::class.java)
+        val service = retrofit.create(ServiceTransactionManagement::class.java)
 
         val call = service.createTransaction(newTransaction)
 

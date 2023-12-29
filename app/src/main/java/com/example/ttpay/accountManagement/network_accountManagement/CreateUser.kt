@@ -3,8 +3,7 @@ package com.example.ttpay.accountManagement.network_accountManagement
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
-import com.example.ttpay.model.User
-import com.example.ttpay.model.newUser
+import com.example.ttpay.accountManagement.model_accountManagement.newUser
 import com.example.ttpay.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback

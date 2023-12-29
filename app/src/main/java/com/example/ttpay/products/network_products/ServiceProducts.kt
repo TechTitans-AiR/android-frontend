@@ -1,7 +1,7 @@
 package com.example.ttpay.products.network_products
 
-import com.example.ttpay.model.Article
-import com.example.ttpay.model.Service
+import com.example.ttpay.products.model_products.Article
+import com.example.ttpay.products.model_products.Service
 import retrofit2.Call
 import retrofit2.http.DELETE
 import retrofit2.http.GET

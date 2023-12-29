@@ -13,11 +13,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.R
-import com.example.ttpay.model.Article
-import com.example.ttpay.model.NavigationHandler
-import com.example.ttpay.model.Service
-import com.example.ttpay.transactions.network_transactions.ShoppingCartItem
-import com.example.ttpay.model.ShoppingCartAdapter
+import com.example.ttpay.products.model_products.Article
+import com.example.ttpay.navigationBar.model_navigationBar.NavigationHandler
+import com.example.ttpay.products.model_products.Service
+import com.example.ttpay.transactions.model_transactions.ShoppingCartItem
+import com.example.ttpay.transactions.model_transactions.ShoppingCartAdapter
 import com.example.ttpay.network.RetrofitClient
 import com.example.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView

@@ -10,9 +10,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ttpay.R
-import com.example.ttpay.model.NavigationHandler
-import com.example.ttpay.model.TransactionSummaryAdapter
-import com.example.ttpay.transactions.network_transactions.ShoppingCartItem
+import com.example.ttpay.navigationBar.model_navigationBar.NavigationHandler
+import com.example.ttpay.transactions.model_transactions.TransactionSummaryAdapter
+import com.example.ttpay.transactions.model_transactions.ShoppingCartItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class TransactionSummaryActivity : AppCompatActivity() {

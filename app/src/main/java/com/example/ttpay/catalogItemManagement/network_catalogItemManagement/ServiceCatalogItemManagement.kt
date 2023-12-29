@@ -1,8 +1,7 @@
 package com.example.ttpay.catalogItemManagement.network_catalogItemManagement
 
-import com.example.ttpay.model.Catalog
-import com.example.ttpay.model.Service
-import com.example.ttpay.model.User
+import com.example.ttpay.catalogItemManagement.createCatalog.model_createCatalog.NewCatalog
+import com.example.ttpay.catalogItemManagement.model_catalogItemManagement.Catalog
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -17,7 +16,7 @@ interface ServiceCatalogItemManagement {
     fun getUserCatalogs(@Path("userId") userId: String): Call<List<Catalog>>
 
     @POST("/api/v1/catalogs/create")
-    fun createNewCatalogForUser(@Body new:NewCatalog):Call<NewCatalog>
+    fun createNewCatalogForUser(@Body new: NewCatalog):Call<NewCatalog>
 
     @GET("/api/v1/catalogs/{catalogId}")
     fun getCatalogDetails(@Path("catalogId") catalogId: String): Call<Catalog>

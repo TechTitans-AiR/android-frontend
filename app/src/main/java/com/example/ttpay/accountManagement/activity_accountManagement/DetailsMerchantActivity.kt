@@ -1,17 +1,14 @@
 package com.example.ttpay.accountManagement.activity_accountManagement
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ttpay.R
-import com.example.ttpay.model.NavigationHandler
-import com.example.ttpay.model.User
+import com.example.ttpay.navigationBar.model_navigationBar.NavigationHandler
+import com.example.ttpay.accountManagement.model_accountManagement.User
 import com.example.ttpay.network.RetrofitClient
 import com.example.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
-import com.example.ttpay.products.activity_products.AllProductsActivity
-import com.example.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback

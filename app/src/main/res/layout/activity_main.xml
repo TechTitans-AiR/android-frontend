@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".navigationBar.activities.MainActivity">
+    tools:context=".navigationBar.activity_navigationBar.MainActivity">
 
     <ImageView
         android:id="@+id/imgView_logo_app"

@@ -47,22 +47,22 @@
             android:name=".transactions.activity_transactions.AllTransactionsMerchantActivity"
             android:exported="false" />
         <activity
-            android:name=".navigationBar.activities.MerchantHomeActivity"
+            android:name=".navigationBar.activity_navigationBar.MerchantHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem.CreateCatalogDataActivity"
+            android:name=".catalogItemManagement.createCatalog.activity_createCatalog.CreateCatalogDataActivity"
             android:exported="false" />
         <activity
-            android:name=".catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem.SelectUserActivity"
+            android:name=".catalogItemManagement.createCatalog.activity_createCatalog.SelectUserActivity"
             android:exported="false" />
         <activity
-            android:name=".catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem.SelectArticlesActivity"
+            android:name=".catalogItemManagement.createCatalog.activity_createCatalog.SelectArticlesActivity"
             android:exported="false" />
         <activity
-            android:name=".catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem.SelectServicesActivity"
+            android:name=".catalogItemManagement.createCatalog.activity_createCatalog.SelectServicesActivity"
             android:exported="false" />
         <activity
-            android:name=".catalogItemManagement.activity_catalogItemManagement.activity_createCatalogItem.CreateCatalogItemActivity"
+            android:name=".catalogItemManagement.createCatalog.activity_createCatalog.CreateCatalogItemActivity"
             android:exported="false" />
         <activity
             android:name=".catalogItemManagement.activity_catalogItemManagement.CatalogItemActivity"
@@ -104,19 +104,19 @@
             android:name=".accountManagement.activity_accountManagement.AllMerchantsActivity"
             android:exported="false" />
         <activity
-            android:name=".navigationBar.activities.SettingsActivity"
+            android:name=".navigationBar.activity_navigationBar.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".navigationBar.activities.ProfileActivity"
+            android:name=".navigationBar.activity_navigationBar.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".navigationBar.activities.AdminHomeActivity"
+            android:name=".navigationBar.activity_navigationBar.AdminHomeActivity"
             android:exported="false" />
         <activity
-            android:name=".navigationBar.activities.LoginActivity"
+            android:name=".navigationBar.activity_navigationBar.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".navigationBar.activities.MainActivity"
+            android:name=".navigationBar.activity_navigationBar.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

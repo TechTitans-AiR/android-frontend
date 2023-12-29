@@ -1,6 +1,5 @@
 package com.example.ttpay.catalogItemManagement.activity_catalogItemManagement
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,12 +12,11 @@ import com.example.ttpay.R
 import com.example.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
 import com.example.ttpay.network.RetrofitClient
 import com.example.ttpay.catalogItemManagement.network_catalogItemManagement.ServiceCatalogItemManagement
-import com.example.ttpay.model.Article
-import com.example.ttpay.model.Catalog
-import com.example.ttpay.model.NavigationHandler
-import com.example.ttpay.model.Service
-import com.example.ttpay.model.User
-import com.example.ttpay.navigationBar.activities.AdminHomeActivity
+import com.example.ttpay.products.model_products.Article
+import com.example.ttpay.catalogItemManagement.model_catalogItemManagement.Catalog
+import com.example.ttpay.navigationBar.model_navigationBar.NavigationHandler
+import com.example.ttpay.products.model_products.Service
+import com.example.ttpay.accountManagement.model_accountManagement.User
 import com.example.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.json.JSONArray
