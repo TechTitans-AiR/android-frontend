@@ -17,7 +17,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ttpay_logo_app" />
+        app:srcCompat="@drawable/ttpay_logo_app"
+        android:importantForAccessibility="no" />
 
     <TextView
         android:id="@+id/txtView_developers"
@@ -30,36 +31,57 @@
         app:layout_constraintBottom_toBottomOf="@+id/imgView_logo_app"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.697"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="HardcodedText,SmallSp" />
 
     <ImageView
         android:id="@+id/imgView_paying"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintDimensionRatio="4:3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgView_logo_app"
-        app:srcCompat="@drawable/paying" />
+        app:srcCompat="@drawable/paying"
+        android:importantForAccessibility="no" />
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="53dp"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="60dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="15dp"
         android:fontFamily="sans-serif-light"
-        android:text="Login"
+        android:text="Login - Username and Password"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgView_paying"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="HardcodedText" />
 
+    <Button
+        android:id="@+id/btn_login2"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="60dp"
+        android:fontFamily="sans-serif-light"
+        android:text="Login - Fingertip"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgView_paying"
+        app:layout_constraintVertical_bias="0.594"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
