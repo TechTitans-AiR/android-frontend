@@ -1,6 +1,6 @@
 package hr.foi.techtitans.ttpay.login_username_password.data.service
 
-data class LoginResponse(
+data class LoginResponseData(
     val headers: Map<String, String>,
     val body: Body,
     val statusCode: String,
