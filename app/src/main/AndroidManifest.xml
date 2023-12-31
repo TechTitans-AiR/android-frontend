@@ -113,9 +113,7 @@
         <activity
             android:name="hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity"
             android:exported="false" />
-        <activity
-            android:name="hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.LoginActivity"
-            android:exported="false" />
+
         <activity
             android:name="hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MainActivity"
             android:exported="true">
