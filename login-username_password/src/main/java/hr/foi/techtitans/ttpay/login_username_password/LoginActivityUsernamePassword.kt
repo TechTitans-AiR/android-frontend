@@ -45,8 +45,6 @@ class LoginActivityUsernamePassword : AppCompatActivity() {
                     when (result) {
                         is LoginResult.Success -> {
                             val loggedInUser = result.data
-                            val role = loggedInUser.role
-                            val userUsername = loggedInUser.username
 
                             val resultIntent = Intent()
                             resultIntent.putExtra("loggedInUser", loggedInUser) // loggedInUser je objekt tipa LoggedInUser
