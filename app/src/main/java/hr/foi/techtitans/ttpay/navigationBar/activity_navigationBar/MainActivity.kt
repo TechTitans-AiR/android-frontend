@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import hr.foi.techtitans.ttpay.R
-import hr.foi.techtitans.ttpay.login_username_password.LoginActivityUsernamePassword
-import hr.foi.techtitans.ttpay.login_username_password.data.LoggedInUser
+import hr.foi.techtitans.ttpay.login_modular.activity_login.Login_UsernamePassword
+
 
 class MainActivity : AppCompatActivity() {
 
-    private val LOGIN_REQUEST_CODE = 123 // Bilo koji broj koji odgovara tvojim potrebama
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,9 +21,9 @@ class MainActivity : AppCompatActivity() {
 
 
         loginButtonUsernamePassword.setOnClickListener {
-            val loginIntent = Intent(this, LoginActivityUsernamePassword::class.java)
-            startActivityForResult(loginIntent, LOGIN_REQUEST_CODE)
-            val receivedUser: LoggedInUser? = intent.getParcelableExtra("loggedInUser")
+            val loginIntent = Intent(this, Login_UsernamePassword::class.java)
+            startActivity(loginIntent)
+            finish()
         }
         loginButtonFingertip.setOnClickListener{
             //TODO: intent for activity for fingertip
