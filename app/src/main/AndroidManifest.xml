@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="hr.foi.techtitans.ttpay"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="hr.foi.techtitans.ttpay">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -18,104 +18,106 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name="hr.foi.techtitans.ttpay.transactions.activity_transactions.DetailedTransactionActivity"
+            android:name=".navigationBar.activity_navigationBar.login_modular.Login_UsernamePassword"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.transactions.activity_transactions.TransactionItemActivity"
+            android:name=".transactions.activity_transactions.DetailedTransactionActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.CatalogItemWithoutUserActivity"
+            android:name=".transactions.activity_transactions.TransactionItemActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.DetailedCatalogItemActivity"
+            android:name=".catalogItemManagement.activity_catalogItemManagement.CatalogItemWithoutUserActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.transactions.activity_transactions.TransactionCompletionActivity"
+            android:name=".catalogItemManagement.activity_catalogItemManagement.DetailedCatalogItemActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.transactions.activity_transactions.PaymentOptionsActivity"
+            android:name=".transactions.activity_transactions.TransactionCompletionActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.transactions.activity_transactions.TransactionSummaryActivity"
+            android:name=".transactions.activity_transactions.PaymentOptionsActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.transactions.activity_transactions.CreateTransactionActivity"
+            android:name=".transactions.activity_transactions.TransactionSummaryActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.AllCatalogsMerchantActivity"
+            android:name=".transactions.activity_transactions.CreateTransactionActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.transactions.activity_transactions.AllTransactionsMerchantActivity"
+            android:name=".catalogItemManagement.activity_catalogItemManagement.AllCatalogsMerchantActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHomeActivity"
+            android:name=".transactions.activity_transactions.AllTransactionsMerchantActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.activity_createCatalog.CreateCatalogDataActivity"
+            android:name=".navigationBar.activity_navigationBar.MerchantHomeActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.activity_createCatalog.SelectUserActivity"
+            android:name=".catalogItemManagement.createCatalog.activity_createCatalog.CreateCatalogDataActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.activity_createCatalog.SelectArticlesActivity"
+            android:name=".catalogItemManagement.createCatalog.activity_createCatalog.SelectUserActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.activity_createCatalog.SelectServicesActivity"
+            android:name=".catalogItemManagement.createCatalog.activity_createCatalog.SelectArticlesActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.activity_createCatalog.CreateCatalogItemActivity"
+            android:name=".catalogItemManagement.createCatalog.activity_createCatalog.SelectServicesActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.CatalogItemActivity"
+            android:name=".catalogItemManagement.createCatalog.activity_createCatalog.CreateCatalogItemActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.AllCatalogsActivity"
+            android:name=".catalogItemManagement.activity_catalogItemManagement.CatalogItemActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.transactions.activity_transactions.AllTransactionsActivity"
+            android:name=".catalogItemManagement.activity_catalogItemManagement.AllCatalogsActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.products.activity_products.UpdateServiceActivity"
+            android:name=".transactions.activity_transactions.AllTransactionsActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.products.activity_products.DetailsServiceActivity"
+            android:name=".products.activity_products.UpdateServiceActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.products.activity_products.UpdateArticleActivity"
+            android:name=".products.activity_products.DetailsServiceActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.products.activity_products.DetailsArticleActivity"
+            android:name=".products.activity_products.UpdateArticleActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.accountManagement.activity_accountManagement.UpdateMerchantActivity"
+            android:name=".products.activity_products.DetailsArticleActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.accountManagement.activity_accountManagement.DetailsMerchantActivity"
+            android:name=".accountManagement.activity_accountManagement.UpdateMerchantActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.products.activity_products.CreateProductActivity"
+            android:name=".accountManagement.activity_accountManagement.DetailsMerchantActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.products.activity_products.AllProductsActivity"
+            android:name=".products.activity_products.CreateProductActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.accountManagement.activity_accountManagement.CreateNewMerchantActivity"
+            android:name=".products.activity_products.AllProductsActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.accountManagement.activity_accountManagement.AllMerchantsActivity"
+            android:name=".accountManagement.activity_accountManagement.CreateNewMerchantActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.SettingsActivity"
+            android:name=".accountManagement.activity_accountManagement.AllMerchantsActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.ProfileActivity"
+            android:name=".navigationBar.activity_navigationBar.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name="hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity"
+            android:name=".navigationBar.activity_navigationBar.ProfileActivity"
             android:exported="false" />
-
         <activity
-            android:name="hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MainActivity"
+            android:name=".navigationBar.activity_navigationBar.AdminHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".navigationBar.activity_navigationBar.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
