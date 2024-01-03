@@ -1,27 +1,36 @@
 package hr.foi.techtitans.ttpay.login_UsernamePassword
 
-import com.auth0.jwt.JWT
+
+import android.util.Log
+import hr.foi.techtitans.ttpay.login_UsernamePassword.data.service.LoginCallback
 import hr.foi.techtitans.ttpay.login_UsernamePassword.data.service.LoginRequestData
 import hr.foi.techtitans.ttpay.login_UsernamePassword.data.service.LoginResponseData
 import hr.foi.techtitans.ttpay.login_UsernamePassword.data.service.`LoginService-UserPass`
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoginCallback
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoginData
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoginHandler
-import hr.foi.techtitans.ttpay.network.RetrofitClient
+import hr.foi.techtitans.ttpay.login_UsernamePassword.data.service.Retrofit
+import org.json.JSONException
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class LoginHandlerUsernamePassword : LoginHandler {
+ class LoginHandlerUsernamePassword private constructor() {
 
-    private val loginService: `LoginService-UserPass` = RetrofitClient.getInstance(8080)
+    companion object {
+        @Volatile
+        private var instance: LoginHandlerUsernamePassword? = null
+
+        fun getInstance(): LoginHandlerUsernamePassword {
+            return instance ?: synchronized(this) {
+                instance ?: LoginHandlerUsernamePassword().also { instance = it }
+            }
+        }
+    }
+
+    private val loginService: `LoginService-UserPass` = Retrofit.getInstance(8080)
         .create(`LoginService-UserPass`::class.java)
 
-    override fun performLogin(loginDataOfUser: LoginData, callback: LoginCallback?) {
-        val enteredUsername = loginDataOfUser.username
-        val enteredPassword = loginDataOfUser.password
+
+     fun performLogin(enteredUsername: String,enteredPassword:String ,callback: LoginCallback?) {
 
         val loginRequest = LoginRequestData(enteredUsername, enteredPassword)
 
@@ -29,33 +38,31 @@ class LoginHandlerUsernamePassword : LoginHandler {
         loginService.login(loginRequest).enqueue(object : Callback<LoginResponseData> {
             override fun onResponse(call: Call<LoginResponseData>, response: Response<LoginResponseData>) {
                 if (response.isSuccessful) {
+                    Log.d("onResponse:", response.body().toString())
+
                     val responseBody = response.body()
                     responseBody?.let { loginResponse ->
-                        val token = loginResponse.body.token
+                        try {
+                            val token = responseBody.body.token
 
-                        val decodedJWT = JWT.decode(token)
+                            Log.d("Token: ", token)
 
-                        // getting role from JWT
-                        val role = decodedJWT.getClaim("role").asString()
-                        val userUsername = decodedJWT.getClaim("username").asString()
 
-                        // storing data from API
-                        val loggedInUser = LoggedInUser(
-                            username = userUsername,
-                            token = token,
-                            role = role
-                        )
+                            // Prikaz dekodiranog tijela tokena
+                            Log.d("Response body: ",responseBody.toString())
 
-                        //callback function onLoginSuccess from LoginHandler.kt
-                        callback?.onLoginSuccess(loggedInUser)
+
+                            callback?.onLoginSuccess(responseBody)
+                        } catch (e: JSONException) {
+                            e.printStackTrace()
+                        }
                     }
-                } else {
-                    //callback function onLoginFailure
-                    callback?.onLoginFailure("Invalid username or password")
+                }else {
+                        callback?.onLoginFailure("Invalid username or password")
+                    }
                 }
-            }
-
             override fun onFailure(call: Call<LoginResponseData>, t: Throwable) {
+                Log.d("onFailure:",call.toString())
                 //callback function onLoginFailure from LoginHandler.kt
                 callback?.onLoginFailure(t.message)
             }
