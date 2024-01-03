@@ -22,4 +22,6 @@
     <string name="write_here_the_name_of_catalog">Write here the name of catalog…</string>
     <string name="all_collected_data_for_catalog_are">All collected data for the catalog:</string>
     <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
 </resources>
