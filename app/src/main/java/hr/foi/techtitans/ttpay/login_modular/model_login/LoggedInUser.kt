@@ -1,4 +1,4 @@
-package hr.foi.techtitans.ttpay.login_username_password.data
+package hr.foi.techtitans.ttpay.login_modular.model_login
 
 import android.os.Parcel
 import android.os.Parcelable

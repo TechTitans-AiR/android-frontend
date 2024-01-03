@@ -1,4 +1,4 @@
-package hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.login_modular
+package hr.foi.techtitans.ttpay.login_modular.activity_login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
