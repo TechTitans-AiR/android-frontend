@@ -48,7 +48,7 @@ import retrofit2.Response
                             Log.d("Token: ", token)
 
 
-                            // Prikaz dekodiranog tijela tokena
+                            // decoded body of token
                             Log.d("Response body: ",responseBody.toString())
 
 
