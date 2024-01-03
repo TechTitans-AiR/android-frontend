@@ -2,11 +2,11 @@ package hr.foi.techtitans.ttpay.login_UsernamePassword
 
 
 import android.util.Log
-import hr.foi.techtitans.ttpay.login_UsernamePassword.data.service.LoginCallback
-import hr.foi.techtitans.ttpay.login_UsernamePassword.data.service.LoginRequestData
-import hr.foi.techtitans.ttpay.login_UsernamePassword.data.service.LoginResponseData
-import hr.foi.techtitans.ttpay.login_UsernamePassword.data.service.`LoginService-UserPass`
-import hr.foi.techtitans.ttpay.login_UsernamePassword.data.service.Retrofit
+import hr.foi.techtitans.ttpay.login_UsernamePassword.data.LoginCallback
+import hr.foi.techtitans.ttpay.login_UsernamePassword.data.LoginRequestData
+import hr.foi.techtitans.ttpay.login_UsernamePassword.data.LoginResponseData
+import hr.foi.techtitans.ttpay.login_UsernamePassword.service.`LoginService-UserPass`
+import hr.foi.techtitans.ttpay.login_UsernamePassword.service.Retrofit
 import org.json.JSONException
 import retrofit2.Call
 import retrofit2.Callback

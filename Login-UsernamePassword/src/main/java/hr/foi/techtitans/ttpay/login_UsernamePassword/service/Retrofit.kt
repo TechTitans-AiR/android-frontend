@@ -1,4 +1,4 @@
-package hr.foi.techtitans.ttpay.login_UsernamePassword.data.service
+package hr.foi.techtitans.ttpay.login_UsernamePassword.service
 
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit

@@ -1,4 +1,4 @@
-package hr.foi.techtitans.ttpay.login_UsernamePassword.data.service
+package hr.foi.techtitans.ttpay.login_UsernamePassword.data
 
 
 data class LoginResponseData(

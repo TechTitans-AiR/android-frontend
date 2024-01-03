@@ -13,14 +13,14 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.login_UsernamePassword.LoginHandlerUsernamePassword
-import hr.foi.techtitans.ttpay.login_UsernamePassword.data.service.LoginCallback
-import hr.foi.techtitans.ttpay.login_UsernamePassword.data.service.LoginResponseData
+import hr.foi.techtitans.ttpay.login_UsernamePassword.data.LoginCallback
+import hr.foi.techtitans.ttpay.login_UsernamePassword.data.LoginResponseData
 import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHomeActivity
 import org.json.JSONObject
 
-class Login_UsernamePassword : AppCompatActivity(),LoginCallback {
+class Login_UsernamePassword : AppCompatActivity(), LoginCallback {
 
     var loginHandler : LoginHandlerUsernamePassword = LoginHandlerUsernamePassword.getInstance()
     private lateinit var usernameEditText: EditText
@@ -112,7 +112,8 @@ class Login_UsernamePassword : AppCompatActivity(),LoginCallback {
 
     override fun onLoginFailure(errorMessage: String?) {
         hideProgressBar() // Hide the progress bar when the call fails
-        Toast.makeText(this@Login_UsernamePassword, "Login failed: ${errorMessage.toString()}", Toast.LENGTH_SHORT).show()
+        Log.d("Error message: ", errorMessage.toString())
+        Toast.makeText(this@Login_UsernamePassword, "Login failed!", Toast.LENGTH_SHORT).show()
     }
 
     private fun showProgressBar() {
