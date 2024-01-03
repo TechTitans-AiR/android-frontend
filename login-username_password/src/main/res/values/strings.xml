@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">Login-username_password</string>
-    <string name="login">Login</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-</resources>
