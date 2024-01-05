@@ -7,6 +7,7 @@ import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.updateU
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
@@ -27,4 +28,11 @@ interface ServiceAccountManagement {
 
     @PUT("/api/v1/users/update/{userID}")
     fun updateMerchantData(@Path("userID") userID: String, @Body updatedData: updateUser): Call<updateUser>
+
+    @PUT("/api/v1/users/userUpdate/{userId}")
+    fun updateUserProfile(
+        @Path("userId") userId: String,
+        @Header("Authorization") token: String,
+        @Body updatedFields: Map<String, String>
+    ): Call<Void>
 }

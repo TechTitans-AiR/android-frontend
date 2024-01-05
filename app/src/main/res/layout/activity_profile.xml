@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.ProfileActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.ProfileActivity">
 
-        <ImageView
-            android:id="@+id/imgView_back"
-            android:layout_width="40dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:clickable="true"
-            android:contentDescription="Back Button"
-            android:src="@drawable/baseline_arrow_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/imgView_back"
+        android:layout_width="40dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:contentDescription="Back Button"
+        android:src="@drawable/baseline_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView_title_details_merchant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:layout_toEndOf="@id/imgView_back"
-            android:fontFamily="sans-serif-light"
-            android:text="Profile"
-            android:textColor="@color/red"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.339"
-            app:layout_constraintStart_toEndOf="@+id/imgView_back"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/textView_title_details_merchant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@id/imgView_back"
+        android:fontFamily="sans-serif-light"
+        android:text="Profile"
+        android:textColor="@color/red"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.339"
+        app:layout_constraintStart_toEndOf="@+id/imgView_back"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- User icon, adjust image resource -->
+    <!-- User icon, adjust image resource -->
 
-        <!-- User's full name and role -->
+    <!-- User's full name and role -->
 
-        <!-- User details -->
+    <!-- User details -->
 
-        <ImageView
-            android:id="@+id/imgView_userIcon"
-            android:layout_width="120dp"
-            android:layout_height="138dp"
-            android:layout_gravity="top"
-            android:layout_marginTop="88dp"
-            android:src="@drawable/baseline_account_circle"
-            app:layout_constraintEnd_toStartOf="@+id/layout_userNameRole"
-            app:layout_constraintHorizontal_bias="0.666"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/imgView_userIcon"
+        android:layout_width="120dp"
+        android:layout_height="138dp"
+        android:layout_gravity="top"
+        android:layout_marginTop="88dp"
+        android:src="@drawable/baseline_account_circle"
+        app:layout_constraintEnd_toStartOf="@+id/layout_userNameRole"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/layout_userNameRole"
@@ -69,25 +69,27 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/textView_FirstName"
+            <EditText
+                android:id="@+id/editText_FirstName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text=""
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:hint="First Name"
+                android:inputType="text"
+                android:background="@android:color/transparent"
+                android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/textView_LastName"
+            <EditText
+                android:id="@+id/editText_LastName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text=""
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:hint="Last Name"
+                android:inputType="text"
+                android:background="@android:color/transparent"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <TextView
@@ -98,79 +100,88 @@
             android:textSize="18sp" />
     </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/layout_userDetailsText"
-            android:layout_width="384dp"
+    <LinearLayout
+        android:id="@+id/layout_userDetailsText"
+        android:layout_width="384dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="252dp"
+        android:orientation="vertical"
+        android:layout_above="@+id/bottom_navigation"
+        app:layout_constraintBottom_toTopOf="@+id/include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <!-- Continue adding EditText elements for other user details -->
+        <EditText
+            android:id="@+id/editText_dateOfBirth"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="252dp"
-            android:orientation="vertical"
-            android:layout_above="@+id/bottom_navigation"
-            app:layout_constraintBottom_toTopOf="@+id/include"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:hint="Date of Birth"
+            android:inputType="date"
+            android:background="@android:color/transparent"
+            android:textSize="18sp" />
 
-            <!-- Continue adding TextView elements for other user details -->
-            <TextView
-                android:id="@+id/textView_dateOfBirth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:textSize="18dp" />
+        <TextView
+            android:id="@+id/textView_dateCreated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp"/>
 
-            <TextView
-                android:id="@+id/textView_dateCreated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:textSize="18dp"/>
+        <TextView
+            android:id="@+id/textView_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp" />
 
-            <TextView
-                android:id="@+id/textView_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18dp"
-                android:layout_marginBottom="10dp" />
+        <TextView
+            android:id="@+id/textView_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp"/>
 
-            <TextView
-                android:id="@+id/textView_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:textSize="18dp"/>
+        <TextView
+            android:id="@+id/textView_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/textView_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:textSize="18dp" />
+        <EditText
+            android:id="@+id/editText_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="Phone"
+            android:inputType="phone"
+            android:background="@android:color/transparent"
+            android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/textView_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:textSize="18dp" />
+        <EditText
+            android:id="@+id/editText_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="Address"
+            android:inputType="text"
+            android:background="@android:color/transparent"
+            android:textSize="18sp"/>
 
-            <TextView
-                android:id="@+id/textView_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:textSize="18dp"/>
-
-            <TextView
-                android:id="@+id/textView_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:textSize="18dp"/>
-        </LinearLayout>
+        <TextView
+            android:id="@+id/textView_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp"/>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnEditData"
@@ -193,4 +204,4 @@
         app:layout_constraintTop_toBottomOf="@+id/layout_userDetailsText"
         app:layout_constraintVertical_bias="1.0" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
