@@ -41,6 +41,13 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var btnEditData: Button
     private var isEditMode = false
 
+    // Original values
+    private lateinit var originalFirstName: String
+    private lateinit var originalLastName: String
+    private lateinit var originalAddress: String
+    private lateinit var originalPhone: String
+    private lateinit var originalDateOfBirth: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
