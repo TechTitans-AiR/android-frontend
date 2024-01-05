@@ -70,14 +70,16 @@ class Login_UsernamePassword : AppCompatActivity(), LoginCallback {
                     // receiving data from JSON object
                     val role = jsonObject.getString("role")
                     val userUsername = jsonObject.getString("username")
-
+                    val userId = jsonObject.getString("userId")
 
                     Log.d("onLoginSuccess_Token", token)
                     Log.d("onLoginSuccess_Role", role)
                     Log.d("onLoginSuccess_Username", userUsername)
+                    Log.d("onLoginSuccess_UserId", userId)
 
                 // storing data od looged in user
                 val loggedInUser = LoggedInUser(
+                    userId = userId,
                     username = userUsername,
                     token = token,
                     role = role
