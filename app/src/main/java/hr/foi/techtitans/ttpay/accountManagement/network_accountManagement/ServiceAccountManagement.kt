@@ -1,6 +1,5 @@
 package hr.foi.techtitans.ttpay.accountManagement.network_accountManagement
 
-import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.UpdateUserProfileRequest
 import retrofit2.Call
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.newUser

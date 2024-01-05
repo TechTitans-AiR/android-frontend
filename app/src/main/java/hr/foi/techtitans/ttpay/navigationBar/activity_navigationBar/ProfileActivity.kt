@@ -13,7 +13,6 @@ import android.widget.Toast
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.UpdateUserProfileRequest
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 import hr.foi.techtitans.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
 import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
@@ -146,9 +145,6 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun saveChanges() {
-        // Implement logic to save changes to the server or perform necessary actions
-        // You may want to validate the changes before saving
-        // Display a toast message indicating that changes are saved
         // Log statement
         Log.d("ProfileActivity", "Entered saveChanges")
 
