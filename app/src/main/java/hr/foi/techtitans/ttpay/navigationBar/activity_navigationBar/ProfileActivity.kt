@@ -29,6 +29,17 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
+        txtViewFullName = findViewById(R.id.textView_fullName)
+        txtViewUserRole = findViewById(R.id.textView_userRole)
+        txtViewDateOfBirth = findViewById(R.id.textView_dateOfBirth)
+        txtViewDateCreated = findViewById(R.id.textView_dateCreated)
+        txtViewUsername = findViewById(R.id.textView_username)
+        txtViewPassword = findViewById(R.id.textView_password)
+        txtViewEmail = findViewById(R.id.textView_email)
+        txtViewPhone = findViewById(R.id.textView_phone)
+        txtViewAddress = findViewById(R.id.textView_address)
+        txtViewStatus = findViewById(R.id.textView_status)
+
         userUsername = intent.getStringExtra("username") ?: ""
 
         // BottomNavigationView
