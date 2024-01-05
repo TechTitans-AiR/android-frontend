@@ -179,6 +179,13 @@ class ProfileActivity : AppCompatActivity() {
             editTextPhone.setText(user.phone ?: "")
             editTextAddress.setText(user.address ?: "")
             txtViewStatus.text = "Status: ${user.userStatus?.name ?: ""}"
+
+            // Save original values for later comparison
+            originalFirstName = user.first_name
+            originalLastName = user.last_name
+            originalAddress = user.address ?: ""
+            originalPhone = user.phone ?: ""
+            originalDateOfBirth = user.date_of_birth ?: ""
         } else {
             // If user is null, set values in text views to empty string and display the toast message
             editTextFirstName.text.clear()
@@ -194,5 +201,32 @@ class ProfileActivity : AppCompatActivity() {
             txtViewStatus.text = ""
             Toast.makeText(this@ProfileActivity, "User details not available", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun collectUpdatedFields(): Map<String, String> {
+        val fieldsMap = mutableMapOf<String, String>()
+
+        if (isFieldChanged(editTextFirstName, originalFirstName)) {
+            fieldsMap["first_name"] = editTextFirstName.text.toString()
+        }
+        if (isFieldChanged(editTextLastName, originalLastName)) {
+            fieldsMap["last_name"] = editTextLastName.text.toString()
+        }
+        if (isFieldChanged(editTextPhone, originalPhone)) {
+            fieldsMap["phone"] = editTextPhone.text.toString()
+        }
+        if (isFieldChanged(editTextAddress, originalAddress)) {
+            fieldsMap["address"] = editTextAddress.text.toString()
+        }
+        if (isFieldChanged(editTextDateOfBirth, originalDateOfBirth)) {
+            fieldsMap["date_of_birth"] = editTextDateOfBirth.text.toString()
+        }
+
+        return fieldsMap
+    }
+
+    private fun isFieldChanged(editText: EditText, originalValue: String?): Boolean {
+        val currentValue = editText.text.toString()
+        return currentValue != originalValue
     }
 }
