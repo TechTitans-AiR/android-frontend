@@ -69,7 +69,7 @@ class DetailsMerchantActivity : AppCompatActivity() {
     }
 
     private fun fetchMerchantDetails() {
-        val retrofit = RetrofitClient.getInstance(8080)//za catalog_item_management
+        val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)
         val call = service.getUserDetails(userId)
 

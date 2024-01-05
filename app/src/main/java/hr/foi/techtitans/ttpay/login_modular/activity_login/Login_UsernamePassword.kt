@@ -89,6 +89,7 @@ class Login_UsernamePassword : AppCompatActivity(), LoginCallback {
                     "admin"-> {
                         val adminHomeIntent = Intent(this@Login_UsernamePassword, AdminHomeActivity::class.java)
                         adminHomeIntent.putExtra("username", loggedInUser.username)
+                        adminHomeIntent.putExtra("loggedInUser", loggedInUser)
                         Toast.makeText(this@Login_UsernamePassword, "You are Admin!", Toast.LENGTH_SHORT).show()
                         startActivity(adminHomeIntent)
                         finish()
@@ -96,6 +97,7 @@ class Login_UsernamePassword : AppCompatActivity(), LoginCallback {
                     "merchant"-> {
                         val merchantHome=Intent(this@Login_UsernamePassword, MerchantHomeActivity::class.java)
                         merchantHome.putExtra("username", userUsername)
+                        merchantHome.putExtra("loggedInUser", loggedInUser)
                         Toast.makeText(this@Login_UsernamePassword, "You are Merchant!", Toast.LENGTH_SHORT).show()
                         startActivity(merchantHome)
                         finish()
