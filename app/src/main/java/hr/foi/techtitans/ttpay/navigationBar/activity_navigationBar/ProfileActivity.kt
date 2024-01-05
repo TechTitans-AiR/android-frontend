@@ -3,6 +3,7 @@ package hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -23,7 +24,8 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
 
-    private lateinit var txtViewFullName: TextView
+    private lateinit var txtViewFirstName: TextView
+    private lateinit var txtViewLastName: TextView
     private lateinit var txtViewUserRole: TextView
     private lateinit var txtViewDateOfBirth: TextView
     private lateinit var txtViewDateCreated: TextView
@@ -34,11 +36,15 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var txtViewAddress: TextView
     private lateinit var txtViewStatus: TextView
 
+    private lateinit var btnEditData: Button
+    private var isEditMode = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-        txtViewFullName = findViewById(R.id.textView_fullName)
+        txtViewFirstName = findViewById(R.id.textView_FirstName)
+        txtViewLastName = findViewById(R.id.textView_LastName)
         txtViewUserRole = findViewById(R.id.textView_userRole)
         txtViewDateOfBirth = findViewById(R.id.textView_dateOfBirth)
         txtViewDateCreated = findViewById(R.id.textView_dateCreated)
@@ -67,6 +73,21 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        btnEditData = findViewById(R.id.btnEditData)
+        btnEditData.setOnClickListener {
+            toggleEditMode()
+        }
+    }
+
+    private fun toggleEditMode() {
+        isEditMode = !isEditMode
+
+        if (isEditMode) {
+            //mode for editing data
+        } else {
+            //mode for see updated info
+        }
     }
 
     private fun getUserDetails(userId: String) {
@@ -94,7 +115,8 @@ class ProfileActivity : AppCompatActivity() {
     private fun updateUserDetails(user: User?) {
         if (user != null) {
             // Update text views with user data
-            txtViewFullName.text = "${user.first_name} ${user.last_name}"
+            txtViewFirstName.text = user.first_name
+            txtViewLastName.text = user.last_name
             txtViewUserRole.text = user.userRole?.name ?: ""
             txtViewDateOfBirth.text = "Date of Birth: ${user.date_of_birth ?: ""}"
             txtViewDateCreated.text = "Date Created: ${user.date_created ?: ""}"
@@ -106,7 +128,8 @@ class ProfileActivity : AppCompatActivity() {
             txtViewStatus.text = "Status: ${user.userStatus?.name ?: ""}"
         } else {
             // If user is null, set values in text views to empty string and display the toast message
-            txtViewFullName.text = ""
+            txtViewFirstName.text = ""
+            txtViewLastName.text = ""
             txtViewUserRole.text = ""
             txtViewDateOfBirth.text = ""
             txtViewDateCreated.text = ""
