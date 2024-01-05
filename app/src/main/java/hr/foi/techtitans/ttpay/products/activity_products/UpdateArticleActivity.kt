@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import hr.foi.techtitans.ttpay.R
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 
 class UpdateArticleActivity : AppCompatActivity() {
 
     private lateinit var userUsername: String
+    private lateinit var loggedInUser: LoggedInUser
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_article)

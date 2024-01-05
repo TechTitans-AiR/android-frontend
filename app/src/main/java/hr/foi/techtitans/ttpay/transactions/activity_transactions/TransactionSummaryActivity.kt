@@ -14,10 +14,12 @@ import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandl
 import hr.foi.techtitans.ttpay.transactions.model_transactions.TransactionSummaryAdapter
 import hr.foi.techtitans.ttpay.transactions.model_transactions.ShoppingCartItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 
 class TransactionSummaryActivity : AppCompatActivity() {
 
     private lateinit var userUsername: String
+    private lateinit var loggedInUser: LoggedInUser
     private lateinit var shoppingCartItems: MutableList<ShoppingCartItem>
     private var totalAmount: Double = 0.0
     private lateinit var tv_total_amount_summary: TextView
@@ -28,6 +30,7 @@ class TransactionSummaryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transaction_summary)
 
+        loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
         shoppingCartItems =
             intent.getSerializableExtra("shoppingCartItems") as MutableList<ShoppingCartItem>
@@ -38,7 +41,7 @@ class TransactionSummaryActivity : AppCompatActivity() {
         Log.d("TransactionSummaryActivity", "onCreate: totalAmount: $totalAmount")
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this, userUsername)
+        navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 

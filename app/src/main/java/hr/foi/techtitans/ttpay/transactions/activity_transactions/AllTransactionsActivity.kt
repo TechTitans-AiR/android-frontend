@@ -18,6 +18,7 @@ import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.UserAda
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import hr.foi.techtitans.ttpay.transactions.model_transactions.Transaction
 import hr.foi.techtitans.ttpay.transactions.model_transactions.TransactionAdapter
 import hr.foi.techtitans.ttpay.transactions.network_transactions.ServiceTransactionManagement
@@ -31,6 +32,7 @@ class AllTransactionsActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
     private lateinit var userUsername: String
+    private lateinit var loggedInUser: LoggedInUser
     private val transactionAdapter = TransactionAdapter(emptyList()) { transaction ->
         openDetailedTransactionActivity(transaction.id)
     }
@@ -39,6 +41,7 @@ class AllTransactionsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_transactions)
 
+        loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
 
         recyclerView = findViewById(R.id.recyclerView_all_transactions)
@@ -46,7 +49,7 @@ class AllTransactionsActivity : AppCompatActivity() {
         recyclerView.adapter = transactionAdapter
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this, userUsername)
+        navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 

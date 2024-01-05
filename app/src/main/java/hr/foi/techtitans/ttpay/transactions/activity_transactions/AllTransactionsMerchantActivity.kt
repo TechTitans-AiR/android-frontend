@@ -20,6 +20,7 @@ import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHome
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.transactions.network_transactions.ServiceTransactionManagement
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,6 +31,7 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
 
     private lateinit var userUsername: String
+    private lateinit var loggedInUser: LoggedInUser
 
     private lateinit var userId: String
 
@@ -40,11 +42,12 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_transactions_merchant)
 
+        loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
         Log.d("MerchantHomeActivity", "User username: $userUsername")
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this, userUsername)
+        navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 

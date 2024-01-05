@@ -52,6 +52,8 @@ class ProfileActivity : AppCompatActivity() {
         userUsername = intent.getStringExtra("username") ?: ""
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
 
+        getUserDetails(loggedInUser.userId)
+
         // BottomNavigationView
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, loggedInUser)
@@ -77,6 +79,7 @@ class ProfileActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val user = response.body()
                     // Set user data into text views
+                    updateUserDetails(user)
                 } else {
                     Toast.makeText(this@ProfileActivity, "Failed to retrieve user details", Toast.LENGTH_SHORT).show()
                 }
@@ -86,5 +89,34 @@ class ProfileActivity : AppCompatActivity() {
                 Toast.makeText(this@ProfileActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun updateUserDetails(user: User?) {
+        if (user != null) {
+            // Update text views with user data
+            txtViewFullName.text = "${user.first_name} ${user.last_name}"
+            txtViewUserRole.text = user.userRole?.name ?: ""
+            txtViewDateOfBirth.text = "Date of Birth: ${user.date_of_birth ?: ""}"
+            txtViewDateCreated.text = "Date Created: ${user.date_created ?: ""}"
+            txtViewUsername.text = "Username: ${user.username}"
+            txtViewPassword.text = "Password: ${user.password}"
+            txtViewEmail.text = "Email: ${user.email}"
+            txtViewPhone.text = "Phone: ${user.phone ?: ""}"
+            txtViewAddress.text = "Address: ${user.address ?: ""}"
+            txtViewStatus.text = "Status: ${user.userStatus?.name ?: ""}"
+        } else {
+            // If user is null, set values in text views to empty string and display the toast message
+            txtViewFullName.text = ""
+            txtViewUserRole.text = ""
+            txtViewDateOfBirth.text = ""
+            txtViewDateCreated.text = ""
+            txtViewUsername.text = ""
+            txtViewPassword.text = ""
+            txtViewEmail.text = ""
+            txtViewPhone.text = ""
+            txtViewAddress.text = ""
+            txtViewStatus.text = ""
+            Toast.makeText(this@ProfileActivity, "User details not available", Toast.LENGTH_SHORT).show()
+        }
     }
 }

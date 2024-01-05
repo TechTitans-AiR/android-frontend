@@ -23,6 +23,7 @@ import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.UserAdapter
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 
 @Suppress("DEPRECATION")
 class CreateCatalogDataActivity : AppCompatActivity() {
@@ -31,6 +32,7 @@ class CreateCatalogDataActivity : AppCompatActivity() {
     private lateinit var createButton: Button
     private lateinit var imgBack: ImageView
     private lateinit var userUsername: String
+    private lateinit var loggedInUser: LoggedInUser
 
 
     //adapters
@@ -50,10 +52,11 @@ class CreateCatalogDataActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_catalog_data)
 
+        loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this, userUsername)
+        navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 

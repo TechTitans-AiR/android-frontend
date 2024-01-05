@@ -20,6 +20,7 @@ import androidx.appcompat.app.AlertDialog
 import hr.foi.techtitans.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
 import hr.foi.techtitans.ttpay.transactions.model_transactions.Transaction
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,6 +35,7 @@ class TransactionItemActivity : AppCompatActivity() {
     private lateinit var adapter: TransactionAdapter
     private lateinit var textViewUserName: TextView
     private lateinit var userUsername: String
+    private lateinit var loggedInUser: LoggedInUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,10 +46,11 @@ class TransactionItemActivity : AppCompatActivity() {
 
         transactionId = intent.getStringExtra("transactionId") ?: ""
 
+        loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this, userUsername)
+        navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
