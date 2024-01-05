@@ -19,28 +19,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:id="@+id/textView_title_details_merchant"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="173dp"
+        android:layout_height="34dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:layout_toEndOf="@id/imgView_back"
         android:fontFamily="sans-serif-light"
-        android:text="Profile"
+        android:text="User profile"
+        android:textAlignment="center"
         android:textColor="@color/red"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.339"
+        app:layout_constraintHorizontal_bias="0.346"
         app:layout_constraintStart_toEndOf="@+id/imgView_back"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- User icon, adjust image resource -->
-
-    <!-- User's full name and role -->
-
-    <!-- User details -->
 
     <ImageView
         android:id="@+id/imgView_userIcon"
@@ -58,7 +54,7 @@
         android:id="@+id/layout_userNameRole"
         android:layout_width="264dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="120dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgView_userIcon"
@@ -69,6 +65,15 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/textView_FirstName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="First Name:"
+                android:textSize="15sp" />
+
             <EditText
                 android:id="@+id/editText_FirstName"
                 android:layout_width="0dp"
@@ -78,7 +83,23 @@
                 android:hint="First Name"
                 android:inputType="text"
                 android:background="@android:color/transparent"
-                android:textSize="18sp" />
+                android:textSize="15sp"
+                android:enabled="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView_LastName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Last Name:"
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/editText_LastName"
@@ -89,15 +110,35 @@
                 android:hint="Last Name"
                 android:inputType="text"
                 android:background="@android:color/transparent"
-                android:textSize="18sp" />
+                android:textSize="15sp"
+                android:enabled="false" />
         </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <TextView
             android:id="@+id/textView_userRole"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
-            android:textSize="18sp" />
+            android:text="User role:"
+            android:textSize="15sp" />
+        <EditText
+            android:id="@+id/editText_userRole"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:hint="User role"
+            android:inputType="text"
+            android:background="@android:color/transparent"
+            android:textSize="15sp"
+            android:enabled="false" />
+    </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -115,83 +156,273 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-        <!-- Continue adding EditText elements for other user details -->
-        <EditText
-            android:id="@+id/editText_dateOfBirth"
+        <!-- Continue adding TextView and EditText elements for other user details -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:hint="Date of Birth"
-            android:inputType="date"
-            android:background="@android:color/transparent"
-            android:textSize="18sp" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView_dateCreated"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/textView_dateOfBirth"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Date of Birth:"
+                android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/textView_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_marginBottom="10dp" />
+            <EditText
+                android:id="@+id/editText_dateOfBirth"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="Date of Birth"
+                android:inputType="date"
+                android:background="@android:color/transparent"
+                android:textSize="15sp"
+                android:enabled="false" />
 
-        <TextView
-            android:id="@+id/textView_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="18sp"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="18sp" />
-
-        <EditText
-            android:id="@+id/editText_phone"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:hint="Phone"
-            android:inputType="phone"
-            android:background="@android:color/transparent"
-            android:textSize="18sp" />
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/editText_address"
+            <TextView
+                android:id="@+id/textView_dateCreated"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Date Created:"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/editText_dateCreated"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="Date Created"
+                android:inputType="date"
+                android:background="@android:color/transparent"
+                android:textSize="15sp"
+                android:enabled="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:hint="Address"
-            android:inputType="text"
-            android:background="@android:color/transparent"
-            android:textSize="18sp"/>
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView_status"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/textView_dateModified"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Date Modified:"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/editText_dateModified"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="Date Modified"
+                android:inputType="date"
+                android:background="@android:color/transparent"
+                android:textSize="15sp"
+                android:enabled="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="18sp"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView_username"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Username:"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/editText_username"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="Username"
+                android:inputType="date"
+                android:background="@android:color/transparent"
+                android:textSize="15sp"
+                android:enabled="false" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Password:"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/editText_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="Password"
+                android:inputType="date"
+                android:background="@android:color/transparent"
+                android:textSize="15sp"
+                android:enabled="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Email:"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/editText_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="Email"
+                android:inputType="date"
+                android:background="@android:color/transparent"
+                android:textSize="15sp"
+                android:enabled="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Phone"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/editText_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="Phone"
+                android:inputType="phone"
+                android:background="@android:color/transparent"
+                android:textSize="15sp"
+                android:enabled="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Address"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/editText_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="Address"
+                android:inputType="text"
+                android:background="@android:color/transparent"
+                android:textSize="15sp"
+                android:enabled="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Status:"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/editText_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="Status"
+                android:inputType="date"
+                android:background="@android:color/transparent"
+                android:textSize="15sp"
+                android:enabled="false" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <Button
         android:id="@+id/btnEditData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_width="168dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="64dp"
         android:layout_marginBottom="16dp"
         android:text="Edit data"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_userDetailsText" />
 
     <include
