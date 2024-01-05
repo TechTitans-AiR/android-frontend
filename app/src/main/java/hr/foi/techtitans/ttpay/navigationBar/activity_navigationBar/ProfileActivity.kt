@@ -12,6 +12,7 @@ import android.widget.Toast
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.UpdateUserProfileRequest
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 import hr.foi.techtitans.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
 import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
@@ -141,6 +142,10 @@ class ProfileActivity : AppCompatActivity() {
         // You may want to validate the changes before saving
         // Display a toast message indicating that changes are saved
         Toast.makeText(this, "Changes Saved", Toast.LENGTH_SHORT).show()
+
+        // Collect and send updated fields to the server
+        val updatedFields = collectUpdatedFields()
+        updateUserProfile(loggedInUser.userId, updatedFields, loggedInUser.token)
     }
 
     private fun getUserDetails(userId: String) {
@@ -228,5 +233,29 @@ class ProfileActivity : AppCompatActivity() {
     private fun isFieldChanged(editText: EditText, originalValue: String?): Boolean {
         val currentValue = editText.text.toString()
         return currentValue != originalValue
+    }
+
+    private fun updateUserProfile(userId: String, updatedFields: Map<String, String>, token: String) {
+        val retrofit = RetrofitClient.getInstance(8080)
+        val service = retrofit.create(ServiceAccountManagement::class.java)
+
+        val requestBody = UpdateUserProfileRequest(updatedFields)
+        val call = service.updateUserProfile(userId, token, requestBody)
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    // Handle successful update
+                    Toast.makeText(this@ProfileActivity, "Profile updated successfully", Toast.LENGTH_SHORT).show()
+                } else {
+                    // Handle update failure
+                    Toast.makeText(this@ProfileActivity, "Failed to update profile", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                // Handle network errors or other failures
+                Toast.makeText(this@ProfileActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }
