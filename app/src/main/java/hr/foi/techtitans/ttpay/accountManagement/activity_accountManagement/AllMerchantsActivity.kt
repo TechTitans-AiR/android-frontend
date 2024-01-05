@@ -71,7 +71,7 @@ class AllMerchantsActivity : AppCompatActivity() {
     // Fetching all users
     private fun fetchMerchants() {
         showLoading()
-        val retrofit = RetrofitClient.getInstance(8080)//za account_management
+        val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)
         val call = service.getUsers()
 
@@ -87,7 +87,6 @@ class AllMerchantsActivity : AppCompatActivity() {
                         showErrorDialog()
                     }
                 } catch (e: Exception) {
-                    // Uhvati i obradi iznimku ako se dogodi
                     e.printStackTrace()
                     showErrorDialog()
                 }
@@ -98,7 +97,6 @@ class AllMerchantsActivity : AppCompatActivity() {
                 try {
                     showErrorDialog()
                 } catch (e: Exception) {
-                    // Uhvati i obradi iznimku ako se dogodi
                     e.printStackTrace()
                     showErrorDialog()
                 }
