@@ -3,6 +3,7 @@ package hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -80,6 +81,7 @@ class ProfileActivity : AppCompatActivity() {
         btnBack.setOnClickListener {
             val intent = Intent(this, AdminHomeActivity::class.java)
             intent.putExtra("username", userUsername)
+            intent.putExtra("loggedInUser", loggedInUser)
             startActivity(intent)
             finish()
         }
@@ -117,6 +119,9 @@ class ProfileActivity : AppCompatActivity() {
 
         // Change button text
         btnEditData.text = "Save Changes"
+
+        // Log statement
+        Log.d("ProfileActivity", "Entered enableEditMode")
     }
 
     private fun disableEditMode() {
@@ -135,17 +140,27 @@ class ProfileActivity : AppCompatActivity() {
 
         // Change button text
         btnEditData.text = "Edit Data"
+
+        // Log statement
+        Log.d("ProfileActivity", "Entered disableEditMode")
     }
 
     private fun saveChanges() {
         // Implement logic to save changes to the server or perform necessary actions
         // You may want to validate the changes before saving
         // Display a toast message indicating that changes are saved
+        // Log statement
+        Log.d("ProfileActivity", "Entered saveChanges")
+
         Toast.makeText(this, "Changes Saved", Toast.LENGTH_SHORT).show()
 
-        // Collect and send updated fields to the server
+        // Collect and send only updated fields to the server
         val updatedFields = collectUpdatedFields()
-        updateUserProfile(loggedInUser.userId, updatedFields, loggedInUser.token)
+
+        // Check if there are any changes before making the API call
+        if (updatedFields.isNotEmpty()) {
+            updateUserProfile(loggedInUser.userId, updatedFields, loggedInUser.token)
+        }
     }
 
     private fun getUserDetails(userId: String) {
@@ -239,21 +254,23 @@ class ProfileActivity : AppCompatActivity() {
         val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)
 
-        val requestBody = UpdateUserProfileRequest(updatedFields)
-        val call = service.updateUserProfile(userId, token, requestBody)
+        val call = service.updateUserProfile(userId, "Bearer $token", updatedFields)
+        Log.d("ProfileActivity", "User ID: $userId, Token: $token, Updated Fields: $updatedFields")
+
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                Log.d("ProfileActivity", "Response code: ${response.code()}")
                 if (response.isSuccessful) {
-                    // Handle successful update
+                    Log.d("ProfileActivity", "Profile updated successfully")
                     Toast.makeText(this@ProfileActivity, "Profile updated successfully", Toast.LENGTH_SHORT).show()
                 } else {
-                    // Handle update failure
+                    Log.e("ProfileActivity", "Failed to update profile. Response code: ${response.code()}")
                     Toast.makeText(this@ProfileActivity, "Failed to update profile", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                // Handle network errors or other failures
+                Log.e("ProfileActivity", "Update profile failed: ${t.message}", t)
                 Toast.makeText(this@ProfileActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })

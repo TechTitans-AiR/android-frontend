@@ -34,6 +34,6 @@ interface ServiceAccountManagement {
     fun updateUserProfile(
         @Path("userId") userId: String,
         @Header("Authorization") token: String,
-        @Body requestBody: UpdateUserProfileRequest
+        @Body updatedFields: Map<String, String>
     ): Call<Void>
 }
