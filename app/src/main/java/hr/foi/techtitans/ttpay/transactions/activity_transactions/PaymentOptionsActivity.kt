@@ -19,6 +19,7 @@ import hr.foi.techtitans.ttpay.transactions.model_transactions.NewTransaction
 import hr.foi.techtitans.ttpay.transactions.model_transactions.ShoppingCartItem
 import hr.foi.techtitans.ttpay.transactions.network_transactions.ServiceTransactionManagement
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,6 +27,7 @@ import retrofit2.Response
 class PaymentOptionsActivity : AppCompatActivity() {
 
     private lateinit var userUsername: String
+    private lateinit var loggedInUser: LoggedInUser
     private lateinit var shoppingCartItems: MutableList<ShoppingCartItem>
     private var totalAmount: Double = 0.0
     private lateinit var navigationHandler: NavigationHandler
@@ -40,6 +42,7 @@ class PaymentOptionsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment_options)
 
+        loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
         shoppingCartItems =
             intent.getSerializableExtra("shoppingCartItems") as MutableList<ShoppingCartItem>
@@ -50,7 +53,7 @@ class PaymentOptionsActivity : AppCompatActivity() {
         Log.d("PaymentOptionsActivity", "onCreate: totalAmount: $totalAmount")
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this, userUsername)
+        navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 

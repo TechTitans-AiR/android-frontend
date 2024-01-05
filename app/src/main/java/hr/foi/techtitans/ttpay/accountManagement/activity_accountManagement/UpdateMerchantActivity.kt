@@ -25,6 +25,7 @@ import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.UserSta
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.updateUser
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,6 +36,7 @@ class UpdateMerchantActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var userUsername: String
+    private lateinit var loggedInUser: LoggedInUser
     private lateinit var userID: String
 
 
@@ -59,11 +61,12 @@ class UpdateMerchantActivity : AppCompatActivity() {
         setContentView(R.layout.activity_update_merchant)
 
 
+        loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
 
         // BottomNavigationView
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this, userUsername)
+        navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
 
         val btnBack: ImageView = findViewById(R.id.imgView_back)

@@ -17,6 +17,7 @@ import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,15 +28,17 @@ class CatalogItemWithoutUserActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var userUsername: String
+    private lateinit var loggedInUser: LoggedInUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog_item_without_user)
 
+        loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this, userUsername)
+        navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 

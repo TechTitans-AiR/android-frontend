@@ -19,6 +19,7 @@ import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement
 import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.CatalogAdapter
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,6 +28,7 @@ class AllCatalogsActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var userUsername: String
+    private lateinit var loggedInUser: LoggedInUser
     private val catalogAdapter = CatalogAdapter(emptyList()) { catalog ->
         openDetailedCatalogItemActivity(catalog.id)
     }
@@ -36,6 +38,7 @@ class AllCatalogsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_catalogs)
 
+        loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
 
         recyclerView = findViewById(R.id.recyclerView_all_catalogs)
@@ -43,7 +46,7 @@ class AllCatalogsActivity : AppCompatActivity() {
         recyclerView.adapter = catalogAdapter
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this, userUsername)
+        navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 

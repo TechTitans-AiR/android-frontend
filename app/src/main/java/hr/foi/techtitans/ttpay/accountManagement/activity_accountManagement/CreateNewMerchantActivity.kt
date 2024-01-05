@@ -20,22 +20,25 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.time.LocalDate
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.CreateUser
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.newUser
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 
 class CreateNewMerchantActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var userUsername: String
+    private lateinit var loggedInUser: LoggedInUser
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_new_merchant)
 
+        loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
 
         // BottomNavigationView
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this, userUsername)
+        navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
 
         val btnBack: ImageView = findViewById(R.id.imgView_back)

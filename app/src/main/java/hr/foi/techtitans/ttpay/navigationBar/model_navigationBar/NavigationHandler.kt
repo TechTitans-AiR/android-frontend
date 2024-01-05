@@ -9,8 +9,9 @@ import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.ProfileActiv
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.SettingsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 
-class NavigationHandler(private val activity: AppCompatActivity, private val userUsername: String) {
+class NavigationHandler(private val activity: AppCompatActivity, private val loggedInUser: LoggedInUser) {
 
     private lateinit var bottomNavigationView: BottomNavigationView
 
@@ -32,7 +33,7 @@ class NavigationHandler(private val activity: AppCompatActivity, private val use
     private fun navigateToActivity(targetActivity: Class<*>) {
         if (!isCurrentActivity(targetActivity)) {
             val intent = Intent(activity, targetActivity)
-            intent.putExtra("username", userUsername)
+            intent.putExtra("loggedInUser", loggedInUser)
             activity.startActivity(intent)
             highlightSelectedItem()
         }

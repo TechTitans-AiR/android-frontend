@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class LoggedInUser(
+    val userId: String,
     val username :String,
     val token: String,
     val role:String
@@ -11,10 +12,12 @@ data class LoggedInUser(
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
+        parcel.readString() ?: "",
         parcel.readString() ?: ""
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(userId)
         parcel.writeString(username)
         parcel.writeString(token)
         parcel.writeString(role)

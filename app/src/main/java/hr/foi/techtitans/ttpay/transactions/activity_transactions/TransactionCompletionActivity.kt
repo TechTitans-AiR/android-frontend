@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import hr.foi.techtitans.ttpay.R
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 
 class TransactionCompletionActivity : AppCompatActivity() {
 
     private lateinit var userUsername: String
+    private lateinit var loggedInUser: LoggedInUser
     private var totalAmount: Double = 0.0
     private var differenceAmount: Double = 0.0
 
@@ -16,6 +18,7 @@ class TransactionCompletionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transaction_completion)
 
+        loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
         totalAmount = intent.getDoubleExtra("totalAmount", 0.0)
         differenceAmount = intent.getDoubleExtra("differenceAmount", 0.0)

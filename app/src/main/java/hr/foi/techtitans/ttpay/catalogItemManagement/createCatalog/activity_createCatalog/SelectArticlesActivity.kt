@@ -23,6 +23,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.google.android.material.snackbar.Snackbar
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 
 
 class SelectArticlesActivity : AppCompatActivity() {
@@ -41,18 +42,20 @@ class SelectArticlesActivity : AppCompatActivity() {
     private val articles = mutableListOf<Article>()//article list
 
     private lateinit var userUsername: String
+    private lateinit var loggedInUser: LoggedInUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_articles)
 
+        loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
 
         recyclerViewSelectArticles = findViewById(R.id.recyclerView_select_articles)
         recyclerViewAddedArticles = findViewById(R.id.recyclerView_added_articles)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this, userUsername)
+        navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 

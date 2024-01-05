@@ -70,14 +70,16 @@ class Login_UsernamePassword : AppCompatActivity(), LoginCallback {
                     // receiving data from JSON object
                     val role = jsonObject.getString("role")
                     val userUsername = jsonObject.getString("username")
-
+                    val userId = jsonObject.getString("userId")
 
                     Log.d("onLoginSuccess_Token", token)
                     Log.d("onLoginSuccess_Role", role)
                     Log.d("onLoginSuccess_Username", userUsername)
+                    Log.d("onLoginSuccess_UserId", userId)
 
                 // storing data od looged in user
                 val loggedInUser = LoggedInUser(
+                    userId = userId,
                     username = userUsername,
                     token = token,
                     role = role
@@ -87,6 +89,7 @@ class Login_UsernamePassword : AppCompatActivity(), LoginCallback {
                     "admin"-> {
                         val adminHomeIntent = Intent(this@Login_UsernamePassword, AdminHomeActivity::class.java)
                         adminHomeIntent.putExtra("username", loggedInUser.username)
+                        adminHomeIntent.putExtra("loggedInUser", loggedInUser)
                         Toast.makeText(this@Login_UsernamePassword, "You are Admin!", Toast.LENGTH_SHORT).show()
                         startActivity(adminHomeIntent)
                         finish()
@@ -94,6 +97,7 @@ class Login_UsernamePassword : AppCompatActivity(), LoginCallback {
                     "merchant"-> {
                         val merchantHome=Intent(this@Login_UsernamePassword, MerchantHomeActivity::class.java)
                         merchantHome.putExtra("username", userUsername)
+                        merchantHome.putExtra("loggedInUser", loggedInUser)
                         Toast.makeText(this@Login_UsernamePassword, "You are Merchant!", Toast.LENGTH_SHORT).show()
                         startActivity(merchantHome)
                         finish()

@@ -21,6 +21,7 @@ import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,6 +35,7 @@ class SelectServicesActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
 
     private lateinit var userUsername: String
+    private lateinit var loggedInUser: LoggedInUser
 
 
     //for selecting service
@@ -53,10 +55,11 @@ class SelectServicesActivity : AppCompatActivity() {
         recyclerViewAddedServices = findViewById(R.id.recyclerView_added_services)
 
         //nav
+        loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this, userUsername)
+        navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 

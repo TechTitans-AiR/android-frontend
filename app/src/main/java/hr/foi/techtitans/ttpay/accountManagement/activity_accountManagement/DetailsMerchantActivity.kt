@@ -10,6 +10,7 @@ import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,6 +31,7 @@ class DetailsMerchantActivity : AppCompatActivity() {
     private lateinit var txtViewStatus: TextView
 
     private lateinit var userUsername: String
+    private lateinit var loggedInUser: LoggedInUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +48,8 @@ class DetailsMerchantActivity : AppCompatActivity() {
         txtViewAddress = findViewById(R.id.textView_address)
         txtViewStatus = findViewById(R.id.textView_status)
 
+        loggedInUser = intent.getParcelableExtra("loggedInUser")!!
+
         // Get user ID from intent
         userId = intent.getStringExtra("userId") ?: ""
 
@@ -54,7 +58,7 @@ class DetailsMerchantActivity : AppCompatActivity() {
 
         // BottomNavigationView
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this, userUsername)
+        navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
 
         // Fetch and display merchant details
@@ -69,7 +73,7 @@ class DetailsMerchantActivity : AppCompatActivity() {
     }
 
     private fun fetchMerchantDetails() {
-        val retrofit = RetrofitClient.getInstance(8080)//za catalog_item_management
+        val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)
         val call = service.getUserDetails(userId)
 

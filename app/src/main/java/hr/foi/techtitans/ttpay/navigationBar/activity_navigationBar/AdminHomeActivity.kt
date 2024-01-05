@@ -18,6 +18,7 @@ import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.products.activity_products.AllProductsActivity
 import hr.foi.techtitans.ttpay.transactions.activity_transactions.AllTransactionsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,11 +30,13 @@ class AdminHomeActivity : AppCompatActivity() {
     private lateinit var textViewUserName: TextView
     private lateinit var userId: String
     private lateinit var progressBarUserName: ProgressBar
+    private lateinit var loggedInUser: LoggedInUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_home)
 
+        loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
 
         Log.d("AdminHomeActivity", "User username: $userUsername")
@@ -44,7 +47,7 @@ class AdminHomeActivity : AppCompatActivity() {
         fetchUserId(userUsername)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-        navigationHandler = NavigationHandler(this, userUsername)
+        navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
     }
 
