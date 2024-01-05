@@ -29,15 +29,16 @@ class ProfileActivity : AppCompatActivity() {
 
     private lateinit var editTextFirstName: EditText
     private lateinit var editTextLastName: EditText
+    private lateinit var editTextUserRole: EditText
+    private lateinit var editTextDateOfBirth: EditText
+    private lateinit var editTextDateCreated: EditText
+    private lateinit var editTextDateModified: EditText
+    private lateinit var editTextUsername: EditText
+    private lateinit var editTextPassword: EditText
+    private lateinit var editTextEmail: EditText
     private lateinit var editTextPhone: EditText
     private lateinit var editTextAddress: EditText
-    private lateinit var editTextDateOfBirth: EditText
-    private lateinit var txtViewUserRole: TextView
-    private lateinit var txtViewDateCreated: TextView
-    private lateinit var txtViewUsername: TextView
-    private lateinit var txtViewPassword: TextView
-    private lateinit var txtViewEmail: TextView
-    private lateinit var txtViewStatus: TextView
+    private lateinit var editTextStatus: EditText
 
     private lateinit var btnEditData: Button
     private var isEditMode = false
@@ -55,15 +56,16 @@ class ProfileActivity : AppCompatActivity() {
 
         editTextFirstName = findViewById(R.id.editText_FirstName)
         editTextLastName = findViewById(R.id.editText_LastName)
+        editTextUserRole = findViewById(R.id.editText_userRole)
+        editTextDateCreated = findViewById(R.id.editText_dateCreated)
+        editTextDateModified = findViewById(R.id.editText_dateModified)
+        editTextUsername = findViewById(R.id.editText_username)
+        editTextPassword = findViewById(R.id.editText_password)
+        editTextEmail = findViewById(R.id.editText_email)
+        editTextStatus = findViewById(R.id.editText_status)
         editTextPhone = findViewById(R.id.editText_phone)
         editTextAddress = findViewById(R.id.editText_address)
         editTextDateOfBirth = findViewById(R.id.editText_dateOfBirth)
-        txtViewUserRole = findViewById(R.id.textView_userRole)
-        txtViewDateCreated = findViewById(R.id.textView_dateCreated)
-        txtViewUsername = findViewById(R.id.textView_username)
-        txtViewPassword = findViewById(R.id.textView_password)
-        txtViewEmail = findViewById(R.id.textView_email)
-        txtViewStatus = findViewById(R.id.textView_status)
 
         userUsername = intent.getStringExtra("username") ?: ""
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
@@ -105,16 +107,19 @@ class ProfileActivity : AppCompatActivity() {
     private fun enableEditMode() {
         // Enable editing for specified fields
         editTextFirstName.isEnabled = true
+        editTextFirstName.setBackgroundResource(R.drawable.red_border_item)
+
         editTextLastName.isEnabled = true
+        editTextLastName.setBackgroundResource(R.drawable.red_border_item)
+
         editTextPhone.isEnabled = true
+        editTextPhone.setBackgroundResource(R.drawable.red_border_item)
+
         editTextAddress.isEnabled = true
+        editTextAddress.setBackgroundResource(R.drawable.red_border_item)
+
         editTextDateOfBirth.isEnabled = true
-        txtViewUserRole.visibility = View.GONE
-        txtViewDateCreated.visibility = View.GONE
-        txtViewUsername.visibility = View.GONE
-        txtViewPassword.visibility = View.GONE
-        txtViewEmail.visibility = View.GONE
-        txtViewStatus.visibility = View.GONE
+        editTextDateOfBirth.setBackgroundResource(R.drawable.red_border_item)
 
         // Change button text
         btnEditData.text = "Save Changes"
@@ -126,16 +131,19 @@ class ProfileActivity : AppCompatActivity() {
     private fun disableEditMode() {
         // Disable editing for specified fields
         editTextFirstName.isEnabled = false
+        editTextFirstName.setBackgroundResource(0)
+
         editTextLastName.isEnabled = false
+        editTextLastName.setBackgroundResource(0)
+
         editTextPhone.isEnabled = false
+        editTextPhone.setBackgroundResource(0)
+
         editTextAddress.isEnabled = false
+        editTextAddress.setBackgroundResource(0)
+
         editTextDateOfBirth.isEnabled = false
-        txtViewUserRole.visibility = View.VISIBLE
-        txtViewDateCreated.visibility = View.VISIBLE
-        txtViewUsername.visibility = View.VISIBLE
-        txtViewPassword.visibility = View.VISIBLE
-        txtViewEmail.visibility = View.VISIBLE
-        txtViewStatus.visibility = View.VISIBLE
+        editTextDateOfBirth.setBackgroundResource(0)
 
         // Change button text
         btnEditData.text = "Edit Data"
@@ -186,15 +194,16 @@ class ProfileActivity : AppCompatActivity() {
             // Update text views with user data
             editTextFirstName.setText(user.first_name)
             editTextLastName.setText(user.last_name)
-            txtViewUserRole.text = user.userRole?.name ?: ""
+            editTextUserRole.setText(user.userRole?.name ?: "")
             editTextDateOfBirth.setText(user.date_of_birth ?: "")
-            txtViewDateCreated.text = "Date Created: ${user.date_created ?: ""}"
-            txtViewUsername.text = "Username: ${user.username}"
-            txtViewPassword.text = "Password: ${user.password}"
-            txtViewEmail.text = "Email: ${user.email}"
+            editTextDateCreated.setText(user.date_created ?: "")
+            editTextDateModified.setText(user.date_modified ?: "")
+            editTextUsername.setText(user.username)
+            editTextPassword.setText(user.password)
+            editTextEmail.setText(user.email)
             editTextPhone.setText(user.phone ?: "")
             editTextAddress.setText(user.address ?: "")
-            txtViewStatus.text = "Status: ${user.userStatus?.name ?: ""}"
+            editTextStatus.setText(user.userStatus?.name ?: "")
 
             // Save original values for later comparison
             originalFirstName = user.first_name
@@ -206,15 +215,16 @@ class ProfileActivity : AppCompatActivity() {
             // If user is null, set values in text views to empty string and display the toast message
             editTextFirstName.text.clear()
             editTextLastName.text.clear()
-            txtViewUserRole.text = ""
+            editTextUserRole.text.clear()
             editTextDateOfBirth.text.clear()
-            txtViewDateCreated.text = ""
-            txtViewUsername.text = ""
-            txtViewPassword.text = ""
-            txtViewEmail.text = ""
+            editTextDateCreated.text.clear()
+            editTextDateModified.text.clear()
+            editTextUsername.text.clear()
+            editTextPassword.text.clear()
+            editTextEmail.text.clear()
             editTextPhone.text.clear()
             editTextAddress.text.clear()
-            txtViewStatus.text = ""
+            editTextStatus.text.clear()
             Toast.makeText(this@ProfileActivity, "User details not available", Toast.LENGTH_SHORT).show()
         }
     }
