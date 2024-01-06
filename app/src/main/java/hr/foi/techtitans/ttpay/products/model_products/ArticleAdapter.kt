@@ -10,10 +10,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import hr.foi.techtitans.ttpay.R
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import hr.foi.techtitans.ttpay.products.activity_products.DetailsArticleActivity
 import hr.foi.techtitans.ttpay.products.activity_products.UpdateArticleActivity
 
-class ArticleAdapter(private var articles: List<Article>) :
+class ArticleAdapter(private var articles: List<Article>, private val loggedInUser: LoggedInUser) :
     RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
 
     private var selectedArticleId: String = ""
@@ -41,12 +42,14 @@ class ArticleAdapter(private var articles: List<Article>) :
 
         holder.imgViewEye.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailsArticleActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("articleId", article.id)
             holder.itemView.context.startActivity(intent)
         }
 
         holder.imgViewPencil.setOnClickListener {
             val intent = Intent(holder.itemView.context, UpdateArticleActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("articleId", article.id)
             holder.itemView.context.startActivity(intent)
         }

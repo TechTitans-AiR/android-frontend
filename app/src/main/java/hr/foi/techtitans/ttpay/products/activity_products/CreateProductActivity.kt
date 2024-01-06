@@ -3,6 +3,7 @@ package hr.foi.techtitans.ttpay.products.activity_products
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import hr.foi.techtitans.ttpay.R
@@ -31,6 +32,8 @@ class CreateProductActivity : AppCompatActivity() {
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
             val intent = Intent(this, AllProductsActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
+            Log.d("CreateProductActivity - LoggedInUser",loggedInUser.toString())
             intent.putExtra("username", userUsername)
             startActivity(intent)
         }

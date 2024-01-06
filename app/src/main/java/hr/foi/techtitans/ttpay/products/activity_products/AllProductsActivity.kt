@@ -24,6 +24,7 @@ import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.math.log
 
 class AllProductsActivity : AppCompatActivity() {
 
@@ -31,8 +32,8 @@ class AllProductsActivity : AppCompatActivity() {
     private var progressBar: ProgressBar? = null
     private lateinit var recyclerViewArticles: RecyclerView
     private lateinit var recyclerViewServices: RecyclerView
-    private var articleAdapter = ArticleAdapter(emptyList())
-    private val serviceAdapter = ServiceAdapter(emptyList())
+    private lateinit var articleAdapter: ArticleAdapter
+    private lateinit var serviceAdapter: ServiceAdapter
 
     private var listArticles:List<Article> = emptyList()
     private var listServices:List<Service> = emptyList()
@@ -48,13 +49,16 @@ class AllProductsActivity : AppCompatActivity() {
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
 
+        articleAdapter= ArticleAdapter(emptyList(), loggedInUser)
+        serviceAdapter= ServiceAdapter(emptyList(), loggedInUser)
+
         recyclerViewArticles = findViewById(R.id.recyclerView_all_articles)
         recyclerViewServices = findViewById(R.id.recyclerView_all_services)
 
         recyclerViewArticles.layoutManager = LinearLayoutManager(this)
         recyclerViewServices.layoutManager = LinearLayoutManager(this)
 
-        articleAdapter = ArticleAdapter(listArticles)
+        articleAdapter = ArticleAdapter(listArticles, loggedInUser)
 
 
         recyclerViewArticles.adapter = articleAdapter
@@ -76,6 +80,8 @@ class AllProductsActivity : AppCompatActivity() {
 
         btnBack.setOnClickListener {
             val intent = Intent(this, AdminHomeActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
+            Log.d("AllProductsActivity - LoggedInUser",loggedInUser.toString())
             intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
@@ -84,6 +90,8 @@ class AllProductsActivity : AppCompatActivity() {
 
     fun onPlusIconProductsClick(view: View) {
         val intent = Intent(this, CreateProductActivity::class.java)
+        intent.putExtra("loggedInUser", loggedInUser)
+        Log.d("onPlusIconProductsClick - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()

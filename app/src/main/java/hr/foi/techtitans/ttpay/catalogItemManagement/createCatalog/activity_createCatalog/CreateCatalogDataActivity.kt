@@ -79,8 +79,8 @@ class CreateCatalogDataActivity : AppCompatActivity() {
         Log.d("CreateCatalogDataActivity, services: ",listSelectedServices.toString())
         Log.d("CreateCatalogDataActivity, users: ",listSelectedUsers.toString())
 
-        articlesAdapter= ArticleAdapter(listSelectedArticles)
-        servicesAdapter= ServiceAdapter(listSelectedServices)
+        articlesAdapter= ArticleAdapter(listSelectedArticles, loggedInUser)
+        servicesAdapter= ServiceAdapter(listSelectedServices, loggedInUser)
 
 
         //get catalog name

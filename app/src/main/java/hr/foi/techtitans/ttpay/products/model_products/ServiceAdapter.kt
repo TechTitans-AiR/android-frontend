@@ -10,10 +10,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import hr.foi.techtitans.ttpay.R
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import hr.foi.techtitans.ttpay.products.activity_products.DetailsServiceActivity
 import hr.foi.techtitans.ttpay.products.activity_products.UpdateServiceActivity
 
-class ServiceAdapter(private var services: List<Service>) :
+class ServiceAdapter(private var services: List<Service>, private  val loggedInUser: LoggedInUser) :
     RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder>() {
 
     private var selectedServiceId: String = ""
@@ -42,12 +43,14 @@ class ServiceAdapter(private var services: List<Service>) :
 
         holder.imgViewEye.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailsServiceActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("serviceId", service.id)
             holder.itemView.context.startActivity(intent)
         }
 
         holder.imgViewPencil.setOnClickListener {
             val intent = Intent(holder.itemView.context, UpdateServiceActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("serviceId", service.id)
             holder.itemView.context.startActivity(intent)
         }
