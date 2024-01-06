@@ -67,6 +67,7 @@ class DetailsMerchantActivity : AppCompatActivity() {
         // Back button click listener
         val btnBack: ImageView = findViewById(R.id.imgView_back)
         btnBack.setOnClickListener {
+            intent.putExtra("loggedInUser",loggedInUser)
             intent.putExtra("username", userUsername)
             finish()
         }
