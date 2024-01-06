@@ -63,6 +63,7 @@ class TransactionSummaryActivity : AppCompatActivity() {
         btn_continue = findViewById(R.id.btn_continue_payment)
         btn_continue.setOnClickListener {
             val intent = Intent(this, PaymentOptionsActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("shoppingCartItems", ArrayList(shoppingCartItems))
             intent.putExtra("totalAmount", totalAmount)
             intent.putExtra("username", userUsername)

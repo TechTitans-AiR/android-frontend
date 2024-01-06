@@ -57,6 +57,8 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
 
         adapter = TransactionAdapter(emptyList()) { transaction ->
             val intent = Intent(this, DetailedTransactionActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
+            Log.d("AllTransactionMerchantActivity(merchant) - LoggedInUser",loggedInUser.toString())
             intent.putExtra("transactionId", transaction.id)
             startActivity(intent)
         }
@@ -69,6 +71,7 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
             val intent = Intent(this, MerchantHomeActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
@@ -77,6 +80,8 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
 
     fun onPlusTransactionIconClick(view: View) {
         val intent = Intent(this, CreateTransactionActivity::class.java)
+        intent.putExtra("loggedInUser", loggedInUser)
+        Log.d("onPlusTransactionIconClick(merchant) - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
     }

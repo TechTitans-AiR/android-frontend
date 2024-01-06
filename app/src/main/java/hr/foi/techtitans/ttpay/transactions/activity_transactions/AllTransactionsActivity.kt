@@ -19,6 +19,7 @@ import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeAct
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.products.model_products.ServiceAdapter
 import hr.foi.techtitans.ttpay.transactions.model_transactions.Transaction
 import hr.foi.techtitans.ttpay.transactions.model_transactions.TransactionAdapter
 import hr.foi.techtitans.ttpay.transactions.network_transactions.ServiceTransactionManagement
@@ -60,6 +61,8 @@ class AllTransactionsActivity : AppCompatActivity() {
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
             val intent = Intent(this, AdminHomeActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
+            Log.d("AllTransationsActivity - LoggedInUser",loggedInUser.toString())
             intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
@@ -68,6 +71,8 @@ class AllTransactionsActivity : AppCompatActivity() {
 
     fun onPlusTransactionIconClick(view: View) {
         val intent = Intent(this, CreateTransactionActivity::class.java)
+        intent.putExtra("loggedInUser", loggedInUser)
+        Log.d("onPlusTransactionIconClick - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
@@ -75,6 +80,8 @@ class AllTransactionsActivity : AppCompatActivity() {
 
     private fun openDetailedTransactionActivity(transactionId: String?) {
         val intent = Intent(this, DetailedTransactionActivity::class.java)
+        intent.putExtra("loggedInUser", loggedInUser)
+        Log.d("openDetailedTransactionActivity - LoggedInUser",loggedInUser.toString())
         intent.putExtra("transactionId", transactionId)
         intent.putExtra("username", userUsername)
         startActivity(intent)

@@ -198,6 +198,7 @@ class PaymentOptionsActivity : AppCompatActivity() {
         val differenceAmount = cashAmount - totalAmount
 
         val intent = Intent(this, TransactionCompletionActivity::class.java)
+        intent.putExtra("loggedInUser", loggedInUser)
         intent.putExtra("newTransaction", newTransaction)
         intent.putExtra("shoppingCartItems", ArrayList(shoppingCartItems))
         intent.putExtra("totalAmount", totalAmount)

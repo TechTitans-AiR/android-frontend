@@ -59,6 +59,7 @@ class TransactionItemActivity : AppCompatActivity() {
 
         adapter = TransactionAdapter(emptyList()) { transaction ->
             val intent = Intent(this, DetailedTransactionActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("transactionId", transaction.id)
             intent.putExtra("username", userUsername)
             startActivity(intent)
@@ -75,6 +76,7 @@ class TransactionItemActivity : AppCompatActivity() {
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
             val intent = Intent(this, AllTransactionsActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()

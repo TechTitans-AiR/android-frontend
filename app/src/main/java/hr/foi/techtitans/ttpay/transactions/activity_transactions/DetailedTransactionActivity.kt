@@ -34,6 +34,7 @@ class DetailedTransactionActivity : AppCompatActivity() {
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
             onBackPressed()
         }

@@ -22,6 +22,7 @@ import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -58,8 +59,11 @@ class CreateTransactionActivity : AppCompatActivity() {
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
+            val intent = Intent(this, AllTransactionsActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
+            Log.d("CreateTransactionActivity - LoggedInUser",loggedInUser.toString())
             intent.putExtra("username", userUsername)
-            onBackPressed()
+            finish()
         }
 
         // set recyclerview and total amount
@@ -76,14 +80,20 @@ class CreateTransactionActivity : AppCompatActivity() {
 
             // transfer shoppingCartItems
             intent.putExtra("shoppingCartItems", ArrayList(shoppingCartItems))
+            intent.putExtra("loggedInUser", loggedInUser)
+            Log.d("CreateTransactionActivity - LoggedInUser",loggedInUser.toString())
             Log.d("CreateTransactionActivity", "btn_pay onClick: shoppingCartItems: $shoppingCartItems")
 
             // transfer totalAmount
             val totalAmount = shoppingCartItems.sumByDouble { it.quantity * it.unitPrice }
+            intent.putExtra("loggedInUser", loggedInUser)
+            Log.d("CreateTransactionActivity - LoggedInUser",loggedInUser.toString())
             intent.putExtra("totalAmount", totalAmount)
             Log.d("CreateTransactionActivity", "btn_pay onClick: totalAmount: $totalAmount")
 
             intent.putExtra("username", userUsername)
+            intent.putExtra("loggedInUser", loggedInUser)
+            Log.d("CreateTransactionActivity - LoggedInUser",loggedInUser.toString())
 
             Log.d("CreateTransactionActivity", "btn_pay onClick: Starting TransactionSummaryActivity")
             // transfer on TransactionSummaryActivity

@@ -2,6 +2,7 @@ package hr.foi.techtitans.ttpay.transactions.activity_transactions
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import hr.foi.techtitans.ttpay.R
@@ -28,7 +29,9 @@ class TransactionCompletionActivity : AppCompatActivity() {
 
         val btnBackToHome: Button = findViewById(R.id.btn_back_to_home)
         btnBackToHome.setOnClickListener {
-        finish()
+            intent.putExtra("loggedInUser", loggedInUser)
+            Log.d("TransactionCompletionActivity - LoggedInUser",loggedInUser.toString())
+            finish()
         }
     }
 }
