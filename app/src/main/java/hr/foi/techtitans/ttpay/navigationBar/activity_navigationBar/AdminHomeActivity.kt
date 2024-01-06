@@ -53,6 +53,8 @@ class AdminHomeActivity : AppCompatActivity() {
 
     fun onAllMerchantsClick(view: View) {
         val intent = Intent(this, AllMerchantsActivity::class.java)
+        intent.putExtra("loggedInUser", loggedInUser)
+        Log.d("LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()

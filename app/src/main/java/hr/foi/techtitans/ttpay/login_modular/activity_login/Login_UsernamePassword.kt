@@ -89,6 +89,7 @@ class Login_UsernamePassword : AppCompatActivity(), LoginCallback {
                     "admin"-> {
                         val adminHomeIntent = Intent(this@Login_UsernamePassword, AdminHomeActivity::class.java)
                         adminHomeIntent.putExtra("username", loggedInUser.username)
+                        Log.d("LoggedInUser",loggedInUser.toString())
                         adminHomeIntent.putExtra("loggedInUser", loggedInUser)
                         Toast.makeText(this@Login_UsernamePassword, "You are Admin!", Toast.LENGTH_SHORT).show()
                         startActivity(adminHomeIntent)

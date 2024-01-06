@@ -1,6 +1,7 @@
 package hr.foi.techtitans.ttpay.accountManagement.model_accountManagement
 
 // MerchantAdapter.kt
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import hr.foi.techtitans.ttpay.accountManagement.activity_accountManagement.DetailsMerchantActivity
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.accountManagement.activity_accountManagement.UpdateMerchantActivity
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 
-class MerchantAdapter(private var users: List<User>) :
+class MerchantAdapter(private var users: List<User>, private var loggedInUser: LoggedInUser) :
     RecyclerView.Adapter<MerchantAdapter.MerchantViewHolder>() {
 
     class MerchantViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -29,18 +31,21 @@ class MerchantAdapter(private var users: List<User>) :
         return MerchantViewHolder(itemView)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MerchantViewHolder, position: Int) {
         val user = users[position]
         holder.txtViewName.text = "${user.first_name} ${user.last_name}"
 
         holder.imgViewEye.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailsMerchantActivity::class.java)
+            intent.putExtra("loggedInUser",loggedInUser)
             intent.putExtra("userId", user.id)
             holder.itemView.context.startActivity(intent)
         }
 
         holder.imgViewPencil.setOnClickListener {
             val intent = Intent(holder.itemView.context, UpdateMerchantActivity::class.java)
+            intent.putExtra("loggedInUser",loggedInUser)
             intent.putExtra("userId", user.id)
             holder.itemView.context.startActivity(intent)
         }
@@ -70,6 +75,7 @@ class MerchantAdapter(private var users: List<User>) :
         return users.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateData(newUsers: List<User>) {
         users = newUsers
         notifyDataSetChanged()

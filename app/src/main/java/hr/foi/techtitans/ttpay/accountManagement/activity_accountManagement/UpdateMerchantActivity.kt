@@ -62,6 +62,7 @@ class UpdateMerchantActivity : AppCompatActivity() {
 
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
+        Log.d("UpdateMerchantActivity - LoggedInUser: ", loggedInUser.toString())
         userUsername = intent.getStringExtra("username") ?: ""
 
         // BottomNavigationView
@@ -72,6 +73,7 @@ class UpdateMerchantActivity : AppCompatActivity() {
         val btnBack: ImageView = findViewById(R.id.imgView_back)
 
         btnBack.setOnClickListener {
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
             finish()
         }
@@ -191,15 +193,14 @@ class UpdateMerchantActivity : AppCompatActivity() {
         btnUpdate.setOnClickListener{
 
             //fetch NEW data from fields
-            var txtFirstName: String = editTxtFirstName.text.toString()
-            var txtLastName: String = editTxtLastName.text.toString()
-            var txtDateOfBirth: String = editTxtDateOfBirth.text.toString()
-            var txtAddress: String = editTxtAddress.text.toString()
-            var txtPhone: String = editTxtPhone.text.toString()
-            var txtEmail: String = editTxtEmail.text.toString()
-            var txtUsername: String = editTxtUsername.text.toString()
-            var txtPassword: String = editTxtPassword.text.toString()
-            val dateModified = LocalDate.now().toString()
+            val txtFirstName: String = editTxtFirstName.text.toString()
+            val txtLastName: String = editTxtLastName.text.toString()
+            val txtDateOfBirth: String = editTxtDateOfBirth.text.toString()
+            val txtAddress: String = editTxtAddress.text.toString()
+            val txtPhone: String = editTxtPhone.text.toString()
+            val txtEmail: String = editTxtEmail.text.toString()
+            val txtUsername: String = editTxtUsername.text.toString()
+            val txtPassword: String = editTxtPassword.text.toString()
 
 
             var newDataUser = updateUser(
@@ -218,6 +219,7 @@ class UpdateMerchantActivity : AppCompatActivity() {
 
             updateMerchantData(this, newDataUser, userID)
             val intent = Intent(this@UpdateMerchantActivity, AllMerchantsActivity::class.java)
+            intent.putExtra("loggedInUser",loggedInUser)
             intent.putExtra("username", userUsername)
             Toast.makeText(this@UpdateMerchantActivity, "Updating merchant ${newDataUser.first_name}!", Toast.LENGTH_SHORT).show()
             startActivity(intent)

@@ -45,6 +45,8 @@ class CreateNewMerchantActivity : AppCompatActivity() {
 
         btnBack.setOnClickListener {
             val intent = Intent(this, AllMerchantsActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
+            Log.d("CreateNewMerchant - loggedInUser: ", loggedInUser.toString())
             intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
