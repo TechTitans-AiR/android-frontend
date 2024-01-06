@@ -13,7 +13,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:clickable="true"
-        android:contentDescription="Back Button"
+        android:contentDescription="@string/back_button"
         android:src="@drawable/baseline_arrow_back" />
 
     <TextView
@@ -25,7 +25,7 @@
         android:layout_marginTop="16dp"
         android:layout_toEndOf="@id/imgView_back"
         android:fontFamily="sans-serif-light"
-        android:text="Select the users"
+        android:text="@string/select_the_users"
         android:textColor="@color/red"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -43,7 +43,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginRight="10dp"
         android:textSize="16sp"
-        android:text="User for catalog can be also selected later in app."
+        android:text="@string/user_for_catalog_can_be_also_selected_later_in_app"
         android:textAlignment="center" />
 
     <ProgressBar
@@ -60,25 +60,26 @@
         android:layout_height="300dp"
         android:layout_below="@+id/message"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginRight="5dp" />
 
     <!-- Added users container -->
+
+    <!-- RecyclerView for added users -->
     <TextView
         android:id="@+id/textView_added_users_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/recyclerView_select_users"
+        android:layout_below="@+id/btn_continue_see_data"
+        android:layout_marginTop="19dp"
         android:layout_centerHorizontal="true"
         android:fontFamily="sans-serif-light"
-        android:layout_marginTop="40dp"
-        android:text="Added users"
+        android:text="@string/added_users"
         android:textColor="@color/red"
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <!-- RecyclerView for added users -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_added_users"
         android:layout_width="match_parent"
@@ -87,19 +88,17 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginRight="5dp"
         android:layout_below="@+id/textView_added_users_title"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="20dp"/>
 
     <Button
         android:id="@+id/btn_continue_see_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_below="@+id/recyclerView_select_users"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="93dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="107dp"
-        android:layout_below="@+id/recyclerView_added_users"
-        android:text="Continue - see all data"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="12dp"
+        android:text="@string/continue_see_all_data"
         android:textSize="16sp" />
 
     <include

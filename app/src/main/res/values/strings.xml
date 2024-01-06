@@ -24,4 +24,13 @@
     <string name="login">Login</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="select_the_users">Select the users</string>
+    <string name="added_services">Added services</string>
+    <string name="continue_with_selecting_users">Continue with selecting users</string>
+    <string name="user_for_catalog_can_be_also_selected_later_in_app">User for catalog can be also selected later in app.</string>
+    <string name="added_users">Added users</string>
+    <string name="continue_see_all_data">Continue - see all data</string>
+    <string name="select_the_articles">Select the articles</string>
+    <string name="added_articles">Added articles</string>
+    <string name="continue_with_selecting_services">Continue with selecting services</string>
 </resources>
