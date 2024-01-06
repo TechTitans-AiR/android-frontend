@@ -34,6 +34,7 @@ class CreateCatalogItemActivity : AppCompatActivity() {
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
             val intent = Intent(this, AllCatalogsActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
@@ -43,6 +44,7 @@ class CreateCatalogItemActivity : AppCompatActivity() {
         val btnStartCreatingCatalog: Button = findViewById(R.id.btn_start_creating_catalog)
         btnStartCreatingCatalog.setOnClickListener {
             val intent = Intent(this, SelectArticlesActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()

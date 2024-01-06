@@ -63,6 +63,8 @@ class CreateCatalogDataActivity : AppCompatActivity() {
         imgBack = findViewById(R.id.back_back)
         imgBack.setOnClickListener {
             val intent = Intent(this, SelectUserActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
+            Log.d("CreateCatalogDataActivity - LoggedInUser",loggedInUser.toString())
             intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
@@ -122,6 +124,7 @@ class CreateCatalogDataActivity : AppCompatActivity() {
             Log.d("NewCatalog Object: ", newCatalog.toString())
             createNew.createNewCatalog(this,newCatalog)
             val intent = Intent(this, AdminHomeActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()

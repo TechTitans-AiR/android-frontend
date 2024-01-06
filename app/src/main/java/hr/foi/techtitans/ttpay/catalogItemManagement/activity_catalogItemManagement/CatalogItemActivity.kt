@@ -57,12 +57,15 @@ class CatalogItemActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView_catalogs)
         progressBar = findViewById(R.id.loadingProgressBar)
 
-        adapter = CatalogAdapter(emptyList()) { catalog ->
-            val intent = Intent(this, DetailedCatalogItemActivity::class.java)
-            intent.putExtra("catalogId", catalog.id)
-            intent.putExtra("username", userUsername)
-            startActivity(intent)
-        }
+        adapter = CatalogAdapter(
+            emptyList(),
+            { catalog -> val intent = Intent(this, DetailedCatalogItemActivity::class.java)
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("catalogId", catalog.id)
+                intent.putExtra("username", userUsername)
+                startActivity(intent) },
+            loggedInUser
+        )
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
@@ -75,6 +78,7 @@ class CatalogItemActivity : AppCompatActivity() {
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
             val intent = Intent(this, AllCatalogsActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()

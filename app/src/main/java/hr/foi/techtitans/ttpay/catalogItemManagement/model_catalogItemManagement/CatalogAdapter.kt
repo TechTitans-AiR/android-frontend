@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.catalogItemManagement.network_catalogItemManagement.ServiceCatalogItemManagement
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -21,6 +22,7 @@ import retrofit2.Response
 class CatalogAdapter(
     private var catalogs: List<Catalog>,
     private val onItemClick: (Catalog) -> Unit,
+    private val loggedInUser: LoggedInUser
 ) :
     RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder>() {
 

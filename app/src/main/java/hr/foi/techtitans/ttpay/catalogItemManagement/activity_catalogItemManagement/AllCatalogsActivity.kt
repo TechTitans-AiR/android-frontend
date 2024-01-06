@@ -29,9 +29,8 @@ class AllCatalogsActivity : AppCompatActivity() {
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
-    private val catalogAdapter = CatalogAdapter(emptyList()) { catalog ->
-        openDetailedCatalogItemActivity(catalog.id)
-    }
+    private lateinit var catalogAdapter: CatalogAdapter
+
     private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +39,13 @@ class AllCatalogsActivity : AppCompatActivity() {
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
+
+
+        catalogAdapter = CatalogAdapter(
+            emptyList(),
+            { catalog -> openDetailedCatalogItemActivity(catalog.id) },
+            loggedInUser
+        )
 
         recyclerView = findViewById(R.id.recyclerView_all_catalogs)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -57,6 +63,8 @@ class AllCatalogsActivity : AppCompatActivity() {
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
             val intent = Intent(this, AdminHomeActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
+            Log.d("AllCatalogActivity - LoggedInUser",loggedInUser.toString())
             intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
@@ -65,6 +73,8 @@ class AllCatalogsActivity : AppCompatActivity() {
 
     fun onPlusCatalogIconClick(view: View) {
         val intent = Intent(this, CreateCatalogItemActivity::class.java)
+        intent.putExtra("loggedInUser", loggedInUser)
+        Log.d("onPlusCatalogIconClick - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
@@ -72,6 +82,8 @@ class AllCatalogsActivity : AppCompatActivity() {
 
     private fun openDetailedCatalogItemActivity(catalogId: String?) {
         val intent = Intent(this, DetailedCatalogItemActivity::class.java)
+        intent.putExtra("loggedInUser", loggedInUser)
+        Log.d("openDetailedCatalog - LoggedInUser",loggedInUser.toString())
         intent.putExtra("catalogId", catalogId)
         intent.putExtra("username", userUsername)
         startActivity(intent)

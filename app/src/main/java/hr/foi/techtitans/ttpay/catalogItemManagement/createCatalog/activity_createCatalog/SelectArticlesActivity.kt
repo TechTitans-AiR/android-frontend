@@ -62,6 +62,7 @@ class SelectArticlesActivity : AppCompatActivity() {
         imgBack = findViewById(R.id.back_back)
         imgBack.setOnClickListener {
             val intent = Intent(this, CreateCatalogItemActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
@@ -74,7 +75,9 @@ class SelectArticlesActivity : AppCompatActivity() {
             //Sending the list to the next screen
             val intent = Intent(this, SelectServicesActivity::class.java)
             Log.d("Articles: ",ArrayList(articles).toString())
+
             intent.putExtra("selected_articles", ArrayList(articles))
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()

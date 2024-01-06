@@ -68,6 +68,7 @@ class SelectUserActivity : AppCompatActivity() {
         imgBack = findViewById(R.id.back_back)
         imgBack.setOnClickListener {
             val intent = Intent(this, SelectServicesActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
@@ -129,6 +130,7 @@ class SelectUserActivity : AppCompatActivity() {
         continueButton.setOnClickListener {
             val intent = Intent(this, CreateCatalogDataActivity::class.java)
 
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("listArticles",ArrayList(listArticles))
             intent.putExtra("listServices", ArrayList(listServices))
             intent.putExtra("listUsers", ArrayList(listSelectedUsers))

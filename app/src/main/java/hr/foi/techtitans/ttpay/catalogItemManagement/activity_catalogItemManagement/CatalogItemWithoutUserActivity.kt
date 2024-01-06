@@ -45,12 +45,14 @@ class CatalogItemWithoutUserActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView_all_catalogs)
         progressBar = findViewById(R.id.loadingProgressBar)
 
-        adapter = CatalogAdapter(emptyList()) { catalog ->
-            val intent = Intent(this, DetailedCatalogItemActivity::class.java)
-            intent.putExtra("catalogId", catalog.id)
-            intent.putExtra("username", userUsername)
-            startActivity(intent)
-        }
+        adapter = CatalogAdapter(
+            emptyList(),
+            { catalog -> val intent = Intent(this, DetailedCatalogItemActivity::class.java)
+                intent.putExtra("catalogId", catalog.id)
+                intent.putExtra("username", userUsername)
+                startActivity(intent) },
+            loggedInUser
+        )
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
