@@ -51,6 +51,8 @@ class MerchantHomeActivity : AppCompatActivity() {
 
     fun onAllTransactionsClick(view: View) {
         val intent = Intent(this, AllTransactionsMerchantActivity::class.java)
+        intent.putExtra("loggedInUser", loggedInUser)
+        Log.d("onAllTransactionsClick(merchant) - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
@@ -58,6 +60,8 @@ class MerchantHomeActivity : AppCompatActivity() {
 
     fun onCatalogItemClick(view: View) {
         val intent = Intent(this, AllCatalogsMerchantActivity::class.java)
+        intent.putExtra("loggedInUser", loggedInUser)
+        Log.d("onCatalogItemClick(merchant) - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()

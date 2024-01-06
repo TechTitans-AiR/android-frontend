@@ -3,6 +3,7 @@ package hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
@@ -30,6 +31,8 @@ class SettingsActivity : AppCompatActivity() {
 
         btnBack.setOnClickListener {
             val intent = Intent(this, AdminHomeActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
+            Log.d("LoggedInUser",loggedInUser.toString())
             intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
