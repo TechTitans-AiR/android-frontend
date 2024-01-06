@@ -80,8 +80,6 @@ class CreateTransactionActivity : AppCompatActivity() {
 
             // transfer shoppingCartItems
             intent.putExtra("shoppingCartItems", ArrayList(shoppingCartItems))
-            intent.putExtra("loggedInUser", loggedInUser)
-            Log.d("CreateTransactionActivity - LoggedInUser",loggedInUser.toString())
             Log.d("CreateTransactionActivity", "btn_pay onClick: shoppingCartItems: $shoppingCartItems")
 
             // transfer totalAmount

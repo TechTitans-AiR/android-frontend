@@ -1,5 +1,6 @@
 package hr.foi.techtitans.ttpay.transactions.activity_transactions
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +8,8 @@ import android.widget.Button
 import android.widget.TextView
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
+import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHomeActivity
 
 class TransactionCompletionActivity : AppCompatActivity() {
 
@@ -29,8 +32,22 @@ class TransactionCompletionActivity : AppCompatActivity() {
 
         val btnBackToHome: Button = findViewById(R.id.btn_back_to_home)
         btnBackToHome.setOnClickListener {
-            intent.putExtra("loggedInUser", loggedInUser)
-            Log.d("TransactionCompletionActivity - LoggedInUser",loggedInUser.toString())
+            val role = loggedInUser.role // Assuming role is a property in LoggedInUser class
+
+            if (role == "admin") {
+                // Open AdminHomeActivity
+                val intent = Intent(this, AdminHomeActivity::class.java)
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("username", userUsername)
+                startActivity(intent)
+            } else if (role == "merchant") {
+                // Open MerchantHomeActivity
+                val intent = Intent(this, MerchantHomeActivity::class.java)
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("username", userUsername)
+                startActivity(intent)
+            }
+
             finish()
         }
     }
