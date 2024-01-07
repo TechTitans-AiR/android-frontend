@@ -51,6 +51,9 @@ class DetailsServiceActivity : AppCompatActivity() {
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
 
+        // Get service ID from intent
+        val serviceId = intent.getStringExtra("serviceId")
+
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
