@@ -25,6 +25,7 @@ class DetailsArticleActivity : AppCompatActivity() {
     private lateinit var loggedInUser: LoggedInUser
     private lateinit var navigationHandler: NavigationHandler
 
+    //UI elements
     private lateinit var itemNameTextView: TextView
     private lateinit var itemCategoryTextView: TextView
     private lateinit var descriptionTextView: TextView
