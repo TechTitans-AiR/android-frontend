@@ -19,4 +19,10 @@ interface ServiceProducts {
 
     @DELETE("/api/v1/services/delete/{serviceId}")//delete service
     fun deleteService(@Path("serviceId") itemId: String?): Call<Void>
+
+    @GET("/api/v1/services/{serviceId}")
+    fun getServiceDetails(@Path("serviceId") serviceId: String?): Call<Service>
+
+    @GET("/api/v1/articles/{articleId}")
+    fun getArticleDetails(@Path("articleId") articleId: String?): Call<Article>
 }
