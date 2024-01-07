@@ -54,6 +54,8 @@ class DetailsArticleActivity : AppCompatActivity() {
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
+        val articleId = intent.getStringExtra("articleId")
+
         btnBack.setOnClickListener {
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("LoggedInUser",loggedInUser.toString())
