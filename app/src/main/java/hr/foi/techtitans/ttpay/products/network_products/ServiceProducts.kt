@@ -21,5 +21,5 @@ interface ServiceProducts {
     fun deleteService(@Path("serviceId") itemId: String?): Call<Void>
 
     @GET("/api/v1/services/{serviceId}")
-    fun getServiceDetails(@Path("serviceId") serviceId: String): Call<Service>
+    fun getServiceDetails(@Path("serviceId") serviceId: String?): Call<Service>
 }
