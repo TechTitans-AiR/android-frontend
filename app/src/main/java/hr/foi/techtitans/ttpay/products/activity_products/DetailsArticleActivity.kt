@@ -7,10 +7,17 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
+import hr.foi.techtitans.ttpay.network.RetrofitClient
+import hr.foi.techtitans.ttpay.products.model_products.Article
+import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class DetailsArticleActivity : AppCompatActivity() {
 
@@ -55,6 +62,7 @@ class DetailsArticleActivity : AppCompatActivity() {
         bottomNavigationView.visibility = View.VISIBLE
 
         val articleId = intent.getStringExtra("articleId")
+        fetchArticleDetails(articleId)
 
         btnBack.setOnClickListener {
             intent.putExtra("loggedInUser", loggedInUser)
@@ -62,5 +70,64 @@ class DetailsArticleActivity : AppCompatActivity() {
             intent.putExtra("username", userUsername)
             finish()
         }
+    }
+
+    private fun fetchArticleDetails(articleId: String?) {
+        showLoading()
+        val retrofit = RetrofitClient.getInstance(8081)
+        val service = retrofit.create(ServiceProducts::class.java)
+        val call = service.getArticleDetails(articleId.orEmpty())
+        call.enqueue(object : Callback<Article> {
+            override fun onResponse(call: Call<Article>, response: Response<Article>) {
+                hideLoading()
+
+                if (response.isSuccessful) {
+                    val article = response.body()
+                    if (article != null) {
+                        itemNameTextView.text = article.name
+                        itemCategoryTextView.text = article.itemCategory.name
+                        descriptionTextView.text = article.description
+                        priceTextView.text = "${article.price}"
+                        quantityInStockTextView.text = "${article.quantityInStock}"
+                        weightTextView.text = "${article.weight}"
+                        materialTextView.text = article.material ?: "-"
+                        brandTextView.text = article.brand
+                        currencyTextView.text = "${article.currency}"
+                    }
+                } else {
+                    showErrorDialog()
+                }
+            }
+
+            override fun onFailure(call: Call<Article>, t: Throwable) {
+                hideLoading()
+                showErrorDialog()
+            }
+        })
+    }
+
+    private fun showLoading() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideLoading() {
+        progressBar.visibility = View.GONE
+    }
+
+    private fun showErrorDialog() {
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle("Error")
+            .setMessage("Error fetching article details.")
+            .setPositiveButton("Retry") { _, _ ->
+                val articleId = intent.getStringExtra("articleId")
+                fetchArticleDetails(articleId)
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 }
