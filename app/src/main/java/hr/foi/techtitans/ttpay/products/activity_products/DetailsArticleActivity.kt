@@ -34,7 +34,6 @@ class DetailsArticleActivity : AppCompatActivity() {
     private lateinit var weightTextView: TextView
     private lateinit var materialTextView: TextView
     private lateinit var brandTextView: TextView
-    private lateinit var currencyTextView: TextView
     private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +53,6 @@ class DetailsArticleActivity : AppCompatActivity() {
         weightTextView = findViewById(R.id.weightTextView)
         materialTextView = findViewById(R.id.materialTextView)
         brandTextView = findViewById(R.id.brandTextView)
-        currencyTextView = findViewById(R.id.currencyTextView)
         progressBar = findViewById(R.id.progressBar)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
@@ -88,12 +86,11 @@ class DetailsArticleActivity : AppCompatActivity() {
                         itemNameTextView.text = article.name
                         itemCategoryTextView.text = article.itemCategory.name
                         descriptionTextView.text = article.description
-                        priceTextView.text = "${article.price}"
+                        priceTextView.text = "${article.price} ${article.currency} "
                         quantityInStockTextView.text = "${article.quantityInStock}"
                         weightTextView.text = "${article.weight}"
                         materialTextView.text = article.material ?: "-"
                         brandTextView.text = article.brand
-                        currencyTextView.text = "${article.currency}"
                     }
                 } else {
                     showErrorDialog()

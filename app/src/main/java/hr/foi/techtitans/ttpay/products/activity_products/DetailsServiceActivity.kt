@@ -84,13 +84,13 @@ class DetailsServiceActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val service = response.body()
                     if (service != null) {
-                        serviceNameTextView.text = "Service Name: ${service.serviceName}"
-                        descriptionTextView.text = "Description: ${service.description}"
-                        serviceProviderTextView.text = "Service Provider: ${service.serviceProvider}"
-                        priceTextView.text = "Price: ${service.price} ${service.currency}"
-                        durationTextView.text = "Duration: ${service.duration} ${service.durationUnit}"
-                        availabilityTextView.text = "Availability: ${service.availability}"
-                        locationTextView.text = "Location: ${service.serviceLocation}"
+                        serviceNameTextView.text = service.serviceName
+                        descriptionTextView.text = service.description
+                        serviceProviderTextView.text = service.serviceProvider
+                        priceTextView.text = "${service.price} ${service.currency}"
+                        durationTextView.text = "${service.duration} ${service.durationUnit}"
+                        availabilityTextView.text = service.availability
+                        locationTextView.text = service.serviceLocation
                     }
                 } else {
                     showErrorDialog()
