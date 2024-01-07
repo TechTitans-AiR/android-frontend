@@ -22,4 +22,6 @@ interface ServiceProducts {
 
     @GET("/api/v1/services/{serviceId}")
     fun getServiceDetails(@Path("serviceId") serviceId: String?): Call<Service>
+
+    //endpoint for detailed about articles
 }
