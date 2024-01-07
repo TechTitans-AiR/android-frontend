@@ -71,20 +71,40 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/durationTextView"
+        android:id="@+id/currencyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/priceTextView"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="10dp"
+        android:text="Currency: "
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/durationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/currencyTextView"
         android:layout_marginTop="8dp"
         android:layout_marginStart="10dp"
         android:text="Duration: "
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/availabilityTextView"
+        android:id="@+id/durationUnitTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/durationTextView"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="10dp"
+        android:text="Duration unit: "
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/availabilityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/durationUnitTextView"
         android:layout_marginTop="8dp"
         android:layout_marginStart="10dp"
         android:text="Availability: "
@@ -97,7 +117,7 @@
         android:layout_below="@id/availabilityTextView"
         android:layout_marginTop="8dp"
         android:layout_marginStart="10dp"
-        android:text="Location: "
+        android:text="Service location: "
         android:textSize="16sp" />
 
     <ProgressBar
