@@ -6,9 +6,6 @@
     android:layout_height="match_parent"
     tools:context="hr.foi.techtitans.ttpay.products.activity_products.DetailsArticleActivity">
 
-    <!-- Back Button and Title Layout -->
-
-    <!-- Properties Layout -->
     <LinearLayout
         android:id="@+id/linearLayoutButtonTitle"
         android:layout_width="match_parent"
@@ -38,6 +35,14 @@
             android:textSize="24sp"
             android:textStyle="bold" />
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleTextView"
+        android:layout_marginTop="16dp"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
