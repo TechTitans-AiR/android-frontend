@@ -52,7 +52,7 @@ class UpdateServiceActivity : AppCompatActivity() {
         userUsername = intent.getStringExtra("username") ?: ""
 
         // Initialize UI elements
-        btnBack = findViewById(R.id.imgView_back)
+        btnBack = findViewById(R.id.back_ac)
         btnCancel = findViewById(R.id.btnCancel)
         btnEditData = findViewById(R.id.btnEditData)
         serviceNameEditText = findViewById(R.id.serviceNameEditText)
