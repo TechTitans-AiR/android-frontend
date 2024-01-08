@@ -11,6 +11,8 @@ import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import hr.foi.techtitans.ttpay.products.activity_products.DetailsArticleActivity
 import hr.foi.techtitans.ttpay.transactions.activity_transactions.DetailedTransactionActivity
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class TransactionAdapter(
     private var transactions: List<Transaction>, private val loggedInUser: LoggedInUser) :
@@ -32,8 +34,17 @@ class TransactionAdapter(
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
         val transaction = transactions[position]
         holder.txtViewTransactionDescription.text = transaction.description
-        holder.textViewTransactionDate.text = transaction.createdAt
-        holder.textViewTransactionAmount.text = "${transaction.amount}"
+
+        // String into Date
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        val date = dateFormat.parse(transaction.createdAt)
+
+        // Formate Date
+        val formattedDateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.getDefault())
+        val formattedDate = formattedDateFormat.format(date)
+
+        holder.textViewTransactionDate.text = "created at: $formattedDate"
+        holder.textViewTransactionAmount.text = "amount: ${transaction.amount} ${transaction.currency}"
 
         holder.imgViewEye.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailedTransactionActivity::class.java)
