@@ -44,6 +44,16 @@ class UpdateServiceActivity : AppCompatActivity() {
     private lateinit var locationEditText: EditText
     private lateinit var progressBar: ProgressBar
 
+    // Original values that can be changed
+    private lateinit var originalDescription: String
+    private lateinit var originalDuration: String
+    private lateinit var originalDurationUnit: String
+    private lateinit var originalPrice: String
+    private lateinit var originalCurrency: String
+    private lateinit var originalServiceLocation: String
+
+    private var isEditMode = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_service)
@@ -83,6 +93,8 @@ class UpdateServiceActivity : AppCompatActivity() {
         if (serviceId != null) {
             getServiceDetails(serviceId)
         }
+
+        btnCancel.visibility = View.GONE
     }
 
     private fun updateUIWithServiceDetails(service: Service?) {
