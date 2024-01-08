@@ -1,89 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="hr.foi.techtitans.ttpay.transactions.activity_transactions.AllTransactionsActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hr.foi.techtitans.ttpay.transactions.activity_transactions.AllTransactionsActivity">
 
-        <!-- Back button -->
+    <!-- Back button -->
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="40dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:contentDescription="Back Button"
+        android:src="@drawable/baseline_arrow_back" />
+
+    <!-- Title "All catalogs" -->
+    <TextView
+        android:id="@+id/tv_all_transactions_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-light"
+        android:text="All transactions"
+        android:textColor="@color/red"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/rl_plus_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_all_transactions_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp">
+
         <ImageView
-            android:id="@+id/back_button"
-            android:layout_width="40dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:clickable="true"
-            android:contentDescription="Back Button"
-            android:src="@drawable/baseline_arrow_back" />
+            android:id="@+id/img_plus_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:onClick="onPlusTransactionIconClick"
+            android:src="@drawable/add_circle" />
 
-        <!-- Title "All catalogs" -->
-        <TextView
-            android:id="@+id/tv_all_transactions_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-light"
-            android:text="All transactions"
-            android:textColor="@color/red"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/img_search_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="60dp"
+            android:onClick="onSearchTransactionIconClick"
+            android:src="@drawable/baseline_search" />
 
-        <!-- Plus icon with red circle -->
-        <RelativeLayout
-            android:id="@+id/rl_plus_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_all_transactions_title"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp">
+    </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/img_plus_icon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="10dp"
-                android:onClick="onPlusTransactionIconClick"
-                android:src="@drawable/add_circle" />
+    <TextView
+        android:id="@+id/tv_select_user_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_plus_icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Select the transaction you want to see"
+        android:textSize="18sp" />
 
-        </RelativeLayout>
+    <!-- ProgressBar for loading -->
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_select_user_message"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/tv_select_user_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rl_plus_icon"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:text="Select the transaction you want to see"
-            android:textSize="18sp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_all_transactions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loadingProgressBar"
+        android:layout_above="@+id/bottomNavigationView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:padding="5dp" />
 
-        <!-- ProgressBar for loading -->
-        <ProgressBar
-            android:id="@+id/loadingProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_select_user_message"
-            android:layout_centerInParent="true"
-            android:indeterminate="true"
-            android:visibility="gone" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView_all_transactions"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/loadingProgressBar"
-            android:layout_marginBottom="50dp"
-            android:layout_centerHorizontal="true"
-            android:layout_above="@+id/bottomNavigationView"
-            android:padding="5dp"/>
-
-        <!-- BottomNavigationView -->
-        <include layout="@layout/bottom_navigation"
-            android:id="@+id/bottomNavigationView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"/>
+    <include
+        android:id="@+id/bottomNavigationView"
+        layout="@layout/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

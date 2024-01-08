@@ -126,4 +126,6 @@ class AllTransactionsActivity : AppCompatActivity() {
         val dialog = builder.create()
         dialog.show()
     }
+
+    fun onSearchTransactionIconClick(view: View) {}
 }
