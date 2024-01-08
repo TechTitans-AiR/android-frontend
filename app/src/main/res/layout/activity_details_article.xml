@@ -40,7 +40,7 @@
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titleTextView"
+        android:layout_below="@id/linearLayoutButtonTitle"
         android:layout_marginTop="16dp"
         android:visibility="gone" />
 
@@ -237,8 +237,8 @@
 
     </LinearLayout>
 
-    <!-- Add Bottom Navigation -->
     <include
+        android:id="@+id/bottomNavigationView"
         layout="@layout/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
