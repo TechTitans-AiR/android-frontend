@@ -46,6 +46,8 @@ class UpdateArticleActivity : AppCompatActivity() {
     private lateinit var originalCurrency: String
     private lateinit var originalQuantityInStock: String
     private lateinit var originalWeight: String
+
+    private var isEditMode = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_article)
@@ -85,6 +87,17 @@ class UpdateArticleActivity : AppCompatActivity() {
         val articleId = intent.getStringExtra("articleId")
         if (articleId != null) {
             getArticleDetails(articleId)
+        }
+
+        btnCancel.setOnClickListener {
+            // If in edit mode, revert changes
+            if (isEditMode) {
+                revertChanges()
+            }
+        }
+
+        btnEditData.setOnClickListener {
+            toggleEditMode()
         }
 
     }
@@ -136,6 +149,61 @@ class UpdateArticleActivity : AppCompatActivity() {
             brandEditText.text.clear()
             Toast.makeText(this@UpdateArticleActivity, "Article details not available", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun toggleEditMode() {
+        isEditMode = !isEditMode
+
+        if (isEditMode) {
+            enableEditMode()
+        } else {
+            // If exiting edit mode, save or revert changes
+            if (changesMade()) {
+                saveChanges()
+            } else {
+                revertChanges()
+            }
+            disableEditMode()
+        }
+    }
+
+    private fun enableEditMode() {
+        // Enable editing for specified fields
+        descriptionEditText.isEnabled = true
+        priceEditText.isEnabled = true
+        currencyEditText.isEnabled = true
+        quantityInStockEditText.isEnabled = true
+        weightEditText.isEnabled = true
+
+        // Save original values for later comparison
+        originalDescription = descriptionEditText.text.toString()
+        originalPrice = priceEditText.text.toString()
+        originalCurrency = currencyEditText.text.toString()
+        originalQuantityInStock = quantityInStockEditText.text.toString()
+        originalWeight = weightEditText.text.toString()
+    }
+
+    private fun disableEditMode() {
+        // Disable editing for specified fields
+        itemNameEditText.isEnabled = false
+        itemCategoryEditText.isEnabled = false
+        descriptionEditText.isEnabled = false
+        priceEditText.isEnabled = false
+        currencyEditText.isEnabled = false
+        quantityInStockEditText.isEnabled = false
+        weightEditText.isEnabled = false
+        materialEditText.isEnabled = false
+        brandEditText.isEnabled = false
+    }
+
+    private fun revertChanges(){
+    }
+
+    private fun changesMade():Boolean{
+        return true
+    }
+
+    private fun saveChanges() {
     }
 
 }
