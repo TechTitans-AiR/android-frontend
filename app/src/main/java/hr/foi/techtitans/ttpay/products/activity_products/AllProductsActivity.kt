@@ -177,4 +177,10 @@ class AllProductsActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        fetchArticles()
+        fetchServices()
+    }
+
 }

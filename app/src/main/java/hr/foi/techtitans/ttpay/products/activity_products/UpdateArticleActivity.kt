@@ -81,6 +81,7 @@ class UpdateArticleActivity : AppCompatActivity() {
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("UpdateArticleActivity - LoggedInUser",loggedInUser.toString())
             intent.putExtra("username", userUsername)
+            setResult(RESULT_OK, intent)
             finish()
         }
 

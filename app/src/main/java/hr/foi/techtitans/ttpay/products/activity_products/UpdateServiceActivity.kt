@@ -85,6 +85,7 @@ class UpdateServiceActivity : AppCompatActivity() {
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("UpdateServiceActivity - LoggedInUser",loggedInUser.toString())
             intent.putExtra("username", userUsername)
+            setResult(RESULT_OK, intent)
             finish()
         }
 
