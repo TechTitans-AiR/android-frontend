@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -127,5 +130,85 @@ class AllTransactionsActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    fun onSearchTransactionIconClick(view: View) {}
+    fun onSearchTransactionIconClick(view: View) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_search, null)
+
+        val etDescription = dialogView.findViewById<EditText>(R.id.etDialogDescription)
+        val etDate = dialogView.findViewById<EditText>(R.id.etDialogDate)
+        val spinnerMerchant = dialogView.findViewById<Spinner>(R.id.spinnerDialogMerchant)
+
+        // initialization values of elements
+        etDescription.setText("")
+        etDate.setText("")
+        // Spinner initialization
+        fetchMerchantsForDialog(spinnerMerchant)
+
+        val builder = AlertDialog.Builder(this)
+            .setTitle("Search")
+            .setView(dialogView)
+            .setPositiveButton("Search") { dialog, _ ->
+                // implement the search logic here
+                val description = etDescription.text.toString()
+                val date = etDate.text.toString()
+                val selectedMerchant = spinnerMerchant.selectedItem.toString()
+                // call the search function with the parameters you have received
+                performSearch(description, date, selectedMerchant)
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+
+    private fun fetchMerchantsForDialog(spinnerMerchant: Spinner) {
+        showLoading()
+        val retrofit = RetrofitClient.getInstance(8080)
+        val service = retrofit.create(ServiceAccountManagement::class.java)
+        val call = service.getUsers()
+
+        call.enqueue(object : Callback<List<User>> {
+            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                hideLoading()
+                try {
+                    if (response.isSuccessful) {
+                        val users = response.body() ?: emptyList()
+                        Log.d("AllMerchantsActivity", "Users fetched successfully: $users")
+
+                        val userNames = users.map { "${it.first_name} ${it.last_name}" }.toTypedArray()
+
+                        val arrayAdapter = ArrayAdapter(this@AllTransactionsActivity, android.R.layout.simple_spinner_item, userNames)
+                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        spinnerMerchant.adapter = arrayAdapter
+
+                    } else {
+                        showErrorDialog()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    showErrorDialog()
+                }
+            }
+
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                hideLoading()
+                try {
+                    showErrorDialog()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    showErrorDialog()
+                }
+            }
+        })
+    }
+
+    private fun performSearch(description: String, date: String, selectedMerchant: String) {
+        // Implement the search logic here
+    }
+
+
+
+
 }
