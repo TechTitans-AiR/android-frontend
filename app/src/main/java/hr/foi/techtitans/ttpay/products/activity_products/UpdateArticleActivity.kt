@@ -196,7 +196,14 @@ class UpdateArticleActivity : AppCompatActivity() {
         brandEditText.isEnabled = false
     }
 
-    private fun revertChanges(){
+    private fun revertChanges() {
+        Log.d("UpdateArticleActivity", "Entered revertChanges")
+        // Revert changes to original values
+        descriptionEditText.setText(originalDescription)
+        priceEditText.setText(originalPrice)
+        currencyEditText.setText(originalCurrency)
+        quantityInStockEditText.setText(originalQuantityInStock)
+        weightEditText.setText(originalWeight)
     }
 
     private fun changesMade(): Boolean {
