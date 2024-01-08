@@ -279,7 +279,6 @@
         android:layout_below="@id/linearLayoutProperties"
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
-        android:visibility="gone"
         android:text="Cancel" />
 
     <!-- Button Edit Data -->

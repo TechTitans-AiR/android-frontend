@@ -39,6 +39,13 @@ class UpdateArticleActivity : AppCompatActivity() {
     private lateinit var brandEditText: EditText
     private lateinit var btnCancel: Button
     private lateinit var btnEditData: Button
+
+    // Original values that can be changed
+    private lateinit var originalDescription: String
+    private lateinit var originalPrice: String
+    private lateinit var originalCurrency: String
+    private lateinit var originalQuantityInStock: String
+    private lateinit var originalWeight: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_article)
