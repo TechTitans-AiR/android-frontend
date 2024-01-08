@@ -44,6 +44,7 @@
         android:visibility="gone" />
 
     <LinearLayout
+        android:id="@+id/linearLayoutProperties"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/linearLayoutButtonTitle"
@@ -52,6 +53,8 @@
         android:orientation="vertical">
 
         <!-- Item Name -->
+
+        <!-- Item Category -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,12 +72,11 @@
                 android:id="@+id/itemNameEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
                 android:enabled="false"
+                android:text=""
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <!-- Item Category -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -139,6 +141,30 @@
 
             <EditText
                 android:id="@+id/priceEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:enabled="false"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <!-- Currency -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Currency: "
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/currencyEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -243,6 +269,29 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <!-- Button Cancel -->
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="168dp"
+        android:layout_height="46dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/linearLayoutProperties"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        android:text="Cancel" />
+
+    <!-- Button Edit Data -->
+    <Button
+        android:id="@+id/btnEditData"
+        android:layout_width="168dp"
+        android:layout_height="46dp"
+        android:layout_toEndOf="@+id/btnCancel"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/linearLayoutProperties"
+        android:text="Edit data" />
 
     <include
         android:id="@+id/bottomNavigationView"
