@@ -146,6 +146,35 @@ class UpdateServiceActivity : AppCompatActivity() {
         btnEditData.text = "Edit Data"
     }
 
+    private fun isFieldChanged(editText: EditText, originalValue: String?): Boolean {
+        val currentValue = editText.text.toString()
+        return currentValue != originalValue
+    }
+    private fun collectUpdatedFields(): Map<String, Any> {
+        val updatedFields = mutableMapOf<String, Any>()
+
+        if (isFieldChanged(descriptionEditText, originalDescription)) {
+            updatedFields["description"] = descriptionEditText.text.toString()
+        }
+        if (isFieldChanged(priceEditText, originalPrice)) {
+            updatedFields["price"] = priceEditText.text.toString().toDouble()
+        }
+        if (isFieldChanged(currencyEditText, originalCurrency)) {
+            updatedFields["currency"] = currencyEditText.text.toString()
+        }
+        if (isFieldChanged(durationEditText, originalDuration)) {
+            updatedFields["duration"] = durationEditText.text.toString().toInt()
+        }
+        if (isFieldChanged(durationUnitEditText, originalDurationUnit)) {
+            updatedFields["durationUnit"] = durationUnitEditText.text.toString()
+        }
+        if (isFieldChanged(locationEditText, originalServiceLocation)) {
+            updatedFields["serviceLocation"] = locationEditText.text.toString()
+        }
+
+        return updatedFields
+    }
+
     private fun updateUIWithServiceDetails(service: Service?) {
         // Update the UI elements with the fetched service details
         if (service != null) {
