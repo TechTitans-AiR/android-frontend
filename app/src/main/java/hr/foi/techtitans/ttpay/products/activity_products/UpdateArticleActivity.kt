@@ -242,14 +242,12 @@ class UpdateArticleActivity : AppCompatActivity() {
         if (isFieldChanged(weightEditText, originalWeight)) {
             fieldsMap["weight"] = weightEditText.text.toString().toDouble()
         }
-
         return fieldsMap
     }
 
     private fun updateArticleDetails(articleId: String, updatedFields: Map<String, Any>, token: String) {
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
-
         val call = service.updateArticle(articleId, updatedFields, "Bearer $token")
         Log.d("UpdateArticleActivity", "Article ID: $articleId, Token: $token, Updated Fields: $updatedFields")
 
