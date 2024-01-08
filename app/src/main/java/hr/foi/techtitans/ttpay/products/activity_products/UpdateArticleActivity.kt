@@ -8,10 +8,17 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
+import hr.foi.techtitans.ttpay.network.RetrofitClient
+import hr.foi.techtitans.ttpay.products.model_products.Article
+import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class UpdateArticleActivity : AppCompatActivity() {
 
@@ -69,5 +76,59 @@ class UpdateArticleActivity : AppCompatActivity() {
 
         // Get article details based on the provided articleId
         val articleId = intent.getStringExtra("articleId")
+        if (articleId != null) {
+            getArticleDetails(articleId)
+        }
+
     }
+
+    private fun getArticleDetails(articleId: String) {
+        val retrofit = RetrofitClient.getInstance(8081)
+        val service = retrofit.create(ServiceProducts::class.java)
+        val call = service.getArticleDetails(articleId)
+        call.enqueue(object : Callback<Article> {
+            override fun onResponse(call: Call<Article>, response: Response<Article>) {
+                if (response.isSuccessful) {
+                    val article = response.body()
+                    updateUIWithArticleDetails(article)
+                } else {
+                    Toast.makeText(this@UpdateArticleActivity, "Failed to retrieve article details", Toast.LENGTH_SHORT).show()
+                }
+                progressBar.visibility = View.GONE
+            }
+
+            override fun onFailure(call: Call<Article>, t: Throwable) {
+                Log.e("UpdateArticleActivity", "Error: ${t.message}", t)
+                Toast.makeText(this@UpdateArticleActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                progressBar.visibility = View.GONE
+            }
+        })
+    }
+
+    private fun updateUIWithArticleDetails(article: Article?) {
+        // Update the UI elements with the fetched article details
+        if (article != null) {
+            itemNameEditText.setText(article.name)
+            itemCategoryEditText.setText(article.itemCategory.name)
+            descriptionEditText.setText(article.description)
+            priceEditText.setText(article.price.toString())
+            currencyEditText.setText(article.currency)
+            quantityInStockEditText.setText(article.quantityInStock.toString())
+            weightEditText.setText(article.weight?.toString() ?: "")
+            materialEditText.setText(article.material ?: "")
+            brandEditText.setText(article.brand)
+        } else {
+            itemNameEditText.text.clear()
+            itemCategoryEditText.text.clear()
+            descriptionEditText.text.clear()
+            priceEditText.text.clear()
+            currencyEditText.text.clear()
+            quantityInStockEditText.text.clear()
+            weightEditText.text.clear()
+            materialEditText.text.clear()
+            brandEditText.text.clear()
+            Toast.makeText(this@UpdateArticleActivity, "Article details not available", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }
