@@ -34,9 +34,7 @@ class AllTransactionsActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
-    private val transactionAdapter = TransactionAdapter(emptyList()) { transaction ->
-        openDetailedTransactionActivity(transaction.id)
-    }
+    private lateinit var transactionAdapter : TransactionAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +42,7 @@ class AllTransactionsActivity : AppCompatActivity() {
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
+        transactionAdapter = TransactionAdapter(emptyList(), loggedInUser)
 
         recyclerView = findViewById(R.id.recyclerView_all_transactions)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -76,15 +75,6 @@ class AllTransactionsActivity : AppCompatActivity() {
         intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
-    }
-
-    private fun openDetailedTransactionActivity(transactionId: String?) {
-        val intent = Intent(this, DetailedTransactionActivity::class.java)
-        intent.putExtra("loggedInUser", loggedInUser)
-        Log.d("openDetailedTransactionActivity - LoggedInUser",loggedInUser.toString())
-        intent.putExtra("transactionId", transactionId)
-        intent.putExtra("username", userUsername)
-        startActivity(intent)
     }
 
     private fun fetchTransactions() {

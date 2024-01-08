@@ -55,13 +55,7 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerView_all_transactions)
 
-        adapter = TransactionAdapter(emptyList()) { transaction ->
-            val intent = Intent(this, DetailedTransactionActivity::class.java)
-            intent.putExtra("loggedInUser", loggedInUser)
-            Log.d("AllTransactionMerchantActivity(merchant) - LoggedInUser",loggedInUser.toString())
-            intent.putExtra("transactionId", transaction.id)
-            startActivity(intent)
-        }
+        adapter = TransactionAdapter(emptyList(), loggedInUser)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter

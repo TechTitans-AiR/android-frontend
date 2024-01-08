@@ -1,7 +1,7 @@
 package hr.foi.techtitans.ttpay.transactions.model_transactions
 
 data class Transaction (
-    val id: String,
+    val _id: String,
     val merchantId: String,
     val description: String,
     val amount: Double,
