@@ -174,7 +174,6 @@ class UpdateServiceActivity : AppCompatActivity() {
         if (isFieldChanged(locationEditText, originalServiceLocation)) {
             updatedFields["serviceLocation"] = locationEditText.text.toString()
         }
-
         return updatedFields
     }
 

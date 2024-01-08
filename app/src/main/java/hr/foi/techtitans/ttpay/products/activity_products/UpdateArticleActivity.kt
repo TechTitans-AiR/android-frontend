@@ -99,7 +99,6 @@ class UpdateArticleActivity : AppCompatActivity() {
         btnEditData.setOnClickListener {
             toggleEditMode()
         }
-
     }
 
     private fun getArticleDetails(articleId: String) {
