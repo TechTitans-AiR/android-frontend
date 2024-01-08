@@ -95,6 +95,55 @@ class UpdateServiceActivity : AppCompatActivity() {
         }
 
         btnCancel.visibility = View.GONE
+
+        btnEditData.setOnClickListener {
+            toggleEditMode()
+        }
+    }
+
+    private fun toggleEditMode() {
+        isEditMode = !isEditMode
+
+        if (isEditMode) {
+            enableEditMode()
+        } else {
+            // implement method call for save changes
+            disableEditMode()
+        }
+    }
+
+    private fun enableEditMode() {
+        // Enable editing for specified fields
+        descriptionEditText.isEnabled = true
+        priceEditText.isEnabled = true
+        currencyEditText.isEnabled = true
+        durationEditText.isEnabled = true
+        durationUnitEditText.isEnabled = true
+        locationEditText.isEnabled = true
+
+        // Save original values for later comparison
+        originalDescription = descriptionEditText.text.toString()
+        originalPrice = priceEditText.text.toString()
+        originalCurrency = currencyEditText.text.toString()
+        originalDuration = durationEditText.text.toString()
+        originalDurationUnit = durationUnitEditText.text.toString()
+        originalServiceLocation = locationEditText.text.toString()
+
+        btnCancel.visibility = View.VISIBLE
+        btnEditData.text = "Save Changes"
+    }
+
+    private fun disableEditMode() {
+        // Disable editing for specified fields
+        descriptionEditText.isEnabled = false
+        priceEditText.isEnabled = false
+        currencyEditText.isEnabled = false
+        durationEditText.isEnabled = false
+        durationUnitEditText.isEnabled = false
+        locationEditText.isEnabled = false
+
+        btnCancel.visibility = View.GONE
+        btnEditData.text = "Edit Data"
     }
 
     private fun updateUIWithServiceDetails(service: Service?) {
