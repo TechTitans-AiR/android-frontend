@@ -36,4 +36,11 @@ interface ServiceProducts {
         @Body updatedArticle: Map<String, @JvmSuppressWildcards Any>,
         @Header("Authorization") token: String
     ): Call<Void>
+
+    @PUT("/api/v1/services/update/{serviceId}")
+    fun updateService(
+        @Path("serviceId") serviceId: String?,
+        @Body updatedService: Map<String, @JvmSuppressWildcards Any>,
+        @Header("Authorization") token: String
+    ): Call<Void>
 }
