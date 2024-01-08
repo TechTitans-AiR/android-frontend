@@ -199,8 +199,13 @@ class UpdateArticleActivity : AppCompatActivity() {
     private fun revertChanges(){
     }
 
-    private fun changesMade():Boolean{
-        return true
+    private fun changesMade(): Boolean {
+        // Check if any changes have been made
+        return (originalDescription != descriptionEditText.text.toString() ||
+                originalPrice != priceEditText.text.toString() ||
+                originalCurrency != currencyEditText.text.toString() ||
+                originalQuantityInStock != quantityInStockEditText.text.toString() ||
+                originalWeight != weightEditText.text.toString())
     }
 
     private fun saveChanges() {
