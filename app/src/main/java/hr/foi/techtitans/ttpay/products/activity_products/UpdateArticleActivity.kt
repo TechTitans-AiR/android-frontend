@@ -206,4 +206,19 @@ class UpdateArticleActivity : AppCompatActivity() {
     private fun saveChanges() {
     }
 
+    private fun collectUpdatedFields(): Map<String, Any> {
+        val fieldsMap = mutableMapOf<String, Any>()
+
+        if (changesMade()) {
+            // Collect updated fields
+            fieldsMap["description"] = descriptionEditText.text.toString()
+            fieldsMap["price"] = priceEditText.text.toString().toDouble()
+            fieldsMap["currency"] = currencyEditText.text.toString()
+            fieldsMap["quantityInStock"] = quantityInStockEditText.text.toString().toInt()
+            fieldsMap["weight"] = weightEditText.text.toString().toDouble()
+        }
+
+        return fieldsMap
+    }
+
 }
