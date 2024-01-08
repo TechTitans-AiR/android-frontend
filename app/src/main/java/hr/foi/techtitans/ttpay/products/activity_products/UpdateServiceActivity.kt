@@ -95,6 +95,9 @@ class UpdateServiceActivity : AppCompatActivity() {
         }
 
         btnCancel.visibility = View.GONE
+        btnCancel.setOnClickListener {
+            revertChanges()
+        }
 
         btnEditData.setOnClickListener {
             toggleEditMode()
@@ -261,5 +264,19 @@ class UpdateServiceActivity : AppCompatActivity() {
                 progressBar.visibility = View.GONE
             }
         })
+    }
+
+    private fun revertChanges() {
+        Log.d("UpdateServiceActivity", "Entered revertChanges")
+        // Revert changes to original values
+        descriptionEditText.setText(originalDescription)
+        priceEditText.setText(originalPrice)
+        currencyEditText.setText(originalCurrency)
+        durationEditText.setText(originalDuration)
+        durationUnitEditText.setText(originalDurationUnit)
+        locationEditText.setText(originalServiceLocation)
+
+        btnCancel.visibility = View.GONE
+        btnEditData.text = "Edit Data"
     }
 }
