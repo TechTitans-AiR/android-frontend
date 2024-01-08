@@ -103,11 +103,10 @@ class UpdateServiceActivity : AppCompatActivity() {
 
     private fun toggleEditMode() {
         isEditMode = !isEditMode
-
         if (isEditMode) {
             enableEditMode()
         } else {
-            // implement method call for save changes
+            saveChanges()
             disableEditMode()
         }
     }
@@ -173,6 +172,45 @@ class UpdateServiceActivity : AppCompatActivity() {
         }
 
         return updatedFields
+    }
+
+    private fun updateServiceDetails(serviceId: String, updatedFields: Map<String, Any>, token: String) {
+        val retrofit = RetrofitClient.getInstance(8081)
+        val service = retrofit.create(ServiceProducts::class.java)
+        val call = service.updateService(serviceId, updatedFields, "Bearer $token")
+        Log.d("UpdateServiceActivity", "Service ID: $serviceId, Token: $token, Updated Fields: $updatedFields")
+
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("UpdateServiceActivity", "Service updated successfully")
+                    Toast.makeText(this@UpdateServiceActivity, "Service updated successfully", Toast.LENGTH_SHORT).show()
+                } else {
+                    Log.e("UpdateServiceActivity", "Failed to update service. Response code: ${response.code()}")
+                    Toast.makeText(this@UpdateServiceActivity, "Failed to update service", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("UpdateServiceActivity", "Update service failed: ${t.message}", t)
+                Toast.makeText(this@UpdateServiceActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun saveChanges() {
+        // Log statement
+        Log.d("UpdateServiceActivity", "Entered saveChanges")
+
+        Toast.makeText(this, "Changes Saved", Toast.LENGTH_SHORT).show()
+
+        // Collect and send only updated fields to the server
+        val updatedFields = collectUpdatedFields()
+
+        // Check if there are any changes before making the API call
+        if (updatedFields.isNotEmpty()) {
+            updateServiceDetails(serviceId, updatedFields, loggedInUser.token)
+        }
     }
 
     private fun updateUIWithServiceDetails(service: Service?) {
