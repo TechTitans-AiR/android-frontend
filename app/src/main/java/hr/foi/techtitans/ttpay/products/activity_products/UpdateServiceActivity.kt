@@ -18,9 +18,11 @@ class UpdateServiceActivity : AppCompatActivity() {
     private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
     private lateinit var navigationHandler: NavigationHandler
+    private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var serviceId: String
 
     // UI elements
+    private lateinit var btnBack: ImageView
     private lateinit var btnCancel: Button
     private lateinit var btnEditData: Button
     private lateinit var serviceNameEditText: EditText
@@ -42,6 +44,7 @@ class UpdateServiceActivity : AppCompatActivity() {
         userUsername = intent.getStringExtra("username") ?: ""
 
         // Initialize UI elements
+        btnBack = findViewById(R.id.imgView_back)
         btnCancel = findViewById(R.id.btnCancel)
         btnEditData = findViewById(R.id.btnEditData)
         serviceNameEditText = findViewById(R.id.serviceNameEditText)
@@ -54,10 +57,8 @@ class UpdateServiceActivity : AppCompatActivity() {
         availabilityEditText = findViewById(R.id.availabilityEditText)
         locationEditText = findViewById(R.id.locationEditText)
         progressBar = findViewById(R.id.progressBar)
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
 
-        val btnBack: ImageView = findViewById(R.id.imgView_back)
-
-        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
@@ -68,5 +69,8 @@ class UpdateServiceActivity : AppCompatActivity() {
             intent.putExtra("username", userUsername)
             finish()
         }
+
+        // Get service details based on the provided serviceId
+        serviceId = intent.getStringExtra("serviceId") ?: ""
     }
 }
