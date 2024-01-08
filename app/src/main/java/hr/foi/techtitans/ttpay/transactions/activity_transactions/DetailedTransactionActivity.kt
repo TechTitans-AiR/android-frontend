@@ -7,10 +7,13 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
+import hr.foi.techtitans.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
 import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.products.model_products.Article
@@ -63,6 +66,8 @@ class DetailedTransactionActivity : AppCompatActivity() {
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
+        fetchTransactionDetails(transactionId)
+
         imgBack.setOnClickListener {
             intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
@@ -82,7 +87,7 @@ class DetailedTransactionActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val transaction = response.body()
                     if (transaction != null) {
-                        merchant.text = transaction.merchantId
+                        fetchUserDetails(transaction.merchantId)
                         description.text = transaction.description
                         amount.text = "${transaction.amount}"
                         currency.text = transaction.currency
@@ -112,9 +117,9 @@ class DetailedTransactionActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
 
         builder.setTitle("Error")
-            .setMessage("Error fetching article details.")
+            .setMessage("Error fetching transaction details.")
             .setPositiveButton("Retry") { _, _ ->
-                val articleId = intent.getStringExtra("articleId")
+                val transactionId = intent.getStringExtra("transactionId")
                 fetchTransactionDetails(transactionId)
             }
             .setNegativeButton("Cancel") { dialog, _ ->
@@ -123,5 +128,28 @@ class DetailedTransactionActivity : AppCompatActivity() {
 
         val dialog = builder.create()
         dialog.show()
+    }
+
+    private fun fetchUserDetails(userId: String) {
+        val retrofit = RetrofitClient.getInstance(8080)
+        val service = retrofit.create(ServiceAccountManagement::class.java)
+        val call = service.getUserDetails(userId)
+
+        call.enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) {
+                    val user = response.body()
+                    if (user != null) {
+                        val userFullName = "${user.first_name} ${user.last_name}"
+                        merchant.text = userFullName
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                val errorMessage = "Error fetching user details: ${t.message}"
+                Toast.makeText(applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

@@ -78,6 +78,7 @@
             android:id="@+id/textView_merchant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text=""
             android:textSize="18sp"/>
     </LinearLayout>
 
@@ -98,6 +99,7 @@
             android:id="@+id/textView_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text=""
             android:textSize="18sp"/>
     </LinearLayout>
 
@@ -118,6 +120,7 @@
             android:id="@+id/textView_currency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text=""
             android:textSize="18sp"/>
     </LinearLayout>
 
@@ -138,6 +141,7 @@
             android:id="@+id/textView_createdAt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text=""
             android:textSize="18sp"/>
     </LinearLayout>
 
@@ -158,6 +162,7 @@
             android:id="@+id/textView_updatedAt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text=""
             android:textSize="18sp"/>
     </LinearLayout>
 </LinearLayout>
