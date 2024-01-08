@@ -19,4 +19,7 @@ interface ServiceTransactionManagement {
 
     @POST("/api/v1/transactions/create")//create new transaction for selling items
     fun createTransaction(@Body newTransaction: NewTransaction): Call<NewTransaction>
+
+    @GET("/api/v1/transactions/{id}")
+    fun getTransactionDetails(@Path("id") id: String): Call<Transaction>
 }
