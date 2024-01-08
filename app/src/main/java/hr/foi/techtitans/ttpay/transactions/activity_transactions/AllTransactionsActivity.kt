@@ -136,12 +136,13 @@ class AllTransactionsActivity : AppCompatActivity() {
         val etDescription = dialogView.findViewById<EditText>(R.id.etDialogDescription)
         val etDate = dialogView.findViewById<EditText>(R.id.etDialogDate)
         val spinnerMerchant = dialogView.findViewById<Spinner>(R.id.spinnerDialogMerchant)
+        val progressBarMerchant = dialogView.findViewById<ProgressBar>(R.id.progressBarDialog)
 
         // initialization values of elements
         etDescription.setText("")
         etDate.setText("")
         // Spinner initialization
-        fetchMerchantsForDialog(spinnerMerchant)
+        fetchMerchantsForDialog(spinnerMerchant, progressBarMerchant)
 
         val builder = AlertDialog.Builder(this)
             .setTitle("Search")
@@ -163,23 +164,29 @@ class AllTransactionsActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
-    private fun fetchMerchantsForDialog(spinnerMerchant: Spinner) {
-        showLoading()
+    private fun fetchMerchantsForDialog(spinnerMerchant: Spinner, progressBar: ProgressBar) {
+        progressBar.visibility = View.VISIBLE  // Show the progress bar
+
         val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)
         val call = service.getUsers()
 
         call.enqueue(object : Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
-                hideLoading()
                 try {
+                    progressBar.visibility = View.GONE  // Hide the progress bar
+
                     if (response.isSuccessful) {
                         val users = response.body() ?: emptyList()
                         Log.d("AllMerchantsActivity", "Users fetched successfully: $users")
 
                         val userNames = users.map { "${it.first_name} ${it.last_name}" }.toTypedArray()
 
-                        val arrayAdapter = ArrayAdapter(this@AllTransactionsActivity, android.R.layout.simple_spinner_item, userNames)
+                        val arrayAdapter = ArrayAdapter(
+                            this@AllTransactionsActivity,
+                            android.R.layout.simple_spinner_item,
+                            userNames
+                        )
                         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                         spinnerMerchant.adapter = arrayAdapter
 
@@ -193,8 +200,8 @@ class AllTransactionsActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                hideLoading()
                 try {
+                    progressBar.visibility = View.GONE  // Hide the progress bar
                     showErrorDialog()
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -203,6 +210,7 @@ class AllTransactionsActivity : AppCompatActivity() {
             }
         })
     }
+
 
     private fun performSearch(description: String, date: String, selectedMerchant: String) {
         // Implement the search logic here
