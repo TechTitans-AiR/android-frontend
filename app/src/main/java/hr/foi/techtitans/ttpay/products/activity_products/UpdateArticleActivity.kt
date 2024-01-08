@@ -25,6 +25,7 @@ class UpdateArticleActivity : AppCompatActivity() {
     private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
     private lateinit var navigationHandler: NavigationHandler
+    private lateinit var articleId: String
 
     // UI elements
     private lateinit var progressBar: ProgressBar
@@ -84,17 +85,15 @@ class UpdateArticleActivity : AppCompatActivity() {
         }
 
         // Get article details based on the provided articleId
-        val articleId = intent.getStringExtra("articleId")
+        articleId = intent.getStringExtra("articleId") ?: ""
         if (articleId != null) {
             getArticleDetails(articleId)
         }
 
+        btnCancel.visibility = View.GONE
         btnCancel.setOnClickListener {
-            // If in edit mode, revert changes
-            if (isEditMode) {
                 revertChanges()
             }
-        }
 
         btnEditData.setOnClickListener {
             toggleEditMode()
@@ -133,7 +132,7 @@ class UpdateArticleActivity : AppCompatActivity() {
             descriptionEditText.setText(article.description)
             priceEditText.setText(article.price.toString())
             currencyEditText.setText(article.currency)
-            quantityInStockEditText.setText(article.quantityInStock.toString())
+            quantityInStockEditText.setText(article.quantity_in_stock.toString())
             weightEditText.setText(article.weight?.toString() ?: "")
             materialEditText.setText(article.material ?: "")
             brandEditText.setText(article.brand)
@@ -157,12 +156,7 @@ class UpdateArticleActivity : AppCompatActivity() {
         if (isEditMode) {
             enableEditMode()
         } else {
-            // If exiting edit mode, save or revert changes
-            if (changesMade()) {
-                saveChanges()
-            } else {
-                revertChanges()
-            }
+            saveChanges()
             disableEditMode()
         }
     }
@@ -181,19 +175,21 @@ class UpdateArticleActivity : AppCompatActivity() {
         originalCurrency = currencyEditText.text.toString()
         originalQuantityInStock = quantityInStockEditText.text.toString()
         originalWeight = weightEditText.text.toString()
+
+        btnCancel.visibility = View.VISIBLE
+        btnEditData.text = "Save Changes"
     }
 
     private fun disableEditMode() {
         // Disable editing for specified fields
-        itemNameEditText.isEnabled = false
-        itemCategoryEditText.isEnabled = false
         descriptionEditText.isEnabled = false
         priceEditText.isEnabled = false
         currencyEditText.isEnabled = false
         quantityInStockEditText.isEnabled = false
         weightEditText.isEnabled = false
-        materialEditText.isEnabled = false
-        brandEditText.isEnabled = false
+
+        btnCancel.visibility = View.GONE
+        btnEditData.text = "Edit Data"
     }
 
     private fun revertChanges() {
@@ -204,33 +200,74 @@ class UpdateArticleActivity : AppCompatActivity() {
         currencyEditText.setText(originalCurrency)
         quantityInStockEditText.setText(originalQuantityInStock)
         weightEditText.setText(originalWeight)
+        btnCancel.visibility = View.GONE
+        btnEditData.text = "Edit Data"
     }
 
-    private fun changesMade(): Boolean {
-        // Check if any changes have been made
-        return (originalDescription != descriptionEditText.text.toString() ||
-                originalPrice != priceEditText.text.toString() ||
-                originalCurrency != currencyEditText.text.toString() ||
-                originalQuantityInStock != quantityInStockEditText.text.toString() ||
-                originalWeight != weightEditText.text.toString())
+    private fun isFieldChanged(editText: EditText, originalValue: String?): Boolean {
+        val currentValue = editText.text.toString()
+        return currentValue != originalValue
     }
 
     private fun saveChanges() {
+        // Log statement
+        Log.d("UpdateArticleActivity", "Entered saveChanges")
+
+        Toast.makeText(this, "Changes Saved", Toast.LENGTH_SHORT).show()
+
+        // Collect and send only updated fields to the server
+        val updatedFields = collectUpdatedFields()
+
+        // Check if there are any changes before making the API call
+        if (updatedFields.isNotEmpty()) {
+            updateArticleDetails(articleId, updatedFields, loggedInUser.token)
+        }
     }
 
     private fun collectUpdatedFields(): Map<String, Any> {
         val fieldsMap = mutableMapOf<String, Any>()
 
-        if (changesMade()) {
-            // Collect updated fields
+        if (isFieldChanged(descriptionEditText, originalDescription)) {
             fieldsMap["description"] = descriptionEditText.text.toString()
+        }
+        if (isFieldChanged(priceEditText, originalPrice)) {
             fieldsMap["price"] = priceEditText.text.toString().toDouble()
+        }
+        if (isFieldChanged(currencyEditText, originalCurrency)) {
             fieldsMap["currency"] = currencyEditText.text.toString()
-            fieldsMap["quantityInStock"] = quantityInStockEditText.text.toString().toInt()
+        }
+        if (isFieldChanged(quantityInStockEditText, originalQuantityInStock)) {
+            fieldsMap["quantity_in_stock"] = quantityInStockEditText.text.toString().toInt()
+        }
+        if (isFieldChanged(weightEditText, originalWeight)) {
             fieldsMap["weight"] = weightEditText.text.toString().toDouble()
         }
 
         return fieldsMap
     }
 
+    private fun updateArticleDetails(articleId: String, updatedFields: Map<String, Any>, token: String) {
+        val retrofit = RetrofitClient.getInstance(8081)
+        val service = retrofit.create(ServiceProducts::class.java)
+
+        val call = service.updateArticle(articleId, updatedFields, "Bearer $token")
+        Log.d("UpdateArticleActivity", "Article ID: $articleId, Token: $token, Updated Fields: $updatedFields")
+
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Log.d("UpdateArticleActivity", "Article updated successfully")
+                    Toast.makeText(this@UpdateArticleActivity, "Article updated successfully", Toast.LENGTH_SHORT).show()
+                } else {
+                    Log.e("UpdateArticleActivity", "Failed to update article. Response code: ${response.code()}")
+                    Toast.makeText(this@UpdateArticleActivity, "Failed to update article", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.e("UpdateArticleActivity", "Update article failed: ${t.message}", t)
+                Toast.makeText(this@UpdateArticleActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
 }

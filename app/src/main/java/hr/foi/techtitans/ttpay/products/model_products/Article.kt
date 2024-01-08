@@ -8,7 +8,7 @@ data class Article(
     val name: String,
     val description: String,
     val price: Double,
-    val quantityInStock: Int,
+    val quantity_in_stock: Int,
     val weight: Double?,
     val material: String?,
     val brand: String,

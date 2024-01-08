@@ -87,7 +87,7 @@ class DetailsArticleActivity : AppCompatActivity() {
                         itemCategoryTextView.text = article.itemCategory.name
                         descriptionTextView.text = article.description
                         priceTextView.text = "${article.price} ${article.currency} "
-                        quantityInStockTextView.text = "${article.quantityInStock}"
+                        quantityInStockTextView.text = "${article.quantity_in_stock}"
                         weightTextView.text = "${article.weight}"
                         materialTextView.text = article.material ?: "-"
                         brandTextView.text = article.brand

@@ -9,6 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import java.util.Objects
 
 interface ServiceProducts {
     @GET("/api/v1/articles")
@@ -32,7 +33,7 @@ interface ServiceProducts {
     @PUT("/api/v1/articles/update/{articleId}")
     fun updateArticle(
         @Path("articleId") articleId: String?,
-        @Body updatedArticle: Map<String, Any>, // Use Map<String, Any> to handle both String and any other values
+        @Body updatedArticle: Map<String, @JvmSuppressWildcards Any>,
         @Header("Authorization") token: String
-    ): Call<String>
+    ): Call<Void>
 }
