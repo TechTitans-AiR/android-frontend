@@ -66,5 +66,8 @@ class UpdateArticleActivity : AppCompatActivity() {
             intent.putExtra("username", userUsername)
             finish()
         }
+
+        // Get article details based on the provided articleId
+        val articleId = intent.getStringExtra("articleId")
     }
 }
