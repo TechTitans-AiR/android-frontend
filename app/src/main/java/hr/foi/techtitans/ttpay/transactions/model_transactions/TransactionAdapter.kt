@@ -18,6 +18,8 @@ class TransactionAdapter(
 
     class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtViewTransactionDescription: TextView = itemView.findViewById(R.id.textViewTransactionDescription)
+        val textViewTransactionDate: TextView = itemView.findViewById(R.id.textViewTransactionDate)
+        val textViewTransactionAmount: TextView = itemView.findViewById(R.id.textViewTransactionAmount)
         val imgViewEye: ImageView = itemView.findViewById(R.id.imgView_eye)
     }
 
@@ -30,6 +32,8 @@ class TransactionAdapter(
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
         val transaction = transactions[position]
         holder.txtViewTransactionDescription.text = transaction.description
+        holder.textViewTransactionDate.text = transaction.createdAt
+        holder.textViewTransactionAmount.text = "${transaction.amount}"
 
         holder.imgViewEye.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailedTransactionActivity::class.java)
