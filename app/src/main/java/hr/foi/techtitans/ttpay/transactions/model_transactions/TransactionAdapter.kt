@@ -34,7 +34,7 @@ class TransactionAdapter(
         holder.imgViewEye.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailedTransactionActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("transactionId", transaction.id)
+            intent.putExtra("transactionId", transaction._id)
             holder.itemView.context.startActivity(intent)
         }
     }
