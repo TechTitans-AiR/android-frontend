@@ -154,7 +154,6 @@ class DetailedTransactionActivity : AppCompatActivity() {
             }
         })
     }
-
     private fun formatDate(dateString: String?): String {
         return try {
             val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
