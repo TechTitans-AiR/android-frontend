@@ -11,7 +11,7 @@ import retrofit2.http.Path
 
 interface ServiceTransactionManagement {
 
-    @GET("/api/v1/transactions/{merchantID}")
+    @GET("/api/v1/transactions/merchant/{merchantID}")
     fun getUserTransactions(@Path("merchantID") merchantID: String): Call<List<Transaction>>
 
     @GET("/api/v1/transactions")
