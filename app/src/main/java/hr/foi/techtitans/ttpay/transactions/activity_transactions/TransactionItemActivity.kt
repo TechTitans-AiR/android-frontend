@@ -57,13 +57,7 @@ class TransactionItemActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView_all_transactions)
         progressBar = findViewById(R.id.loadingProgressBar)
 
-        adapter = TransactionAdapter(emptyList()) { transaction ->
-            val intent = Intent(this, DetailedTransactionActivity::class.java)
-            intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("transactionId", transaction.id)
-            intent.putExtra("username", userUsername)
-            startActivity(intent)
-        }
+        adapter = TransactionAdapter(emptyList(), loggedInUser)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter

@@ -16,7 +16,7 @@ class TransactionAdapter(
     private var transactions: List<Transaction>, private val loggedInUser: LoggedInUser) :
     RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
 
-    inner class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtViewTransactionDescription: TextView = itemView.findViewById(R.id.textViewTransactionDescription)
         val imgViewEye: ImageView = itemView.findViewById(R.id.imgView_eye)
     }

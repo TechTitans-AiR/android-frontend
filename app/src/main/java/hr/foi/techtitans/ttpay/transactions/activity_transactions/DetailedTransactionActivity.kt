@@ -5,11 +5,21 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.network.RetrofitClient
+import hr.foi.techtitans.ttpay.products.model_products.Article
+import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
+import hr.foi.techtitans.ttpay.transactions.model_transactions.Transaction
+import hr.foi.techtitans.ttpay.transactions.network_transactions.ServiceTransactionManagement
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class DetailedTransactionActivity : AppCompatActivity() {
 
@@ -21,11 +31,13 @@ class DetailedTransactionActivity : AppCompatActivity() {
 
     // UI elements
     private lateinit var imgBack : ImageView
+    private lateinit var description : TextView
     private lateinit var merchant : TextView
     private lateinit var amount : TextView
     private lateinit var currency : TextView
     private lateinit var dateCreated : TextView
     private lateinit var dateUpdated : TextView
+    private lateinit var progressBar : ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +49,7 @@ class DetailedTransactionActivity : AppCompatActivity() {
         Log.d("DetailedTransactionActivity", "Transaction id: $transactionId")
 
         // initialize UI elements
+        description = findViewById(R.id.textView_transaction_description)
         merchant = findViewById(R.id.textView_merchant)
         amount = findViewById(R.id.textView_amount)
         currency = findViewById(R.id.textView_currency)
@@ -44,6 +57,7 @@ class DetailedTransactionActivity : AppCompatActivity() {
         dateUpdated = findViewById(R.id.textView_updatedAt)
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
         imgBack = findViewById(R.id.back_button)
+        progressBar = findViewById(R.id.loadingProgressBar)
 
         navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
@@ -54,5 +68,60 @@ class DetailedTransactionActivity : AppCompatActivity() {
             intent.putExtra("username", userUsername)
             onBackPressed()
         }
+    }
+
+    private fun fetchTransactionDetails(transactionId: String?) {
+        showLoading()
+        val retrofit = RetrofitClient.getInstance(8082)
+        val service = retrofit.create(ServiceTransactionManagement::class.java)
+        val call = service.getTransactionDetails(transactionId.orEmpty())
+        call.enqueue(object : Callback<Transaction> {
+            override fun onResponse(call: Call<Transaction>, response: Response<Transaction>) {
+                hideLoading()
+
+                if (response.isSuccessful) {
+                    val transaction = response.body()
+                    if (transaction != null) {
+                        merchant.text = transaction.merchantId
+                        description.text = transaction.description
+                        amount.text = "${transaction.amount}"
+                        currency.text = transaction.currency
+                        dateCreated.text = "${transaction.createdAt ?: ""}"
+                        dateUpdated.text = "${transaction.updatedAt ?: ""}"
+                    }
+                } else {
+                    showErrorDialog()
+                }
+            }
+            override fun onFailure(call: Call<Transaction>, t: Throwable) {
+                hideLoading()
+                showErrorDialog()
+            }
+        })
+    }
+
+    private fun showLoading() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    private fun hideLoading() {
+        progressBar.visibility = View.GONE
+    }
+
+    private fun showErrorDialog() {
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle("Error")
+            .setMessage("Error fetching article details.")
+            .setPositiveButton("Retry") { _, _ ->
+                val articleId = intent.getStringExtra("articleId")
+                fetchTransactionDetails(transactionId)
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 }
