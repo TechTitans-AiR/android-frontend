@@ -9,6 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.QueryMap
 
 interface ServiceTransactionManagement {
 
@@ -24,10 +25,7 @@ interface ServiceTransactionManagement {
     @GET("/api/v1/transactions/{id}")
     fun getTransactionDetails(@Path("id") id: String): Call<Transaction>
 
-    @GET("/api/v1/transactions/search")
-    fun searchTransactions(
-        @Query("description") description: String?,
-        @Query("createdAt") createdAt: String?,
-        @Query("merchantId") merchantId: String?
-    ): Call<List<Transaction>>
+    @POST("api/v1/transactions/search")
+    fun searchTransactions(@Body searchParams: Map<String, String>): Call<List<Transaction>>
+
 }

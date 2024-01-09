@@ -21,6 +21,7 @@ import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.UserAda
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.gson.Gson
 import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import hr.foi.techtitans.ttpay.products.model_products.ServiceAdapter
 import hr.foi.techtitans.ttpay.transactions.model_transactions.Transaction
@@ -138,22 +139,22 @@ class AllTransactionsActivity : AppCompatActivity() {
         val spinnerMerchant = dialogView.findViewById<Spinner>(R.id.spinnerDialogMerchant)
         val progressBarMerchant = dialogView.findViewById<ProgressBar>(R.id.progressBarDialog)
 
-        // initialization values of elements
+        // Initialization values of elements
         etDescription.setText("")
         etDate.setText("")
-        // Spinner initialization
+        // Spinner initialization with progress bar
         fetchMerchantsForDialog(spinnerMerchant, progressBarMerchant)
 
         val builder = AlertDialog.Builder(this)
             .setTitle("Search")
             .setView(dialogView)
             .setPositiveButton("Search") { dialog, _ ->
-                // implement the search logic here
+                // Implement the search logic here
                 val description = etDescription.text.toString()
                 val date = etDate.text.toString()
                 val selectedMerchant = spinnerMerchant.selectedItem.toString()
-                // call the search function with the parameters you have received
-                performSearch(description, date, selectedMerchant)
+                // Pass the dialog view to the function
+                performSearchAndUpdateRecyclerView(description, date, selectedMerchant, progressBarMerchant)
                 dialog.dismiss()
             }
             .setNegativeButton("Cancel") { dialog, _ ->
@@ -212,10 +213,86 @@ class AllTransactionsActivity : AppCompatActivity() {
     }
 
 
-    private fun performSearch(description: String, date: String, selectedMerchant: String) {
-        // Implement the search logic here
+    private fun performSearchAndUpdateRecyclerView(
+        description: String,
+        date: String,
+        selectedMerchant: String,
+        progressBarMerchant: ProgressBar
+    ) {
+        progressBarMerchant.visibility = View.VISIBLE  // Show the progress bar
+
+        getUserIdFromName(selectedMerchant) { merchantId ->
+            progressBarMerchant.visibility = View.GONE  // Hide the progress bar
+
+            val retrofit = RetrofitClient.getInstance(8082)
+            val service = retrofit.create(ServiceTransactionManagement::class.java)
+
+            val searchParams = mutableMapOf<String, String>().apply {
+                if (description.isNotEmpty()) put("description", description)
+                if (date.isNotEmpty()) put("createdAt", date)
+                if (merchantId.isNotEmpty()) put("merchantId", merchantId)
+            }
+
+            val call = service.searchTransactions(searchParams)
+
+            // Log the JSON being sent for search
+            Log.d("AllTransactionsActivity", "Search JSON: ${Gson().toJson(searchParams)}")
+
+            call.enqueue(object : Callback<List<Transaction>> {
+                override fun onResponse(call: Call<List<Transaction>>, response: Response<List<Transaction>>) {
+                    if (response.isSuccessful) {
+                        val transactions = response.body() ?: emptyList()
+                        Log.d("AllTransactionsActivity", "Search results: $transactions")
+                        transactionAdapter.updateData(transactions)
+                    } else {
+                        showErrorDialog()
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Transaction>>, t: Throwable) {
+                    showErrorDialog()
+                }
+            })
+        }
     }
 
+
+    private fun getUserIdFromName(userName: String, callback: (String) -> Unit) {
+        val retrofit = RetrofitClient.getInstance(8080)
+        val service = retrofit.create(ServiceAccountManagement::class.java)
+
+        val call = service.getUsers()
+
+        call.enqueue(object : Callback<List<User>> {
+            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                try {
+                    if (response.isSuccessful) {
+                        val users = response.body() ?: emptyList()
+                        for (user in users) {
+                            val fullName = "${user.first_name} ${user.last_name}"
+                            if (fullName == userName) {
+                                callback.invoke(user.id ?: "") // Assuming 'id' is the property that represents the user id
+                                return
+                            }
+                        }
+                    } else {
+                        // Handle error
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    // Handle exception
+                }
+
+                // If user id is not found, return an empty string or handle it based on your requirements
+                callback.invoke("")
+            }
+
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                // Handle failure
+                callback.invoke("")
+            }
+        })
+    }
 
 
 
