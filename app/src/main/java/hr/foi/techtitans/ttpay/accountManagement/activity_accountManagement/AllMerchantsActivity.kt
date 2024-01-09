@@ -42,7 +42,7 @@ class AllMerchantsActivity : AppCompatActivity() {
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         Log.d("AllMerchantsActivity - LoggedInUser",loggedInUser.toString())
 
-        adapter = MerchantAdapter(emptyList(),loggedInUser, this)
+        adapter = MerchantAdapter(emptyList(),loggedInUser)
         // Set adapter on recyclerView
         recyclerView.adapter = adapter
 

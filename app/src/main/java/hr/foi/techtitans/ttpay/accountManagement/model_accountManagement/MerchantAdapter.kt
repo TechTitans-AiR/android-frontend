@@ -2,6 +2,7 @@ package hr.foi.techtitans.ttpay.accountManagement.model_accountManagement
 
 // MerchantAdapter.kt
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import hr.foi.techtitans.ttpay.accountManagement.activity_accountManagement.DetailsMerchantActivity
 import hr.foi.techtitans.ttpay.R
+import hr.foi.techtitans.ttpay.accountManagement.activity_accountManagement.AllMerchantsActivity
 import hr.foi.techtitans.ttpay.accountManagement.activity_accountManagement.UpdateMerchantActivity
 import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 
@@ -60,7 +62,8 @@ class MerchantAdapter(private var users: List<User>, private var loggedInUser: L
                     val delete= DeleteUser()
 
                     // Call the delete method here passing the context and user ID
-                    delete.deleteUser(holder.itemView.context, userIdToDelete)
+                    delete.deleteUser(loggedInUser, holder.itemView.context, userIdToDelete)
+                    updateData(users.filter {   it.id != userIdToDelete })
                 }
                 .setNegativeButton("Cancel") { dialog, _ ->
                     dialog.dismiss()
