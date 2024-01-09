@@ -13,22 +13,38 @@ import java.util.Objects
 
 interface ServiceProducts {
     @GET("/api/v1/articles")
-    fun getArticles(): Call<List<Article>>
+    fun getArticles(
+        @Header("Authorization") token: String
+    ): Call<List<Article>>
 
     @GET("/api/v1/services")
-    fun getServices(): Call<List<Service>>
+    fun getServices(
+        @Header("Authorization") token: String
+    ): Call<List<Service>>
 
     @DELETE("/api/v1/articles/delete/{itemId}")//delete article
-    fun deleteArticle(@Path("itemId") itemId: String?): Call<Void>
+    fun deleteArticle(
+        @Header("Authorization") token: String,
+        @Path("itemId") itemId: String?
+    ): Call<Void>
 
     @DELETE("/api/v1/services/delete/{serviceId}")//delete service
-    fun deleteService(@Path("serviceId") itemId: String?): Call<Void>
+    fun deleteService(
+        @Header("Authorization") token: String,
+        @Path("serviceId") itemId: String?
+    ): Call<Void>
 
     @GET("/api/v1/services/{serviceId}")
-    fun getServiceDetails(@Path("serviceId") serviceId: String?): Call<Service>
+    fun getServiceDetails(
+        @Header("Authorization") token: String,
+        @Path("serviceId") serviceId: String?
+    ): Call<Service>
 
     @GET("/api/v1/articles/{articleId}")
-    fun getArticleDetails(@Path("articleId") articleId: String?): Call<Article>
+    fun getArticleDetails(
+        @Header("Authorization") token: String,
+        @Path("articleId") articleId: String?
+    ): Call<Article>
 
     @PUT("/api/v1/articles/update/{articleId}")
     fun updateArticle(
