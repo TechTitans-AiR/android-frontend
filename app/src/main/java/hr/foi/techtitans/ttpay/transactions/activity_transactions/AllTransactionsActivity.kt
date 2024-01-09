@@ -39,6 +39,7 @@ class AllTransactionsActivity : AppCompatActivity() {
     private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
     private lateinit var transactionAdapter : TransactionAdapter
+    private lateinit var removeSearch : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +59,8 @@ class AllTransactionsActivity : AppCompatActivity() {
         bottomNavigationView.visibility = View.VISIBLE
 
         progressBar = findViewById(R.id.loadingProgressBar)
+
+        removeSearch = findViewById(R.id.img_delete_search_icon)
 
         fetchTransactions()
 
@@ -155,6 +158,7 @@ class AllTransactionsActivity : AppCompatActivity() {
                 val selectedMerchant = spinnerMerchant.selectedItem.toString()
                 // Pass the dialog view to the function
                 performSearchAndUpdateRecyclerView(description, date, selectedMerchant, progressBarMerchant)
+                removeSearch.visibility = View.VISIBLE
                 dialog.dismiss()
             }
             .setNegativeButton("Cancel") { dialog, _ ->
@@ -294,6 +298,10 @@ class AllTransactionsActivity : AppCompatActivity() {
         })
     }
 
+    fun onDeleteSearchIconClick(view: View) {
+        fetchTransactions()
+        removeSearch.visibility = View.GONE
+    }
 
 
 }
