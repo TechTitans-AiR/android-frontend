@@ -34,13 +34,10 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var imgBack : ImageView
-
     private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
-
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: TransactionAdapter
-
     private lateinit var removeSearch: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {

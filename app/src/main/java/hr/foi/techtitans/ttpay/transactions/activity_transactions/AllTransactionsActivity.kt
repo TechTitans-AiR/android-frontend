@@ -181,7 +181,7 @@ class AllTransactionsActivity : AppCompatActivity() {
     }
 
     private fun fetchMerchantsForDialog(spinnerMerchant: Spinner, progressBar: ProgressBar) {
-        progressBar.visibility = View.VISIBLE  // Show the progress bar
+        progressBar.visibility = View.VISIBLE
 
         val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)
@@ -190,7 +190,7 @@ class AllTransactionsActivity : AppCompatActivity() {
         call.enqueue(object : Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                 try {
-                    progressBar.visibility = View.GONE  // Hide the progress bar
+                    progressBar.visibility = View.GONE
 
                     if (response.isSuccessful) {
                         val users = response.body() ?: emptyList()
@@ -218,7 +218,7 @@ class AllTransactionsActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
                 try {
-                    progressBar.visibility = View.GONE  // Hide the progress bar
+                    progressBar.visibility = View.GONE
                     showErrorDialog()
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -235,11 +235,11 @@ class AllTransactionsActivity : AppCompatActivity() {
         selectedMerchant: String,
         progressBarMerchant: ProgressBar
     ) {
-        progressBarMerchant.visibility = View.VISIBLE  // Show the progress bar
+        progressBarMerchant.visibility = View.VISIBLE
         progressBar.visibility = View.VISIBLE
 
         getUserIdFromName(selectedMerchant) { merchantId ->
-            progressBarMerchant.visibility = View.GONE  // Hide the progress bar
+            progressBarMerchant.visibility = View.GONE
 
             val retrofit = RetrofitClient.getInstance(8082)
             val service = retrofit.create(ServiceTransactionManagement::class.java)
@@ -279,7 +279,6 @@ class AllTransactionsActivity : AppCompatActivity() {
         }
     }
 
-
     private fun getUserIdFromName(userName: String, callback: (String) -> Unit) {
         val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)
@@ -296,33 +295,43 @@ class AllTransactionsActivity : AppCompatActivity() {
                             if (fullName == userName) {
                                 callback.invoke(
                                     user.id ?: ""
-                                ) // Assuming 'id' is the property that represents the user id
+                                )
                                 return
                             }
                         }
                     } else {
-                        // Handle error
+                        handleErrorResponse(response)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    // Handle exception
+                    handleException(e)
                 }
-
-                // If user id is not found, return an empty string or handle it based on your requirements
+                // If user id is not found, return an empty string
                 callback.invoke("")
             }
 
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                // Handle failure
+                handleFailure(t)
                 callback.invoke("")
             }
         })
+    }
+
+    private fun handleErrorResponse(response: Response<List<User>>) {
+        Log.e("AllTransactionsActivity", "Error response: ${response.code()}")
+    }
+
+    private fun handleException(exception: Exception) {
+        Log.e("AllTransactionsActivity", "Exception: ${exception.message}")
+    }
+
+    private fun handleFailure(throwable: Throwable) {
+        Log.e("AllTransactionsActivity", "Failure: ${throwable.message}")
     }
 
     fun onDeleteSearchIconClick(view: View) {
         fetchTransactions()
         removeSearch.visibility = View.GONE
     }
-
 
 }
