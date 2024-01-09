@@ -88,7 +88,7 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
 
         val retrofit = RetrofitClient.getInstance(8082)
         val service = retrofit.create(ServiceTransactionManagement::class.java)
-        val call = service.getUserTransactions(userId)
+        val call = service.getUserTransactions(loggedInUser.token, userId)
 
         call.enqueue(object : Callback<List<Transaction>> {
             override fun onResponse(call: Call<List<Transaction>>, response: Response<List<Transaction>>) {

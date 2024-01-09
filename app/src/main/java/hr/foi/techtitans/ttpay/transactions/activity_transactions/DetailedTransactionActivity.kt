@@ -81,7 +81,7 @@ class DetailedTransactionActivity : AppCompatActivity() {
         showLoading()
         val retrofit = RetrofitClient.getInstance(8082)
         val service = retrofit.create(ServiceTransactionManagement::class.java)
-        val call = service.getTransactionDetails(transactionId.orEmpty())
+        val call = service.getTransactionDetails(loggedInUser.token, transactionId.orEmpty())
         call.enqueue(object : Callback<Transaction> {
             override fun onResponse(call: Call<Transaction>, response: Response<Transaction>) {
                 hideLoading()
