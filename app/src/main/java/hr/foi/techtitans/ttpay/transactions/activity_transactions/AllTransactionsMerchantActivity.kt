@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -169,7 +171,41 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    fun onSearchTransactionIconClick(view: View) {}
+    fun onSearchTransactionIconClick(view: View) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_search, null)
+
+        val etDescription = dialogView.findViewById<EditText>(R.id.etDialogDescription)
+        val etDate = dialogView.findViewById<EditText>(R.id.etDialogDate)
+        val spinnerMerchant = dialogView.findViewById<Spinner>(R.id.spinnerDialogMerchant)
+        spinnerMerchant.visibility = View.GONE
+
+        // Initialization values of elements
+        etDescription.setText("")
+        etDate.setText("")
+
+        val builder = AlertDialog.Builder(this)
+            .setTitle("Search")
+            .setView(dialogView)
+            .setPositiveButton("Search") { dialog, _ ->
+                // Implement the search logic here
+                val description = etDescription.text.toString()
+                val date = etDate.text.toString()
+                // Pass the dialog view to the function
+                performSearchAndUpdateRecyclerView(
+                    description,
+                    date,
+                )
+                removeSearch.visibility = View.VISIBLE
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+
     fun onDeleteSearchIconClick(view: View) {}
 
     private fun performSearchAndUpdateRecyclerView(
