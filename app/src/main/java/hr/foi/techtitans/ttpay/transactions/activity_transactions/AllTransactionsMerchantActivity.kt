@@ -164,4 +164,7 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
         val dialog = builder.create()
         dialog.show()
     }
+
+    fun onSearchTransactionIconClick(view: View) {}
+    fun onDeleteSearchIconClick(view: View) {}
 }
