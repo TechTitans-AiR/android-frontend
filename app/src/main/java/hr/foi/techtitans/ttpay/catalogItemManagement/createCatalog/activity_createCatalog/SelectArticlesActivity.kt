@@ -118,7 +118,7 @@ class SelectArticlesActivity : AppCompatActivity() {
         showLoading()
         val retrofit = RetrofitClient.getInstance(8081)//za catalog_item_management
         val service = retrofit.create(ServiceProducts::class.java)
-        val call = service.getArticles()
+        val call = service.getArticles(loggedInUser.token)
 
         call.enqueue(object : Callback<List<Article>> {
             override fun onResponse(call: Call<List<Article>>, response: Response<List<Article>>) {

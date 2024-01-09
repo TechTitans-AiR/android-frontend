@@ -122,7 +122,7 @@ class CreateCatalogDataActivity : AppCompatActivity() {
             //Create new catalog
             val createNew= CreateCatalog()
             Log.d("NewCatalog Object: ", newCatalog.toString())
-            createNew.createNewCatalog(this,newCatalog)
+            createNew.createNewCatalog(loggedInUser,this,newCatalog)
             val intent = Intent(this, AdminHomeActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
