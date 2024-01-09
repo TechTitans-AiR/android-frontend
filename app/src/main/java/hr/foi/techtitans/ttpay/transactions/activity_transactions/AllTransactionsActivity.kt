@@ -38,8 +38,8 @@ class AllTransactionsActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
-    private lateinit var transactionAdapter : TransactionAdapter
-    private lateinit var removeSearch : ImageView
+    private lateinit var transactionAdapter: TransactionAdapter
+    private lateinit var removeSearch: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +68,7 @@ class AllTransactionsActivity : AppCompatActivity() {
         imgBack.setOnClickListener {
             val intent = Intent(this, AdminHomeActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
-            Log.d("AllTransationsActivity - LoggedInUser",loggedInUser.toString())
+            Log.d("AllTransationsActivity - LoggedInUser", loggedInUser.toString())
             intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
@@ -78,7 +78,7 @@ class AllTransactionsActivity : AppCompatActivity() {
     fun onPlusTransactionIconClick(view: View) {
         val intent = Intent(this, CreateTransactionActivity::class.java)
         intent.putExtra("loggedInUser", loggedInUser)
-        Log.d("onPlusTransactionIconClick - LoggedInUser",loggedInUser.toString())
+        Log.d("onPlusTransactionIconClick - LoggedInUser", loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
@@ -91,12 +91,18 @@ class AllTransactionsActivity : AppCompatActivity() {
         val call = service.getTransactions()
 
         call.enqueue(object : Callback<List<Transaction>> {
-            override fun onResponse(call: Call<List<Transaction>>, response: Response<List<Transaction>>) {
+            override fun onResponse(
+                call: Call<List<Transaction>>,
+                response: Response<List<Transaction>>
+            ) {
                 Log.d("AllTransactionsActivity", "Response code: ${response.code()}")
                 hideLoading()
                 if (response.isSuccessful) {
                     val transactions = response.body() ?: emptyList()
-                    Log.d("AllTransactionsActivity", "Transactions fetched successfully: $transactions")
+                    Log.d(
+                        "AllTransactionsActivity",
+                        "Transactions fetched successfully: $transactions"
+                    )
                     transactionAdapter.updateData(transactions)
                 } else {
                     showErrorDialog()
@@ -157,7 +163,12 @@ class AllTransactionsActivity : AppCompatActivity() {
                 val date = etDate.text.toString()
                 val selectedMerchant = spinnerMerchant.selectedItem.toString()
                 // Pass the dialog view to the function
-                performSearchAndUpdateRecyclerView(description, date, selectedMerchant, progressBarMerchant)
+                performSearchAndUpdateRecyclerView(
+                    description,
+                    date,
+                    selectedMerchant,
+                    progressBarMerchant
+                )
                 removeSearch.visibility = View.VISIBLE
                 dialog.dismiss()
             }
@@ -184,13 +195,14 @@ class AllTransactionsActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val users = response.body() ?: emptyList()
                         Log.d("AllMerchantsActivity", "Users fetched successfully: $users")
-
-                        val userNames = users.map { "${it.first_name} ${it.last_name}" }.toTypedArray()
+                        // Add empty string at the begging of the list
+                        val userNames = mutableListOf<String>("Merchants")
+                        userNames.addAll(users.map { "${it.first_name} ${it.last_name}" })
 
                         val arrayAdapter = ArrayAdapter(
                             this@AllTransactionsActivity,
                             android.R.layout.simple_spinner_item,
-                            userNames
+                            userNames.toTypedArray()
                         )
                         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                         spinnerMerchant.adapter = arrayAdapter
@@ -243,7 +255,10 @@ class AllTransactionsActivity : AppCompatActivity() {
             Log.d("AllTransactionsActivity", "Search JSON: ${Gson().toJson(searchParams)}")
 
             call.enqueue(object : Callback<List<Transaction>> {
-                override fun onResponse(call: Call<List<Transaction>>, response: Response<List<Transaction>>) {
+                override fun onResponse(
+                    call: Call<List<Transaction>>,
+                    response: Response<List<Transaction>>
+                ) {
                     if (response.isSuccessful) {
                         val transactions = response.body() ?: emptyList()
                         Log.d("AllTransactionsActivity", "Search results: $transactions")
@@ -275,7 +290,9 @@ class AllTransactionsActivity : AppCompatActivity() {
                         for (user in users) {
                             val fullName = "${user.first_name} ${user.last_name}"
                             if (fullName == userName) {
-                                callback.invoke(user.id ?: "") // Assuming 'id' is the property that represents the user id
+                                callback.invoke(
+                                    user.id ?: ""
+                                ) // Assuming 'id' is the property that represents the user id
                                 return
                             }
                         }
