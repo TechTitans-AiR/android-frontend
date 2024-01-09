@@ -192,6 +192,9 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
                 if (date.isNotEmpty()) put("createdAt", date)
             }
 
+            // Added merchantId parameter to search only the merchant's transactions
+            searchParams["merchantId"] = loggedInUser.userId
+
             val call = service.searchTransactions(searchParams)
 
             // Log the JSON being sent for search
