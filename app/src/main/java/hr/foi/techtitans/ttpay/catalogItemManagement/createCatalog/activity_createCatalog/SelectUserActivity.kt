@@ -146,7 +146,7 @@ class SelectUserActivity : AppCompatActivity() {
         showLoading()
         val retrofit = RetrofitClient.getInstance(8080)//za account_management
         val service = retrofit.create(ServiceAccountManagement::class.java)
-        val call = service.getUsers()
+        val call = service.getUsers(loggedInUser.token)
 
         call.enqueue(object : Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {

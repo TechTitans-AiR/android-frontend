@@ -224,7 +224,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
     private fun fetchUserDetails(userId: String, callback: (User) -> Unit) {
         val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)
-        val call = service.getUserDetails(userId)
+        val call = service.getUserDetails(loggedInUser.token, userId)
 
         call.enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {

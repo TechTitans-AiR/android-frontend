@@ -3,17 +3,18 @@ package hr.foi.techtitans.ttpay.accountManagement.model_accountManagement
 import android.content.Context
 import android.util.Log
 import hr.foi.techtitans.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class DeleteUser {
-    fun deleteUser(context: Context,userIdToDelete:String?){
+    fun deleteUser(loggedInUser: LoggedInUser, context: Context,userIdToDelete:String?){
         val retrofit = RetrofitClient.getInstance(8080)//za account_management
         val service = retrofit.create(ServiceAccountManagement::class.java)
 
-        val call = service.deleteUser(userIdToDelete)
+        val call = service.deleteUser(loggedInUser.token, userIdToDelete)
 
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {

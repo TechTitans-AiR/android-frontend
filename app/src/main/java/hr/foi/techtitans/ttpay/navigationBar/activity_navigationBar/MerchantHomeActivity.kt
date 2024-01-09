@@ -71,7 +71,7 @@ class MerchantHomeActivity : AppCompatActivity() {
         val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)
 
-        val call = service.getUsers()
+        val call = service.getUsers(loggedInUser.token)
 
         // Show the progress bar
         progressBarUserName.visibility = View.VISIBLE
@@ -108,7 +108,7 @@ class MerchantHomeActivity : AppCompatActivity() {
     private fun fetchUserDetails(userId: String) {
         val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)
-        val call = service.getUserDetails(userId)
+        val call = service.getUserDetails(loggedInUser.token, userId)
 
         // Show the progress bar
         progressBarUserName.visibility = View.VISIBLE

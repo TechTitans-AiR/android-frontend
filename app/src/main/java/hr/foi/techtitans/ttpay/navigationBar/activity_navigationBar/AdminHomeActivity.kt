@@ -44,7 +44,7 @@ class AdminHomeActivity : AppCompatActivity() {
         textViewUserName = findViewById(R.id.textViewUserName)
         progressBarUserName = findViewById(R.id.progressBarUserName)
 
-        fetchUserId(userUsername)
+        fetchUserId(loggedInUser.username)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, loggedInUser)
@@ -91,7 +91,7 @@ class AdminHomeActivity : AppCompatActivity() {
         val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)
 
-        val call = service.getUsers()
+        val call = service.getUsers(loggedInUser.token)
 
         // Show the progress bar
         progressBarUserName.visibility = View.VISIBLE
@@ -107,7 +107,7 @@ class AdminHomeActivity : AppCompatActivity() {
                     if (user != null) {
                         userId = user.id!!
                         Log.d("AllCatalogsMerchant", "Fetched user ID: $userId")
-                        fetchUserDetails(userId)
+                        fetchUserDetails(loggedInUser.userId)
                     } else {
                         showErrorDialog()
                     }
@@ -128,7 +128,7 @@ class AdminHomeActivity : AppCompatActivity() {
     private fun fetchUserDetails(userId: String) {
         val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)
-        val call = service.getUserDetails(userId)
+        val call = service.getUserDetails(loggedInUser.token, userId)
 
         // Show the progress bar
         progressBarUserName.visibility = View.VISIBLE
@@ -164,7 +164,7 @@ class AdminHomeActivity : AppCompatActivity() {
         builder.setTitle("Error")
             .setMessage("Error fetching data.")
             .setPositiveButton("Retry") { _, _ ->
-                fetchUserDetails(userId)
+                fetchUserDetails(loggedInUser.userId)
             }
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()

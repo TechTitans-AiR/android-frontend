@@ -15,19 +15,32 @@ import retrofit2.http.Path
 interface ServiceAccountManagement {
 
     @GET("/api/v1/users")
-    fun getUsers(): Call<List<User>>
+    fun getUsers(@Header("Authorization") token: String): Call<List<User>>
 
     @GET("/api/v1/users/{id}")
-    fun getUserDetails(@Path("id") userId: String): Call<User>
+    fun getUserDetails(
+        @Header("Authorization") token: String,
+        @Path("id") userId: String
+    ): Call<User>
 
-    @POST("/api/v1/users/create")  //endpoint for creating new user
-    fun createNewUser(@Body user: newUser): Call<newUser> // Method for sending user data to backend
+    @POST("/api/v1/users/create")
+    fun createNewUser(
+        @Header("Authorization") token: String,
+        @Body user: newUser
+    ): Call<newUser> // Method for sending user data to backend
 
     @DELETE("/api/v1/users/delete/{userId}")
-    fun deleteUser(@Path("userId") userId: String?): Call<Void>
+    fun deleteUser(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String?
+    ): Call<Void>
 
     @PUT("/api/v1/users/update/{userID}")
-    fun updateMerchantData(@Path("userID") userID: String, @Body updatedData: updateUser): Call<updateUser>
+    fun updateMerchantData(
+        @Header("Authorization") token: String,
+        @Path("userID") userID: String,
+        @Body updatedData: updateUser
+    ): Call<updateUser>
 
     @PUT("/api/v1/users/userUpdate/{userId}")
     fun updateUserProfile(
