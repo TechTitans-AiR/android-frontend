@@ -15,7 +15,9 @@ import retrofit2.http.Path
 interface ServiceAccountManagement {
 
     @GET("/api/v1/users")
-    fun getUsers(@Header("Authorization") token: String): Call<List<User>>
+    fun getUsers(
+        @Header("Authorization") token: String
+    ): Call<List<User>>
 
     @GET("/api/v1/users/{id}")
     fun getUserDetails(
