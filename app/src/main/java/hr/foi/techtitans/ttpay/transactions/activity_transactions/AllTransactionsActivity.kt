@@ -236,6 +236,7 @@ class AllTransactionsActivity : AppCompatActivity() {
         progressBarMerchant: ProgressBar
     ) {
         progressBarMerchant.visibility = View.VISIBLE  // Show the progress bar
+        progressBar.visibility = View.VISIBLE
 
         getUserIdFromName(selectedMerchant) { merchantId ->
             progressBarMerchant.visibility = View.GONE  // Hide the progress bar
@@ -259,6 +260,7 @@ class AllTransactionsActivity : AppCompatActivity() {
                     call: Call<List<Transaction>>,
                     response: Response<List<Transaction>>
                 ) {
+                    progressBar.visibility = View.GONE
                     if (response.isSuccessful) {
                         val transactions = response.body() ?: emptyList()
                         Log.d("AllTransactionsActivity", "Search results: $transactions")
@@ -269,6 +271,8 @@ class AllTransactionsActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<List<Transaction>>, t: Throwable) {
+                    progressBarMerchant.visibility = View.GONE
+                    progressBar.visibility = View.GONE
                     showErrorDialog()
                 }
             })
