@@ -20,6 +20,7 @@ import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHome
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.transactions.network_transactions.ServiceTransactionManagement
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.gson.Gson
 import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,6 +39,8 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: TransactionAdapter
 
+    private lateinit var removeSearch: ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_transactions_merchant)
@@ -52,6 +55,7 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
         bottomNavigationView.visibility = View.VISIBLE
 
         progressBar = findViewById(R.id.loadingProgressBar)
+        removeSearch = findViewById(R.id.img_delete_search_icon)
 
         recyclerView = findViewById(R.id.recyclerView_all_transactions)
 
@@ -167,4 +171,45 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
 
     fun onSearchTransactionIconClick(view: View) {}
     fun onDeleteSearchIconClick(view: View) {}
-}
+
+    private fun performSearchAndUpdateRecyclerView(
+        description: String,
+        date: String,
+    ) {
+        progressBar.visibility = View.VISIBLE
+
+            val retrofit = RetrofitClient.getInstance(8082)
+            val service = retrofit.create(ServiceTransactionManagement::class.java)
+
+            val searchParams = mutableMapOf<String, String>().apply {
+                if (description.isNotEmpty()) put("description", description)
+                if (date.isNotEmpty()) put("createdAt", date)
+            }
+
+            val call = service.searchTransactions(searchParams)
+
+            // Log the JSON being sent for search
+            Log.d("AllTransactionsActivity", "Search JSON: ${Gson().toJson(searchParams)}")
+
+            call.enqueue(object : Callback<List<Transaction>> {
+                override fun onResponse(
+                    call: Call<List<Transaction>>,
+                    response: Response<List<Transaction>>
+                ) {
+                    progressBar.visibility = View.GONE
+                    if (response.isSuccessful) {
+                        val transactions = response.body() ?: emptyList()
+                        Log.d("AllTransactionsActivity", "Search results: $transactions")
+                        adapter.updateData(transactions)
+                    } else {
+                        showErrorDialog()
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Transaction>>, t: Throwable) {
+                    progressBar.visibility = View.GONE
+                    showErrorDialog()
+                }
+            })
+        }
+    }
