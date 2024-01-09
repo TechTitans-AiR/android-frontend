@@ -10,6 +10,7 @@ import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.SettingsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHomeActivity
 
 class NavigationHandler(private val activity: AppCompatActivity, private val loggedInUser: LoggedInUser) {
 
@@ -19,11 +20,23 @@ class NavigationHandler(private val activity: AppCompatActivity, private val log
         this.bottomNavigationView = bottomNavigationView
 
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> navigateToActivity(AdminHomeActivity::class.java)
-                R.id.nav_profile -> navigateToActivity(ProfileActivity::class.java)
-                R.id.nav_settings -> navigateToActivity(SettingsActivity::class.java)
-                R.id.nav_logout -> navigateToMainActivity()
+                when(loggedInUser.role) {
+                    "admin" -> {
+                        when (item.itemId) {
+                            R.id.nav_home -> navigateToActivity(AdminHomeActivity::class.java)
+                            R.id.nav_profile -> navigateToActivity(ProfileActivity::class.java)
+                            R.id.nav_settings -> navigateToActivity(SettingsActivity::class.java)
+                            R.id.nav_logout -> navigateToMainActivity()
+                        }
+                    }
+                    "merchant" -> {
+                            when (item.itemId) {
+                        R.id.nav_home -> navigateToActivity(MerchantHomeActivity::class.java)
+                        R.id.nav_profile -> navigateToActivity(ProfileActivity::class.java)
+                        R.id.nav_settings -> navigateToActivity(SettingsActivity::class.java)
+                        R.id.nav_logout -> navigateToMainActivity()
+                    }
+                }
             }
             true
         }
