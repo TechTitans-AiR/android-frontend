@@ -80,11 +80,21 @@ class ProfileActivity : AppCompatActivity() {
         val btnBack: ImageView = findViewById(R.id.imgView_back)
 
         btnBack.setOnClickListener {
-            val intent = Intent(this, AdminHomeActivity::class.java)
-            intent.putExtra("username", userUsername)
-            intent.putExtra("loggedInUser", loggedInUser)
-            startActivity(intent)
-            finish()
+            when(loggedInUser.role){
+                "admin"-> {
+                    val intent = Intent(this, AdminHomeActivity::class.java)
+                    intent.putExtra("username", userUsername)
+                    intent.putExtra("loggedInUser", loggedInUser)
+                    startActivity(intent)
+                }
+                "merchant"-> {
+                    val intent = Intent(this, MerchantHomeActivity::class.java)
+                    intent.putExtra("username", userUsername)
+                    intent.putExtra("loggedInUser", loggedInUser)
+                    startActivity(intent)
+                }
+            }
+
         }
 
         btnEditData = findViewById(R.id.btnEditData)

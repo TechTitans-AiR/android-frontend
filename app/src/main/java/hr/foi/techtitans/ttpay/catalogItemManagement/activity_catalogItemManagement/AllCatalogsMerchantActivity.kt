@@ -67,6 +67,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
             val intent = Intent(this, MerchantHomeActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
