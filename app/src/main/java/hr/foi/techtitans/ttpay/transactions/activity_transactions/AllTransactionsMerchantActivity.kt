@@ -60,6 +60,7 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
 
         adapter = TransactionAdapter(emptyList(), loggedInUser)
         recyclerView.layoutManager = LinearLayoutManager(this)
+
         recyclerView.adapter = adapter
 
         fetchUserTransactions(loggedInUser.userId)

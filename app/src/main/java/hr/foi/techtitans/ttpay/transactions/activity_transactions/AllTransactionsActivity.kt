@@ -51,6 +51,7 @@ class AllTransactionsActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerView_all_transactions)
         recyclerView.layoutManager = LinearLayoutManager(this)
+
         recyclerView.adapter = transactionAdapter
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
