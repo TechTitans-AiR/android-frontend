@@ -1,6 +1,7 @@
 package hr.foi.techtitans.ttpay.products.model_products
 
 import android.util.Log
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
 import retrofit2.Call
@@ -9,11 +10,11 @@ import retrofit2.Response
 
 class DeleteService {
 
-    fun deleteService(itemIdToDelete: String?) {
+    fun deleteService(loggedInUser: LoggedInUser, itemIdToDelete: String?) {
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
 
-        val call = service.deleteService(itemIdToDelete)
+        val call = service.deleteService(loggedInUser.token, itemIdToDelete)
 
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {

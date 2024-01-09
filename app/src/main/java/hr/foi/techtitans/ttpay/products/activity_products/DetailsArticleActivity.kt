@@ -75,7 +75,7 @@ class DetailsArticleActivity : AppCompatActivity() {
         showLoading()
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
-        val call = service.getArticleDetails(articleId.orEmpty())
+        val call = service.getArticleDetails(loggedInUser.token, articleId.orEmpty())
         call.enqueue(object : Callback<Article> {
             override fun onResponse(call: Call<Article>, response: Response<Article>) {
                 hideLoading()

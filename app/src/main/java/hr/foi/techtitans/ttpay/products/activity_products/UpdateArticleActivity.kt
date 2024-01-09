@@ -104,7 +104,7 @@ class UpdateArticleActivity : AppCompatActivity() {
     private fun getArticleDetails(articleId: String) {
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
-        val call = service.getArticleDetails(articleId)
+        val call = service.getArticleDetails(loggedInUser.token, articleId)
         call.enqueue(object : Callback<Article> {
             override fun onResponse(call: Call<Article>, response: Response<Article>) {
                 if (response.isSuccessful) {

@@ -79,7 +79,7 @@ class ServiceAdapter(private var services: List<Service>, private  val loggedInU
     }
 
     private fun deleteSelectedServices(serviceID: String) {
-        DeleteService().deleteService(serviceID)
+        DeleteService().deleteService(loggedInUser, serviceID)
         val updatedServices = services.filterNot { it.id == serviceID } //select all articles except deleted one
         updateData(updatedServices)//update recyclerView to show rest of the articles
     }
