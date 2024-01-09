@@ -32,11 +32,11 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var progressBar: ProgressBar
+    private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var imgBack : ImageView
 
     private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
-
-    private lateinit var userId: String
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: TransactionAdapter
@@ -51,24 +51,22 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
         userUsername = intent.getStringExtra("username") ?: ""
         Log.d("MerchantHomeActivity", "User username: $userUsername")
 
-        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
         progressBar = findViewById(R.id.loadingProgressBar)
         removeSearch = findViewById(R.id.img_delete_search_icon)
-
         recyclerView = findViewById(R.id.recyclerView_all_transactions)
+        imgBack = findViewById(R.id.back_button)
 
         adapter = TransactionAdapter(emptyList(), loggedInUser)
-
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        fetchUserId(userUsername)
+        fetchUserTransactions(loggedInUser.userId)
 
-        val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
             val intent = Intent(this, MerchantHomeActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
@@ -84,35 +82,6 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
         Log.d("onPlusTransactionIconClick(merchant) - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
-    }
-
-    private fun fetchUserId(username: String) {
-        val retrofit = RetrofitClient.getInstance(8080)
-        val service = retrofit.create(ServiceAccountManagement::class.java)
-
-        val call = service.getUsers()
-
-        call.enqueue(object : Callback<List<User>> {
-            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
-                if (response.isSuccessful) {
-                    val users = response.body()
-                    val user = users?.find { it.username == username }
-                    if (user != null) {
-                        userId = user.id!!
-                        Log.d("AllTransactionMerchantActivity", "Fetched user ID: $userId")
-                        fetchUserTransactions(userId)
-                    } else {
-                        showErrorDialog()
-                    }
-                } else {
-                    showErrorDialog()
-                }
-            }
-
-            override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                showErrorDialog()
-            }
-        })
     }
 
     private fun fetchUserTransactions(userId: String) {
@@ -161,7 +130,7 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
         builder.setTitle("Error")
             .setMessage("Error fetching transactions.")
             .setPositiveButton("Retry") { _, _ ->
-                fetchUserTransactions(userId)
+                fetchUserTransactions(loggedInUser.userId)
             }
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
@@ -206,7 +175,10 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
-    fun onDeleteSearchIconClick(view: View) {}
+    fun onDeleteSearchIconClick(view: View) {
+        fetchUserTransactions(loggedInUser.userId)
+        removeSearch.visibility = View.GONE
+    }
 
     private fun performSearchAndUpdateRecyclerView(
         description: String,
