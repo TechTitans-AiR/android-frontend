@@ -1,7 +1,8 @@
 package hr.foi.techtitans.ttpay.login_UsernamePassword.service
 
-import hr.foi.techtitans.ttpay.login_UsernamePassword.data.LoginRequestData
-import hr.foi.techtitans.ttpay.login_UsernamePassword.data.LoginResponseData
+
+import hr.foi.techtitans.ttpay.core.network.data.LoginRequestData
+import hr.foi.techtitans.ttpay.core.network.data.LoginResponseData
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
