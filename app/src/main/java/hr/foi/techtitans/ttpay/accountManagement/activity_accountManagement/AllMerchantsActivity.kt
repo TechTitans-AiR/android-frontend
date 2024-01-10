@@ -79,11 +79,11 @@ class AllMerchantsActivity : AppCompatActivity() {
     }
 
     // Fetching all users
-    private fun fetchMerchants() {
+     fun fetchMerchants() {
         showLoading()
         val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)
-        val call = service.getUsers()
+        val call = service.getUsers(loggedInUser.token)
 
         call.enqueue(object : Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {

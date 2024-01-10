@@ -101,7 +101,7 @@ class AllProductsActivity : AppCompatActivity() {
         showLoading()
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
-        val call = service.getArticles()
+        val call = service.getArticles(loggedInUser.token)
 
         call.enqueue(object : Callback<List<Article>> {
             override fun onResponse(call: Call<List<Article>>, response: Response<List<Article>>) {
@@ -128,7 +128,7 @@ class AllProductsActivity : AppCompatActivity() {
         showLoading()
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
-        val call = service.getServices()
+        val call = service.getServices(loggedInUser.token)
 
         call.enqueue(object : Callback<List<Service>> {
             override fun onResponse(call: Call<List<Service>>, response: Response<List<Service>>) {

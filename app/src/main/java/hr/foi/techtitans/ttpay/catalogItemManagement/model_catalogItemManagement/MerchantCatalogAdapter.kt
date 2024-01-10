@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import hr.foi.techtitans.ttpay.R
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 
 
 class MerchantCatalogAdapter (

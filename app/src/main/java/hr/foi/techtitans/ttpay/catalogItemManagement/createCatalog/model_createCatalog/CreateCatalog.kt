@@ -4,19 +4,20 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import hr.foi.techtitans.ttpay.catalogItemManagement.network_catalogItemManagement.ServiceCatalogItemManagement
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class CreateCatalog {
-    fun createNewCatalog(context: Context, newCatalog: NewCatalog){
+    fun createNewCatalog(loggedInUser: LoggedInUser, context: Context, newCatalog: NewCatalog){
         val retrofit = RetrofitClient.getInstance(8081)//za catalog_item_management
         val service = retrofit.create(ServiceCatalogItemManagement::class.java)
 
 
         //call for method createUser
-        val call= service.createNewCatalogForUser(newCatalog)
+        val call= service.createNewCatalogForUser(loggedInUser.token, newCatalog)
 
         call.enqueue(object : Callback<NewCatalog> {
 

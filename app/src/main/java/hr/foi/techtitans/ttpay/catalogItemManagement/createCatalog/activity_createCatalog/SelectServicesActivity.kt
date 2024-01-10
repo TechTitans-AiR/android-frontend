@@ -144,7 +144,7 @@ class SelectServicesActivity : AppCompatActivity() {
         val service=retrofit.create(ServiceProducts::class.java)
 
         //call for method new catalog
-        val call=service.getServices()
+        val call=service.getServices(loggedInUser.token)
 
         call.enqueue(object : Callback<List<Service>> {
             override fun onResponse(call: Call<List<Service>>, response: Response<List<Service>>) {

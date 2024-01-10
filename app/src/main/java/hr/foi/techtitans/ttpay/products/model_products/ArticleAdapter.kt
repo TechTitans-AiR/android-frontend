@@ -79,7 +79,7 @@ class ArticleAdapter(private var articles: List<Article>, private val loggedInUs
     }
 
     private fun deleteSelectedArticle(selectedArticle: String?) {
-        DeleteArticle().deleteArticle(selectedArticle)
+        DeleteArticle().deleteArticle(loggedInUser, selectedArticle)
         val updatedArticles = articles.filterNot { it.id == selectedArticle } //select all articles except deleted one
         updateData(updatedArticles)//update recyclerView to show rest of the articles
     }

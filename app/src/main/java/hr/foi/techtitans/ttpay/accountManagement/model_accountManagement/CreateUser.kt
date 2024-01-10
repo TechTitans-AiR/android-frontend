@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import hr.foi.techtitans.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -11,13 +12,13 @@ import retrofit2.Response
 
 class CreateUser {
 
-    fun createNewUser(context: Context, newUser: newUser){
+    fun createNewUser(loggedInUser: LoggedInUser, context: Context, newUser: newUser){
         val retrofit = RetrofitClient.getInstance(8080)//za account_management
         val service = retrofit.create(ServiceAccountManagement::class.java)
 
 
         //call for method createUser
-        val call= service.createNewUser(newUser)
+        val call= service.createNewUser(loggedInUser.token, newUser)
 
         call.enqueue(object : Callback<newUser> {
 

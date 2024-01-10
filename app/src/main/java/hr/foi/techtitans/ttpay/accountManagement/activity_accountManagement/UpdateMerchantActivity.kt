@@ -113,7 +113,7 @@ class UpdateMerchantActivity : AppCompatActivity() {
 
         //call endpoint for user details
         Log.d("FetchMerchant: ", userID)
-        fetchMerchants(userID) { fetchedUser ->
+        fetchMerchants(loggedInUser, userID) { fetchedUser ->
             //User is found and his data will be updated
             if (fetchedUser != null && fetchedUser.id==userID) {
                 editTxtFirstName.setText(fetchedUser.first_name)
@@ -216,7 +216,7 @@ class UpdateMerchantActivity : AppCompatActivity() {
             )
             Log.d("new data: ", newDataUser.toString())
 
-            updateMerchantData(this, newDataUser, userID)
+            updateMerchantData(loggedInUser, this, newDataUser, userID)
             val intent = Intent(this@UpdateMerchantActivity, AllMerchantsActivity::class.java)
             intent.putExtra("loggedInUser",loggedInUser)
             intent.putExtra("username", userUsername)
@@ -229,10 +229,10 @@ class UpdateMerchantActivity : AppCompatActivity() {
     }
 }
 
-    private fun fetchMerchants(userId: String, callback: (User?) -> Unit) {
+    private fun fetchMerchants(loggedInUser: LoggedInUser, userId: String, callback: (User?) -> Unit) {
         val retrofit = RetrofitClient.getInstance(8080)//za account_management
         val service = retrofit.create(ServiceAccountManagement::class.java)
-        val call = service.getUserDetails(userId)
+        val call = service.getUserDetails(loggedInUser.token, userId)
 
         call.enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
@@ -252,12 +252,12 @@ class UpdateMerchantActivity : AppCompatActivity() {
         })
     }
 
-fun updateMerchantData(context: Context, updatedData: updateUser, userID: String) {
+fun updateMerchantData(loggedInUser: LoggedInUser, context: Context, updatedData: updateUser, userID: String) {
     val retrofit = RetrofitClient.getInstance(8080) // Replace 8080 with your specific port
     val service = retrofit.create(ServiceAccountManagement::class.java)
 
     // Call for method updateMerchantData
-    val call = service.updateMerchantData(userID, updatedData)
+    val call = service.updateMerchantData(loggedInUser.token, userID, updatedData)
 
     call.enqueue(object : Callback<updateUser> {
         override fun onResponse(call: Call<updateUser>, response: Response<updateUser>) {

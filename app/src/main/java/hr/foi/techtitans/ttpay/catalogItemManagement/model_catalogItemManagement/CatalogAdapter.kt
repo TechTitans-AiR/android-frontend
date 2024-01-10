@@ -64,9 +64,9 @@ class CatalogAdapter(
         val service = retrofit.create(ServiceCatalogItemManagement::class.java)
 
         val call: Call<ResponseBody> = if (isEnabled && catalogId != null) {
-            service.enableCatalog(catalogId)
+            service.enableCatalog(loggedInUser.token, catalogId)
         } else if (!isEnabled && catalogId != null) {
-            service.disableCatalog(catalogId)
+            service.disableCatalog(loggedInUser.token, catalogId)
         } else {
             return
         }

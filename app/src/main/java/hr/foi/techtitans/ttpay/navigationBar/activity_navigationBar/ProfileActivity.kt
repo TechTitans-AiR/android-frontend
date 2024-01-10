@@ -78,11 +78,21 @@ class ProfileActivity : AppCompatActivity() {
         val btnBack: ImageView = findViewById(R.id.imgView_back)
 
         btnBack.setOnClickListener {
-            val intent = Intent(this, AdminHomeActivity::class.java)
-            intent.putExtra("username", userUsername)
-            intent.putExtra("loggedInUser", loggedInUser)
-            startActivity(intent)
-            finish()
+            when(loggedInUser.role){
+                "admin"-> {
+                    val intent = Intent(this, AdminHomeActivity::class.java)
+                    intent.putExtra("username", userUsername)
+                    intent.putExtra("loggedInUser", loggedInUser)
+                    startActivity(intent)
+                }
+                "merchant"-> {
+                    val intent = Intent(this, MerchantHomeActivity::class.java)
+                    intent.putExtra("username", userUsername)
+                    intent.putExtra("loggedInUser", loggedInUser)
+                    startActivity(intent)
+                }
+            }
+
         }
 
         btnEditData = findViewById(R.id.btnEditData)
@@ -169,7 +179,7 @@ class ProfileActivity : AppCompatActivity() {
         val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)
 
-        val call = service.getUserDetails(userId)
+        val call = service.getUserDetails(loggedInUser.token, userId)
         call.enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 if (response.isSuccessful) {

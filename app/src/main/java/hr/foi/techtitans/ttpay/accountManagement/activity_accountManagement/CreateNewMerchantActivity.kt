@@ -130,7 +130,7 @@ class CreateNewMerchantActivity : AppCompatActivity() {
                 UserStatus.active.name,
             )
             val create= CreateUser()
-            create.createNewUser(this,new)//context,user
+            create.createNewUser(loggedInUser, this,new)//context,user
             Log.e("USER JE:", "${new.first_name} ")
         }
     }

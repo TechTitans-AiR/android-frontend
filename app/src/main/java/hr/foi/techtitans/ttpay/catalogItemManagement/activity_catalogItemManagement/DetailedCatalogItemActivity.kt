@@ -77,7 +77,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         showLoading()
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceCatalogItemManagement::class.java)
-        val call = service.getCatalogDetails(catalogId)
+        val call = service.getCatalogDetails(loggedInUser.token, catalogId)
 
         call.enqueue(object : Callback<Catalog> {
             override fun onResponse(call: Call<Catalog>, response: Response<Catalog>) {
@@ -145,7 +145,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         val remainingCount = AtomicInteger(articleIds.size)
 
         for (articleId in articleIds) {
-            service.getArticles().enqueue(object : Callback<List<Article>> {
+            service.getArticles(loggedInUser.token).enqueue(object : Callback<List<Article>> {
                 override fun onResponse(call: Call<List<Article>>, response: Response<List<Article>>) {
                     if (response.isSuccessful) {
                         val articles = response.body()
@@ -180,7 +180,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         val remainingCount = AtomicInteger(serviceIds.size)
 
         for (serviceId in serviceIds) {
-            service.getServices().enqueue(object : Callback<List<Service>> {
+            service.getServices(loggedInUser.token).enqueue(object : Callback<List<Service>> {
                 override fun onResponse(call: Call<List<Service>>, response: Response<List<Service>>) {
                     if (response.isSuccessful) {
                         val services = response.body()
@@ -224,7 +224,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
     private fun fetchUserDetails(userId: String, callback: (User) -> Unit) {
         val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)
-        val call = service.getUserDetails(userId)
+        val call = service.getUserDetails(loggedInUser.token, userId)
 
         call.enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {

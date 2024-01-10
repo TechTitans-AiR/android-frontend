@@ -93,7 +93,7 @@ class AllCatalogsActivity : AppCompatActivity() {
         showLoading()
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceCatalogItemManagement::class.java)
-        val call = service.getCatalogs()
+        val call = service.getCatalogs(loggedInUser.token)
 
         call.enqueue(object : Callback<List<Catalog>> {
             override fun onResponse(call: Call<List<Catalog>>, response: Response<List<Catalog>>) {

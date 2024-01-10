@@ -6,6 +6,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -13,22 +14,38 @@ import retrofit2.http.Path
 interface ServiceCatalogItemManagement {
 
     @GET("/api/v1/catalogs/user/{userId}")
-    fun getUserCatalogs(@Path("userId") userId: String): Call<List<Catalog>>
+    fun getUserCatalogs(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String
+    ): Call<List<Catalog>>
 
     @POST("/api/v1/catalogs/create")
-    fun createNewCatalogForUser(@Body new: NewCatalog):Call<NewCatalog>
+    fun createNewCatalogForUser(
+        @Header("Authorization") token: String,
+        @Body new: NewCatalog):Call<NewCatalog>
 
     @GET("/api/v1/catalogs/{catalogId}")
-    fun getCatalogDetails(@Path("catalogId") catalogId: String): Call<Catalog>
+    fun getCatalogDetails(
+        @Header("Authorization") token: String,
+        @Path("catalogId") catalogId: String
+    ): Call<Catalog>
 
     @GET("/api/v1/catalogs")
-    fun getCatalogs(): Call<List<Catalog>>
+    fun getCatalogs(
+        @Header("Authorization") token: String
+    ): Call<List<Catalog>>
 
     @PATCH("/api/v1/catalogs/disable/{catalogId}")
-    fun disableCatalog(@Path("catalogId") catalogId: String): Call<ResponseBody>
+    fun disableCatalog(
+        @Header("Authorization") token: String,
+        @Path("catalogId") catalogId: String
+    ): Call<ResponseBody>
 
     @PATCH("/api/v1/catalogs/enable/{catalogId}")
-    fun enableCatalog(@Path("catalogId") catalogId: String): Call<ResponseBody>
+    fun enableCatalog(
+        @Header("Authorization") token: String,
+        @Path("catalogId") catalogId: String
+    ): Call<ResponseBody>
 
 
 }

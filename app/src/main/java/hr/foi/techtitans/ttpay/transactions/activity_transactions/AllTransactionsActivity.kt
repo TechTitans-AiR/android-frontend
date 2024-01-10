@@ -87,7 +87,7 @@ class AllTransactionsActivity : AppCompatActivity() {
         showLoading()
         val retrofit = RetrofitClient.getInstance(8082)
         val service = retrofit.create(ServiceTransactionManagement::class.java)
-        val call = service.getTransactions()
+        val call = service.getTransactions(loggedInUser.token)
 
         call.enqueue(object : Callback<List<Transaction>> {
             override fun onResponse(
@@ -184,7 +184,7 @@ class AllTransactionsActivity : AppCompatActivity() {
 
         val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)
-        val call = service.getUsers()
+        val call = service.getUsers(loggedInUser.token)
 
         call.enqueue(object : Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
@@ -282,7 +282,7 @@ class AllTransactionsActivity : AppCompatActivity() {
         val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)
 
-        val call = service.getUsers()
+        val call = service.getUsers(loggedInUser.token)
 
         call.enqueue(object : Callback<List<User>> {
             override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
