@@ -11,7 +11,7 @@ import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.SettingsActi
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 
-class NavigationHandler(private val activity: AppCompatActivity, private val loggedInUser: LoggedInUser) {
+class NavigationHandler(private val activity: AppCompatActivity, private var loggedInUser: LoggedInUser) {
 
     private lateinit var bottomNavigationView: BottomNavigationView
 
@@ -41,6 +41,11 @@ class NavigationHandler(private val activity: AppCompatActivity, private val log
 
     private fun navigateToMainActivity() {
         val intent = Intent(activity, MainActivity::class.java)
+
+        //logout
+        val emptyLoggedInUser = LoggedInUser("", "", "", "")
+        loggedInUser=emptyLoggedInUser
+
         activity.startActivity(intent)
         activity.finishAffinity()
     }
