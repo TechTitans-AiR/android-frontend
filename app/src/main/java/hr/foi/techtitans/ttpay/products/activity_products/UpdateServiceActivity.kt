@@ -11,10 +11,9 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.R
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
 import hr.foi.techtitans.ttpay.network.RetrofitClient
-import hr.foi.techtitans.ttpay.products.model_products.Article
 import hr.foi.techtitans.ttpay.products.model_products.Service
 import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
 import retrofit2.Call

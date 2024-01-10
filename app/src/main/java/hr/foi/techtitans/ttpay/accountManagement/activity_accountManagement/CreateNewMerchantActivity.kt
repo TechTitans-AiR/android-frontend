@@ -20,7 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.time.LocalDate
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.CreateUser
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.newUser
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 
 class CreateNewMerchantActivity : AppCompatActivity() {
 

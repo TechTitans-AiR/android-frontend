@@ -8,14 +8,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import hr.foi.techtitans.ttpay.R
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
-import hr.foi.techtitans.ttpay.products.activity_products.DetailsArticleActivity
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.transactions.activity_transactions.DetailedTransactionActivity
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 class TransactionAdapter(
-    private var transactions: List<Transaction>, private val loggedInUser: LoggedInUser) :
+    private var transactions: List<Transaction>, private val loggedInUser: LoggedInUser
+) :
     RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
 
     class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

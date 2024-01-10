@@ -9,7 +9,7 @@ import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.ProfileActiv
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.SettingsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 
 class NavigationHandler(private val activity: AppCompatActivity, private val loggedInUser: LoggedInUser) {
 

@@ -19,7 +19,7 @@ import hr.foi.techtitans.ttpay.transactions.model_transactions.NewTransaction
 import hr.foi.techtitans.ttpay.transactions.model_transactions.ShoppingCartItem
 import hr.foi.techtitans.ttpay.transactions.network_transactions.ServiceTransactionManagement
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

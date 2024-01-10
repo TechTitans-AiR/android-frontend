@@ -10,7 +10,7 @@ import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.AllCatalogsActivity
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 
 class CreateCatalogItemActivity : AppCompatActivity() {
 

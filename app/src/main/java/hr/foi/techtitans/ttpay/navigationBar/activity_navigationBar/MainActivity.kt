@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import hr.foi.techtitans.ttpay.R
-import hr.foi.techtitans.ttpay.login_modular.activity_login.Login_UsernamePassword
+import hr.foi.techtitans.ttpay.login_modular.activity_login.LoginUsernamePassword
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
 
         loginButtonUsernamePassword.setOnClickListener {
-            val loginIntent = Intent(this, Login_UsernamePassword::class.java)
+            val loginIntent = Intent(this, LoginUsernamePassword::class.java)
             startActivity(loginIntent)
             finish()
         }

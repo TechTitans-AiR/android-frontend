@@ -20,7 +20,7 @@ import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHomeActivity
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
