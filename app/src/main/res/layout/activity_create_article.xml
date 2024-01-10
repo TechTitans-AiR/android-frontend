@@ -77,7 +77,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Currency"
+                android:text="Category"
                 android:textSize="18sp" />
 
             <Spinner
@@ -188,7 +188,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/editTextServiceProvider"
+                android:id="@+id/editTextArticleBrand"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter article brand"
@@ -217,7 +217,7 @@
 
         <!-- Create New Article Button -->
         <Button
-            android:id="@+id/btnCreateNewService"
+            android:id="@+id/btnCreateNewArticle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/spinnerCurrency"
