@@ -2,6 +2,7 @@ package hr.foi.techtitans.ttpay.products.activity_products
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -34,6 +35,15 @@ class CreateServiceActivity : AppCompatActivity() {
         navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
+
+        actionBack.setOnClickListener {
+            intent.putExtra("loggedInUser", loggedInUser)
+            Log.d("CreateServiceActivity - LoggedInUser",loggedInUser.toString())
+            intent.putExtra("username", userUsername)
+            setResult(RESULT_OK, intent)
+            finish()
+        }
+
 
     }
 }
