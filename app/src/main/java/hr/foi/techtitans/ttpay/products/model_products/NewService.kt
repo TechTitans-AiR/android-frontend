@@ -6,7 +6,7 @@ data class NewService(
     val serviceName: String,
     val description: String,
     val serviceProvider: String,
-    val price: Int,
+    val price: Double,
     val currency: String,
     val duration: Int,
     val availability: String,

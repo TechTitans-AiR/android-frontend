@@ -7,15 +7,10 @@ data class Service(
     val serviceName: String,
     val description: String,
     val serviceProvider: String,
-    val price: Int,
+    val price: Double,
     val currency: String,
     val duration: Int,
     val availability: String,
     val serviceLocation: String,
     val durationUnit: String
-): Serializable {
-
-    fun convertPriceToDouble(): Double {
-        return price.toDouble()
-    }
-}
+): Serializable

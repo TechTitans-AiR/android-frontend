@@ -86,7 +86,7 @@ class CreateServiceActivity : AppCompatActivity() {
             val serviceName = editTextServiceName.text.toString()
             val description = editTextDescription.text.toString()
             val serviceProvider = editTextServiceProvider.text.toString()
-            val price = editTextPrice.text.toString().toInt()
+            val price = editTextPrice.text.toString().toDouble()
             val currency = spinnerCurrency.selectedItem.toString()
             val duration = editTextDuration.text.toString().toInt()
             val durationUnit = spinnerDurationUnit.selectedItem.toString()
