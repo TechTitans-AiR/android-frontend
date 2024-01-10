@@ -14,3 +14,15 @@ data class Article(
     val brand: String,
     val currency: String
 ): Serializable
+
+data class NewArticle(
+    val name: String,
+    //val itemCategory: ItemCategory,
+    val description: String,
+    val price: Double,
+    val quantity_in_stock: Int,
+    val weight: Double?,
+    val material: String?,
+    val brand: String,
+    val currency: String
+): Serializable

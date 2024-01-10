@@ -11,10 +11,19 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Spinner
+import android.widget.Toast
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.core.LoggedInUser
+import hr.foi.techtitans.ttpay.network.RetrofitClient
+import hr.foi.techtitans.ttpay.products.model_products.ItemCategory
+import hr.foi.techtitans.ttpay.products.model_products.NewArticle
+import hr.foi.techtitans.ttpay.products.model_products.NewService
+import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CreateArticleActivity : AppCompatActivity() {
 
@@ -31,6 +40,7 @@ class CreateArticleActivity : AppCompatActivity() {
     private lateinit var editTextDescription: EditText
     private lateinit var editTextBrand: EditText
     private lateinit var editTextPrice: EditText
+    private lateinit var editTextMaterial: EditText
     private lateinit var spinnerCurrency: Spinner
     private lateinit var editTextWeight: EditText
     private lateinit var spinnerCategory: Spinner
@@ -66,6 +76,7 @@ class CreateArticleActivity : AppCompatActivity() {
         editTextPrice= findViewById(R.id.editTextPrice)
         editTextWeight= findViewById(R.id.editTextWeight)
         editTextQuantityInStock = findViewById(R.id.editTextQuantityInStock)
+        editTextMaterial=findViewById(R.id.editTextMaterial)
         spinnerCategory=findViewById(R.id.spinnerCategory)
         spinnerCurrency=findViewById(R.id.spinnerCurrency)
         btnCreateArticle=findViewById(R.id.btnCreateNewArticle)
@@ -74,7 +85,70 @@ class CreateArticleActivity : AppCompatActivity() {
         setupCurrencySpinner()
         setupCategorySpinner()
 
-        //TODO: implement method for calling endpoint
+        btnCreateArticle.setOnClickListener{
+            // Fetch data from EditText and Spinner
+            val articleName = editTextArticleName.text.toString()
+            val description = editTextDescription.text.toString()
+            val price = editTextPrice.text.toString().toDouble()
+            val quantityInStock=editTextQuantityInStock.toString().toInt()
+            val weight = editTextWeight.text.toString().toDouble()
+            val material = editTextMaterial.toString()
+            val brand = editTextBrand.text.toString()
+            val currency = spinnerCurrency.selectedItem.toString()
+
+            // Get the JWT token from the loggedInUser
+            val jwtToken = loggedInUser.token
+
+            val selectedCategory = spinnerCategory.selectedItem.toString()
+            val categoryId=getCategoryId(selectedCategory)
+
+            // Create a NewService object
+            val newArticle = NewArticle(
+                articleName,
+                description,
+                price,
+                quantityInStock,
+                weight,
+                material,
+                brand,
+                currency,
+            )
+
+            // Call the createService endpoint
+            createNewArticle(jwtToken,newArticle)
+        }
+
+    }
+
+    private fun createNewArticle(jwtToken: String, newArticle: NewArticle) {
+        showLoading()
+
+        val retrofit = RetrofitClient.getInstance(8081)
+        val service = retrofit.create(ServiceProducts::class.java)
+        val call = service.createArticle(jwtToken, newArticle)
+
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                hideLoading()
+                if (response.isSuccessful) {
+                    Toast.makeText(applicationContext, "Article created successfully", Toast.LENGTH_SHORT).show()
+                    intent.putExtra("loggedInUser", loggedInUser)
+                    intent.putExtra("username", userUsername)
+                    setResult(RESULT_OK, intent)
+                    finish()
+                } else {
+                    Toast.makeText(applicationContext, "Error creating article. Please try again.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                hideLoading()
+                Toast.makeText(applicationContext, "Error creating article. Please try again.", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun getCategoryId(selectedCategory: String) {
 
     }
 
