@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import hr.foi.techtitans.ttpay.R
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.products.activity_products.DetailsArticleActivity
 import hr.foi.techtitans.ttpay.products.activity_products.UpdateArticleActivity
 

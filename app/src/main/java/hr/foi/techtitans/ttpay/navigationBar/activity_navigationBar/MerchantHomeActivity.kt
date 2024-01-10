@@ -16,7 +16,7 @@ import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.transactions.activity_transactions.AllTransactionsMerchantActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,7 +42,7 @@ class MerchantHomeActivity : AppCompatActivity() {
         textViewUserName = findViewById(R.id.textViewUserName)
         progressBarUserName = findViewById(R.id.progressBarUserName)
 
-        fetchUserId(userUsername)
+        fetchUserDetails(loggedInUser.userId)
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, loggedInUser)
@@ -65,44 +65,6 @@ class MerchantHomeActivity : AppCompatActivity() {
         intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
-    }
-
-    private fun fetchUserId(username: String) {
-        val retrofit = RetrofitClient.getInstance(8080)
-        val service = retrofit.create(ServiceAccountManagement::class.java)
-
-        val call = service.getUsers()
-
-        // Show the progress bar
-        progressBarUserName.visibility = View.VISIBLE
-
-        call.enqueue(object : Callback<List<User>> {
-            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
-                // Hide the progress bar
-                progressBarUserName.visibility = View.GONE
-
-                if (response.isSuccessful) {
-                    val users = response.body()
-                    val user = users?.find { it.username == username }
-                    if (user != null) {
-                        userId = user.id!!
-                        Log.d("AllCatalogsMerchant", "Fetched user ID: $userId")
-                        fetchUserDetails(userId)
-                    } else {
-                        showErrorDialog()
-                    }
-                } else {
-                    showErrorDialog()
-                }
-            }
-
-            override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                // Hide the progress bar
-                progressBarUserName.visibility = View.GONE
-
-                showErrorDialog()
-            }
-        })
     }
 
     private fun fetchUserDetails(userId: String) {
@@ -144,7 +106,7 @@ class MerchantHomeActivity : AppCompatActivity() {
         builder.setTitle("Error")
             .setMessage("Error fetching data.")
             .setPositiveButton("Retry") { _, _ ->
-                fetchUserDetails(userId)
+                fetchUserDetails(loggedInUser.userId)
             }
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()

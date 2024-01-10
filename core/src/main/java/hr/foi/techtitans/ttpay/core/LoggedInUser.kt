@@ -1,14 +1,14 @@
-package hr.foi.techtitans.ttpay.login_modular.model_login
+package hr.foi.techtitans.ttpay.core
 
 import android.os.Parcel
 import android.os.Parcelable
 
-data class LoggedInUser(
+class LoggedInUser (
     val userId: String,
     val username :String,
     val token: String,
     val role:String
-):Parcelable {
+): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
@@ -25,6 +25,10 @@ data class LoggedInUser(
 
     override fun describeContents(): Int {
         return 0
+    }
+
+    override fun toString(): String {
+        return "LoggedInUser(userId='$userId', username='$username', token='$token', role='$role')"
     }
 
     companion object CREATOR : Parcelable.Creator<LoggedInUser> {

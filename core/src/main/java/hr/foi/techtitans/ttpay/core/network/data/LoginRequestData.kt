@@ -1,4 +1,4 @@
-package hr.foi.techtitans.ttpay.login_UsernamePassword.data
+package hr.foi.techtitans.ttpay.core.network.data
 
 data class LoginRequestData(
     val username: String?,

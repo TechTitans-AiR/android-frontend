@@ -21,7 +21,7 @@ import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
