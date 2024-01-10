@@ -1,6 +1,7 @@
 package hr.foi.techtitans.ttpay.products.network_products
 
 import hr.foi.techtitans.ttpay.products.model_products.Article
+import hr.foi.techtitans.ttpay.products.model_products.NewService
 import hr.foi.techtitans.ttpay.products.model_products.Service
 import retrofit2.Call
 import retrofit2.http.Body
