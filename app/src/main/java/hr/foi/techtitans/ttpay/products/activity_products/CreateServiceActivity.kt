@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -72,7 +73,20 @@ class CreateServiceActivity : AppCompatActivity() {
             setResult(RESULT_OK, intent)
             finish()
         }
-
-
     }
+
+    private fun setupCurrencySpinner() {
+        val currencies = arrayOf("USD", "EUR", "GBP", "JPY", "CAD", "AUD", "CNY", "INR") // Add more currencies as needed
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, currencies)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerCurrency.adapter = adapter
+    }
+
+    private fun setupDurationUnitSpinner() {
+        val durationUnits = arrayOf("Seconds", "Minutes", "Hours", "Days", "Weeks", "Months", "Years")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, durationUnits)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerDurationUnit.adapter = adapter
+    }
+
 }
