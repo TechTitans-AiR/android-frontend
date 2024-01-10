@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import hr.foi.techtitans.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
