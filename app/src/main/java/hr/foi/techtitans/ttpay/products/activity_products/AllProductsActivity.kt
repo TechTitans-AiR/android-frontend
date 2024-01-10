@@ -88,12 +88,32 @@ class AllProductsActivity : AppCompatActivity() {
     }
 
     fun onPlusIconProductsClick(view: View) {
-        val intent = Intent(this, CreateProductActivity::class.java)
-        intent.putExtra("loggedInUser", loggedInUser)
-        Log.d("onPlusIconProductsClick - LoggedInUser",loggedInUser.toString())
-        intent.putExtra("username", userUsername)
-        startActivity(intent)
-        finish()
+        val dialogBuilder = AlertDialog.Builder(this)
+        // Set the dialog title and message
+        dialogBuilder.setTitle("Choose")
+            .setMessage("Do you want to create an article or a service?")
+        // Create buttons for creating an article, creating a service, and canceling
+        dialogBuilder.setPositiveButton("Create Article") { _, _ ->
+            // Open the activity for creating articles
+            val intent = Intent(this, CreateArticleActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
+            intent.putExtra("username", userUsername)
+            startActivity(intent)
+        }
+        dialogBuilder.setNegativeButton("Create Service") { _, _ ->
+            // Open the activity for creating services
+            val intent = Intent(this, CreateServiceActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
+            intent.putExtra("username", userUsername)
+            startActivity(intent)
+        }
+        dialogBuilder.setNeutralButton("Cancel") { dialog, _ ->
+            // Dismiss the dialog if canceled
+            dialog.dismiss()
+        }
+        // Show the dialog
+        val dialog = dialogBuilder.create()
+        dialog.show()
     }
 
     fun fetchArticles() {

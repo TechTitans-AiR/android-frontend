@@ -18,6 +18,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".products.activity_products.CreateServiceActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false" />
+        <activity
             android:name=".login_modular.activity_login.LoginUsernamePassword"
             android:exported="false" />
         <activity
@@ -96,7 +100,7 @@
             android:name=".accountManagement.activity_accountManagement.DetailsMerchantActivity"
             android:exported="false" />
         <activity
-            android:name=".products.activity_products.CreateProductActivity"
+            android:name=".products.activity_products.CreateArticleActivity"
             android:exported="false" />
         <activity
             android:name=".products.activity_products.AllProductsActivity"

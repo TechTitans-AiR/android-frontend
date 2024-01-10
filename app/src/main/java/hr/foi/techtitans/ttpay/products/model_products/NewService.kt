@@ -2,8 +2,7 @@ package hr.foi.techtitans.ttpay.products.model_products
 
 import java.io.Serializable
 
-data class Service(
-    val id: String,
+data class NewService(
     val serviceName: String,
     val description: String,
     val serviceProvider: String,
@@ -14,3 +13,4 @@ data class Service(
     val serviceLocation: String,
     val durationUnit: String
 ): Serializable
+

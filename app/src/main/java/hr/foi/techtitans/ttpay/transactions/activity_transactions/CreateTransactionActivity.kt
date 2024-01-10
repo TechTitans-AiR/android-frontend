@@ -176,7 +176,7 @@ class CreateTransactionActivity : AppCompatActivity() {
 
                     // add services in the shoppingCartItems with initial unit price
                     val shoppingCartServices = services.map { service ->
-                        ShoppingCartItem(service.serviceName, 0, service.convertPriceToDouble(), false)
+                        ShoppingCartItem(service.serviceName, 0, service.price, false)
                     }
                     shoppingCartItems.addAll(shoppingCartServices)
 
