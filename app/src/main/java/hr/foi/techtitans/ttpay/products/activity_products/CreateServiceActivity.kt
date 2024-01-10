@@ -109,6 +109,9 @@ class CreateServiceActivity : AppCompatActivity() {
                 durationUnit
             )
 
+            // Call the createService endpoint
+            createService(newService, jwtToken)
+
         }
     }
 
