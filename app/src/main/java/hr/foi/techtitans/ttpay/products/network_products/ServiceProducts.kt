@@ -1,6 +1,7 @@
 package hr.foi.techtitans.ttpay.products.network_products
 
 import hr.foi.techtitans.ttpay.products.model_products.Article
+import hr.foi.techtitans.ttpay.products.model_products.NewArticle
 import hr.foi.techtitans.ttpay.products.model_products.NewService
 import hr.foi.techtitans.ttpay.products.model_products.Service
 import retrofit2.Call
@@ -68,4 +69,9 @@ interface ServiceProducts {
         @Header("Authorization") token: String
     ): Call<Void>
 
+    @POST("/api/v1/articles/create")
+    fun createArticle(
+        @Header("Authorization") token: String,
+        @Body newArticle: NewArticle
+    ): Call<Void>
 }
