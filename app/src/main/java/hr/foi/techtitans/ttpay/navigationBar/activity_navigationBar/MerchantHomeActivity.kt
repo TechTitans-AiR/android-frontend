@@ -16,7 +16,7 @@ import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.transactions.activity_transactions.AllTransactionsMerchantActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -67,12 +67,10 @@ class MerchantHomeActivity : AppCompatActivity() {
         finish()
     }
 
-
-
     private fun fetchUserDetails(userId: String) {
         val retrofit = RetrofitClient.getInstance(8080)
         val service = retrofit.create(ServiceAccountManagement::class.java)
-        val call = service.getUserDetails(loggedInUser.token, userId)
+        val call = service.getUserDetails(userId)
 
         // Show the progress bar
         progressBarUserName.visibility = View.VISIBLE

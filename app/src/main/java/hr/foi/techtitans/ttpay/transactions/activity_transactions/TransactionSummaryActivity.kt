@@ -14,7 +14,7 @@ import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandl
 import hr.foi.techtitans.ttpay.transactions.model_transactions.TransactionSummaryAdapter
 import hr.foi.techtitans.ttpay.transactions.model_transactions.ShoppingCartItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 
 class TransactionSummaryActivity : AppCompatActivity() {
 

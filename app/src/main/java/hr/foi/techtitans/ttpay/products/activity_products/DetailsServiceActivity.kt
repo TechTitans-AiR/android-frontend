@@ -10,12 +10,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.R
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.products.model_products.Service
 import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
-import hr.foi.techtitans.ttpay.transactions.network_transactions.ServiceTransactionManagement
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -15,7 +15,7 @@ import hr.foi.techtitans.ttpay.accountManagement.activity_accountManagement.Deta
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.accountManagement.activity_accountManagement.AllMerchantsActivity
 import hr.foi.techtitans.ttpay.accountManagement.activity_accountManagement.UpdateMerchantActivity
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 
 class MerchantAdapter(private var users: List<User>, private var loggedInUser: LoggedInUser) :
     RecyclerView.Adapter<MerchantAdapter.MerchantViewHolder>() {

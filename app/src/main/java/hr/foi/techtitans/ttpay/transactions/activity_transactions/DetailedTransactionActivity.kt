@@ -14,10 +14,8 @@ import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandl
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 import hr.foi.techtitans.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.network.RetrofitClient
-import hr.foi.techtitans.ttpay.products.model_products.Article
-import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
 import hr.foi.techtitans.ttpay.transactions.model_transactions.Transaction
 import hr.foi.techtitans.ttpay.transactions.network_transactions.ServiceTransactionManagement
 import retrofit2.Call

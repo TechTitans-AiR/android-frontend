@@ -16,3 +16,4 @@ rootProject.name = "TTPay"
 include ':app'
 include ':login-username_password'
 include ':Login-UsernamePassword'
+include ':core'

@@ -3,11 +3,10 @@ package hr.foi.techtitans.ttpay.transactions.activity_transactions
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import hr.foi.techtitans.ttpay.R
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoggedInUser
+import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHomeActivity
 
