@@ -80,6 +80,19 @@ class CreateServiceActivity : AppCompatActivity() {
             setResult(RESULT_OK, intent)
             finish()
         }
+
+        btnCreateNewService.setOnClickListener {
+            // Fetch data from EditText and Spinner
+            val serviceName = editTextServiceName.text.toString()
+            val description = editTextDescription.text.toString()
+            val serviceProvider = editTextServiceProvider.text.toString()
+            val price = editTextPrice.text.toString().toInt()
+            val currency = spinnerCurrency.selectedItem.toString()
+            val duration = editTextDuration.text.toString().toInt()
+            val durationUnit = spinnerDurationUnit.selectedItem.toString()
+            val availability = editTextAvailability.text.toString()
+            val serviceLocation = editTextServiceLocation.text.toString()
+        }
     }
 
     private fun setupCurrencySpinner() {
