@@ -10,10 +10,17 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Spinner
+import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
+import hr.foi.techtitans.ttpay.network.RetrofitClient
+import hr.foi.techtitans.ttpay.products.model_products.NewService
+import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CreateServiceActivity : AppCompatActivity() {
 
@@ -88,5 +95,38 @@ class CreateServiceActivity : AppCompatActivity() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerDurationUnit.adapter = adapter
     }
+
+    private fun createService(newService: NewService, jwtToken: String) {
+        showLoading()
+
+        val retrofit = RetrofitClient.getInstance(8081)
+        val service = retrofit.create(ServiceProducts::class.java)
+        val call = service.createService(newService, "Bearer $jwtToken")
+
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                hideLoading()
+                if (response.isSuccessful) {
+                    Toast.makeText(applicationContext, "Service created successfully", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(applicationContext, "Error creating service. Please try again.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                hideLoading()
+                Toast.makeText(applicationContext, "Error creating service. Please try again.", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun showLoading() {
+        loadingDataProgressBar?.visibility = View.VISIBLE
+    }
+
+    private fun hideLoading() {
+        loadingDataProgressBar?.visibility = View.GONE
+    }
+
 
 }
