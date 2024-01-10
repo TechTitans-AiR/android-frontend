@@ -55,6 +55,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
 
         adapter = MerchantCatalogAdapter(emptyList()) { catalog ->
             val intent = Intent(this, DetailedCatalogItemActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("catalogId", catalog.id)
             startActivity(intent)
         }
@@ -62,7 +63,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        fetchUserId(userUsername)
+        fetchUserCatalogs(loggedInUser.userId)
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
@@ -74,34 +75,6 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         }
     }
 
-    private fun fetchUserId(username: String) {
-        val retrofit = RetrofitClient.getInstance(8080)
-        val service = retrofit.create(ServiceAccountManagement::class.java)
-
-        val call = service.getUsers(loggedInUser.token)
-
-        call.enqueue(object : Callback<List<User>> {
-            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
-                if (response.isSuccessful) {
-                    val users = response.body()
-                    val user = users?.find { it.username == username }
-                    if (user != null) {
-                        userId = user.id!!
-                        Log.d("AllCatalogsMerchant", "Fetched user ID: $userId")
-                        fetchUserCatalogs(userId)
-                    } else {
-                        showErrorDialog()
-                    }
-                } else {
-                    showErrorDialog()
-                }
-            }
-
-            override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                showErrorDialog()
-            }
-        })
-    }
 
     private fun fetchUserCatalogs(userId: String) {
         showLoading()
@@ -145,7 +118,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         builder.setTitle("Error")
             .setMessage("Error fetching catalogs. Make sure that you have a catalog.")
             .setPositiveButton("Retry") { _, _ ->
-                fetchUserId(userUsername)
+                fetchUserCatalogs(loggedInUser.userId)
             }
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
