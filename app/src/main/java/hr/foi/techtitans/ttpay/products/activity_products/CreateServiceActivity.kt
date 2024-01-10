@@ -92,6 +92,23 @@ class CreateServiceActivity : AppCompatActivity() {
             val durationUnit = spinnerDurationUnit.selectedItem.toString()
             val availability = editTextAvailability.text.toString()
             val serviceLocation = editTextServiceLocation.text.toString()
+
+            // Get the JWT token from the loggedInUser
+            val jwtToken = loggedInUser.token
+
+            // Create a NewService object
+            val newService = NewService(
+                serviceName,
+                description,
+                serviceProvider,
+                price,
+                currency,
+                duration,
+                availability,
+                serviceLocation,
+                durationUnit
+            )
+
         }
     }
 
