@@ -14,7 +14,10 @@ import retrofit2.http.Path
 interface ServiceCatalogItemManagement {
 
     @GET("/api/v1/catalogs/user/{userId}")
-    fun getUserCatalogs(@Path("userId") userId: String): Call<List<Catalog>>
+    fun getUserCatalogs(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String
+    ): Call<List<Catalog>>
 
     @POST("/api/v1/catalogs/create")
     fun createNewCatalogForUser(
