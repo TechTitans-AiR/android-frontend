@@ -130,7 +130,7 @@ class PaymentOptionsActivity : AppCompatActivity() {
             val description_cash = edtDescriptionCash.text.toString()
             val currency = "EUR"
             val newTransaction = NewTransaction(merchantId, description_cash, totalAmount, cardForTransaction, currency)
-            sendTransactionToBackend(newTransaction, getYourCashAmount())
+            sendTransactionCashToBackend(newTransaction, getYourCashAmount())
         }
     }
 
@@ -172,11 +172,11 @@ class PaymentOptionsActivity : AppCompatActivity() {
         Log.d("PaymentOptionsActivity", "Error fetching data for $username")
     }
 
-    private fun sendTransactionToBackend(newTransaction: NewTransaction, cashAmount: Double) {
+    private fun sendTransactionCashToBackend(newTransaction: NewTransaction, cashAmount: Double) {
         val retrofit = RetrofitClient.getInstance(8082)
         val service = retrofit.create(ServiceTransactionManagement::class.java)
 
-        val call = service.createTransaction(newTransaction)
+        val call = service.createTransactionCash(newTransaction)
 
         call.enqueue(object : Callback<NewTransaction> {
             override fun onResponse(

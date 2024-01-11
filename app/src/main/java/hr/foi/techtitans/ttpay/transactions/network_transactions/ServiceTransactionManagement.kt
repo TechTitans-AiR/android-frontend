@@ -26,7 +26,10 @@ interface ServiceTransactionManagement {
     ): Call<List<Transaction>>
 
     @POST("/api/v1/transactions/create")//create new transaction for selling items
-    fun createTransaction(@Body newTransaction: NewTransaction): Call<NewTransaction>
+    fun createTransactionCash(@Body newTransaction: NewTransaction): Call<NewTransaction>
+
+    @POST("/api/v1/transactions/create/card")
+    fun createTransactionCard(@Body newTransaction: NewTransaction): Call<NewTransaction>
 
     @GET("/api/v1/transactions/{id}")
     fun getTransactionDetails(
