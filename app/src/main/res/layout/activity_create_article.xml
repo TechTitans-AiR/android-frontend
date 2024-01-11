@@ -39,22 +39,20 @@
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_above="@id/bottomNavigationView"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+    android:fillViewport="true"
+    android:layout_above="@id/btnCreateNewArticle"
     android:layout_below="@id/tv_create_product">
 
     <!-- Linear Layouts for Article Properties -->
     <LinearLayout
         android:id="@+id/linearLayoutArticleProperties"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:forceHasOverlappingRendering="true"
-        >
-
-
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical">
 
         <!-- Article Name -->
         <LinearLayout
@@ -246,25 +244,22 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp" />
         </LinearLayout>
-
-
-        <!-- Create New Article Button -->
-        <Button
-            android:id="@+id/btnCreateNewArticle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/spinnerCurrency"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
-            android:text="Create New Article"
-            android:textSize="18sp" />
-
     </LinearLayout>
 </ScrollView>
+
+    <!-- Create New Article Button -->
+    <Button
+        android:id="@+id/btnCreateNewArticle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottomNavigationView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="20dp"
+        android:text="Create New Article"
+        android:textSize="18sp" />
 
 <!-- BottomNavigationView -->
 <include layout="@layout/bottom_navigation"

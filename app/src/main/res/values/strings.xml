@@ -31,6 +31,7 @@
     <string name="added_users">Added users</string>
     <string name="continue_see_all_data">Continue - see all data</string>
     <string name="select_the_articles">Select the articles</string>
+    <string name="select_the_services">Select the services</string>
     <string name="added_articles">Added articles</string>
     <string name="continue_with_selecting_services">Continue with selecting services</string>
 </resources>

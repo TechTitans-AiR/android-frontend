@@ -5,16 +5,30 @@
     android:layout_height="match_parent"
     tools:context="hr.foi.techtitans.ttpay.transactions.activity_transactions.PaymentOptionsActivity">
 
-    <!-- Payment options go here -->
-    <!-- You can add radio buttons for "Cash" and "Bank Card" -->
+    <!-- Payment options -->
+    <TextView
+        android:id="@+id/textView_payment_options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Payment options"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"/>
+
 
     <!-- Radio Group for payment options -->
     <RadioGroup
         android:id="@+id/radioGroupPaymentOptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_payment_options"
         android:orientation="horizontal"
-        android:layout_marginTop="16dp">
+        android:gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="15dp">
 
         <!-- Cash radio button -->
         <RadioButton
@@ -37,6 +51,8 @@
         android:id="@+id/edt_cash_amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:hint="Enter Cash Amount"
         android:layout_below="@id/radioGroupPaymentOptions"
         android:layout_marginTop="16dp"/>
@@ -47,6 +63,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter description"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:layout_below="@id/edt_cash_amount"
         android:layout_marginTop="16dp"/>
 
@@ -55,12 +73,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/edt_description"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="20dp">
 
         <Button
             android:id="@+id/btn_complete_payment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:text="COMPLETE PAYMENT" />
 
         <ProgressBar

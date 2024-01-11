@@ -1,109 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="hr.foi.techtitans.ttpay.transactions.activity_transactions.CreateTransactionActivity">
 
-<!-- Back button -->
-<ImageView
-    android:id="@+id/back_button"
-    android:layout_width="40dp"
-    android:layout_height="28dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="16dp"
-    android:clickable="true"
-    android:contentDescription="Back Button"
-    android:src="@drawable/baseline_arrow_back" />
-
-<!-- Title "Create new transaction" -->
-<TextView
-    android:id="@+id/tv_create_transaction"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="16dp"
-    android:fontFamily="sans-serif-light"
-    android:text="Create new transaction"
-    android:textColor="@color/red"
-    android:textSize="24sp"
-    android:textStyle="bold" />
-
-    <!-- ProgressBar for loading -->
-    <ProgressBar
-        android:id="@+id/loadingProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:indeterminate="true"
-        android:visibility="gone" />
-
-    <!-- Container 1 (Services) -->
+    <!-- Header -->
     <RelativeLayout
-        android:id="@+id/container_services"
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:gravity="center"
-        android:layout_below="@id/tv_create_transaction"
-        android:layout_marginTop="16dp">
+        android:background="@color/white">
 
+        <!-- Back button -->
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="40dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:contentDescription="Back Button"
+            android:src="@drawable/baseline_arrow_back" />
+
+        <!-- Title "Create new transaction" -->
         <TextView
-            android:id="@+id/tv_services"
+            android:id="@+id/tv_create_transaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Services"
-            android:textSize="18sp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Create new transaction"
+            android:textColor="@color/red"
+            android:textSize="24sp"
             android:textStyle="bold" />
-
-        <!-- RecyclerView for services -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_services"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_services"
-            android:layout_marginTop="8dp" />
-
     </RelativeLayout>
 
-    <!-- Container 2 (Articles) -->
-    <RelativeLayout
-        android:id="@+id/container_articles"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:gravity="center"
-        android:layout_below="@id/container_services"
-        android:layout_marginTop="16dp">
-
-        <TextView
-            android:id="@+id/tv_articles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Articles"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <!-- RecyclerView for articles -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_articles"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_articles"
-            android:layout_marginTop="8dp" />
-
-    </RelativeLayout>
-
-    <!-- Total amount TextView -->
+    <!-- Total amount TextView and PAY button -->
     <RelativeLayout
         android:id="@+id/relativeLayoutTotalAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/container_articles"
-        android:layout_marginTop="16dp">
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_above="@+id/bottomNavigationView"
+        android:layout_marginTop="20dp">
 
+        <!-- Total amount TextView -->
         <TextView
             android:id="@+id/tv_total_amount"
             android:layout_width="wrap_content"
@@ -123,12 +68,92 @@ android:layout_height="match_parent"
             android:text="PAY" />
     </RelativeLayout>
 
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_below="@id/header"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"/>
 
+    <!-- Content Scrollable Layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:fillViewport="true"
+        android:layout_above="@+id/relativeLayoutTotalAmount"
+        android:layout_below="@id/header">
 
-    <!-- BottomNavigationView -->
-<include layout="@layout/bottom_navigation"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"/>
+        <!-- Content -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:gravity="center"
+            android:layout_marginTop="15dp">
 
+            <!-- Container 1 (Services) -->
+            <RelativeLayout
+                android:id="@+id/container_services"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- TextView for Services -->
+                <TextView
+                    android:id="@+id/tv_services"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Services"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- RecyclerView for Services -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_services"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_services"
+                    android:layout_marginTop="8dp" />
+            </RelativeLayout>
+
+            <!-- Container 2 (Articles) -->
+            <RelativeLayout
+                android:id="@+id/container_articles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/container_services"
+                android:layout_marginTop="16dp">
+
+                <!-- TextView for Articles -->
+                <TextView
+                    android:id="@+id/tv_articles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Articles"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- RecyclerView for Articles -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_articles"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_articles"
+                    android:layout_marginTop="8dp" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <!-- Footer (BottomNavigationView) -->
+    <include layout="@layout/bottom_navigation"
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

@@ -14,7 +14,7 @@ import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.products.activity_products.DetailsServiceActivity
 import hr.foi.techtitans.ttpay.products.activity_products.UpdateServiceActivity
 
-class ServiceAdapter(private var services: List<Service>, private  val loggedInUser: LoggedInUser) :
+class ServiceAdapter(private var services: List<Service>, private  val loggedInUser: LoggedInUser, private val showImageViews: Boolean = true) :
     RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder>() {
 
     private var selectedServiceId: String = ""
@@ -40,6 +40,16 @@ class ServiceAdapter(private var services: List<Service>, private  val loggedInU
         holder.txtViewName.text = service.serviceName
         holder.txtViewDuration.text = "${service.duration} ${service.durationUnit}"
         holder.txtViewPrice.text = "${service.price} ${service.currency}"
+
+        if (showImageViews) {
+            holder.imgViewEye.visibility = View.VISIBLE
+            holder.imgViewPencil.visibility = View.VISIBLE
+            holder.imgViewRemove.visibility = View.VISIBLE
+        } else {
+            holder.imgViewEye.visibility = View.GONE
+            holder.imgViewPencil.visibility = View.GONE
+            holder.imgViewRemove.visibility = View.GONE
+        }
 
         holder.imgViewEye.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailsServiceActivity::class.java)

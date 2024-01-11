@@ -2,8 +2,8 @@ package hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_create
 
 data class NewCatalog(
     val name: String,
-    val articles:List<String>,
-    val services:List<String>,
-    val users:List<String>?,
+    var articles:List<String>,
+    var services:List<String>,
+    var users:List<String>?,
     var disabled: Boolean
 )

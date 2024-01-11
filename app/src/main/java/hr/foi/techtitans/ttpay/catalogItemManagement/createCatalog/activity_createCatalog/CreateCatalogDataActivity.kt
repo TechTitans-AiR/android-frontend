@@ -23,6 +23,8 @@ import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.UserAdapter
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.AddedUserAdapter
+import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.SelectUserAdapter
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 
 @Suppress("DEPRECATION")
@@ -38,7 +40,7 @@ class CreateCatalogDataActivity : AppCompatActivity() {
     //adapters
     private lateinit var articlesAdapter: ArticleAdapter
     private lateinit var servicesAdapter: ServiceAdapter
-    private lateinit var usersAdapter: UserAdapter
+    private lateinit var usersAdapter: SelectUserAdapter
 
     //lists of data for catalog
     private var listSelectedArticles= mutableListOf<Article>()
@@ -79,14 +81,14 @@ class CreateCatalogDataActivity : AppCompatActivity() {
         Log.d("CreateCatalogDataActivity, services: ",listSelectedServices.toString())
         Log.d("CreateCatalogDataActivity, users: ",listSelectedUsers.toString())
 
-        articlesAdapter= ArticleAdapter(listSelectedArticles, loggedInUser)
-        servicesAdapter= ServiceAdapter(listSelectedServices, loggedInUser)
+        articlesAdapter= ArticleAdapter(listSelectedArticles, loggedInUser, false)
+        servicesAdapter= ServiceAdapter(listSelectedServices, loggedInUser, false)
 
 
         //get catalog name
         val catalogName=findViewById<EditText>(R.id.editText_nameOfCatalog)
 
-        usersAdapter= UserAdapter(listSelectedUsers,onItemClick)
+        usersAdapter= SelectUserAdapter(listSelectedUsers,false){ }
 
         // Connect adapters with ConcatAdapter--> for more than one adapter shown in one RecycleView
         val concatAdapter = ConcatAdapter(articlesAdapter, servicesAdapter, usersAdapter)
@@ -109,7 +111,7 @@ class CreateCatalogDataActivity : AppCompatActivity() {
             val catalogNameText = catalogName.text.toString()
 
             //prepare data for endpoint
-            val newCatalog = NewCatalog(
+            var newCatalog = NewCatalog(
                 catalogNameText,
                 selectedArticleIds,
                 selectedServicesIds,
@@ -117,12 +119,24 @@ class CreateCatalogDataActivity : AppCompatActivity() {
                 disabled = false //disabled property set to false
             )
 
+            // handle the case when no items are selected
+            if (selectedArticleIds.isEmpty()) {
+                newCatalog.articles = listOf()
+            }
 
+            if (selectedServicesIds.isEmpty()) {
+                newCatalog.services = listOf()
+            }
+
+            if (selectedUsersIds.isEmpty()) {
+                newCatalog.users = listOf()
+            }
 
             //Create new catalog
             val createNew= CreateCatalog()
             Log.d("NewCatalog Object: ", newCatalog.toString())
             createNew.createNewCatalog(loggedInUser,this,newCatalog)
+
             val intent = Intent(this, AdminHomeActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)

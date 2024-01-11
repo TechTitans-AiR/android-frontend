@@ -38,16 +38,22 @@
         android:visibility="gone"
         android:layout_centerInParent="true" />
 
-    <!-- Linear Layouts for Service Properties -->
-    <LinearLayout
-        android:id="@+id/linearLayoutServiceProperties"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:fillViewport="true"
+        android:layout_above="@id/btnCreateNewService"
         android:layout_below="@id/textView_createService_title">
+
+    <!-- Linear Layouts for Service Properties -->
+    <LinearLayout
+        android:layout_marginStart="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical">
 
         <!-- Service Name -->
         <LinearLayout
@@ -239,19 +245,19 @@
                 android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
+    </ScrollView>
 
     <!-- Create New Service Button -->
     <Button
         android:id="@+id/btnCreateNewService"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/linearLayoutServiceProperties"
+        android:layout_above="@+id/bottomNavigationView"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="31dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="20dp"
         android:text="Create New Service"
         android:textSize="18sp" />
 

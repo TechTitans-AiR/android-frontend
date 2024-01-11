@@ -8,6 +8,8 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
 import hr.foi.techtitans.ttpay.network.RetrofitClient
@@ -19,7 +21,9 @@ import hr.foi.techtitans.ttpay.products.model_products.Service
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.UnifiedItemAdapter
 import hr.foi.techtitans.ttpay.core.LoggedInUser
+import hr.foi.techtitans.ttpay.utilities.DateFormatter
 import org.json.JSONArray
 import org.json.JSONException
 import retrofit2.Call
@@ -31,8 +35,10 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
     private lateinit var catalogId: String
     private lateinit var progressBar: ProgressBar
     private lateinit var textViewCatalogName: TextView
-    private lateinit var textViewArticles: TextView
-    private lateinit var textViewServices: TextView
+    private lateinit var recyclerViewArticles: RecyclerView
+    private lateinit var recyclerViewServices: RecyclerView
+    private lateinit var unifiedItemAdapterArticles: UnifiedItemAdapter<Article>
+    private lateinit var unifiedItemAdapterServices: UnifiedItemAdapter<Service>
     private lateinit var textViewUsers: TextView
     private lateinit var textViewDateCreated: TextView
     private lateinit var textViewDateModified: TextView
@@ -49,8 +55,8 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
 
         progressBar = findViewById(R.id.loadingProgressBar)
         textViewCatalogName = findViewById(R.id.textView_catalogName)
-        textViewArticles = findViewById(R.id.textView_articles)
-        textViewServices = findViewById(R.id.textView_services)
+        recyclerViewArticles = findViewById(R.id.recyclerViewArticles)
+        recyclerViewServices = findViewById(R.id.recyclerViewServices)
         textViewUsers = findViewById(R.id.textView_users)
         textViewDateCreated = findViewById(R.id.textView_dateCreated)
         textViewDateModified = findViewById(R.id.textView_dateModified)
@@ -63,7 +69,9 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
-        fetchCatalogDetails()
+        // Initialize RecyclerViews and Adapters
+        initializeRecyclerView(recyclerViewArticles)
+        initializeRecyclerView(recyclerViewServices)
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
@@ -71,6 +79,13 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
             intent.putExtra("username", userUsername)
             onBackPressed()
         }
+
+        fetchCatalogDetails()
+    }
+
+    private fun initializeRecyclerView(recyclerView: RecyclerView) {
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(true)
     }
 
     private fun fetchCatalogDetails() {
@@ -106,7 +121,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         // Set articles
         val articlesList = parseStringList(catalog.articles)
         if (articlesList.isNullOrEmpty()) {
-            textViewArticles.text = ""
+            recyclerViewArticles.visibility = View.GONE
         } else {
             fetchAndSetArticles(articlesList)
         }
@@ -114,7 +129,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         // Set services
         val servicesList = parseStringList(catalog.services)
         if (servicesList.isNullOrEmpty()) {
-            textViewServices.text = ""
+            recyclerViewServices.visibility = View.GONE
         } else {
             fetchAndSetServices(servicesList)
         }
@@ -128,37 +143,38 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         }
 
         // Set date created and date modified
-        textViewDateCreated.text = "${catalog.date_created}"
-        textViewDateModified.text = "${catalog.date_modified}"
+        textViewDateCreated.text = DateFormatter.formatDate(catalog.date_created)
+        textViewDateModified.text = DateFormatter.formatDate(catalog.date_modified)
     }
 
     private fun fetchAndSetArticles(articleIds: List<String>?) {
         if (articleIds.isNullOrEmpty()) {
-            textViewArticles.text = ""
+            recyclerViewArticles.visibility = View.GONE
             return
         }
 
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
 
-        val articleNames = mutableListOf<String>()
+        val articleDetailsList = mutableListOf<Article>()
         val remainingCount = AtomicInteger(articleIds.size)
 
         for (articleId in articleIds) {
-            service.getArticles(loggedInUser.token).enqueue(object : Callback<List<Article>> {
-                override fun onResponse(call: Call<List<Article>>, response: Response<List<Article>>) {
+            service.getArticleDetails(loggedInUser.token, articleId).enqueue(object : Callback<Article> {
+                override fun onResponse(call: Call<Article>, response: Response<Article>) {
                     if (response.isSuccessful) {
-                        val articles = response.body()
-                        val article = articles?.find { it.id == articleId }
-                        article?.let { articleNames.add(it.name) }
+                        val article = response.body()
+                        article?.let {
+                            articleDetailsList.add(it)
+                        }
                     }
 
                     if (remainingCount.decrementAndGet() == 0) {
-                        textViewArticles.text = "${articleNames.joinToString(", ")}"
+                        showArticles(articleDetailsList)
                     }
                 }
 
-                override fun onFailure(call: Call<List<Article>>, t: Throwable) {
+                override fun onFailure(call: Call<Article>, t: Throwable) {
                     remainingCount.decrementAndGet()
                     hideLoading()
                     showErrorDialog()
@@ -167,39 +183,52 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         }
     }
 
+    private fun showArticles(articleList: List<Article>) {
+        recyclerViewArticles.visibility = View.VISIBLE
+        unifiedItemAdapterArticles = UnifiedItemAdapter(articleList, isService = false)
+        recyclerViewArticles.adapter = unifiedItemAdapterArticles
+    }
+
     private fun fetchAndSetServices(serviceIds: List<String>?) {
         if (serviceIds.isNullOrEmpty()) {
-            textViewServices.text = ""
+            recyclerViewServices.visibility = View.GONE
             return
         }
 
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
 
-        val serviceNames = mutableListOf<String>()
+        val serviceDetailsList = mutableListOf<Service>()
         val remainingCount = AtomicInteger(serviceIds.size)
 
         for (serviceId in serviceIds) {
-            service.getServices(loggedInUser.token).enqueue(object : Callback<List<Service>> {
-                override fun onResponse(call: Call<List<Service>>, response: Response<List<Service>>) {
+            service.getServiceDetails(loggedInUser.token, serviceId).enqueue(object : Callback<Service> {
+                override fun onResponse(call: Call<Service>, response: Response<Service>) {
                     if (response.isSuccessful) {
-                        val services = response.body()
-                        val service = services?.find { it.id == serviceId }
-                        service?.let { serviceNames.add(it.serviceName) }
+                        val service = response.body()
+                        service?.let {
+                            serviceDetailsList.add(it)
+                        }
                     }
 
                     if (remainingCount.decrementAndGet() == 0) {
-                        textViewServices.text = "${serviceNames.joinToString(", ")}"
+                        showServices(serviceDetailsList)
                     }
                 }
 
-                override fun onFailure(call: Call<List<Service>>, t: Throwable) {
+                override fun onFailure(call: Call<Service>, t: Throwable) {
                     remainingCount.decrementAndGet()
                     hideLoading()
                     showErrorDialog()
                 }
             })
         }
+    }
+
+    private fun showServices(serviceList: List<Service>) {
+        recyclerViewServices.visibility = View.VISIBLE
+        unifiedItemAdapterServices = UnifiedItemAdapter(serviceList, isService = true)
+        recyclerViewServices.adapter = unifiedItemAdapterServices
     }
 
     private fun fetchAndSetUserNames(userIds: List<String>?) {

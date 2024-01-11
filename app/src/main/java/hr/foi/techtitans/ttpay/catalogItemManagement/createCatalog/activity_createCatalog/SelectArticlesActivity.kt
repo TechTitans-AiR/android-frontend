@@ -86,14 +86,17 @@ class SelectArticlesActivity : AppCompatActivity() {
         recyclerViewSelectArticles.layoutManager = LinearLayoutManager(this)
 
         selectArticleAdapter = SelectArticleAdapter(emptyList()) { article ->
-            //Adding the selected article to the list of articles
-            articles.add(article)
+            // Checking if the selected item is already added
+            if (!articles.contains(article)) {
+                articles.add(article)
 
-            //Updating the display of added articles
-            addedArticleAdapter.updateData(articles)
+                addedArticleAdapter.updateData(articles)
 
-            //Snackbar message
-            showSnackbar("The article is added to the list of articles.")
+                showSnackbar("The article is added to the list of articles.")
+            } else {
+                // If the article is already added
+                showSnackbar("The article is already added to the list of articles.")
+            }
         }
 
         recyclerViewAddedArticles.layoutManager = LinearLayoutManager(this)
