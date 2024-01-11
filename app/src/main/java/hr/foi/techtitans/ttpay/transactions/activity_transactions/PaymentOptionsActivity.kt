@@ -37,7 +37,13 @@ class PaymentOptionsActivity : AppCompatActivity() {
     private lateinit var radioGroupPaymentOptions: RadioGroup
     private lateinit var edtCashAmount: EditText
     private lateinit var edtDescriptionCash: EditText
+    private lateinit var edtDescriptionCard: EditText
+    private lateinit var edtCardNumber: EditText
+    private lateinit var edtExpirationDate: EditText
+    private lateinit var edtBalance: EditText
+    private lateinit var edtCvc: EditText
     private lateinit var progressBar: ProgressBar
+
     private lateinit var layoutCash: LinearLayout
     private lateinit var layoutCard: LinearLayout
 
@@ -62,10 +68,17 @@ class PaymentOptionsActivity : AppCompatActivity() {
         bottomNavigationView.visibility = View.VISIBLE
 
         radioGroupPaymentOptions = findViewById(R.id.radioGroupPaymentOptions)
+
+        layoutCash = findViewById(R.id.llCash)
         edtCashAmount = findViewById(R.id.edt_cash_amount)
         edtDescriptionCash = findViewById(R.id.edt_description_cash)
-        layoutCash = findViewById(R.id.llCash)
+
         layoutCard = findViewById(R.id.llBankCard)
+        edtDescriptionCard = findViewById(R.id.edt_description_bank_card)
+        edtCardNumber = findViewById(R.id.edt_card_number)
+        edtExpirationDate = findViewById(R.id.edt_expiration_date)
+        edtBalance = findViewById(R.id.edt_balance)
+        edtCvc = findViewById(R.id.edt_cvc)
 
         progressBar = findViewById(R.id.progressBar)
 
