@@ -81,20 +81,14 @@ class SelectArticlesActivity : AppCompatActivity() {
         recyclerViewAddedArticles.layoutManager = LinearLayoutManager(this)
         addedArticleAdapter = AddedArticleAdapter(articles) { position ->
 
-            if (catalog == null) {
-                // Deleting the selected article from the list of articles
-                articles.removeAt(position)
-                addedArticleAdapter.updateData(articles)
+            // Deleting the selected article from the list of articles
+            articles.removeAt(position)
 
-                // Snackbar message
-                showSnackbar("The article is deleted from the list of articles.")
-            } else {
-                // Deleting the selected article from the AddedArticleAdapter
-                articles.removeAt(position)
-                addedArticleAdapter.updateData(articles)
-                // Snackbar message
-                showSnackbar("The article is deleted from the list of articles.")
-            }
+            //Updating the display of added articles
+            addedArticleAdapter.updateData(articles)
+
+            // Snackbar message
+            showSnackbar("The article is deleted from the list of articles.")
 
         }
         recyclerViewAddedArticles.adapter = addedArticleAdapter
