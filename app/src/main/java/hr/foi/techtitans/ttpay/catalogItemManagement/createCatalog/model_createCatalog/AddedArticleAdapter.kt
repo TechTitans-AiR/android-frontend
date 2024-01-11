@@ -51,25 +51,7 @@ class AddedArticleAdapter(
 
         Log.d("AddedArticleAdapter", "Data updated. New size: ${articles.size}")
     }
-    fun removeItem(position: Int) {
-        // Provjerite je li position unutar granica
-        if (position in 0 until articles.size) {
-            // Stvorite novu listu bez elementa na poziciji
-            val updatedList = articles.toMutableList().apply { removeAt(position) }
 
-            // Ažurirajte podatke i obavijestite adapter
-            updateData(updatedList)
-
-            // Obavijestite RecyclerView da je element uklonjen
-            notifyItemRemoved(position)
-
-            // Ako ima promjena u redoslijedu elemenata nakon brisanja, obavijestite RecyclerView
-            notifyItemRangeChanged(position, itemCount)
-
-            // Pozovite onDeleteClick callback
-            onDeleteClick(position)
-        }
-    }
 
 
 }
