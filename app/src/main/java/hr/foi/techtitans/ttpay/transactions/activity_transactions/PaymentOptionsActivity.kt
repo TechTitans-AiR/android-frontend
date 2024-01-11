@@ -20,6 +20,7 @@ import hr.foi.techtitans.ttpay.transactions.model_transactions.ShoppingCartItem
 import hr.foi.techtitans.ttpay.transactions.network_transactions.ServiceTransactionManagement
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.core.LoggedInUser
+import hr.foi.techtitans.ttpay.transactions.model_transactions.Card
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -113,12 +114,21 @@ class PaymentOptionsActivity : AppCompatActivity() {
             }
         }
 
+        val cardForTransaction = if (radioGroupPaymentOptions.checkedRadioButtonId == R.id.radioCash) {
+            // set Card to empty object if radioCash is checked
+            Card()
+        } else {
+            // else set real Card
+            Card("stvarniBrojKartice", "2023-12", 3, 444)
+        }
+
+
         completePayment.isEnabled = true
 
         fetchUserId(userUsername) { merchantId ->
             val description = edtDescription.text.toString()
             val currency = "EUR"
-            val newTransaction = NewTransaction(merchantId, description, totalAmount, currency)
+            val newTransaction = NewTransaction(merchantId, description, totalAmount, cardForTransaction, currency)
             sendTransactionToBackend(newTransaction, getYourCashAmount())
         }
     }

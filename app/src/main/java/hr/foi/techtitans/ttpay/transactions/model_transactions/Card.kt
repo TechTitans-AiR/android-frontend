@@ -6,6 +6,10 @@ data class Card(
     val balance: Int,
     val cvc: Int
 ) {
+
+    // Constructor without conditions
+    constructor() : this("", "", 0, 0)
+
     init {
         require(cardNumber.matches(Regex("\\d{4} \\d{4} \\d{4} \\d{4}"))) {
             "Card number must be in the format 'zzzz zzzz zzzz zzzz', where z is a digit."

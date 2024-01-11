@@ -6,6 +6,6 @@ data class NewTransaction(
     val merchantId: String,
     val description: String,
     val amount: Double,
-    val card: Card,
-    val currency: String,
+    val card: Card?,
+    val currency: String
 ): Serializable
