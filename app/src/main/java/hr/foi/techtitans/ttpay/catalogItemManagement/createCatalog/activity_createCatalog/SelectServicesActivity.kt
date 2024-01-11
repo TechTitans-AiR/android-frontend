@@ -89,15 +89,20 @@ class SelectServicesActivity : AppCompatActivity() {
 
         //for adapter Select service
         recyclerViewSelectServices.layoutManager = LinearLayoutManager(this)
+
         selectServiceAdapter = SelectServiceAdapter(emptyList()) { service ->
-            //Adding selected service to list
+            // Checking if the selected item is already added
+            if(!listSelectedServices.contains(service)) {
             listSelectedServices.add(service)
 
             //Updating the display of added articles
             addedServiceAdapter.updateData(listSelectedServices)
 
-            //Snackbar message
             showSnackbar("The service is added to the list of services.")
+            } else {
+                // If the service is already added
+                showSnackbar("The service is already added to the list of services.")
+            }
         }
 
         //for adapter Added service
