@@ -18,9 +18,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".products.activity_products.CreateServiceActivity"
-            android:windowSoftInputMode="adjustPan"
+            android:name=".catalogItemManagement.activity_catalogItemManagement.UpdateCatalogActivity"
             android:exported="false" />
+        <activity
+            android:name=".products.activity_products.CreateServiceActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".login_modular.activity_login.LoginUsernamePassword"
             android:exported="false" />

@@ -1,8 +1,10 @@
 package hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -19,6 +21,7 @@ import hr.foi.techtitans.ttpay.products.model_products.Service
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.activity_createCatalog.SelectArticlesActivity
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 import org.json.JSONArray
 import org.json.JSONException
@@ -39,13 +42,20 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
+    private lateinit var btn_edit:Button
+    private  var catalog:Catalog? =Catalog(null, "", "", "", "", null, null, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detailed_catalog_item)
 
+        btn_edit=findViewById(R.id.btn_editCatalog)
+
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
+
+        catalog=intent.getParcelableExtra("selectedCatalog")
+        Log.d("Selected catalog: ", catalog.toString())
 
         progressBar = findViewById(R.id.loadingProgressBar)
         textViewCatalogName = findViewById(R.id.textView_catalogName)
@@ -67,9 +77,18 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
+            val intent= Intent(this, AllCatalogsActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
-            onBackPressed()
+            startActivity(intent)
+        }
+
+        btn_edit.setOnClickListener{
+            val editIntent=Intent(this, SelectArticlesActivity::class.java)
+            intent.putExtra("selectedCatalog", catalog)
+            intent.putExtra("loggedInUser", loggedInUser)
+            intent.putExtra("username", userUsername)
+            startActivity(editIntent)
         }
     }
 
@@ -83,9 +102,10 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Catalog>, response: Response<Catalog>) {
                 hideLoading()
                 if (response.isSuccessful) {
-                    val catalog = response.body()
-                    if (catalog != null) {
-                        updateUIWithCatalogDetails(catalog)
+                    val selectedCatalog = response.body()
+                    if (selectedCatalog != null) {
+                        updateUIWithCatalogDetails(selectedCatalog)
+                        catalog = selectedCatalog
                     }
                 } else {
                     showErrorDialog()

@@ -23,6 +23,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.google.android.material.snackbar.Snackbar
+import hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.DetailedCatalogItemActivity
+import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.Catalog
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 
 
@@ -43,6 +45,7 @@ class SelectArticlesActivity : AppCompatActivity() {
 
     private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
+    private var catalog:Catalog?=Catalog(null, "", "", "", "", null, null, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +53,13 @@ class SelectArticlesActivity : AppCompatActivity() {
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
+
+        catalog=intent.getParcelableExtra("selectedCatalog")
+        Log.d("SelectArticles - Selected catalog: ", catalog.toString())
+
+        if(catalog!=null){
+            fetchArticlesOfCatalog()
+        }
 
         recyclerViewSelectArticles = findViewById(R.id.recyclerView_select_articles)
         recyclerViewAddedArticles = findViewById(R.id.recyclerView_added_articles)
@@ -61,13 +71,22 @@ class SelectArticlesActivity : AppCompatActivity() {
 
         imgBack = findViewById(R.id.back_back)
         imgBack.setOnClickListener {
-            val intent = Intent(this, CreateCatalogItemActivity::class.java)
-            intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("username", userUsername)
-            startActivity(intent)
-            finish()
-        }
+            if(catalog==null){
+                val intent = Intent(this, CreateCatalogItemActivity::class.java)
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("username", userUsername)
+                startActivity(intent)
+                finish()
+            }else{
+                val intent = Intent(this, DetailedCatalogItemActivity::class.java)
+                intent.putExtra("selectedCatalog", catalog)
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("username", userUsername)
+                startActivity(intent)
+            }
 
+        }
+//TODO: kada nije id cataloga poslan tada znači da se kreira, inače bude se popunil recyclerView s addedArticles
         progressBar = findViewById(R.id.loadingProgressBar)
 
         continueButton = findViewById(R.id.btn_continue_select_services)
@@ -112,6 +131,10 @@ class SelectArticlesActivity : AppCompatActivity() {
         recyclerViewAddedArticles.adapter = addedArticleAdapter
 
         fetchArticles()
+    }
+
+    private fun fetchArticlesOfCatalog() {
+        TODO("Not yet implemented")
     }
 
     private fun fetchArticles() {
