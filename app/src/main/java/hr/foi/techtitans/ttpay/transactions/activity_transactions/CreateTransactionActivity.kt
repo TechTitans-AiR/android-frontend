@@ -68,8 +68,8 @@ class CreateTransactionActivity : AppCompatActivity() {
         // set recyclerview and total amount
         Log.d("CreateTransactionActivity", "onCreate: Setting up RecyclerViews and total amount")
         setupRecyclerViews()
-        fetchArticles()
-        fetchServices()
+        fetchAllArticlesByUser()
+        fetchAllServicesByUser()
 
         btn_pay.setOnClickListener {
             Log.d("CreateTransactionActivity", "btn_pay onClick: Transferring data to TransactionSummaryActivity")
@@ -128,11 +128,11 @@ class CreateTransactionActivity : AppCompatActivity() {
         setupRecyclerViews()
     }
 
-    private fun fetchArticles() {
+    private fun fetchAllArticlesByUser() {
         showLoading()
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
-        val call = service.getArticles(loggedInUser.token)
+        val call = service.getAllArticlesByUserInAllEnabledCatalogs(loggedInUser.token, loggedInUser.userId)
 
         call.enqueue(object : Callback<List<Article>> {
             override fun onResponse(call: Call<List<Article>>, response: Response<List<Article>>) {
@@ -161,11 +161,11 @@ class CreateTransactionActivity : AppCompatActivity() {
         })
     }
 
-    private fun fetchServices() {
+    private fun fetchAllServicesByUser() {
         showLoading()
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
-        val call = service.getServices(loggedInUser.token)
+        val call = service.getAllServicesByUserInAllEnabledCatalogs(loggedInUser.token, loggedInUser.userId)
 
         call.enqueue(object : Callback<List<Service>> {
             override fun onResponse(call: Call<List<Service>>, response: Response<List<Service>>) {
@@ -208,8 +208,8 @@ class CreateTransactionActivity : AppCompatActivity() {
         builder.setTitle("Error")
             .setMessage("Error fetching data.")
             .setPositiveButton("Retry") { _, _ ->
-                fetchArticles()
-                fetchServices()
+                fetchAllArticlesByUser()
+                fetchAllServicesByUser()
             }
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()

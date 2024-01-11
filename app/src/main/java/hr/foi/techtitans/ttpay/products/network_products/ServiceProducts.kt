@@ -80,13 +80,13 @@ interface ServiceProducts {
     fun getItemCategory():Call<List<ItemCategory>>
 
     @GET("/api/v1/articles/user/{userId}")
-    fun getUsersArticlesInAllEnabledCatalogs(
+    fun getAllArticlesByUserInAllEnabledCatalogs(
         @Header("Authorization") token: String,
         @Path("userId") userId: String?
     ): Call<List<Article>>
 
     @GET("/api/v1/services/user/{userId}")
-    fun getUsersServicesInAllEnabledCatalogs(
+    fun getAllServicesByUserInAllEnabledCatalogs(
         @Header("Authorization") token: String,
         @Path("userId") userId: String?
     ): Call<List<Service>>
