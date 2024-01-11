@@ -85,9 +85,9 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
 
         btn_edit.setOnClickListener{
             val editIntent=Intent(this, SelectArticlesActivity::class.java)
-            intent.putExtra("selectedCatalog", catalog)
-            intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("username", userUsername)
+            editIntent.putExtra("loggedInUser", loggedInUser)
+            editIntent.putExtra("selectedCatalog", catalog)
+            editIntent.putExtra("username", userUsername)
             startActivity(editIntent)
         }
     }
