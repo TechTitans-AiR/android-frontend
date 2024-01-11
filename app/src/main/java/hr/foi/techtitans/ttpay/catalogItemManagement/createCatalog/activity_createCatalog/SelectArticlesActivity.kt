@@ -1,7 +1,7 @@
 package hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.activity_createCatalog
 
+import android.content.ContentValues.TAG
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,23 +9,24 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import hr.foi.techtitans.ttpay.R
-import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.AddedArticleAdapter
-import hr.foi.techtitans.ttpay.products.model_products.Article
-import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
-import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.SelectArticleAdapter
-import hr.foi.techtitans.ttpay.network.RetrofitClient
-import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
+import hr.foi.techtitans.ttpay.R
+import hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.DetailedCatalogItemActivity
+import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.AddedArticleAdapter
+import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.SelectArticleAdapter
+import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.Catalog
+import hr.foi.techtitans.ttpay.core.LoggedInUser
+import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
+import hr.foi.techtitans.ttpay.network.RetrofitClient
+import hr.foi.techtitans.ttpay.products.model_products.Article
+import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import com.google.android.material.snackbar.Snackbar
-import hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.DetailedCatalogItemActivity
-import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.Catalog
-import hr.foi.techtitans.ttpay.core.LoggedInUser
 
 
 class SelectArticlesActivity : AppCompatActivity() {
@@ -36,20 +37,24 @@ class SelectArticlesActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
 
     private lateinit var recyclerViewSelectArticles: RecyclerView
-    private lateinit var selectArticleAdapter: SelectArticleAdapter
+    private  var selectArticleAdapter: SelectArticleAdapter?=null
 
     private lateinit var addedArticleAdapter: AddedArticleAdapter
     private lateinit var recyclerViewAddedArticles: RecyclerView
 
-    private val articles = mutableListOf<Article>()//article list
+    private var articles = mutableListOf<Article>()//article list
 
     private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
     private var catalog:Catalog?=Catalog(null, "", "", "", "", null, null, false)
 
+    private  var currentCatalog:Catalog?=Catalog(null, "", "", "", "", null, null, false)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_articles)
+
+        recyclerViewSelectArticles = findViewById(R.id.recyclerView_select_articles)
+        recyclerViewAddedArticles = findViewById(R.id.recyclerView_added_articles)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
@@ -57,12 +62,42 @@ class SelectArticlesActivity : AppCompatActivity() {
         catalog=intent.getParcelableExtra("selectedCatalog")
         Log.d("SelectArticles - Selected catalog: ", catalog.toString())
 
-        if(catalog!=null){
-            fetchArticlesOfCatalog()
-        }
+         currentCatalog=catalog
 
-        recyclerViewSelectArticles = findViewById(R.id.recyclerView_select_articles)
-        recyclerViewAddedArticles = findViewById(R.id.recyclerView_added_articles)
+
+        recyclerViewSelectArticles.layoutManager = LinearLayoutManager(this)
+        selectArticleAdapter = SelectArticleAdapter(emptyList()) { article ->
+            //Adding the selected article to the list of articles
+            articles.add(article)
+
+            //Updating the display of added articles
+            addedArticleAdapter.updateData(articles)
+
+            //Snackbar message
+            showSnackbar("The article is added to the list of articles.")
+        }
+        recyclerViewSelectArticles.adapter = selectArticleAdapter
+
+        recyclerViewAddedArticles.layoutManager = LinearLayoutManager(this)
+        addedArticleAdapter = AddedArticleAdapter(articles) { position ->
+
+            if (catalog == null) {
+                // Deleting the selected article from the list of articles
+                articles.removeAt(position)
+                addedArticleAdapter.updateData(articles)
+
+                // Snackbar message
+                showSnackbar("The article is deleted from the list of articles.")
+            } else {
+                // Deleting the selected article from the AddedArticleAdapter
+                articles.removeAt(position)
+                addedArticleAdapter.updateData(articles)
+                // Snackbar message
+                showSnackbar("The article is deleted from the list of articles.")
+            }
+
+        }
+        recyclerViewAddedArticles.adapter = addedArticleAdapter
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, loggedInUser)
@@ -80,13 +115,14 @@ class SelectArticlesActivity : AppCompatActivity() {
             }else{
                 val intent = Intent(this, DetailedCatalogItemActivity::class.java)
                 intent.putExtra("selectedCatalog", catalog)
+                intent.putExtra("catalogId", catalog?.id)
                 intent.putExtra("loggedInUser", loggedInUser)
                 intent.putExtra("username", userUsername)
                 startActivity(intent)
             }
 
         }
-//TODO: kada nije id cataloga poslan tada znači da se kreira, inače bude se popunil recyclerView s addedArticles
+
         progressBar = findViewById(R.id.loadingProgressBar)
 
         continueButton = findViewById(R.id.btn_continue_select_services)
@@ -94,7 +130,9 @@ class SelectArticlesActivity : AppCompatActivity() {
             //Sending the list to the next screen
             val intent = Intent(this, SelectServicesActivity::class.java)
             Log.d("Articles: ",ArrayList(articles).toString())
-
+            if(catalog!=null){
+                intent.putExtra("selectedCatalog", catalog)
+            }
             intent.putExtra("selected_articles", ArrayList(articles))
             intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
@@ -102,20 +140,15 @@ class SelectArticlesActivity : AppCompatActivity() {
             finish()
         }
 
-        recyclerViewSelectArticles.layoutManager = LinearLayoutManager(this)
+        Log.d("Initial Articles Size", selectArticleAdapter?.itemCount.toString())
 
-        selectArticleAdapter = SelectArticleAdapter(emptyList()) { article ->
-            //Adding the selected article to the list of articles
-            articles.add(article)
 
-            //Updating the display of added articles
-            addedArticleAdapter.updateData(articles)
+        fetchArticles()
 
-            //Snackbar message
-            showSnackbar("The article is added to the list of articles.")
-        }
 
-        recyclerViewAddedArticles.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun initAddedArticleAdapter() {
         addedArticleAdapter = AddedArticleAdapter(articles) { position ->
             // Deleting the selected article from the list of articles
             articles.removeAt(position)
@@ -126,16 +159,9 @@ class SelectArticlesActivity : AppCompatActivity() {
             //Snackbar message
             showSnackbar("The article is deleted from the list of articles.")
         }
-
-        recyclerViewSelectArticles.adapter = selectArticleAdapter
         recyclerViewAddedArticles.adapter = addedArticleAdapter
-
-        fetchArticles()
     }
 
-    private fun fetchArticlesOfCatalog() {
-        TODO("Not yet implemented")
-    }
 
     private fun fetchArticles() {
         showLoading()
@@ -148,8 +174,18 @@ class SelectArticlesActivity : AppCompatActivity() {
                 hideLoading()
                 if (response.isSuccessful) {
                     val articles = response.body() ?: emptyList()
-                    selectArticleAdapter.updateData(articles)
+                    Log.d("Articles Response", articles.toString())
+
+                    Log.d("Catalog:", catalog.toString())
+
+                    if(catalog!=null){
+                        handleAllArticles(articles)
+                    }else{
+                        selectArticleAdapter?.updateData(articles)
+                    }
+                    Log.d("RecyclerView Size", recyclerViewSelectArticles.adapter?.itemCount.toString())
                 } else {
+                    Log.e("Articles Response", "Unsuccessful: ${response.code()}")
                     showErrorDialog()
                 }
             }
@@ -159,6 +195,22 @@ class SelectArticlesActivity : AppCompatActivity() {
                 showErrorDialog()
             }
         })
+    }
+    private fun handleAllArticles(allArticles: List<Article>) {
+
+        val selectedArticles = allArticles.filter { article ->
+            currentCatalog?.articles?.contains(article.id) == true
+        }
+        Log.d("selectedArticles.filter",selectedArticles.toString())
+
+
+        articles=selectedArticles.toMutableList()
+        addedArticleAdapter.updateData(selectedArticles)
+        selectArticleAdapter?.updateData(allArticles.filterNot{selectedArticles.contains(it)})
+
+        if (recyclerViewAddedArticles.adapter == null) {
+            initAddedArticleAdapter()
+        }
     }
 
     private fun showLoading() {
