@@ -33,7 +33,6 @@ class DateFormatter {
                     // Ignore, try the next format
                 }
             }
-
             return null
         }
 
