@@ -61,6 +61,8 @@
         android:layout_below="@+id/message"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginRight="5dp" />
 
@@ -87,6 +89,8 @@
         android:layout_marginLeft="5dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginRight="5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:layout_below="@+id/textView_added_users_title"
         android:layout_marginTop="20dp"/>
 
@@ -97,7 +101,7 @@
         android:layout_below="@+id/recyclerView_select_users"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="19dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginEnd="15dp"
         android:text="@string/continue_see_all_data"
         android:textSize="16sp" />
 
