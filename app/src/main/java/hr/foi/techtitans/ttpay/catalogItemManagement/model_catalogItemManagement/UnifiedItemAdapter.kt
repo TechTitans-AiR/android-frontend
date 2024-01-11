@@ -9,7 +9,7 @@ import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.products.model_products.Article
 import hr.foi.techtitans.ttpay.products.model_products.Service
 
-class UnifiedItemAdapter<T>(private val itemList: List<T>, private val isService: Boolean) :
+class UnifiedItemAdapter<T>(private var itemList: List<T>, private val isService: Boolean) :
     RecyclerView.Adapter<UnifiedItemAdapter<T>.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -50,5 +50,10 @@ class UnifiedItemAdapter<T>(private val itemList: List<T>, private val isService
             itemDetails1TextView.text = "${service.duration} ${service.durationUnit}"
             itemDetails2TextView.text = "${service.price} ${service.currency}"
         }
+    }
+
+    fun setItems(newItems: List<T>) {
+        itemList = newItems
+        notifyDataSetChanged()
     }
 }
