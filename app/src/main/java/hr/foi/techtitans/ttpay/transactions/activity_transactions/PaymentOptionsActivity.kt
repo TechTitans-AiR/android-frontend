@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.RadioGroup
 import android.widget.Toast
@@ -35,8 +36,10 @@ class PaymentOptionsActivity : AppCompatActivity() {
     private lateinit var completePayment: Button
     private lateinit var radioGroupPaymentOptions: RadioGroup
     private lateinit var edtCashAmount: EditText
-    private lateinit var edtDescription: EditText
+    private lateinit var edtDescriptionCash: EditText
     private lateinit var progressBar: ProgressBar
+    private lateinit var layoutCash: LinearLayout
+    private lateinit var layoutCard: LinearLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,9 +63,9 @@ class PaymentOptionsActivity : AppCompatActivity() {
 
         radioGroupPaymentOptions = findViewById(R.id.radioGroupPaymentOptions)
         edtCashAmount = findViewById(R.id.edt_cash_amount)
-        edtCashAmount.visibility = View.GONE
-        edtDescription = findViewById(R.id.edt_description)
-        edtDescription.visibility = View.GONE
+        edtDescriptionCash = findViewById(R.id.edt_description_cash)
+        layoutCash = findViewById(R.id.llCash)
+        layoutCard = findViewById(R.id.llBankCard)
 
         progressBar = findViewById(R.id.progressBar)
 
@@ -79,12 +82,10 @@ class PaymentOptionsActivity : AppCompatActivity() {
     private fun handlePaymentOptionChange(checkedId: Int) {
         when (checkedId) {
             R.id.radioCash -> {
-                edtCashAmount.visibility = View.VISIBLE
-                edtDescription.visibility = View.VISIBLE
+                layoutCash.visibility = View.VISIBLE
             }
             R.id.radioBankCard -> {
-                edtCashAmount.visibility = View.GONE
-                edtDescription.visibility = View.VISIBLE
+                layoutCard.visibility = View.VISIBLE
             }
         }
     }
@@ -126,9 +127,9 @@ class PaymentOptionsActivity : AppCompatActivity() {
         completePayment.isEnabled = true
 
         fetchUserId(userUsername) { merchantId ->
-            val description = edtDescription.text.toString()
+            val description_cash = edtDescriptionCash.text.toString()
             val currency = "EUR"
-            val newTransaction = NewTransaction(merchantId, description, totalAmount, cardForTransaction, currency)
+            val newTransaction = NewTransaction(merchantId, description_cash, totalAmount, cardForTransaction, currency)
             sendTransactionToBackend(newTransaction, getYourCashAmount())
         }
     }
