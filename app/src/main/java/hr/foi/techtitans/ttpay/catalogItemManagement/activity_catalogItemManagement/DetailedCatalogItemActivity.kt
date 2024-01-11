@@ -141,24 +141,26 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
 
-        val articleNames = mutableListOf<String>()
+        val articleDetailsList = mutableListOf<String>()
         val remainingCount = AtomicInteger(articleIds.size)
 
         for (articleId in articleIds) {
-            service.getArticles(loggedInUser.token).enqueue(object : Callback<List<Article>> {
-                override fun onResponse(call: Call<List<Article>>, response: Response<List<Article>>) {
+            service.getArticleDetails(loggedInUser.token, articleId).enqueue(object : Callback<Article> {
+                override fun onResponse(call: Call<Article>, response: Response<Article>) {
                     if (response.isSuccessful) {
-                        val articles = response.body()
-                        val article = articles?.find { it.id == articleId }
-                        article?.let { articleNames.add(it.name) }
+                        val article = response.body()
+                        article?.let {
+                            val articleDetails = "${it.name}, Quantity: ${it.quantity_in_stock}, Price: ${it.price} ${it.currency}"
+                            articleDetailsList.add(articleDetails)
+                        }
                     }
 
                     if (remainingCount.decrementAndGet() == 0) {
-                        textViewArticles.text = "${articleNames.joinToString(", ")}"
+                        textViewArticles.text = "${articleDetailsList.joinToString(", ")}"
                     }
                 }
 
-                override fun onFailure(call: Call<List<Article>>, t: Throwable) {
+                override fun onFailure(call: Call<Article>, t: Throwable) {
                     remainingCount.decrementAndGet()
                     hideLoading()
                     showErrorDialog()
@@ -176,24 +178,26 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
 
-        val serviceNames = mutableListOf<String>()
+        val serviceDetailsList = mutableListOf<String>()
         val remainingCount = AtomicInteger(serviceIds.size)
 
         for (serviceId in serviceIds) {
-            service.getServices(loggedInUser.token).enqueue(object : Callback<List<Service>> {
-                override fun onResponse(call: Call<List<Service>>, response: Response<List<Service>>) {
+            service.getServiceDetails(loggedInUser.token, serviceId).enqueue(object : Callback<Service> {
+                override fun onResponse(call: Call<Service>, response: Response<Service>) {
                     if (response.isSuccessful) {
-                        val services = response.body()
-                        val service = services?.find { it.id == serviceId }
-                        service?.let { serviceNames.add(it.serviceName) }
+                        val service = response.body()
+                        service?.let {
+                            val serviceDetails = "${it.serviceName}, Duration: ${it.duration} ${it.durationUnit}, Price: ${it.price} ${it.currency}"
+                            serviceDetailsList.add(serviceDetails)
+                        }
                     }
 
                     if (remainingCount.decrementAndGet() == 0) {
-                        textViewServices.text = "${serviceNames.joinToString(", ")}"
+                        textViewServices.text = "${serviceDetailsList.joinToString(", ")}"
                     }
                 }
 
-                override fun onFailure(call: Call<List<Service>>, t: Throwable) {
+                override fun onFailure(call: Call<Service>, t: Throwable) {
                     remainingCount.decrementAndGet()
                     hideLoading()
                     showErrorDialog()
