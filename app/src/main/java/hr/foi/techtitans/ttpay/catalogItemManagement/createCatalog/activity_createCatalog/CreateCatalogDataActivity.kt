@@ -109,7 +109,7 @@ class CreateCatalogDataActivity : AppCompatActivity() {
             val catalogNameText = catalogName.text.toString()
 
             //prepare data for endpoint
-            val newCatalog = NewCatalog(
+            var newCatalog = NewCatalog(
                 catalogNameText,
                 selectedArticleIds,
                 selectedServicesIds,
@@ -117,12 +117,24 @@ class CreateCatalogDataActivity : AppCompatActivity() {
                 disabled = false //disabled property set to false
             )
 
+            // handle the case when no items are selected
+            if (selectedArticleIds.isEmpty()) {
+                newCatalog.articles = listOf()
+            }
 
+            if (selectedServicesIds.isEmpty()) {
+                newCatalog.services = listOf()
+            }
+
+            if (selectedUsersIds.isEmpty()) {
+                newCatalog.users = listOf()
+            }
 
             //Create new catalog
             val createNew= CreateCatalog()
             Log.d("NewCatalog Object: ", newCatalog.toString())
             createNew.createNewCatalog(loggedInUser,this,newCatalog)
+
             val intent = Intent(this, AdminHomeActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
