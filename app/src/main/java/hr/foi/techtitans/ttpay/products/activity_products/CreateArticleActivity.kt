@@ -46,6 +46,8 @@ class CreateArticleActivity : AppCompatActivity() {
     private lateinit var spinnerCategory: Spinner
     private lateinit var editTextQuantityInStock : EditText
     private lateinit var btnCreateArticle:Button
+    private  var itemCategories:List<ItemCategory>? = emptyList()
+    private lateinit var itemCategoryId:ItemCategory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,11 +102,12 @@ class CreateArticleActivity : AppCompatActivity() {
             val jwtToken = loggedInUser.token
 
             val selectedCategory = spinnerCategory.selectedItem.toString()
-            val categoryId=getCategoryId(selectedCategory)
+            getCategoryId(selectedCategory)
 
             // Create a NewService object
             val newArticle = NewArticle(
                 articleName,
+                itemCategoryId,
                 description,
                 price,
                 quantityInStock,
@@ -149,7 +152,34 @@ class CreateArticleActivity : AppCompatActivity() {
     }
 
     private fun getCategoryId(selectedCategory: String) {
+        showLoading()
 
+        val retrofit=RetrofitClient.getInstance(8081)
+        val service= retrofit.create(ServiceProducts :: class.java)
+        val call=service.getItemCategory()
+
+        call.enqueue(object:Callback<List<ItemCategory>> {
+            override fun onResponse(call: Call<List<ItemCategory>>, response: Response<List<ItemCategory>>) {
+                hideLoading()
+                if (response.isSuccessful) {
+                    itemCategories=response.body()
+                    Log.d("List categories: ", itemCategories.toString())
+                    for(item in itemCategories.orEmpty()){
+                        if(item.name==selectedCategory){
+                            itemCategoryId=item
+                        }
+                    }
+                } else {
+                    Toast.makeText(applicationContext, "Error fetching categories. Please try again.", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<List<ItemCategory>>, t: Throwable) {
+                hideLoading()
+                Toast.makeText(applicationContext, "Failed fetching categories. Please try again.", Toast.LENGTH_SHORT).show()
+
+            }
+        })
     }
 
     private fun setupCurrencySpinner() {

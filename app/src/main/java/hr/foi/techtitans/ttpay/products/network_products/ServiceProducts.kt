@@ -1,6 +1,7 @@
 package hr.foi.techtitans.ttpay.products.network_products
 
 import hr.foi.techtitans.ttpay.products.model_products.Article
+import hr.foi.techtitans.ttpay.products.model_products.ItemCategory
 import hr.foi.techtitans.ttpay.products.model_products.NewArticle
 import hr.foi.techtitans.ttpay.products.model_products.NewService
 import hr.foi.techtitans.ttpay.products.model_products.Service
@@ -74,4 +75,7 @@ interface ServiceProducts {
         @Header("Authorization") token: String,
         @Body newArticle: NewArticle
     ): Call<Void>
+
+    @GET("/api/v1/itemCategory")
+    fun getItemCategory():Call<List<ItemCategory>>
 }
