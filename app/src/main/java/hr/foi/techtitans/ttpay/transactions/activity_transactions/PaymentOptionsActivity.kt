@@ -133,16 +133,25 @@ class PaymentOptionsActivity : AppCompatActivity() {
             Card()
         } else {
             // else set real Card
-            Card("stvarniBrojKartice", "2023-12", 3, 444)
+            val cardNumber = edtCardNumber.text.toString()
+            val expirationDate = edtExpirationDate.text.toString()
+            val balance = totalAmount
+            val cvc = edtCvc.text.toString().toIntOrNull() ?: 0
+
+            Card(cardNumber, expirationDate, balance, cvc)
         }
 
 
         completePayment.isEnabled = true
 
         fetchUserId(userUsername) { merchantId ->
-            val description_cash = edtDescriptionCash.text.toString()
+            val description = if (radioGroupPaymentOptions.checkedRadioButtonId == R.id.radioCash) {
+                edtDescriptionCash.text.toString()
+            } else {
+                edtDescriptionCard.text.toString()
+            }
             val currency = "EUR"
-            val newTransaction = NewTransaction(merchantId, description_cash, totalAmount, cardForTransaction, currency)
+            val newTransaction = NewTransaction(merchantId, description, totalAmount, cardForTransaction, currency)
             sendTransactionCashToBackend(newTransaction, getYourCashAmount())
         }
     }

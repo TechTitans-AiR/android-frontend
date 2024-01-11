@@ -3,12 +3,12 @@ package hr.foi.techtitans.ttpay.transactions.model_transactions
 data class Card(
     val cardNumber: String,
     val expirationDate: String,
-    val balance: Int,
+    val balance: Double,
     val cvc: Int
 ) {
 
     // Constructor without conditions
-    constructor() : this("", "", 0, 0)
+    constructor() : this("", "", 0.0, 0)
 
     init {
         require(cardNumber.matches(Regex("\\d{4} \\d{4} \\d{4} \\d{4}"))) {
