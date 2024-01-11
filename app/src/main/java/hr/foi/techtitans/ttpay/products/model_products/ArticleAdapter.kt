@@ -14,7 +14,7 @@ import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.products.activity_products.DetailsArticleActivity
 import hr.foi.techtitans.ttpay.products.activity_products.UpdateArticleActivity
 
-class ArticleAdapter(private var articles: List<Article>, private val loggedInUser: LoggedInUser) :
+class ArticleAdapter(private var articles: List<Article>, private val loggedInUser: LoggedInUser, private val showImageViews: Boolean = true) :
     RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
 
     private var selectedArticleId: String = ""
@@ -39,6 +39,16 @@ class ArticleAdapter(private var articles: List<Article>, private val loggedInUs
         holder.txtViewName.text = article.name
         holder.txtViewWeight.text = "${article.weight} weight"
         holder.txtViewPrice.text = "${article.price} ${article.currency}"
+
+        if (showImageViews) {
+            holder.imgViewEye.visibility = View.VISIBLE
+            holder.imgViewPencil.visibility = View.VISIBLE
+            holder.imgViewRemove.visibility = View.VISIBLE
+        } else {
+            holder.imgViewEye.visibility = View.GONE
+            holder.imgViewPencil.visibility = View.GONE
+            holder.imgViewRemove.visibility = View.GONE
+        }
 
         holder.imgViewEye.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailsArticleActivity::class.java)

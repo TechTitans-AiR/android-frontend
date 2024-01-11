@@ -144,11 +144,11 @@ class CreateServiceActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 hideLoading()
                 if (response.isSuccessful) {
-                    Toast.makeText(applicationContext, "Service created successfully", Toast.LENGTH_SHORT).show()
                     intent.putExtra("loggedInUser", loggedInUser)
                     intent.putExtra("username", userUsername)
                     setResult(RESULT_OK, intent)
                     finish()
+                    Toast.makeText(applicationContext, "Service created successfully", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(applicationContext, "Error creating service. Please try again.", Toast.LENGTH_SHORT).show()
                 }

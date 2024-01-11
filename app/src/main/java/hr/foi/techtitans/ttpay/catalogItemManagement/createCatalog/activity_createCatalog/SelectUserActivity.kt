@@ -103,7 +103,7 @@ class SelectUserActivity : AppCompatActivity() {
 
         //for adapter Select user
         recyclerViewSelectUser.layoutManager = LinearLayoutManager(this)
-        selectUserAdapter = SelectUserAdapter(emptyList()) { user ->
+        selectUserAdapter = SelectUserAdapter(emptyList(), true) { user ->
             // Checking if the selected item is already added
             if(!listSelectedUsers.contains(user)) {
             //Adding selected service to list

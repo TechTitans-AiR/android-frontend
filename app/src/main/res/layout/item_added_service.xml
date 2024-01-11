@@ -11,12 +11,13 @@
         android:layout_width="382dp"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_gravity="center"
         tools:ignore="UselessParent">
 
         <TextView
             android:id="@+id/textView_service_name"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:background="@drawable/red_border_item"
             android:gravity="center"
             android:text="Service Name"
