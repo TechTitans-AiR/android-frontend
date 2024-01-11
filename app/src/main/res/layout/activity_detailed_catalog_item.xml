@@ -166,6 +166,15 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"/>
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_editCatalog"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:text="Edit catalog">
+
+        </Button>
     </LinearLayout>
 
     <!-- BottomNavigationView -->
