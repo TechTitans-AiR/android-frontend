@@ -29,21 +29,32 @@
     android:textSize="24sp"
     android:textStyle="bold" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/bottomNavigationView">
+    <ProgressBar
+        android:id="@+id/loadingData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true" />
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@id/bottomNavigationView"
+    android:layout_below="@id/tv_create_product">
+
     <!-- Linear Layouts for Article Properties -->
     <LinearLayout
-        android:id="@+id/linearLayoutServiceProperties"
-        android:layout_below="@id/tv_create_product"
+        android:id="@+id/linearLayoutArticleProperties"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_above="@id/bottomNavigationView">
+        android:forceHasOverlappingRendering="true"
+        >
+
+
 
         <!-- Article Name -->
         <LinearLayout
@@ -162,7 +173,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Quantity in stock"
+                android:text="Article weight"
                 android:textSize="18sp" />
 
             <EditText
@@ -236,6 +247,7 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
+
         <!-- Create New Article Button -->
         <Button
             android:id="@+id/btnCreateNewArticle"
@@ -252,8 +264,8 @@
             android:textSize="18sp" />
 
     </LinearLayout>
+</ScrollView>
 
-    </ScrollView>
 <!-- BottomNavigationView -->
 <include layout="@layout/bottom_navigation"
     android:id="@+id/bottomNavigationView"

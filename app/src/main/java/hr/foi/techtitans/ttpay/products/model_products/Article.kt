@@ -17,7 +17,7 @@ data class Article(
 
 data class NewArticle(
     val name: String,
-    val itemCategory: ItemCategory,
+    val itemCategory: String,
     val description: String,
     val price: Double,
     val quantity_in_stock: Int,

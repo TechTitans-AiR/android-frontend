@@ -28,7 +28,7 @@ import retrofit2.Response
 class CreateArticleActivity : AppCompatActivity() {
 
     private lateinit var loadingDataProgressBar: ProgressBar
-    private lateinit var actionBack: ImageView
+    private lateinit var btnBack : ImageView
     private lateinit var bottomNavigationView: BottomNavigationView
 
     private lateinit var navigationHandler: NavigationHandler
@@ -47,11 +47,16 @@ class CreateArticleActivity : AppCompatActivity() {
     private lateinit var editTextQuantityInStock : EditText
     private lateinit var btnCreateArticle:Button
     private  var itemCategories:List<ItemCategory>? = emptyList()
-    private lateinit var itemCategoryId:ItemCategory
+    private  lateinit var itemCategoryId:ItemCategory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_article)
+
+        loadingDataProgressBar = findViewById(R.id.loadingData)
+        btnBack = findViewById(R.id.back_button)
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        itemCategoryId= ItemCategory("","")
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
@@ -61,8 +66,7 @@ class CreateArticleActivity : AppCompatActivity() {
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
 
-        val imgBack: ImageView = findViewById(R.id.back_button)
-        imgBack.setOnClickListener {
+        btnBack.setOnClickListener {
             val intent = Intent(this, AllProductsActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("CreateProductActivity - LoggedInUser",loggedInUser.toString())
@@ -83,31 +87,36 @@ class CreateArticleActivity : AppCompatActivity() {
         spinnerCurrency=findViewById(R.id.spinnerCurrency)
         btnCreateArticle=findViewById(R.id.btnCreateNewArticle)
 
+
+
         //set spinners
         setupCurrencySpinner()
         setupCategorySpinner()
 
+        val selectedCategory = spinnerCategory.selectedItem.toString()
+        getCategoryId(selectedCategory)
+
         btnCreateArticle.setOnClickListener{
-            // Fetch data from EditText and Spinner
+             // Fetch data from EditText and Spinner
             val articleName = editTextArticleName.text.toString()
             val description = editTextDescription.text.toString()
             val price = editTextPrice.text.toString().toDouble()
-            val quantityInStock=editTextQuantityInStock.toString().toInt()
+            val quantityInStock= editTextQuantityInStock.text.toString().toInt()
             val weight = editTextWeight.text.toString().toDouble()
-            val material = editTextMaterial.toString()
+            val material = editTextMaterial.text.toString()
             val brand = editTextBrand.text.toString()
             val currency = spinnerCurrency.selectedItem.toString()
+
+
+            Log.d("Item category:" , itemCategoryId.toString())
 
             // Get the JWT token from the loggedInUser
             val jwtToken = loggedInUser.token
 
-            val selectedCategory = spinnerCategory.selectedItem.toString()
-            getCategoryId(selectedCategory)
-
             // Create a NewService object
             val newArticle = NewArticle(
                 articleName,
-                itemCategoryId,
+                itemCategoryId.id,
                 description,
                 price,
                 quantityInStock,
@@ -117,7 +126,7 @@ class CreateArticleActivity : AppCompatActivity() {
                 currency,
             )
 
-            // Call the createService endpoint
+            Log.d("newArticle: ", newArticle.toString())
             createNewArticle(jwtToken,newArticle)
         }
 
@@ -152,6 +161,7 @@ class CreateArticleActivity : AppCompatActivity() {
     }
 
     private fun getCategoryId(selectedCategory: String) {
+
         showLoading()
 
         val retrofit=RetrofitClient.getInstance(8081)
@@ -164,9 +174,10 @@ class CreateArticleActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     itemCategories=response.body()
                     Log.d("List categories: ", itemCategories.toString())
-                    for(item in itemCategories.orEmpty()){
-                        if(item.name==selectedCategory){
-                            itemCategoryId=item
+                    for (item in itemCategories.orEmpty()) {
+                        if (item.name == selectedCategory) {
+                            itemCategoryId = item
+                            Log.d("Selected Category ID: ", itemCategoryId.id)
                         }
                     }
                 } else {
