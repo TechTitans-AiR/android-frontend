@@ -23,6 +23,7 @@ import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.UnifiedItemAdapter
 import hr.foi.techtitans.ttpay.core.LoggedInUser
+import hr.foi.techtitans.ttpay.utilities.DateFormatter
 import org.json.JSONArray
 import org.json.JSONException
 import retrofit2.Call
@@ -142,8 +143,8 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         }
 
         // Set date created and date modified
-        textViewDateCreated.text = "${catalog.date_created}"
-        textViewDateModified.text = "${catalog.date_modified}"
+        textViewDateCreated.text = DateFormatter.formatDate(catalog.date_created)
+        textViewDateModified.text = DateFormatter.formatDate(catalog.date_modified)
     }
 
     private fun fetchAndSetArticles(articleIds: List<String>?) {
