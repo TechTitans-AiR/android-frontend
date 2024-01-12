@@ -1,6 +1,7 @@
 package hr.foi.techtitans.ttpay.catalogItemManagement.network_catalogItemManagement
 
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.NewCatalog
+import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.UpdateCatalog
 import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.Catalog
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -47,5 +48,10 @@ interface ServiceCatalogItemManagement {
         @Path("catalogId") catalogId: String
     ): Call<ResponseBody>
 
-
+    @PATCH("/api/v1/catalogs/update/{catalogId}")
+    fun updateExistingCatalog(
+        @Header("Authorization") token: String,
+        @Path("catalogId") catalogId: String,
+        @Body updateCatalogData:UpdateCatalog
+    ):Call<ResponseBody>
 }
