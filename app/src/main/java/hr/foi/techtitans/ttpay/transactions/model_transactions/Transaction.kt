@@ -6,6 +6,7 @@ data class Transaction (
     val description: String,
     val amount: Double,
     val currency: String,
+    val card: Card,
     val createdAt: String,
     val updatedAt: String
 )
