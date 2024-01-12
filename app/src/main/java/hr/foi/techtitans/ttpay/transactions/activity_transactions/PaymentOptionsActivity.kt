@@ -184,7 +184,7 @@ class PaymentOptionsActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val newTransactionResponse = response.body()
                     if (newTransactionResponse != null) {
-                        handleTransactionCreationSuccess(newTransactionResponse, cashAmount)
+                        handleTransactionCashCreationSuccess(newTransactionResponse, cashAmount)
                         Log.d("PaymentOptionsActivity", "Transaction created successfully.")
                     }
                 } else {
@@ -215,7 +215,7 @@ class PaymentOptionsActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val newTransactionResponse = response.body()
                     if (newTransactionResponse != null) {
-                        handleTransactionCreationSuccess(newTransactionResponse, 0.0) // Assuming 0.0 for cashAmount for card transactions
+                        handleTransactionCardCreationSuccess(newTransactionResponse) // Assuming 0.0 for cashAmount for card transactions
                         Log.d("PaymentOptionsActivity", "Transaction created successfully.")
                     }
                 } else {
@@ -232,7 +232,7 @@ class PaymentOptionsActivity : AppCompatActivity() {
         })
     }
 
-    private fun handleTransactionCreationSuccess(newTransaction: NewTransaction, cashAmount: Double) {
+    private fun handleTransactionCashCreationSuccess(newTransaction: NewTransaction, cashAmount: Double) {
         Log.d("PaymentOptionsActivity", "Cash Amount: $cashAmount")
         Log.d("PaymentOptionsActivity", "Total Amount: $totalAmount")
         val differenceAmount = cashAmount - totalAmount
@@ -244,6 +244,18 @@ class PaymentOptionsActivity : AppCompatActivity() {
         intent.putExtra("totalAmount", totalAmount)
         intent.putExtra("username", userUsername)
         intent.putExtra("differenceAmount", differenceAmount)
+        intent.putExtra("isCardPayment", false)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun handleTransactionCardCreationSuccess(newTransaction: NewTransaction) {
+        val intent = Intent(this, TransactionCompletionActivity::class.java)
+        intent.putExtra("loggedInUser", loggedInUser)
+        intent.putExtra("newTransaction", newTransaction)
+        intent.putExtra("shoppingCartItems", ArrayList(shoppingCartItems))
+        intent.putExtra("username", userUsername)
+        intent.putExtra("isCardPayment", true)
         startActivity(intent)
         finish()
     }
