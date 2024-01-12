@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,6 +34,7 @@ class AllCatalogsActivity : AppCompatActivity() {
     private lateinit var catalogAdapter: CatalogAdapter
 
     private lateinit var progressBar: ProgressBar
+    private lateinit var removeSearch: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +60,7 @@ class AllCatalogsActivity : AppCompatActivity() {
         bottomNavigationView.visibility = View.VISIBLE
 
         progressBar = findViewById(R.id.loadingProgressBar)
+        removeSearch = findViewById(R.id.img_delete_search_icon)
 
         fetchCatalogs()
 
@@ -139,7 +143,53 @@ class AllCatalogsActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    fun onSearchTransactionIconClick(view: View) {}
+    fun onSearchTransactionIconClick(view: View) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_search_catalogs, null)
+
+        val etName = dialogView.findViewById<EditText>(R.id.etName)
+        val etArticle = dialogView.findViewById<EditText>(R.id.etArticle)
+        val etService = dialogView.findViewById<EditText>(R.id.etService)
+        val etUser = dialogView.findViewById<EditText>(R.id.etUser)
+        val progressBar = dialogView.findViewById<ProgressBar>(R.id.progressBarDialog)
+
+        //name article service user
+        // Initialization values of elements
+        etName.setText("")
+        etArticle.setText("")
+        etService.setText("")
+        etUser.setText("")
+
+        val builder = AlertDialog.Builder(this)
+            .setTitle("Search catalogs")
+            .setView(dialogView)
+            .setPositiveButton("Search") { dialog, _ ->
+
+                // Implement the search logic here
+                val name = etName.text.toString()
+                val article = etArticle.text.toString()
+                val service = etService.text.toString()
+                val user= etUser.text.toString()
+
+                // Pass the dialog view to the function
+                performSearchAndUpdateRecyclerView(
+                    name,
+                    article,
+                    service,
+                    user
+                )
+                removeSearch.visibility = View.VISIBLE
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+
+       }
+
+    private fun performSearchAndUpdateRecyclerView(name: String, article: String, selectedMerchant: Any, progressBarMerchant: Any) {
+
+    }
+
     fun onDeleteSearchIconClick(view: View) {}
 
 }
