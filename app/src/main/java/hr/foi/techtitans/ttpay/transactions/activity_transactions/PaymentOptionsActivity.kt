@@ -1,5 +1,6 @@
 package hr.foi.techtitans.ttpay.transactions.activity_transactions
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -70,7 +71,7 @@ class PaymentOptionsActivity : AppCompatActivity() {
         radioGroupPaymentOptions = findViewById(R.id.radioGroupPaymentOptions)
 
         layoutCash = findViewById(R.id.llCash)
-        edtCashAmount = findViewById(R.id.edt_cash_amount)
+        edtCashAmount = findViewById(R.id.edt_cash)
         edtDescriptionCash = findViewById(R.id.edt_description_cash)
 
         layoutCard = findViewById(R.id.llBankCard)
@@ -96,9 +97,15 @@ class PaymentOptionsActivity : AppCompatActivity() {
         when (checkedId) {
             R.id.radioCash -> {
                 layoutCash.visibility = View.VISIBLE
+                edtCashAmount.visibility = View.VISIBLE
+                layoutCard.visibility = View.GONE
             }
             R.id.radioBankCard -> {
                 layoutCard.visibility = View.VISIBLE
+                layoutCash.visibility = View.GONE
+                edtCashAmount.visibility = View.GONE
+                edtBalance.setText(totalAmount.toString())
+                edtBalance.isEnabled = false
             }
         }
     }
@@ -114,6 +121,7 @@ class PaymentOptionsActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun handleCashPayment() {
         val cashAmount = edtCashAmount.text.toString().toDoubleOrNull()
         if (cashAmount != null && cashAmount >= 0) {
@@ -147,9 +155,9 @@ class PaymentOptionsActivity : AppCompatActivity() {
     private fun handleCardPayment() {
         // Set real Card for card payment
         val cardForTransaction = Card(
-            edtCardNumber.text.toString(),
+            edtCardNumber.text.chunked(4).joinToString(" "),
             edtExpirationDate.text.toString(),
-            totalAmount,
+            edtBalance.text.toString().toDouble(),
             edtCvc.text.toString().toIntOrNull() ?: 0
         )
 
@@ -207,17 +215,11 @@ class PaymentOptionsActivity : AppCompatActivity() {
 
         val call = service.createTransactionCard(newTransaction)
 
-        call.enqueue(object : Callback<NewTransaction> {
-            override fun onResponse(
-                call: Call<NewTransaction>,
-                response: Response<NewTransaction>
-            ) {
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if (response.isSuccessful) {
-                    val newTransactionResponse = response.body()
-                    if (newTransactionResponse != null) {
-                        handleTransactionCardCreationSuccess(newTransactionResponse) // Assuming 0.0 for cashAmount for card transactions
-                        Log.d("PaymentOptionsActivity", "Transaction created successfully.")
-                    }
+                    handleTransactionCardCreationSuccess(newTransaction) // No body, just assume success
+                    Log.d("PaymentOptionsActivity", "Transaction created successfully.")
                 } else {
                     Log.e("PaymentOptionsActivity", "Error creating transaction. Code: ${response.code()}")
 
@@ -226,7 +228,7 @@ class PaymentOptionsActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<NewTransaction>, t: Throwable) {
+            override fun onFailure(call: Call<Void>, t: Throwable) {
                 Log.d("PaymentOptionsActivity", "Communication error with backend.")
             }
         })

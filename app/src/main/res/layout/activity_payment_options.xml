@@ -14,7 +14,7 @@
         android:textStyle="bold"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="20dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true" />
 
     <!-- Radio Group for payment options -->
     <RadioGroup
@@ -33,7 +33,7 @@
             android:id="@+id/radioCash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cash"/>
+            android:text="Cash" />
 
         <!-- Bank Card radio button -->
         <RadioButton
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bank Card"
-            android:layout_marginStart="16dp"/>
+            android:layout_marginStart="16dp" />
     </RadioGroup>
 
     <!-- Linear Layout for "Cash" -->
@@ -54,15 +54,6 @@
         android:layout_marginTop="16dp"
         android:visibility="gone">
 
-        <!-- Amount input for "Cash" -->
-        <EditText
-            android:id="@+id/edt_cash_amount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:hint="Enter Cash Amount"/>
-
         <!-- Description input for "Cash" -->
         <EditText
             android:id="@+id/edt_description_cash"
@@ -70,7 +61,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:hint="Enter description"/>
+            android:hint="Enter description" />
+
+        <!-- Amount input for "Cash" -->
+        <EditText
+            android:id="@+id/edt_cash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:hint="Enter Cash Amount" />
     </LinearLayout>
 
     <!-- Linear Layout for "Bank Card" -->
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:hint="Enter description"/>
+            android:hint="Enter description" />
 
         <!-- Card number input for "Bank Card" -->
         <EditText
@@ -100,7 +100,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:hint="Enter Card Number"
-            android:inputType="number"/>
+            android:inputType="number" />
 
         <!-- Expiration date input for "Bank Card" -->
         <EditText
@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:hint="Enter Expiration Date"/>
+            android:hint="Enter Expiration Date" />
 
         <!-- Balance input for "Bank Card" -->
         <EditText
@@ -118,9 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:editable="false"
-            android:hint="Enter Balance"
-            android:inputType="numberDecimal"/>
+            android:hint="Enter Balance" />
 
         <!-- CVC input for "Bank Card" -->
         <EditText
@@ -130,7 +128,8 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:hint="Enter CVC"
-            android:inputType="number"/>
+            android:maxLength="3"
+            android:inputType="number" />
     </LinearLayout>
 
     <!-- Button and ProgressBar -->
@@ -138,8 +137,8 @@
         android:id="@+id/rlCompletePayment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/llBankCard"
-        android:layout_marginTop="20dp">
+        android:layout_above="@+id/bottomNavigationView"
+        android:layout_marginBottom="100dp">
 
         <Button
             android:id="@+id/btn_complete_payment"
@@ -161,8 +160,9 @@
 
     <!-- BottomNavigationView -->
     <include layout="@layout/bottom_navigation"
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

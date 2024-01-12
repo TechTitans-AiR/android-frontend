@@ -29,7 +29,7 @@ interface ServiceTransactionManagement {
     fun createTransactionCash(@Body newTransaction: NewTransaction): Call<NewTransaction>
 
     @POST("/api/v1/transactions/create/card")
-    fun createTransactionCard(@Body newTransaction: NewTransaction): Call<NewTransaction>
+    fun createTransactionCard(@Body newTransaction: NewTransaction): Call<Void>
 
     @GET("/api/v1/transactions/{id}")
     fun getTransactionDetails(
