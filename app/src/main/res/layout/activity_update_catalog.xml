@@ -52,8 +52,8 @@
 
     <LinearLayout
         android:id="@+id/layoutName"
-        android:layout_width="387dp"
-        android:layout_height="50dp"
+        android:layout_width="381dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/ll_back_name"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="8dp"
@@ -75,7 +75,7 @@
         <EditText
             android:id="@+id/editText_nameOfCatalog"
             android:layout_width="200dp"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:layout_below="@+id/ll_back_name"
             android:layout_gravity="right"
             android:layout_marginStart="18dp"
@@ -123,7 +123,7 @@
             android:layout_marginBottom="20dp" />
 
         <Button
-            android:id="@+id/btn_edit_catalog"
+            android:id="@+id/btnSaveChanges"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/recycleView_all_collected_data_catalog"
