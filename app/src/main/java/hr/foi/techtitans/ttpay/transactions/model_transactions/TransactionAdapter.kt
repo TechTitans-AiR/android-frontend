@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.transactions.activity_transactions.DetailedTransactionActivity
+import hr.foi.techtitans.ttpay.utilities.DateFormatter
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -35,13 +36,7 @@ class TransactionAdapter(
         val transaction = transactions[position]
         holder.txtViewTransactionDescription.text = transaction.description
 
-        // String into Date
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
-        val date = dateFormat.parse(transaction.createdAt)
-
-        // Formate Date
-        val formattedDateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.getDefault())
-        val formattedDate = formattedDateFormat.format(date)
+        val formattedDate = DateFormatter.formatDate(transaction.createdAt)
 
         holder.textViewTransactionDate.text = "created at: $formattedDate"
         holder.textViewTransactionAmount.text = "amount: ${transaction.amount} ${transaction.currency}"

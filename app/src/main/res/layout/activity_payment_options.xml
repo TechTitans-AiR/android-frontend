@@ -63,6 +63,14 @@
             android:layout_marginEnd="15dp"
             android:hint="Enter description" />
 
+        <!-- Total Amount" -->
+        <EditText
+            android:id="@+id/edt_ttl_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"/>
+
         <!-- Amount input for "Cash" -->
         <EditText
             android:id="@+id/edt_cash"
@@ -70,7 +78,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:hint="Enter Cash Amount" />
+            android:hint="Enter Cash Amount the customer gave you" />
+
+        <!-- Button to check Cash amount validity -->
+        <Button
+            android:id="@+id/btn_check_cash_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="8dp"
+            android:text="Check Cash Amount" />
     </LinearLayout>
 
     <!-- Linear Layout for "Bank Card" -->
@@ -100,6 +117,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:hint="Enter Card Number"
+            android:maxLength="16"
             android:inputType="number" />
 
         <!-- Expiration date input for "Bank Card" -->
@@ -130,15 +148,25 @@
             android:hint="Enter CVC"
             android:maxLength="3"
             android:inputType="number" />
+
+        <!-- Button to check and validate card data -->
+        <Button
+            android:id="@+id/btn_check_validate_card_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="8dp"
+            android:text="Check Validate Card Data" />
     </LinearLayout>
 
     <!-- Button and ProgressBar -->
-    <RelativeLayout
-        android:id="@+id/rlCompletePayment"
+    <LinearLayout
+        android:id="@+id/llCompletePayment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottomNavigationView"
-        android:layout_marginBottom="100dp">
+        android:layout_marginBottom="100dp"
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/btn_complete_payment"
@@ -148,15 +176,24 @@
             android:layout_marginEnd="15dp"
             android:text="COMPLETE PAYMENT" />
 
+        <Button
+            android:id="@+id/btn_cancel_payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="CANCEL PAYMENT" />
+
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btn_complete_payment"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:visibility="gone" />
-    </RelativeLayout>
+    </LinearLayout>
+
+
 
     <!-- BottomNavigationView -->
     <include layout="@layout/bottom_navigation"
