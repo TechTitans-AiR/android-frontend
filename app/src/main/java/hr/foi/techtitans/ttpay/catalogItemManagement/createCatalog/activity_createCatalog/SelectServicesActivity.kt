@@ -112,6 +112,9 @@ class SelectServicesActivity : AppCompatActivity() {
         imgBack = findViewById(R.id.back_back)
         imgBack.setOnClickListener {
             val intent = Intent(this, SelectArticlesActivity::class.java)
+            if(catalog!=null){
+                intent.putExtra("selectedCatalog", catalog)
+            }
             intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
             startActivity(intent)
@@ -145,7 +148,7 @@ class SelectServicesActivity : AppCompatActivity() {
             finish()
         }
     }
-    private fun initAddedArticleAdapter() {
+    private fun initAddedServiceAdapter() {
         addedServiceAdapter = AddedServiceAdapter(listSelectedServices) { position ->
             // Deleting the selected services from the list of services
             listSelectedServices.removeAt(position)
@@ -204,14 +207,14 @@ class SelectServicesActivity : AppCompatActivity() {
         val selectedServices = allServices.filter { service ->
             currentCatalog?.services?.contains(service.id) == true
         }
-        Log.d("selectedArticles.filter",selectedServices.toString())
+        Log.d("selectedServices.filter",selectedServices.toString())
 
         listSelectedServices=selectedServices.toMutableList()
         addedServiceAdapter.updateData(selectedServices)
         selectServiceAdapter?.updateData(allServices.filterNot{selectedServices.contains(it)})
 
         if (recyclerViewAddedServices.adapter == null) {
-            initAddedArticleAdapter()
+            initAddedServiceAdapter()
         }
     }
 
