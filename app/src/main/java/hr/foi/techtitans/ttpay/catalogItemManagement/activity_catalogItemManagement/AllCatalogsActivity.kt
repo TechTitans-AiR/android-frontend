@@ -43,10 +43,6 @@ class AllCatalogsActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var removeSearch: ImageView
 
-    private var merchantId: String = ""
-    private var serviceId: String = ""
-    private var articleId: String = ""
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -160,16 +156,18 @@ class AllCatalogsActivity : AppCompatActivity() {
 
         val etName = dialogView.findViewById<EditText>(R.id.etName)
         val spinnerArticles = dialogView.findViewById<Spinner>(R.id.etArticle)
+        val progressBarDialog1 = dialogView.findViewById<ProgressBar>(R.id.progressBarDialog1)
         val spinnerServices = dialogView.findViewById<Spinner>(R.id.etService)
+        val progressBarDialog2 = dialogView.findViewById<ProgressBar>(R.id.progressBarDialog2)
         val spinnerUsers = dialogView.findViewById<Spinner>(R.id.etUser)
-        val progressBarDialog = dialogView.findViewById<ProgressBar>(R.id.progressBarDialog)
+        val progressBarDialog3 = dialogView.findViewById<ProgressBar>(R.id.progressBarDialog3)
 
         // Initialization values of elements
         etName.setText("")
 
-        fetchMerchantsForDialog(spinnerUsers, progressBarDialog)
-        fetchArticlesForDialog(spinnerArticles, progressBarDialog)
-        fetchServicesForSpinner(spinnerServices, progressBarDialog)
+        fetchArticlesForDialog(spinnerArticles, progressBarDialog1)
+        fetchServicesForSpinner(spinnerServices, progressBarDialog2)
+        fetchMerchantsForDialog(spinnerUsers, progressBarDialog3)
 
         val builder = AlertDialog.Builder(this)
             .setTitle("Search catalogs")
@@ -193,7 +191,7 @@ class AllCatalogsActivity : AppCompatActivity() {
                     articleSpinner,
                     serviceSpinner,
                     userSpinner,
-                    progressBarDialog
+                    progressBarDialog3
                 )
                 removeSearch.visibility = View.VISIBLE
                 dialog.dismiss()
@@ -483,6 +481,10 @@ class AllCatalogsActivity : AppCompatActivity() {
         progressBarDialog.visibility = View.VISIBLE
         progressBar.visibility = View.VISIBLE
 
+        var merchantId: String = ""
+        var serviceId: String = ""
+        var articleId: String = ""
+
         getUserIdFromName(userName) { fetchedMerchant ->
             if (userName == "Merchants") {
                 merchantId = ""
@@ -513,9 +515,9 @@ class AllCatalogsActivity : AppCompatActivity() {
 
                     val searchParams = mutableMapOf<String, String>().apply {
                         if (name.isNotEmpty()) put("name", name)
-                        if (merchantId.isNotEmpty()) put("merchantId", merchantId)
-                        if (serviceId.isNotEmpty()) put("serviceId", serviceId)
-                        if (articleId.isNotEmpty()) put("articleId", articleId)
+                        if (merchantId.isNotEmpty()) put("user", merchantId)
+                        if (serviceId.isNotEmpty()) put("service", serviceId)
+                        if (articleId.isNotEmpty()) put("article", articleId)
                     }
                     Log.d( "Name: ", name)
                     Log.d( "merchantId: ", merchantId)

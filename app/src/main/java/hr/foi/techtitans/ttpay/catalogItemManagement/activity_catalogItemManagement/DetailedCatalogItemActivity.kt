@@ -94,7 +94,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
             val intent= Intent(this, AllCatalogsActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
-            startActivity(intent)
+            onBackPressed()
         }
 
         fetchCatalogDetails()
@@ -104,7 +104,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
             intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("selectedCatalog", catalog)
             intent.putExtra("username", userUsername)
-            startActivity(intent)
+            onBackPressed()
         }
     }
 
