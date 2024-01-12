@@ -139,4 +139,7 @@ class AllCatalogsActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    fun onSearchTransactionIconClick(view: View) {}
+    fun onDeleteSearchIconClick(view: View) {}
+
 }
