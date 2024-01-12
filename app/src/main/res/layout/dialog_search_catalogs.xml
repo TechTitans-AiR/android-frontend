@@ -12,30 +12,27 @@
             android:textSize="16sp"
             android:hint="Description" />
 
-        <EditText
+        <Spinner
             android:id="@+id/etArticle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:textSize="16sp"
-            android:hint="2023-12-22" />
+            android:textSize="16sp" />
 
 
-     <EditText
+     <Spinner
          android:id="@+id/etService"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:layout_margin="8dp"
-         android:textSize="16sp"
-         android:hint="2023-12-22" />
+         android:textSize="16sp" />
 
-     <EditText
+     <Spinner
          android:id="@+id/etUser"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:layout_margin="8dp"
-         android:textSize="16sp"
-         android:hint="2023-12-22" />
+         android:textSize="16sp" />
 
         <ProgressBar
             android:id="@+id/progressBarDialog"

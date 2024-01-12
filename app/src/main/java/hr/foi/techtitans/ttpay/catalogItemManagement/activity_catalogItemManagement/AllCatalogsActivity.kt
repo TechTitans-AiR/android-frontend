@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -21,7 +22,12 @@ import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement
 import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.CatalogAdapter
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
+import hr.foi.techtitans.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
 import hr.foi.techtitans.ttpay.core.LoggedInUser
+import hr.foi.techtitans.ttpay.products.model_products.Article
+import hr.foi.techtitans.ttpay.products.model_products.Service
+import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -143,21 +149,21 @@ class AllCatalogsActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    fun onSearchTransactionIconClick(view: View) {
+    fun onSearchCatalogIconClick(view: View) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_search_catalogs, null)
 
         val etName = dialogView.findViewById<EditText>(R.id.etName)
-        val etArticle = dialogView.findViewById<EditText>(R.id.etArticle)
-        val etService = dialogView.findViewById<EditText>(R.id.etService)
-        val etUser = dialogView.findViewById<EditText>(R.id.etUser)
+        val spinnerArticles = dialogView.findViewById<Spinner>(R.id.etArticle)
+        val spinnerServices = dialogView.findViewById<Spinner>(R.id.etService)
+        val spinnerUsers = dialogView.findViewById<Spinner>(R.id.etUser)
         val progressBar = dialogView.findViewById<ProgressBar>(R.id.progressBarDialog)
 
-        //name article service user
         // Initialization values of elements
         etName.setText("")
-        etArticle.setText("")
-        etService.setText("")
-        etUser.setText("")
+
+        fetchMerchantsForDialog(spinnerUsers, progressBar)
+        fetchArticlesForDialog(spinnerArticles, progressBar)
+        fetchServicesForSpinner(spinnerServices, progressBar)
 
         val builder = AlertDialog.Builder(this)
             .setTitle("Search catalogs")
@@ -166,16 +172,16 @@ class AllCatalogsActivity : AppCompatActivity() {
 
                 // Implement the search logic here
                 val name = etName.text.toString()
-                val article = etArticle.text.toString()
-                val service = etService.text.toString()
-                val user= etUser.text.toString()
+                val articleSpinner = spinnerArticles.selectedItem.toString()
+                val serviceSpinner = spinnerServices.selectedItem.toString()
+                val userSpinner= spinnerUsers.selectedItem.toString()
 
                 // Pass the dialog view to the function
                 performSearchAndUpdateRecyclerView(
                     name,
-                    article,
-                    service,
-                    user
+                    articleSpinner,
+                    serviceSpinner,
+                    userSpinner
                 )
                 removeSearch.visibility = View.VISIBLE
                 dialog.dismiss()
@@ -183,11 +189,236 @@ class AllCatalogsActivity : AppCompatActivity() {
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
             }
+        val alertDialog=builder.create()
+        alertDialog.show()
 
        }
 
-    private fun performSearchAndUpdateRecyclerView(name: String, article: String, selectedMerchant: Any, progressBarMerchant: Any) {
 
+    private fun fetchMerchantsForDialog(spinnerMerchant: Spinner, progressBar: ProgressBar) {
+        progressBar.visibility = View.VISIBLE
+
+        val retrofit = RetrofitClient.getInstance(8080)
+        val service = retrofit.create(ServiceAccountManagement::class.java)
+        val call = service.getUsers(loggedInUser.token)
+
+        call.enqueue(object : Callback<List<User>> {
+            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                try {
+                    progressBar.visibility = View.GONE
+
+                    if (response.isSuccessful) {
+                        val users = response.body() ?: emptyList()
+                        Log.d("AllCatalogsActivity", "Users fetched successfully: $users")
+                        // Add empty string at the begging of the list
+                        val userNames = mutableListOf<String>("Merchants")
+                        userNames.addAll(users.map { "${it.first_name} ${it.last_name}" })
+
+                        val arrayAdapter = ArrayAdapter(
+                            this@AllCatalogsActivity,
+                            android.R.layout.simple_spinner_item,
+                            userNames.toTypedArray()
+                        )
+                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        spinnerMerchant.adapter = arrayAdapter
+
+                    } else {
+                        showErrorDialog()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    showErrorDialog()
+                }
+            }
+
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                try {
+                    progressBar.visibility = View.GONE
+                    showErrorDialog()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    showErrorDialog()
+                }
+            }
+        })
+    }
+
+    private fun fetchArticlesForDialog(spinnerArticle: Spinner, progressBar: ProgressBar) {
+        progressBar.visibility = View.VISIBLE
+
+        val retrofit = RetrofitClient.getInstance(8081)
+        val service = retrofit.create(ServiceProducts::class.java)
+        val call = service.getArticles(loggedInUser.token)
+
+        call.enqueue(object : Callback<List<Article>> {
+            override fun onResponse(call: Call<List<Article>>, response: Response<List<Article>>) {
+                try {
+                    progressBar.visibility = View.GONE
+
+                    if (response.isSuccessful) {
+                        val articles = response.body() ?: emptyList()
+                        Log.d("AllCatalogsActivity", "Articles fetched successfully: $articles")
+                        // Add empty string at the begging of the list
+
+                        val articleList = mutableListOf<String>("Articles")
+                        articleList.addAll(articles.map { "${it.name}" })
+
+                        val arrayAdapter = ArrayAdapter(
+                            this@AllCatalogsActivity,
+                            android.R.layout.simple_spinner_item,
+                            articleList.toTypedArray()
+                        )
+                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        spinnerArticle.adapter = arrayAdapter
+
+                    } else {
+                        showErrorDialog()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    showErrorDialog()
+                }
+            }
+
+            override fun onFailure(call: Call<List<Article>>, t: Throwable) {
+                try {
+                    progressBar.visibility = View.GONE
+                    showErrorDialog()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    showErrorDialog()
+                }
+            }
+        })
+    }
+
+    private fun fetchServicesForSpinner(spinnerServices: Spinner, progressBar: ProgressBar) {
+        progressBar.visibility = View.VISIBLE
+
+        val retrofit = RetrofitClient.getInstance(8081)
+        val service = retrofit.create(ServiceProducts::class.java)
+        val call = service.getServices(loggedInUser.token)
+
+        call.enqueue(object : Callback<List<Service>> {
+            override fun onResponse(call: Call<List<Service>>, response: Response<List<Service>>) {
+                try {
+                    progressBar?.visibility = View.GONE
+
+                    if (response.isSuccessful) {
+                        val services = response.body() ?: emptyList()
+                        Log.d("AllCatalogsActivity", "Services fetched successfully: $services")
+                        // Add empty string at the begging of the list
+
+                        val serviceList = mutableListOf<String>("Services")
+                        serviceList.addAll(services.map { "${it.serviceName}" })
+
+                        val arrayAdapter = ArrayAdapter(
+                            this@AllCatalogsActivity,
+                            android.R.layout.simple_spinner_item,
+                            serviceList.toTypedArray()
+                        )
+                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        spinnerServices.adapter = arrayAdapter
+
+                    } else {
+                        showErrorDialog()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    showErrorDialog()
+                }
+            }
+
+            override fun onFailure(call: Call<List<Service>>, t: Throwable) {
+                try {
+                    progressBar.visibility = View.GONE
+                    showErrorDialog()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    showErrorDialog()
+                }
+            }
+        })
+    }
+
+
+    private fun performSearchAndUpdateRecyclerView(name: String, article: String, service: String, userName: String) {
+        progressBar.visibility = View.VISIBLE
+
+        var merchantId: String = ""
+        var serviceId: String = ""
+        var articleId: String = ""
+
+        getUserIdFromName(userName){fetchedMerchant->
+            merchantId=fetchedMerchant
+        }
+
+        getServiceIdFromName(service){fetchedService->
+            serviceId=fetchedService
+        }
+
+        getArticleIdFromName(article){fetchedArticle->
+            articleId=fetchedArticle
+        }
+
+    }
+
+    private fun getServiceIdFromName(serviceName: String, callback: (String) -> Unit) {
+        TODO("Not yet implemented")
+    }
+
+    private fun getArticleIdFromName(articleName: String, callback: (String) -> Unit) {
+        TODO("Not yet implemented")
+    }
+
+    private fun getUserIdFromName(userName: String, callback: (String) -> Unit) {
+        val retrofit = RetrofitClient.getInstance(8080)
+        val service = retrofit.create(ServiceAccountManagement::class.java)
+
+        val call = service.getUsers(loggedInUser.token)
+
+        call.enqueue(object : Callback<List<User>> {
+            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
+                try {
+                    if (response.isSuccessful) {
+                        val users = response.body() ?: emptyList()
+                        for (user in users) {
+                            val nameUser = "${user.first_name} ${user.last_name}"
+                            if (nameUser == userName) {
+                                callback.invoke(
+                                    user.id ?: ""
+                                )
+                                return
+                            }
+                        }
+                    } else {
+                        handleErrorResponse(response)
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    handleException(e)
+                }
+                // If user id is not found, return an empty string
+                callback.invoke("")
+            }
+
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                handleFailure(t)
+                callback.invoke("")
+            }
+        })
+    }
+
+    private fun handleFailure(t: Throwable) {
+        Log.e("AllCatalogsActivity", "Failure: ${t.message}")
+    }
+
+    private fun handleException(e: Exception) {
+        Log.e("AllCatalogsActivity", "Exception: ${e.message}")
+    }
+
+    private fun handleErrorResponse(response: Response<List<User>>) {
+        Log.e("AllCatalogsActivity", "Error response: ${response.code()}")
     }
 
     fun onDeleteSearchIconClick(view: View) {}
