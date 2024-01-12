@@ -11,6 +11,7 @@ import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 
 class SelectUserAdapter (
     private var merchants: List<User>,
+    private val showImageViews: Boolean = true,
     private val onAddClick: (User) -> Unit
     ) : RecyclerView.Adapter<SelectUserAdapter.UserViewHolder>() {
 
@@ -30,6 +31,12 @@ class SelectUserAdapter (
             val user = merchants[position]
             holder.txtViewUserName.text = "${user.first_name} ${user.last_name}"
             holder.txtEmail.text = user.email
+
+            if (showImageViews) {
+                holder.btnAdd.visibility = View.VISIBLE
+            } else {
+                holder.btnAdd.visibility = View.GONE
+            }
 
             holder.btnAdd.setOnClickListener {
                 onAddClick(user)

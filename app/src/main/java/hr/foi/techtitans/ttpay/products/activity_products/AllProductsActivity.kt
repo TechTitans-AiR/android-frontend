@@ -48,8 +48,8 @@ class AllProductsActivity : AppCompatActivity() {
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
 
-        articleAdapter= ArticleAdapter(emptyList(), loggedInUser)
-        serviceAdapter= ServiceAdapter(emptyList(), loggedInUser)
+        articleAdapter= ArticleAdapter(emptyList(), loggedInUser, true)
+        serviceAdapter= ServiceAdapter(emptyList(), loggedInUser, true)
 
         recyclerViewArticles = findViewById(R.id.recyclerView_all_articles)
         recyclerViewServices = findViewById(R.id.recyclerView_all_services)

@@ -105,6 +105,7 @@
             android:exported="false" />
         <activity
             android:name=".products.activity_products.CreateArticleActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
         <activity
             android:name=".products.activity_products.AllProductsActivity"

@@ -18,6 +18,7 @@ import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.transactions.model_transactions.Transaction
 import hr.foi.techtitans.ttpay.transactions.network_transactions.ServiceTransactionManagement
+import hr.foi.techtitans.ttpay.utilities.DateFormatter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -91,8 +92,8 @@ class DetailedTransactionActivity : AppCompatActivity() {
                         description.text = transaction.description
                         amount.text = "${transaction.amount}"
                         currency.text = transaction.currency
-                        dateCreated.text = formatDate(transaction.createdAt)
-                        dateUpdated.text = formatDate(transaction.updatedAt)
+                        dateCreated.text = DateFormatter.formatDate(transaction.createdAt)
+                        dateUpdated.text = DateFormatter.formatDate(transaction.updatedAt)
                     }
                 } else {
                     showErrorDialog()
@@ -151,16 +152,5 @@ class DetailedTransactionActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, errorMessage, Toast.LENGTH_SHORT).show()
             }
         })
-    }
-    private fun formatDate(dateString: String?): String {
-        return try {
-            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
-            val outputFormat = SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.getDefault())
-
-            val date = inputFormat.parse(dateString ?: "")
-            outputFormat.format(date ?: "")
-        } catch (e: Exception) {
-            dateString ?: ""
-        }
     }
 }
