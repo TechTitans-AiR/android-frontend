@@ -119,6 +119,8 @@ class SelectArticlesActivity : AppCompatActivity() {
 
         progressBar = findViewById(R.id.loadingProgressBar)
 
+        fetchArticles()
+
         continueButton = findViewById(R.id.btn_continue_select_services)
         continueButton.setOnClickListener {
             //Sending the list to the next screen
@@ -135,10 +137,6 @@ class SelectArticlesActivity : AppCompatActivity() {
         }
 
         Log.d("Initial Articles Size", selectArticleAdapter?.itemCount.toString())
-
-
-        fetchArticles()
-
 
     }
 
