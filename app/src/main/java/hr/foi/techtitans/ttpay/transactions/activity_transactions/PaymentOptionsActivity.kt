@@ -108,85 +108,61 @@ class PaymentOptionsActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
 
         if (radioGroupPaymentOptions.checkedRadioButtonId == R.id.radioCash) {
-            val cashAmount = edtCashAmount.text.toString().toDoubleOrNull()
-            if (cashAmount != null && cashAmount >= 0) {
-                if (cashAmount < totalAmount) {
-                    completePayment.isEnabled = false
-                    showToast("Entered amount is insufficient.")
-                    Log.d("PaymentOptionsActivity", "Entered amount is insufficient.")
-                    // Hide progress bar
-                    progressBar.visibility = View.GONE
-                    return
-                }
-            } else {
+            handleCashPayment()
+        } else if (radioGroupPaymentOptions.checkedRadioButtonId == R.id.radioBankCard) {
+            handleCardPayment()
+        }
+    }
+
+    private fun handleCashPayment() {
+        val cashAmount = edtCashAmount.text.toString().toDoubleOrNull()
+        if (cashAmount != null && cashAmount >= 0) {
+            if (cashAmount < totalAmount) {
                 completePayment.isEnabled = false
-                showToast("Please enter a valid cash amount.")
-                Log.d("PaymentOptionsActivity", "Invalid cash amount entered.")
+                showToast("Entered amount is insufficient.")
+                Log.d("PaymentOptionsActivity", "Entered amount is insufficient.")
                 // Hide progress bar
                 progressBar.visibility = View.GONE
                 return
             }
-        }
-
-        val cardForTransaction = if (radioGroupPaymentOptions.checkedRadioButtonId == R.id.radioCash) {
-            // set Card to empty object if radioCash is checked
-            Card()
         } else {
-            // else set real Card
-            val cardNumber = edtCardNumber.text.toString()
-            val expirationDate = edtExpirationDate.text.toString()
-            val balance = totalAmount
-            val cvc = edtCvc.text.toString().toIntOrNull() ?: 0
-
-            Card(cardNumber, expirationDate, balance, cvc)
+            completePayment.isEnabled = false
+            showToast("Please enter a valid cash amount.")
+            Log.d("PaymentOptionsActivity", "Invalid cash amount entered.")
+            // Hide progress bar
+            progressBar.visibility = View.GONE
+            return
         }
 
+        // Set Card to an empty object for cash payment
+        val cardForTransaction = Card()
+        completePayment.isEnabled = true
+
+        val description = edtDescriptionCash.text.toString()
+        val currency = "EUR"
+        val newTransaction = NewTransaction(loggedInUser.userId, description, totalAmount, cardForTransaction, currency)
+            sendTransactionCashToBackend(newTransaction, getYourCashAmount())
+    }
+
+    private fun handleCardPayment() {
+        // Set real Card for card payment
+        val cardForTransaction = Card(
+            edtCardNumber.text.toString(),
+            edtExpirationDate.text.toString(),
+            totalAmount,
+            edtCvc.text.toString().toIntOrNull() ?: 0
+        )
 
         completePayment.isEnabled = true
 
-        fetchUserId(userUsername) { merchantId ->
-            val description = if (radioGroupPaymentOptions.checkedRadioButtonId == R.id.radioCash) {
-                edtDescriptionCash.text.toString()
-            } else {
-                edtDescriptionCard.text.toString()
-            }
-            val currency = "EUR"
-            val newTransaction = NewTransaction(merchantId, description, totalAmount, cardForTransaction, currency)
-            sendTransactionCashToBackend(newTransaction, getYourCashAmount())
-        }
+        val description = edtDescriptionCard.text.toString()
+        val currency = "EUR"
+        val newTransaction = NewTransaction(loggedInUser.userId, description, totalAmount, cardForTransaction, currency)
+        sendTransactionCardToBackend(newTransaction)
     }
 
     private fun getYourCashAmount(): Double {
         return edtCashAmount.text.toString().toDoubleOrNull() ?: 0.0
-    }
-
-    private fun fetchUserId(username: String, callback: (String) -> Unit) {
-        val retrofit = RetrofitClient.getInstance(8080)
-        val service = retrofit.create(ServiceAccountManagement::class.java)
-
-        val call = service.getUsers(loggedInUser.token)
-
-        call.enqueue(object : Callback<List<User>> {
-            override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
-                if (response.isSuccessful) {
-                    val users = response.body()
-                    val user = users?.find { it.username == username }
-                    if (user != null) {
-                        val merchantId = user.id.toString()
-                        Log.d("PaymentOptionsActivity", "Fetched merchant ID: $merchantId")
-                        callback.invoke(merchantId)
-                    } else {
-                        showErrorDialog(username)
-                    }
-                } else {
-                    showErrorDialog(username)
-                }
-            }
-
-            override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                showErrorDialog(username)
-            }
-        })
     }
 
     private fun showErrorDialog(username: String) {
