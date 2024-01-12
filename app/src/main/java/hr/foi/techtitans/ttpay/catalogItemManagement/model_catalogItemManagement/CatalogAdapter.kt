@@ -58,7 +58,9 @@ class CatalogAdapter(
             intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("catalogId", catalog.id)
             intent.putExtra("selectedCatalog", catalog)
+            val updatedCatalog:String =""
             intent.putExtra("username", loggedInUser.username)
+            intent.putExtra("updatedCatalog", updatedCatalog)
             holder.itemView.context.startActivity(intent)
         }
     }

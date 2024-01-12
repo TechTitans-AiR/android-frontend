@@ -91,10 +91,20 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
-            val intent= Intent(this, AllCatalogsActivity::class.java)
-            intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("username", userUsername)
-            onBackPressed()
+            var updatedCatalog = intent.getStringExtra("updatedCatalog") ?: ""
+            if(updatedCatalog!=""){
+                val intent= Intent(this, AllCatalogsActivity::class.java)
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("username", userUsername)
+                startActivity(intent)
+            }
+            else{
+                val intent= Intent(this, AllCatalogsActivity::class.java)
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("username", userUsername)
+                onBackPressed()
+            }
+
         }
 
         fetchCatalogDetails()
@@ -104,7 +114,7 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
             intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("selectedCatalog", catalog)
             intent.putExtra("username", userUsername)
-            onBackPressed()
+            startActivity(intent)
         }
     }
 
