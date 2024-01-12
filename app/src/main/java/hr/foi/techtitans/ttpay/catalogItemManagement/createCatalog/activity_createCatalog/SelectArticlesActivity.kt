@@ -115,7 +115,7 @@ class SelectArticlesActivity : AppCompatActivity() {
                 intent.putExtra("catalogId", catalog?.id)
                 intent.putExtra("loggedInUser", loggedInUser)
                 intent.putExtra("username", userUsername)
-                startActivityForResult(intent, 123)
+                startActivity(intent)
                 finish()
             }
 

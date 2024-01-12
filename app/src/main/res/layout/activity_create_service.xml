@@ -47,204 +47,204 @@
         android:layout_above="@id/btnCreateNewService"
         android:layout_below="@id/textView_createService_title">
 
-    <!-- Linear Layouts for Service Properties -->
-    <LinearLayout
-        android:layout_marginStart="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:orientation="vertical">
-
-        <!-- Service Name -->
+        <!-- Linear Layouts for Service Properties -->
         <LinearLayout
+            android:layout_marginStart="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="20dp"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Service Name"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/editTextServiceName"
+            <!-- Service Name -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter service name"
-                android:textSize="18sp" />
-        </LinearLayout>
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical">
 
-        <!-- Description -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Service Name"
+                    android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Description"
-                android:textSize="18sp" />
+                <EditText
+                    android:id="@+id/editTextServiceName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter service name"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
-            <EditText
-                android:id="@+id/editTextDescription"
+            <!-- Description -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter description"
-                android:textSize="18sp" />
-        </LinearLayout>
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical">
 
-        <!-- ServiceProvider -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description"
+                    android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Service Provider"
-                android:textSize="18sp" />
+                <EditText
+                    android:id="@+id/editTextDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter description"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
-            <EditText
-                android:id="@+id/editTextServiceProvider"
+            <!-- ServiceProvider -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter service provider"
-                android:textSize="18sp" />
-        </LinearLayout>
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical">
 
-        <!-- Price -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Service Provider"
+                    android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Price"
-                android:textSize="18sp" />
+                <EditText
+                    android:id="@+id/editTextServiceProvider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter service provider"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
-            <EditText
-                android:id="@+id/editTextPrice"
+            <!-- Price -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:hint="Enter price"
-                android:textSize="18sp" />
-        </LinearLayout>
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical">
 
-        <!-- Currency -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price"
+                    android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Currency"
-                android:textSize="18sp" />
+                <EditText
+                    android:id="@+id/editTextPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:hint="Enter price"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
-            <Spinner
-                android:id="@+id/spinnerCurrency"
+            <!-- Currency -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"/>
-        </LinearLayout>
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical">
 
-        <!-- Duration -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Currency"
+                    android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Duration"
-                android:textSize="18sp" />
+                <Spinner
+                    android:id="@+id/spinnerCurrency"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"/>
+            </LinearLayout>
 
-            <EditText
-                android:id="@+id/editTextDuration"
+            <!-- Duration -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="Enter duration"
-                android:textSize="18sp" />
-        </LinearLayout>
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical">
 
-        <!-- DurationUnit -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Duration"
+                    android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Duration Unit"
-                android:textSize="18sp" />
+                <EditText
+                    android:id="@+id/editTextDuration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="Enter duration"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
-            <Spinner
-                android:id="@+id/spinnerDurationUnit"
+            <!-- DurationUnit -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"/>
-        </LinearLayout>
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical">
 
-        <!-- Availability -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Duration Unit"
+                    android:textSize="18sp" />
 
-            android:orientation="vertical">
+                <Spinner
+                    android:id="@+id/spinnerDurationUnit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"/>
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Availability"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/editTextAvailability"
+            <!-- Availability -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter availability"
-                android:textSize="18sp" />
-        </LinearLayout>
+                android:layout_marginBottom="15dp"
 
-        <!-- ServiceLocation -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:orientation="vertical">
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Service Location"
-                android:textSize="18sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Availability"
+                    android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/editTextServiceLocation"
+                <EditText
+                    android:id="@+id/editTextAvailability"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter availability"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <!-- ServiceLocation -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter service location"
-                android:textSize="18sp" />
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Service Location"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/editTextServiceLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter service location"
+                    android:textSize="18sp" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
     </ScrollView>
 
     <!-- Create New Service Button -->

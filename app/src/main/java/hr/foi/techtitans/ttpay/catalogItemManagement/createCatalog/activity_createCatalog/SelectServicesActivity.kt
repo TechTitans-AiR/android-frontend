@@ -117,7 +117,7 @@ class SelectServicesActivity : AppCompatActivity() {
                 intent.putExtra("loggedInUser", loggedInUser)
                 intent.putExtra("username", userUsername)
                 intent.putExtra("selectedCatalog", catalog)
-                startActivityForResult(intent, 123)
+                startActivity(intent)
                 finish()
             }else{
                 intent.putExtra("loggedInUser", loggedInUser)

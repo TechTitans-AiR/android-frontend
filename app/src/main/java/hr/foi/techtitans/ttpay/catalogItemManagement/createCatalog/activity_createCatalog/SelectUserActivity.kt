@@ -155,7 +155,7 @@ class SelectUserActivity : AppCompatActivity() {
                 intent.putExtra("listServices", ArrayList(listServices))
                 intent.putExtra("listUsers", ArrayList(listSelectedUsers))
                 Log.d("userlist", "Service: $listSelectedUsers")
-                startActivityForResult(intent, 123)
+                startActivity(intent)
                 finish()
             }
             else{

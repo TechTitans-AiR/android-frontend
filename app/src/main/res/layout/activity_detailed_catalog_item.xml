@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -40,147 +39,177 @@
 
     </LinearLayout>
 
-    <ProgressBar
-        android:id="@+id/loadingProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:layout_below="@id/ll_back_name"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="16dp"/>
-
-    <!-- Text Views in a Vertical Linear Layout -->
+    <!-- Image View and Loading ProgressBar -->
     <LinearLayout
+        android:id="@+id/linear_images"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/loadingProgressBar"
+        android:orientation="horizontal"
+        android:layout_below="@id/ll_back_name"
         android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp">
+        android:gravity="right">
 
-        <!-- Article TextView -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+        <!-- Image View -->
+        <ImageView
+            android:id="@+id/imageViewRefresh"
+            android:onClick="onRefreshIconClick"
+            android:src="@drawable/baseline_refresh"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+           android:layout_marginEnd="20dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Articles: "
-                android:textColor="@color/red"
-                android:textSize="18sp"/>
-
-            <TextView
-                android:id="@+id/textView_articles"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"/>
-        </LinearLayout>
-
-        <!-- Services TextView -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Services: "
-                android:textColor="@color/red"
-                android:textSize="18sp"/>
-
-            <TextView
-                android:id="@+id/textView_services"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"/>
-        </LinearLayout>
-
-        <!-- Users TextView -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Users: "
-                android:textColor="@color/red"
-                android:textSize="18sp"/>
-
-            <TextView
-                android:id="@+id/textView_users"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"/>
-        </LinearLayout>
-
-        <!-- Date Created TextView -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Date Created: "
-                android:textColor="@color/red"
-                android:textSize="18sp"/>
-
-            <TextView
-                android:id="@+id/textView_dateCreated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"/>
-        </LinearLayout>
-
-        <!-- Date Modified TextView -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Date Modified: "
-                android:textColor="@color/red"
-                android:textSize="18sp"/>
-
-            <TextView
-                android:id="@+id/textView_dateModified"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"/>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_editCatalog"
+        <!-- Loading ProgressBar -->
+        <ProgressBar
+            android:id="@+id/loadingProgressBar"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Edit catalog">
+            android:visibility="gone"
+            android:layout_marginStart="16dp"/>
 
-        </Button>
     </LinearLayout>
+
+    <!-- Scrollable Layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:fillViewport="true"
+        android:layout_above="@id/btn_editCatalog"
+        android:layout_below="@id/linear_images">
+
+        <!-- Text Views in a Vertical Linear Layout -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Articles:"
+                android:textColor="@color/red"
+                android:textSize="18sp"/>
+
+            <!-- Article RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewArticles"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Services:"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/red"
+                android:textSize="18sp"/>
+
+            <!-- Services RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewServices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"/>
+
+            <!-- Users TextView -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <!-- Users Label -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Users: "
+                    android:textColor="@color/red"
+                    android:textSize="18sp"/>
+
+                <!-- Users Value -->
+                <TextView
+                    android:id="@+id/textView_users"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+
+            <!-- Date Created TextView -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <!-- Date Created Label -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date Created: "
+                    android:textColor="@color/red"
+                    android:textSize="18sp"/>
+
+                <!-- Date Created Value -->
+                <TextView
+                    android:id="@+id/textView_dateCreated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+
+            <!-- Date Modified TextView -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <!-- Date Modified Label -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date Modified: "
+                    android:textColor="@color/red"
+                    android:textSize="18sp"/>
+
+                <!-- Date Modified Value -->
+                <TextView
+                    android:id="@+id/textView_dateModified"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Button Edit Catalog -->
+    <Button
+        android:id="@+id/btn_editCatalog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottomNavigationView"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="20dp"
+        android:text="Edit catalog"
+        android:textSize="18sp" />
 
     <!-- BottomNavigationView -->
     <include layout="@layout/bottom_navigation"
+        android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        />
 
 </RelativeLayout>

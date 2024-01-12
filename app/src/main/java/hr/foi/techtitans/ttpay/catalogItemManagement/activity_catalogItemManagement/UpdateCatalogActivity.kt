@@ -146,12 +146,12 @@ class UpdateCatalogActivity : AppCompatActivity() {
             //Create new catalog
             Log.d("updateCatalog Object: ", catalog.toString())
 
-            val editIntent=Intent(this, DetailedCatalogItemActivity::class.java)
-            editIntent.putExtra("catalogId", currentCatalog?.id)
-            editIntent.putExtra("loggedInUser", loggedInUser)
-            editIntent.putExtra("username", userUsername)
-            editIntent.putExtra("updatedCatalog", currentCatalog)
-            startActivityForResult(editIntent, 123)
+            val intent=Intent(this, DetailedCatalogItemActivity::class.java)
+            intent.putExtra("catalogId", currentCatalog?.id)
+            intent.putExtra("loggedInUser", loggedInUser)
+            intent.putExtra("username", userUsername)
+            intent.putExtra("updatedCatalog", currentCatalog)
+            startActivity(intent)
         }
     }
 
