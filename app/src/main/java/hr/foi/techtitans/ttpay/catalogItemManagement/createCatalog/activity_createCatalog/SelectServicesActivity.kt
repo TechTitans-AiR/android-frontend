@@ -86,7 +86,6 @@ class SelectServicesActivity : AppCompatActivity() {
         //for adapter Added service
         recyclerViewAddedServices.layoutManager = LinearLayoutManager(this)
         addedServiceAdapter = AddedServiceAdapter(listSelectedServices) { position ->
-           if(catalog==null){
                // Deleting the selected services from the list of services
                listSelectedServices.removeAt(position)
 
@@ -95,7 +94,6 @@ class SelectServicesActivity : AppCompatActivity() {
 
                //Snackbar message
                showSnackbar("The service is deleted from the list of services.")
-           }
 
         }
         recyclerViewAddedServices.adapter=addedServiceAdapter

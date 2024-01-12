@@ -107,12 +107,8 @@ class SelectUserActivity : AppCompatActivity() {
         imgBack.setOnClickListener {
 
             if(catalog!=null){
-                val intent=Intent(this, UpdateCatalogActivity::class.java)
                 intent.putExtra("selectedCatalog", catalog)
-                intent.putExtra("loggedInUser", loggedInUser)
-                intent.putExtra("username", userUsername)
-                startActivity(intent)
-                finish()
+
             }else{
                 val intent = Intent(this, SelectServicesActivity::class.java)
                 intent.putExtra("loggedInUser", loggedInUser)
@@ -149,21 +145,38 @@ class SelectUserActivity : AppCompatActivity() {
         //go to next activity
         continueButton = findViewById(R.id.btn_continue_see_data)
         continueButton.setOnClickListener {
-            val intent = Intent(this, CreateCatalogDataActivity::class.java)
-
-            if(catalog!=null){
+            if(catalog!=null) {
+                val intent = Intent(this, UpdateCatalogActivity::class.java)
                 intent.putExtra("selectedCatalog", catalog)
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("username", userUsername)
+
+                intent.putExtra("listArticles",ArrayList(listArticles))
+                intent.putExtra("listServices", ArrayList(listServices))
+                intent.putExtra("listUsers", ArrayList(listSelectedUsers))
+                Log.d("userlist", "Service: $listSelectedUsers")
+
+                startActivity(intent)
+                finish()
             }
-            intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("listArticles",ArrayList(listArticles))
-            intent.putExtra("listServices", ArrayList(listServices))
-            intent.putExtra("listUsers", ArrayList(listSelectedUsers))
-            Log.d("userlist", "Service: $listSelectedUsers")
+            else{
+                val intent = Intent(this, CreateCatalogDataActivity::class.java)
 
-            intent.putExtra("username", userUsername)
+                if(catalog!=null){
+                    intent.putExtra("selectedCatalog", catalog)
+                }
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("listArticles",ArrayList(listArticles))
+                intent.putExtra("listServices", ArrayList(listServices))
+                intent.putExtra("listUsers", ArrayList(listSelectedUsers))
+                Log.d("userlist", "Service: $listSelectedUsers")
 
-            startActivity(intent)
-            finish()
+                intent.putExtra("username", userUsername)
+
+                startActivity(intent)
+                finish()
+            }
+
         }
     }
 
