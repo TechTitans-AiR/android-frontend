@@ -72,8 +72,11 @@ class SelectServicesActivity : AppCompatActivity() {
         //for adapter Select service
         recyclerViewSelectServices.layoutManager = LinearLayoutManager(this)
         selectServiceAdapter = SelectServiceAdapter(emptyList()) { service ->
-            //Adding selected service to list
-            listSelectedServices.add(service)
+
+            // Checking if the selected item is already added
+            if(!listSelectedServices.contains(service)){
+                listSelectedServices.add(service)
+            }
 
             //Updating the display of added articles
             addedServiceAdapter.updateData(listSelectedServices)
@@ -111,12 +114,18 @@ class SelectServicesActivity : AppCompatActivity() {
         imgBack.setOnClickListener {
             val intent = Intent(this, SelectArticlesActivity::class.java)
             if(catalog!=null){
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("username", userUsername)
                 intent.putExtra("selectedCatalog", catalog)
+                startActivityForResult(intent, 123)
+                finish()
+            }else{
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("username", userUsername)
+                startActivity(intent)
+                finish()
             }
-            intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("username", userUsername)
-            startActivity(intent)
-            finish()
+
         }
 
         //get the list of the added articles
@@ -142,7 +151,7 @@ class SelectServicesActivity : AppCompatActivity() {
             intent.putExtra("selectedServices", ArrayList(listSelectedServices))
             intent.putExtra("selectedArticles", ArrayList(selectedArticles))
             intent.putExtra("username", userUsername)
-            startActivity(intent)
+            startActivityForResult(intent, 123)
             finish()
         }
     }

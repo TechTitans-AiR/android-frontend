@@ -50,13 +50,6 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detailed_catalog_item)
 
         btn_edit=findViewById(R.id.btn_editCatalog)
-
-        loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
-
-        catalog=intent.getParcelableExtra("selectedCatalog")
-        Log.d("Selected catalog: ", catalog.toString())
-
         progressBar = findViewById(R.id.loadingProgressBar)
         textViewCatalogName = findViewById(R.id.textView_catalogName)
         textViewArticles = findViewById(R.id.textView_articles)
@@ -65,9 +58,14 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         textViewDateCreated = findViewById(R.id.textView_dateCreated)
         textViewDateModified = findViewById(R.id.textView_dateModified)
 
+        showLoading()
+
         catalogId = intent.getStringExtra("catalogId") ?: ""
         Log.d("CatalogItemWithoutUserActivity", "Catalog id: $catalogId")
+        userUsername = intent.getStringExtra("username") ?: ""
 
+
+        loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
@@ -84,11 +82,24 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         }
 
         btn_edit.setOnClickListener{
-            val editIntent=Intent(this, SelectArticlesActivity::class.java)
-            editIntent.putExtra("loggedInUser", loggedInUser)
-            editIntent.putExtra("selectedCatalog", catalog)
-            editIntent.putExtra("username", userUsername)
-            startActivity(editIntent)
+                val editIntent = Intent(this, SelectArticlesActivity::class.java)
+                editIntent.putExtra("loggedInUser", loggedInUser)
+                editIntent.putExtra("selectedCatalog", catalog)
+                editIntent.putExtra("username", userUsername)
+                startActivityForResult(editIntent, 123)
+
+        }
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 123 && resultCode == RESULT_OK) {
+            // Check if the result is for the UpdateCatalogActivity
+            val updatedCatalog = data?.getParcelableExtra<Catalog>("updatedCatalog")
+            updatedCatalog?.let {
+                catalog = it // Update the catalog in DetailedCatalogItemActivity
+                updateUIWithCatalogDetails(it)
+            }
         }
     }
 
@@ -273,6 +284,11 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
                 null
             }
         }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        updateUIWithCatalogDetails(catalog!!)
     }
 
     private fun showLoading() {

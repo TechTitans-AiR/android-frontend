@@ -18,6 +18,7 @@ import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.UserAdapter
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.activity_createCatalog.SelectUserActivity
+import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.SelectUserAdapter
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.UpdateCatalog
 import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.Catalog
 import hr.foi.techtitans.ttpay.catalogItemManagement.network_catalogItemManagement.ServiceCatalogItemManagement
@@ -45,7 +46,7 @@ class UpdateCatalogActivity : AppCompatActivity() {
     //adapters
     private lateinit var articlesAdapter: ArticleAdapter
     private lateinit var servicesAdapter: ServiceAdapter
-    private lateinit var usersAdapter: UserAdapter
+    private lateinit var usersAdapter: SelectUserAdapter
 
     //lists of data for catalog
     private var listSelectedArticles= mutableListOf<Article>()
@@ -97,15 +98,15 @@ class UpdateCatalogActivity : AppCompatActivity() {
         Log.d("CreateCatalogDataActivity, services: ",listSelectedServices.toString())
         Log.d("CreateCatalogDataActivity, users: ",listSelectedUsers.toString())
 
-        articlesAdapter= ArticleAdapter(listSelectedArticles, loggedInUser)
-        servicesAdapter= ServiceAdapter(listSelectedServices, loggedInUser)
+        articlesAdapter= ArticleAdapter(listSelectedArticles, loggedInUser, false)
+        servicesAdapter= ServiceAdapter(listSelectedServices, loggedInUser, false)
 
         //get catalog name
         val catalogName=findViewById<EditText>(R.id.editText_nameOfCatalog)
 
         catalogName.hint=currentCatalog?.name.toString()
 
-        usersAdapter= UserAdapter(listSelectedUsers,onItemClick)
+        usersAdapter= SelectUserAdapter(listSelectedUsers, false){}
 
         // Connect adapters with ConcatAdapter--> for more than one adapter shown in one RecycleView
         val concatAdapter = ConcatAdapter(articlesAdapter, servicesAdapter, usersAdapter)
@@ -145,12 +146,12 @@ class UpdateCatalogActivity : AppCompatActivity() {
             //Create new catalog
             Log.d("updateCatalog Object: ", catalog.toString())
 
-            val intent = Intent(this, DetailedCatalogItemActivity::class.java)
-            intent.putExtra("catalogId", currentCatalog?.id)
-            intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("username", userUsername)
-            startActivity(intent)
-            finish()
+            val editIntent=Intent(this, DetailedCatalogItemActivity::class.java)
+            editIntent.putExtra("catalogId", currentCatalog?.id)
+            editIntent.putExtra("loggedInUser", loggedInUser)
+            editIntent.putExtra("username", userUsername)
+            editIntent.putExtra("updatedCatalog", currentCatalog)
+            startActivityForResult(editIntent, 123)
         }
     }
 
