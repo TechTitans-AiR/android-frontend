@@ -52,7 +52,6 @@ class PaymentOptionsActivity : AppCompatActivity() {
     private lateinit var btnCheckCashAmount: Button
     private lateinit var btnCheckValidateCardData: Button
 
-
     private lateinit var layoutCash: LinearLayout
     private lateinit var layoutCard: LinearLayout
 
