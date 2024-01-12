@@ -21,6 +21,8 @@ import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
+import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.AddedArticleAdapter
+import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.Catalog
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,6 +49,10 @@ class SelectServicesActivity : AppCompatActivity() {
     private lateinit var recyclerViewAddedServices: RecyclerView
 
     private var listSelectedServices = mutableListOf<Service>()
+
+    private var catalog: Catalog?= Catalog(null, "", "", "", "", null, null, false)
+
+    private  var currentCatalog: Catalog?= Catalog(null, "", "", "", "", null, null, false)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_services)
@@ -57,6 +63,44 @@ class SelectServicesActivity : AppCompatActivity() {
         //nav
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
+
+        catalog=intent.getParcelableExtra("selectedCatalog")
+        Log.d("SelectArticles - Selected catalog: ", catalog.toString())
+
+        currentCatalog=catalog
+
+        //for adapter Select service
+        recyclerViewSelectServices.layoutManager = LinearLayoutManager(this)
+        selectServiceAdapter = SelectServiceAdapter(emptyList()) { service ->
+
+            // Checking if the selected item is already added
+            if(!listSelectedServices.contains(service)){
+                listSelectedServices.add(service)
+            }
+
+            //Updating the display of added articles
+            addedServiceAdapter.updateData(listSelectedServices)
+
+            //Snackbar message
+            showSnackbar("The service is added to the list of services.")
+        }
+        recyclerViewSelectServices.adapter=selectServiceAdapter
+
+        //for adapter Added service
+        recyclerViewAddedServices.layoutManager = LinearLayoutManager(this)
+        addedServiceAdapter = AddedServiceAdapter(listSelectedServices) { position ->
+               // Deleting the selected services from the list of services
+               listSelectedServices.removeAt(position)
+
+               //Updating the display of added services
+               addedServiceAdapter.updateData(listSelectedServices)
+
+               //Snackbar message
+               showSnackbar("The service is deleted from the list of services.")
+
+        }
+        recyclerViewAddedServices.adapter=addedServiceAdapter
+
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, loggedInUser)
@@ -69,10 +113,19 @@ class SelectServicesActivity : AppCompatActivity() {
         imgBack = findViewById(R.id.back_back)
         imgBack.setOnClickListener {
             val intent = Intent(this, SelectArticlesActivity::class.java)
-            intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("username", userUsername)
-            startActivity(intent)
-            finish()
+            if(catalog!=null){
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("username", userUsername)
+                intent.putExtra("selectedCatalog", catalog)
+                startActivityForResult(intent, 123)
+                finish()
+            }else{
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("username", userUsername)
+                startActivity(intent)
+                finish()
+            }
+
         }
 
         //get the list of the added articles
@@ -85,56 +138,36 @@ class SelectServicesActivity : AppCompatActivity() {
         }
 
         //get all services
-        fetchServices();
-
-        //for adapter Select service
-        recyclerViewSelectServices.layoutManager = LinearLayoutManager(this)
-
-        selectServiceAdapter = SelectServiceAdapter(emptyList()) { service ->
-            // Checking if the selected item is already added
-            if(!listSelectedServices.contains(service)) {
-            listSelectedServices.add(service)
-
-            //Updating the display of added articles
-            addedServiceAdapter.updateData(listSelectedServices)
-
-            showSnackbar("The service is added to the list of services.")
-            } else {
-                // If the service is already added
-                showSnackbar("The service is already added to the list of services.")
-            }
-        }
-
-        //for adapter Added service
-        recyclerViewAddedServices.layoutManager = LinearLayoutManager(this)
-        addedServiceAdapter = AddedServiceAdapter(listSelectedServices) { position ->
-            // Deleting the selected article from the list of articles
-            listSelectedServices.removeAt(position)
-
-            //Updating the display of added articles
-            addedServiceAdapter.updateData(listSelectedServices)
-
-            //Snackbar message
-            showSnackbar("The service is deleted from the list of services.")
-        }
-
-        recyclerViewSelectServices.adapter=selectServiceAdapter
-        recyclerViewAddedServices.adapter=addedServiceAdapter
+        fetchServices()
 
         //continue to select user
         continueButton = findViewById(R.id.btn_continue_select_user)
         continueButton.setOnClickListener {
             val intent = Intent(this, SelectUserActivity::class.java)
-
+            if(catalog!=null){
+                intent.putExtra("selectedCatalog", catalog)
+            }
             intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("selectedServices", ArrayList(listSelectedServices))
             intent.putExtra("selectedArticles", ArrayList(selectedArticles))
             intent.putExtra("username", userUsername)
-            startActivity(intent)
+            startActivityForResult(intent, 123)
             finish()
         }
     }
+    private fun initAddedServiceAdapter() {
+        addedServiceAdapter = AddedServiceAdapter(listSelectedServices) { position ->
+            // Deleting the selected services from the list of services
+            listSelectedServices.removeAt(position)
 
+            //Updating the display of added services
+            addedServiceAdapter.updateData(listSelectedServices)
+
+            //Snackbar message
+            showSnackbar("The services is deleted from the list of services.")
+        }
+        recyclerViewAddedServices.adapter = addedServiceAdapter
+    }
     private fun showLoading() {
         progressBar.visibility = View.VISIBLE
     }
@@ -157,7 +190,14 @@ class SelectServicesActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val listService = response.body() ?: emptyList()
                     Log.d("Lista servisa: ", ArrayList(listService).toString())
-                    selectServiceAdapter.updateData(listService)
+
+                    if(catalog!=null){
+                        handleAllServices(listService)
+                    }else{
+                        selectServiceAdapter.updateData(listService)
+                    }
+                    Log.d("RecyclerView Size", recyclerViewSelectServices.adapter?.itemCount.toString())
+
                 } else {
                     showErrorDialog()
                 }
@@ -169,6 +209,22 @@ class SelectServicesActivity : AppCompatActivity() {
             }
         })
     }
+
+    private fun handleAllServices(allServices: List<Service>) {
+        val selectedServices = allServices.filter { service ->
+            currentCatalog?.services?.contains(service.id) == true
+        }
+        Log.d("selectedServices.filter",selectedServices.toString())
+
+        listSelectedServices=selectedServices.toMutableList()
+        addedServiceAdapter.updateData(selectedServices)
+        selectServiceAdapter?.updateData(allServices.filterNot{selectedServices.contains(it)})
+
+        if (recyclerViewAddedServices.adapter == null) {
+            initAddedServiceAdapter()
+        }
+    }
+
     private fun showErrorDialog() {
         val builder = AlertDialog.Builder(this)
 

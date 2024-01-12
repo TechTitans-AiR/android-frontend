@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="hr.foi.techtitans.ttpay">
+    package="hr.foi.techtitans.ttpay" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -16,11 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TTPay"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31">
+        tools:targetApi="31" >
+
+        <activity
+            android:name=".catalogItemManagement.activity_catalogItemManagement.UpdateCatalogActivity"
+            android:exported="false" />
         <activity
             android:name=".products.activity_products.CreateServiceActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".login_modular.activity_login.LoginUsernamePassword"
             android:exported="false" />
@@ -123,7 +127,7 @@
             android:exported="false" />
         <activity
             android:name=".navigationBar.activity_navigationBar.MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

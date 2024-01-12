@@ -1,5 +1,6 @@
 package hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,12 +26,15 @@ class AddedArticleAdapter(
         return ArticleViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        val article = articles[position]
-        holder.txtViewName.text = article.name
 
-        holder.btnDelete.setOnClickListener {
-            onDeleteClick(position)
+    override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
+        if (position in 0 until articles.size) {
+            val article = articles[position]
+            holder.txtViewName.text = article.name
+
+            holder.btnDelete.setOnClickListener {
+                onDeleteClick(position)
+            }
         }
     }
 
@@ -40,7 +44,14 @@ class AddedArticleAdapter(
 
     // Update data in adapter
     fun updateData(newArticles: List<Article>) {
+        Log.d("AddedArticleAdapter", "Updating data. New size: ${newArticles.size}")
+
         articles = newArticles
         notifyDataSetChanged()
+
+        Log.d("AddedArticleAdapter", "Data updated. New size: ${articles.size}")
     }
+
+
+
 }

@@ -22,6 +22,9 @@ import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
+import hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.UpdateCatalogActivity
+import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.AddedServiceAdapter
+import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.Catalog
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
@@ -49,13 +52,48 @@ class SelectUserActivity : AppCompatActivity() {
     private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
 
+    private var catalog: Catalog?= Catalog(null, "", "", "", "", null, null, false)
+
+    private  var currentCatalog: Catalog?= Catalog(null, "", "", "", "", null, null, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_user)
 
+        //initializing recycler view
+        recyclerViewSelectUser = findViewById(R.id.recyclerView_select_users)
+        recycleViewAddedUser = findViewById(R.id.recyclerView_added_users)
+
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
+
+        catalog=intent.getParcelableExtra("selectedCatalog")
+        Log.d("SelectArticles - Selected catalog: ", catalog.toString())
+
+        currentCatalog=catalog
+
+        //for adapter Select user
+        recyclerViewSelectUser.layoutManager = LinearLayoutManager(this)
+        selectUserAdapter = SelectUserAdapter(emptyList()) { user ->
+            //Adding selected service to list
+            listSelectedUsers.add(user)
+            addedUserAdapter.updateData(listSelectedUsers)
+
+            //Snackbar message
+            showSnackbar("The user is added to the list of users.")
+        }
+        recyclerViewSelectUser.adapter = selectUserAdapter
+
+        recycleViewAddedUser.layoutManager = LinearLayoutManager(this)
+        addedUserAdapter = AddedUserAdapter(emptyList()) { position ->
+            // Remove selected user from the list
+            listSelectedUsers.removeAt(position)
+            addedUserAdapter.updateData(listSelectedUsers)
+
+            //Snackbar message
+            showSnackbar("The user is deleted from the list of users.")
+        }
+        recycleViewAddedUser.adapter = addedUserAdapter
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, loggedInUser)
@@ -67,11 +105,18 @@ class SelectUserActivity : AppCompatActivity() {
         //btn back
         imgBack = findViewById(R.id.back_back)
         imgBack.setOnClickListener {
-            val intent = Intent(this, SelectServicesActivity::class.java)
-            intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("username", userUsername)
-            startActivity(intent)
-            finish()
+
+            if(catalog!=null){
+                intent.putExtra("selectedCatalog", catalog)
+
+            }else{
+                val intent = Intent(this, SelectServicesActivity::class.java)
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("username", userUsername)
+                startActivity(intent)
+                finish()
+            }
+
         }
 
         //get the list of the added articles
@@ -97,56 +142,58 @@ class SelectUserActivity : AppCompatActivity() {
         //fetch merchants
         fetchMerchants()
 
-        //initializing recycler view
-        recyclerViewSelectUser = findViewById(R.id.recyclerView_select_users)
-        recycleViewAddedUser = findViewById(R.id.recyclerView_added_users)
-
-        //for adapter Select user
-        recyclerViewSelectUser.layoutManager = LinearLayoutManager(this)
-        selectUserAdapter = SelectUserAdapter(emptyList(), true) { user ->
-            // Checking if the selected item is already added
-            if(!listSelectedUsers.contains(user)) {
-            //Adding selected service to list
-            listSelectedUsers.add(user)
-            addedUserAdapter.updateData(listSelectedUsers)
-
-                showSnackbar("The user is added to the list of users.")
-            } else {
-                // If the user is already added
-                showSnackbar("The user is already added to the list of users.")
-            }
-        }
-
-        recycleViewAddedUser.layoutManager = LinearLayoutManager(this)
-        addedUserAdapter = AddedUserAdapter(emptyList()) { position ->
-            // Remove selected user from the list
-            listSelectedUsers.removeAt(position)
-            addedUserAdapter.updateData(listSelectedUsers)
-
-            //Snackbar message
-            showSnackbar("The user is deleted from the list of users.")
-        }
-
-        recyclerViewSelectUser.adapter = selectUserAdapter
-        recycleViewAddedUser.adapter = addedUserAdapter
-
         //go to next activity
         continueButton = findViewById(R.id.btn_continue_see_data)
         continueButton.setOnClickListener {
-            val intent = Intent(this, CreateCatalogDataActivity::class.java)
+            if(catalog!=null) {
+                val intent = Intent(this, UpdateCatalogActivity::class.java)
+                intent.putExtra("selectedCatalog", catalog)
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("username", userUsername)
 
-            intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("listArticles",ArrayList(listArticles))
-            intent.putExtra("listServices", ArrayList(listServices))
-            intent.putExtra("listUsers", ArrayList(listSelectedUsers))
-            Log.d("userlist", "Service: $listSelectedUsers")
+                intent.putExtra("listArticles",ArrayList(listArticles))
+                intent.putExtra("listServices", ArrayList(listServices))
+                intent.putExtra("listUsers", ArrayList(listSelectedUsers))
+                Log.d("userlist", "Service: $listSelectedUsers")
+                startActivityForResult(intent, 123)
+                finish()
+            }
+            else{
+                val intent = Intent(this, CreateCatalogDataActivity::class.java)
 
-            intent.putExtra("username", userUsername)
+                if(catalog!=null){
+                    intent.putExtra("selectedCatalog", catalog)
+                }
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("listArticles",ArrayList(listArticles))
+                intent.putExtra("listServices", ArrayList(listServices))
+                intent.putExtra("listUsers", ArrayList(listSelectedUsers))
+                Log.d("userlist", "Service: $listSelectedUsers")
 
-            startActivity(intent)
-            finish()
+                intent.putExtra("username", userUsername)
+
+                startActivity(intent)
+                finish()
+            }
+
         }
     }
+
+    private fun initAddedUsersAdapter() {
+        addedUserAdapter = AddedUserAdapter(listSelectedUsers) { position ->
+            // Deleting the selected users from the list of users
+            listSelectedUsers.removeAt(position)
+
+            //Updating the display of added users
+            addedUserAdapter.updateData(listSelectedUsers)
+
+            //Snackbar message
+            showSnackbar("The services is deleted from the list of services.")
+        }
+        recycleViewAddedUser.adapter = addedUserAdapter
+    }
+
+
     private fun fetchMerchants() {
         showLoading()
         val retrofit = RetrofitClient.getInstance(8080)//za account_management
@@ -159,8 +206,15 @@ class SelectUserActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val users = response.body() ?: emptyList()
                     Log.d("AllMerchantsActivity", "Users fetched successfully: $users")
-                    //update data in adapter
-                    selectUserAdapter.updateData(users)
+
+                    if(catalog!=null){
+                        handleAllUsers(users)
+                    }else{
+                        //update data in adapter
+                        selectUserAdapter.updateData(users)
+                    }
+                    Log.d("RecyclerView Size", recyclerViewSelectUser.adapter?.itemCount.toString())
+
                 } else {
                     showErrorDialog()
                 }
@@ -172,6 +226,22 @@ class SelectUserActivity : AppCompatActivity() {
             }
         })
     }
+
+    private fun handleAllUsers(allUsers: List<User>) {
+        val selectedUsers = allUsers.filter { user ->
+            currentCatalog?.users?.contains(user.id.toString()) == true
+        }
+        Log.d("selectedUsers.filter",selectedUsers.toString())
+
+        listSelectedUsers=selectedUsers.toMutableList()
+        addedUserAdapter.updateData(selectedUsers)
+        selectUserAdapter?.updateData(allUsers.filterNot{selectedUsers.contains(it)})
+
+        if (recyclerViewSelectUser.adapter == null) {
+            initAddedUsersAdapter()
+        }
+    }
+
     private fun showLoading() {
         progressBar.visibility = View.VISIBLE
     }

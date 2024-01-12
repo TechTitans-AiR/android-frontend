@@ -61,7 +61,7 @@ class CatalogItemActivity : AppCompatActivity() {
             emptyList(),
             { catalog -> val intent = Intent(this, DetailedCatalogItemActivity::class.java)
                 intent.putExtra("loggedInUser", loggedInUser)
-                intent.putExtra("catalogId", catalog.id)
+                intent.putExtra("catalog", catalog.id)
                 intent.putExtra("username", userUsername)
                 startActivity(intent) },
             loggedInUser
