@@ -225,6 +225,37 @@ class PaymentOptionsActivity : AppCompatActivity() {
         })
     }
 
+    private fun sendTransactionCardToBackend(newTransaction: NewTransaction) {
+        val retrofit = RetrofitClient.getInstance(8082)
+        val service = retrofit.create(ServiceTransactionManagement::class.java)
+
+        val call = service.createTransactionCard(newTransaction)
+
+        call.enqueue(object : Callback<NewTransaction> {
+            override fun onResponse(
+                call: Call<NewTransaction>,
+                response: Response<NewTransaction>
+            ) {
+                if (response.isSuccessful) {
+                    val newTransactionResponse = response.body()
+                    if (newTransactionResponse != null) {
+                        handleTransactionCreationSuccess(newTransactionResponse, 0.0) // Assuming 0.0 for cashAmount for card transactions
+                        Log.d("PaymentOptionsActivity", "Transaction created successfully.")
+                    }
+                } else {
+                    Log.e("PaymentOptionsActivity", "Error creating transaction. Code: ${response.code()}")
+
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("PaymentOptionsActivity", "Error Body: $errorBody")
+                }
+            }
+
+            override fun onFailure(call: Call<NewTransaction>, t: Throwable) {
+                Log.d("PaymentOptionsActivity", "Communication error with backend.")
+            }
+        })
+    }
+
     private fun handleTransactionCreationSuccess(newTransaction: NewTransaction, cashAmount: Double) {
         Log.d("PaymentOptionsActivity", "Cash Amount: $cashAmount")
         Log.d("PaymentOptionsActivity", "Total Amount: $totalAmount")
