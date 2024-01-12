@@ -552,6 +552,9 @@ class AllCatalogsActivity : AppCompatActivity() {
             }
         }
     }
-    fun onDeleteSearchIconClick(view: View) {}
+    fun onDeleteSearchIconClick(view: View) {
+        fetchCatalogs()
+        removeSearch.visibility=View.GONE
+    }
 
 }
