@@ -99,23 +99,39 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             else{
-                val intent= Intent(this, AllCatalogsActivity::class.java)
-                intent.putExtra("loggedInUser", loggedInUser)
-                intent.putExtra("username", userUsername)
-                onBackPressed()
+                if(loggedInUser.role=="merchant"){
+                    val intent= Intent(this, AllCatalogsMerchantActivity::class.java)
+                    intent.putExtra("loggedInUser", loggedInUser)
+                    intent.putExtra("username", userUsername)
+                    onBackPressed()
+                }else{
+                    val intent= Intent(this, AllCatalogsActivity::class.java)
+                    intent.putExtra("loggedInUser", loggedInUser)
+                    intent.putExtra("username", userUsername)
+                    onBackPressed()
+                }
+
             }
 
         }
 
         fetchCatalogDetails()
 
-        btn_edit.setOnClickListener{
-            val intent = Intent(this, SelectArticlesActivity::class.java)
-            intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("selectedCatalog", catalog)
-            intent.putExtra("username", userUsername)
-            startActivity(intent)
+        if(loggedInUser.role=="merchant"){
+            btn_edit.visibility=View.GONE
+            btnRefresh.visibility=View.GONE
+        }else{
+            btn_edit.visibility=View.VISIBLE
+            btn_edit.setOnClickListener{
+                val intent = Intent(this, SelectArticlesActivity::class.java)
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("selectedCatalog", catalog)
+                intent.putExtra("username", userUsername)
+                startActivity(intent)
+            }
         }
+
+
     }
 
     private fun initializeRecyclerView(recyclerView: RecyclerView) {
