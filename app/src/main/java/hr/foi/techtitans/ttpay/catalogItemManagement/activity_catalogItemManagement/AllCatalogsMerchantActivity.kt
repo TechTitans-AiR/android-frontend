@@ -135,9 +135,6 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    fun onDeleteSearchIconMerchantClick(view: View) {
-
-    }
     fun onSearchCatalogIconMerchantClick(view: View) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_search_catalogs_merchant, null)
 
@@ -430,5 +427,9 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         }
     }
 
+    fun onDeleteSearchIconMerchantClick(view: View) {
+        fetchUserCatalogs(loggedInUser.userId)
+        removeSearch.visibility=View.GONE
+    }
 
 }
