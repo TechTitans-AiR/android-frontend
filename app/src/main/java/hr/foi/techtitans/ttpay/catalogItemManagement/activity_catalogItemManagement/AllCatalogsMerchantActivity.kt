@@ -23,6 +23,7 @@ import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHomeActivity
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.gson.Gson
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.products.model_products.Article
 import hr.foi.techtitans.ttpay.products.model_products.Service
@@ -41,7 +42,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
     private lateinit var userId: String
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: MerchantCatalogAdapter
+    private lateinit var catalogMerchantAdapter: MerchantCatalogAdapter
 
     private lateinit var removeSearch: ImageView
 
@@ -63,15 +64,10 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         removeSearch = findViewById(R.id.img_delete_search_icon)
 
 
-        adapter = MerchantCatalogAdapter(emptyList()) { catalog ->
-            val intent = Intent(this, DetailedCatalogItemActivity::class.java)
-            intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("catalogId", catalog.id)
-            startActivity(intent)
-        }
+        catalogMerchantAdapter = MerchantCatalogAdapter(emptyList(), loggedInUser)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
+        recyclerView.adapter = catalogMerchantAdapter
 
         fetchUserCatalogs(loggedInUser.userId)
 
@@ -100,7 +96,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
                     if (catalogs != null) {
                         // Filter catalogs by the disabled property (disable = false)
                         val activeCatalogs = catalogs.filter { !it.disabled }
-                        adapter.updateData(activeCatalogs)
+                        catalogMerchantAdapter.updateData(activeCatalogs)
                     }
                 } else {
                     showErrorDialog()
@@ -138,7 +134,9 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    fun onDeleteSearchIconMerchantClick(view: View) {}
+    fun onDeleteSearchIconMerchantClick(view: View) {
+
+    }
     fun onSearchCatalogIconMerchantClick(view: View) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_search_catalogs_merchant, null)
 
@@ -186,14 +184,6 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
-    private fun performSearchAndUpdateRecyclerView(
-        name: String,
-        articleSpinner: String,
-        serviceSpinner: String,
-        progressBarDialog: Any
-    ) {
-
-    }
 
     private fun fetchServicesForSpinner(spinnerServices: Spinner, progressBarDialog: ProgressBar) {
         progressBarDialog.visibility = View.VISIBLE
@@ -209,7 +199,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
 
                     if (response.isSuccessful) {
                         val services = response.body() ?: emptyList()
-                        Log.d("AllCatalogsActivity", "Services fetched successfully: $services")
+                        Log.d("AllCatalogsMerchantActivity", "Services fetched successfully: $services")
                         // Add empty string at the begging of the list
 
                         val serviceList = mutableListOf<String>("Services")
@@ -258,7 +248,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
 
                     if (response.isSuccessful) {
                         val articles = response.body() ?: emptyList()
-                        Log.d("AllCatalogsActivity", "Articles fetched successfully: $articles")
+                        Log.d("AllCatalogsMerchantActivity", "Articles fetched successfully: $articles")
                         // Add empty string at the begging of the list
 
                         val articleList = mutableListOf<String>("Articles")
@@ -292,6 +282,145 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+    private fun getArticleIdFromMerchantName(articleName: String, callback: (String) -> Unit) {
+        val retrofit = RetrofitClient.getInstance(8081)
+        val service = retrofit.create(ServiceProducts::class.java)
+
+        val call = service.getArticlesForMerchant(loggedInUser.token, loggedInUser.userId)
+
+        call.enqueue(object : Callback<List<Article>> {
+            override fun onResponse(call: Call<List<Article>>, response: Response<List<Article>>) {
+                try {
+                    if (response.isSuccessful) {
+                        val articles = response.body() ?: emptyList()
+                        for (article in articles) {
+                            val nameArticle = article.name
+                            if (nameArticle == articleName) {
+                                callback.invoke(
+                                    article.id ?: ""
+                                )
+                                return
+                            }
+                        }
+                    } else {
+                        Log.e("AllCatalogsMerchantActivity", "Error response: ${response.code()}")
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Log.e("AllCatalogsMerchantActivity", "Exception: ${e.message}")
+                }
+                // If id is not found, return an empty string
+                callback.invoke("")
+            }
+
+            override fun onFailure(call: Call<List<Article>>, t: Throwable) {
+                Log.e("AllCatalogsMerchantActivity", "Failure: ${t.message}")
+                callback.invoke("")
+            }
+        })
+    }
+    private fun getServiceIdFromMerchantName(serviceName: String, callback: (String) -> Unit) {
+        val retrofit = RetrofitClient.getInstance(8081)
+        val service = retrofit.create(ServiceProducts::class.java)
+
+        val call = service.getServicesForMerchant(loggedInUser.token, loggedInUser.userId)
+
+        call.enqueue(object : Callback<List<Service>> {
+            override fun onResponse(call: Call<List<Service>>, response: Response<List<Service>>) {
+                try {
+                    if (response.isSuccessful) {
+                        val services = response.body() ?: emptyList()
+                        for (service in services) {
+                            val nameUser = service.serviceName
+                            if (nameUser == serviceName) {
+                                callback.invoke(
+                                    service.id ?: ""
+                                )
+                                return
+                            }
+                        }
+                    } else {
+                        Log.e("AllCatalogsMerchantActivity", "Error response: ${response.code()}")
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Log.e("AllCatalogsMerchantActivity", "Exception: ${e.message}")
+                }
+                // If  id is not found, return an empty string
+                callback.invoke("")
+            }
+
+            override fun onFailure(call: Call<List<Service>>, t: Throwable) {
+                Log.e("AllCatalogsMerchantActivity", "Failure: ${t.message}")
+                callback.invoke("")
+            }
+        })
+    }
+
+    private fun performSearchAndUpdateRecyclerView(name: String, articleSpinner: String, serviceSpinner: String, progressBarDialog: ProgressBar) {
+        progressBarDialog.visibility = View.VISIBLE
+        progressBar.visibility = View.VISIBLE
+
+        var serviceId: String = ""
+        var articleId: String = ""
+
+        getServiceIdFromMerchantName(serviceSpinner) { fetchedService ->
+            if (serviceSpinner == "Services") {
+                serviceId = ""
+            } else {
+                serviceId = fetchedService
+            }
+
+            getArticleIdFromMerchantName(articleSpinner) { fetchedArticle ->
+                if (articleSpinner == "Articles") {
+                    articleId = ""
+                } else {
+                    articleId = fetchedArticle
+                }
+                progressBarDialog.visibility = View.GONE
+
+
+                // Rest of your code for the API call
+                val retrofit = RetrofitClient.getInstance(8081)
+                val service = retrofit.create(ServiceCatalogItemManagement::class.java)
+
+                val searchParams = mutableMapOf<String, String>().apply {
+                    if (name.isNotEmpty()) put("name", name)
+                    if (serviceId.isNotEmpty()) put("service", serviceId)
+                    if (articleId.isNotEmpty()) put("article", articleId)
+                }
+                Log.d( "Name: ", name)
+                Log.d( "serviceId: ", serviceId)
+                Log.d( "articleId: ", articleId)
+
+                val call = service.searchCatalogs(searchParams)
+
+                // Log the JSON being sent for search
+                Log.d("AllCatalogsMerchantActivity", "Search JSON: ${Gson().toJson(searchParams)}")
+
+                call.enqueue(object : Callback<List<Catalog>> {
+                    override fun onResponse(call: Call<List<Catalog>>, response: Response<List<Catalog>>) {
+                        progressBar.visibility = View.GONE
+                        if (response.isSuccessful) {
+                            Log.d("response onResponse AllCatalogs:", response.body().toString())
+
+                            val catalogs = response.body() ?: emptyList()
+                            Log.d("AllCatalogsMerchantActivity", "Search results: $catalogs")
+                            catalogMerchantAdapter.updateData(catalogs)
+                        } else {
+                            showErrorDialog()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<List<Catalog>>, t: Throwable) {
+                        progressBarDialog.visibility = View.GONE
+                        progressBar.visibility = View.GONE
+                        showErrorDialog()
+                    }
+                })
+            }
+        }
     }
 
 
