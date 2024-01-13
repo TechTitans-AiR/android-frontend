@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -362,6 +363,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         progressBarDialog.visibility = View.VISIBLE
         progressBar.visibility = View.VISIBLE
 
+        var merchantId: String = ""
         var serviceId: String = ""
         var articleId: String = ""
 
@@ -390,7 +392,11 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
                     if (serviceId.isNotEmpty()) put("service", serviceId)
                     if (articleId.isNotEmpty()) put("article", articleId)
                 }
+
+                searchParams["user"] = loggedInUser.userId
+
                 Log.d( "Name: ", name)
+                Log.d( "merchantId: ", merchantId)
                 Log.d( "serviceId: ", serviceId)
                 Log.d( "articleId: ", articleId)
 
@@ -404,10 +410,11 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
                         progressBar.visibility = View.GONE
                         if (response.isSuccessful) {
                             Log.d("response onResponse AllCatalogs:", response.body().toString())
-
                             val catalogs = response.body() ?: emptyList()
+
                             Log.d("AllCatalogsMerchantActivity", "Search results: $catalogs")
                             catalogMerchantAdapter.updateData(catalogs)
+
                         } else {
                             showErrorDialog()
                         }
