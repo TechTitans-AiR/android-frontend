@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
 import hr.foi.techtitans.ttpay.R
@@ -17,6 +18,7 @@ import hr.foi.techtitans.ttpay.core.LoginOutcomeListener
 import hr.foi.techtitans.ttpay.login_UsernamePassword.UsernamePasswordLoginHandler
 import hr.foi.techtitans.ttpay.login_UsernamePassword.UsernamePasswordLoginToken
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
+import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MainActivity
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHomeActivity
 import org.json.JSONObject
 
@@ -28,6 +30,7 @@ class LoginUsernamePassword : AppCompatActivity(), LoginOutcomeListener {
     private lateinit var loginButton: Button
     private lateinit var progressBar: ProgressBar
 
+    private lateinit var btnBack:ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +40,13 @@ class LoginUsernamePassword : AppCompatActivity(), LoginOutcomeListener {
         passwordEditText = findViewById(R.id.editTextPassword)
         loginButton = findViewById(R.id.btn_login_login_activity)
 
+        btnBack=findViewById(R.id.btnBack)
+
+        btnBack.setOnClickListener{
+            val main= Intent(this, MainActivity::class.java)
+            startActivity(main)
+            finish()
+        }
 
 
         loginButton.setOnClickListener {
