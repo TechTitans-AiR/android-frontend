@@ -91,5 +91,15 @@ interface ServiceProducts {
         @Path("userId") userId: String?
     ): Call<List<Service>>
 
+    @GET("/api/v1/services/user/{userId}")
+    fun getServicesForMerchant(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String?
+    ): Call<List<Service>>
 
+    @GET("/api/v1/articles/user/{userId}")
+    fun getArticlesForMerchant(
+        @Header("Authorization") token: String,
+        @Path("userId") userId: String?
+    ): Call<List<Article>>
 }
