@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.login_modular.activity_login.LoginUsernamePassword
+import hr.foi.techtitans.ttpay.login_modular.activity_login.LoginWithPIN
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,7 +27,9 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         loginButtonFingertip.setOnClickListener{
-            //TODO: intent for activity for fingertip
+            val loginIntent = Intent(this, LoginWithPIN::class.java)
+            startActivity(loginIntent)
+            finish()
         }
     }
 }
