@@ -29,12 +29,40 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
+    <RelativeLayout
+        android:id="@+id/rl_plus_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_all_catalogs_merchant_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp">
+        <ImageView
+            android:id="@+id/img_search_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="60dp"
+            android:onClick="onSearchCatalogIconMerchantClick"
+            android:src="@drawable/baseline_search" />
+
+        <ImageView
+            android:id="@+id/img_delete_search_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="110dp"
+            android:onClick="onDeleteSearchIconMerchantClick"
+            android:visibility="gone"
+            android:src="@drawable/baseline_search_off" />
+
+</RelativeLayout>
+
     <!-- Message above RecyclerView -->
     <TextView
         android:id="@+id/tv_catalog_select"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_all_catalogs_merchant_title"
+        android:layout_below="@id/rl_plus_icon"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:text="Select the catalog you want to see"

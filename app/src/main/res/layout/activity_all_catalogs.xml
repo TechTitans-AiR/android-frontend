@@ -46,6 +46,24 @@
             android:layout_marginEnd="10dp"
             android:onClick="onPlusCatalogIconClick"
             android:src="@drawable/add_circle" />
+        <ImageView
+            android:id="@+id/img_search_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="60dp"
+            android:onClick="onSearchCatalogIconClick"
+            android:src="@drawable/baseline_search" />
+
+        <ImageView
+            android:id="@+id/img_delete_search_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="110dp"
+            android:onClick="onDeleteSearchIconClick"
+            android:visibility="gone"
+            android:src="@drawable/baseline_search_off" />
 
     </RelativeLayout>
 

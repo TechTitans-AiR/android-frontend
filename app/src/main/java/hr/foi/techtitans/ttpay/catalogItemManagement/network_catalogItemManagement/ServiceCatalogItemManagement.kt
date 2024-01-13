@@ -3,6 +3,7 @@ package hr.foi.techtitans.ttpay.catalogItemManagement.network_catalogItemManagem
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.NewCatalog
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.UpdateCatalog
 import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.Catalog
+import hr.foi.techtitans.ttpay.transactions.model_transactions.Transaction
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -54,4 +55,7 @@ interface ServiceCatalogItemManagement {
         @Path("catalogId") catalogId: String,
         @Body updateCatalogData:UpdateCatalog
     ):Call<ResponseBody>
+
+    @POST("/api/v1/catalogs/search")
+    fun searchCatalogs(@Body searchParams: Map<String, String>): Call<List<Catalog>>
 }

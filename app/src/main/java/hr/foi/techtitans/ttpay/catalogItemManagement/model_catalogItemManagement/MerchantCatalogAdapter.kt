@@ -1,22 +1,27 @@
 package hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import hr.foi.techtitans.ttpay.R
+import hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.DetailedCatalogItemActivity
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 
 
 class MerchantCatalogAdapter (
     private var catalogs: List<Catalog>,
-    private val onItemClick: (Catalog) -> Unit
+    private val loggedInUser: LoggedInUser
 ) :
     RecyclerView.Adapter<MerchantCatalogAdapter.CatalogViewHolder>() {
 
     class CatalogViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtViewCatalogName: TextView = itemView.findViewById(R.id.textViewCatalogName)
+        val imgViewEye: ImageView = itemView.findViewById(R.id.imgView_eye_itemCatalogMerchant)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatalogViewHolder {
@@ -29,9 +34,17 @@ class MerchantCatalogAdapter (
         val catalog = catalogs[position]
         holder.txtViewCatalogName.text = catalog.name
 
-        holder.itemView.setOnClickListener {
-            onItemClick(catalog)
+        holder.imgViewEye.setOnClickListener {
+            val intent = Intent(holder.itemView.context, DetailedCatalogItemActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
+            intent.putExtra("catalogId", catalog.id)
+            intent.putExtra("selectedCatalog", catalog)
+            val updatedCatalog:String =""
+            intent.putExtra("username", loggedInUser.username)
+            intent.putExtra("updatedCatalog", updatedCatalog)
+            holder.itemView.context.startActivity(intent)
         }
+
     }
 
     override fun getItemCount(): Int {

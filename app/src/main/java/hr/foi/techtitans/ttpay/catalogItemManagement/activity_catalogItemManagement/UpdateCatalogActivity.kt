@@ -150,7 +150,7 @@ class UpdateCatalogActivity : AppCompatActivity() {
             intent.putExtra("catalogId", currentCatalog?.id)
             intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
-            intent.putExtra("updatedCatalog", currentCatalog)
+            intent.putExtra("updatedCatalog", currentCatalog?.id.toString())
             startActivity(intent)
         }
     }

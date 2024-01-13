@@ -1,15 +1,18 @@
 package hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import hr.foi.techtitans.ttpay.R
+import hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.DetailedCatalogItemActivity
 import hr.foi.techtitans.ttpay.catalogItemManagement.network_catalogItemManagement.ServiceCatalogItemManagement
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.network.RetrofitClient
@@ -28,6 +31,7 @@ class CatalogAdapter(
 
     class CatalogViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtViewCatalogName: TextView = itemView.findViewById(R.id.textViewCatalogName)
+        val imgViewEye: ImageView = itemView.findViewById(R.id.imgView_eye_itemCatalog)
         val switchEnableDisable: Switch = itemView.findViewById(R.id.switchEnableDisable)
     }
 
@@ -49,8 +53,15 @@ class CatalogAdapter(
             updateCatalogStatus(catalog.id, catalog.name, isEnabled, holder)
         }
 
-        holder.itemView.setOnClickListener {
-            onItemClick(catalog)
+        holder.imgViewEye.setOnClickListener {
+            val intent = Intent(holder.itemView.context, DetailedCatalogItemActivity::class.java)
+            intent.putExtra("loggedInUser", loggedInUser)
+            intent.putExtra("catalogId", catalog.id)
+            intent.putExtra("selectedCatalog", catalog)
+            val updatedCatalog:String =""
+            intent.putExtra("username", loggedInUser.username)
+            intent.putExtra("updatedCatalog", updatedCatalog)
+            holder.itemView.context.startActivity(intent)
         }
     }
 
