@@ -9,10 +9,8 @@ import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.core.LoginHandler
 import hr.foi.techtitans.ttpay.core.LoginOutcomeListener
 import hr.foi.techtitans.ttpay.core.LoginToken
-import hr.foi.techtitans.ttpay.core.network.data.LoginRequestData
 import hr.foi.techtitans.ttpay.core.network.data.LoginRequestDataPIN
-import hr.foi.techtitans.ttpay.core.network.data.LoginResponseData
-import hr.foi.techtitans.ttpay.core.network.models.ErrorResponseBody
+import hr.foi.techtitans.ttpay.core.network.data.ResponseBodyData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,18 +46,27 @@ class PINLoginHandler : LoginHandler{
 
         val loginRequest = LoginRequestDataPIN(pin)
 
-        loginServicePIN.login(loginRequest).enqueue(object : Callback<LoginResponseData> {
+        Log.d("Request data: ", loginRequest.toString())
+        Log.d("Request data: ", Gson().toJson(loginRequest))
+
+
+        loginServicePIN.login(loginRequest).enqueue(object : Callback<ResponseBodyData> {
 
             override fun onResponse(
-                call: Call<LoginResponseData>,
-                response: Response<LoginResponseData>
+                call: Call<ResponseBodyData>,
+                response: Response<ResponseBodyData>
             ) {
                 Log.d("Response: ", response.toString())
+                Log.d("Response body before successful: ", response.body().toString())
+
                 if (response.isSuccessful) {
+                    Log.d("Response body after successful: ", response.body().toString())
+
                     val responseBody = response.body()
 
-                    if (responseBody != null && responseBody.body.token.isNotEmpty()) {
-                        val token = responseBody.body.token
+                    if ( responseBody?.token != null) {
+                        Log.d("if:", responseBody.token.toString())
+                        val token = responseBody.token
 
                         val decodedJWT = JWT.decode(token)
 
@@ -82,8 +89,8 @@ class PINLoginHandler : LoginHandler{
                 } else {
                     val errorBody = response.errorBody()?.string()
                     if (errorBody != null) {
-                        val errorResponse = Gson().fromJson(errorBody, ErrorResponseBody::class.java)
-                        loginListener.onFailedLogin(errorResponse.error_message)
+                         val errorResponse = errorBody.toString()
+                        loginListener.onFailedLogin(errorBody.toString())
                     } else {
                         loginListener.onFailedLogin("Login failed because of server error.")
                         Log.d("Login failed: ", response.message())
@@ -92,7 +99,7 @@ class PINLoginHandler : LoginHandler{
 
             }
 
-            override fun onFailure(call: Call<LoginResponseData>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseBodyData>, t: Throwable) {
                 loginListener.onFailedLogin("Login failed. Please try again.")
             }
 
