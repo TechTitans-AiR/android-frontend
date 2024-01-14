@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
 import hr.foi.techtitans.ttpay.R
-import hr.foi.techtitans.ttpay.login_modular.model_login.LoginAdapterPIN
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MainActivity
 
 class LoginWithPIN : AppCompatActivity() {
