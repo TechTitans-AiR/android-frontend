@@ -105,10 +105,15 @@ class LoginUsernamePassword : AppCompatActivity(), LoginOutcomeListener {
 
     }
 
-    override fun onFailedLogin(reason: String) {
-        hideProgressBar() // Hide the progress bar when the call fails
-        Log.d("Error message: ", reason)
-        Toast.makeText(this@LoginUsernamePassword, "Login failed!", Toast.LENGTH_SHORT).show()
+    override fun onFailedLogin(reason: String?) {
+        hideProgressBar()
+        if (reason != null) {
+            Log.d("Error message: ", reason)
+            Toast.makeText(this@LoginUsernamePassword, "Login failed!", Toast.LENGTH_SHORT).show()
+        } else {
+            Log.d("Error message: ", "Unknown error")
+            Toast.makeText(this@LoginUsernamePassword, "Login failed due to an unknown error!", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun showProgressBar() {
