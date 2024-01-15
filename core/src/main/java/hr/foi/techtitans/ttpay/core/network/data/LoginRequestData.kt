@@ -4,3 +4,7 @@ data class LoginRequestData(
     val username: String?,
     val password: String?
 )
+
+data class LoginRequestDataPIN(
+    val pin: String
+)

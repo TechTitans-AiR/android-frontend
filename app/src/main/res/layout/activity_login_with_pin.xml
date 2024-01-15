@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login_modular.activity_login.LoginUsernamePassword">
-
+    tools:context=".login_modular.activity_login.LoginWithPIN">
 
     <ImageView
-        android:id="@+id/btnBack"
+        android:id="@+id/imgBackButton"
         android:layout_width="40dp"
         android:layout_height="28dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:clickable="true"
-        android:contentDescription="Back Button"
+        android:contentDescription="@string/back_button"
         android:src="@drawable/baseline_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewLoginTitle"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="75dp"
-        android:layout_marginTop="25dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="28dp"
         android:fontFamily="sans-serif-light"
         android:gravity="center"
         android:text="@string/login"
@@ -32,7 +33,8 @@
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.396"
+        app:layout_constraintStart_toEndOf="@+id/imgBackButton"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
@@ -52,7 +54,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="414dp"
+            android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintHorizontal_bias="0.5"
@@ -62,7 +64,7 @@
                 android:id="@+id/baselineCircleOverlap"
                 android:layout_width="match_parent"
                 android:layout_height="114dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:importantForAccessibility="no"
                 android:src="@drawable/baseline_account_circle"
                 app:layout_constraintBottom_toTopOf="@+id/editTextUsername"
@@ -70,46 +72,43 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <EditText
-                android:id="@+id/editTextUsername"
+                android:id="@+id/digitCodePIN"
+                android:layout_height="50dp"
+                android:layout_width="150dp"
+                android:layout_gravity="center"
+                android:inputType="numberPassword"
+                android:maxLength="6"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:backgroundTintMode="src_in"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/buttonPrimaryColor"
+                app:layout_constraintTop_toBottomOf="@+id/textViewPinStatus"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:hint="Enter PIN">
+
+            </EditText>
+
+            <ProgressBar
+                android:id="@+id/progressBarPIN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/includeItemEntryPin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="10dp"/>
+
+            <Button
+                android:id="@+id/btn_login_PIN_activity"
                 android:layout_width="match_parent"
                 android:layout_height="53dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="40dp"
-                android:backgroundTint="#D22B2B"
-                android:hint="@string/username"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                android:maxLines="1"
-                android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/baselineCircleOverlap" />
-
-            <EditText
-                android:id="@+id/editTextPassword"
-                android:layout_width="match_parent"
-                android:layout_height="53dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="40dp"
-                android:backgroundTint="#D22B2B"
-                android:hint="@string/password"
-                android:importantForAutofill="no"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextUsername" />
-
-            <Button
-                android:id="@+id/btn_login_login_activity"
-                android:layout_width="match_parent"
-                android:layout_height="53dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="30dp"
                 android:layout_marginEnd="40dp"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/login"
@@ -118,26 +117,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_login_login_activity" />
-
             <ImageView
                 android:id="@+id/appLogo"
-                android:layout_width="319dp"
-                android:layout_height="128dp"
-                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="125dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginBottom="30dp"
+                android:foregroundGravity="bottom"
                 android:importantForAccessibility="no"
-                android:src="@drawable/ttpay_logo_app" />
+                android:src="@drawable/ttpay_logo_app"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progressBar"
+                android:focusableInTouchMode="true"/>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

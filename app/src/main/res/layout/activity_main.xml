@@ -74,7 +74,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="60dp"
         android:fontFamily="sans-serif-light"
-        android:text="Login - Fingertip"
+        android:text="Login - PIN"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
