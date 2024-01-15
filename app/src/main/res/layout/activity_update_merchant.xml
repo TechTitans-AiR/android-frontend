@@ -183,6 +183,23 @@
                 android:inputType="textPassword"
                 android:layout_below="@+id/textView_password_label" />
 
+            <!-- PIN -->
+            <TextView
+                android:id="@+id/textView_pin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editText_password"
+                android:layout_marginTop="16dp"
+                android:text="PIN" />
+
+            <EditText
+                android:id="@+id/editText_pinUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter PIN"
+                android:inputType="textPassword"
+                android:layout_below="@+id/textView_pin" />
+
             <!-- UserRole Spinner -->
             <TextView
                 android:id="@+id/textView_user_role_label"

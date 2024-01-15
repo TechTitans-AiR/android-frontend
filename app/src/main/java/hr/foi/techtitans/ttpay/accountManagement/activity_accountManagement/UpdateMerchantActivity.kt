@@ -50,9 +50,10 @@ class UpdateMerchantActivity : AppCompatActivity() {
     private lateinit var editTxtPassword: EditText
     private lateinit var spinnerStatus: Spinner
     private lateinit var spinnerRole: Spinner
+    private lateinit var editTxtPIN:EditText
 
 
-    private var user: updateUser = updateUser("", "", "", "", "", null, null, null, "", null)
+    private var user: updateUser = updateUser("", "", "", "", "", null, null, null, "", null, "")
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,6 +89,7 @@ class UpdateMerchantActivity : AppCompatActivity() {
         editTxtPassword = findViewById(R.id.editText_password)
         spinnerStatus = findViewById(R.id.spinner_user_status)
         spinnerRole = findViewById(R.id.spinner_user_role)
+        editTxtPIN=findViewById(R.id.editText_pinUpdate)
 
 
         //For userID
@@ -125,6 +127,7 @@ class UpdateMerchantActivity : AppCompatActivity() {
                 editTxtUsername.setText(fetchedUser.username)
                 editTxtPassword.setText(fetchedUser.password)
                 dateCreated=fetchedUser.date_created
+                editTxtPIN.setText(fetchedUser.pin)
 
 
                 // Adapter initialization for user role spinner
@@ -200,6 +203,7 @@ class UpdateMerchantActivity : AppCompatActivity() {
             val txtEmail: String = editTxtEmail.text.toString()
             val txtUsername: String = editTxtUsername.text.toString()
             val txtPassword: String = editTxtPassword.text.toString()
+            val txtPIN:String=editTxtPIN.text.toString()
 
 
             var newDataUser = updateUser(
@@ -212,7 +216,8 @@ class UpdateMerchantActivity : AppCompatActivity() {
                 txtPhone,
                 txtDateOfBirth,
                 user.user_role,
-                user.user_status
+                user.user_status,
+                txtPIN
             )
             Log.d("new data: ", newDataUser.toString())
 

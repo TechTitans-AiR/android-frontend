@@ -86,6 +86,7 @@ class CreateNewMerchantActivity : AppCompatActivity() {
         val txtEmail:EditText=findViewById(R.id.editText_email)
         val txtUsername:EditText=findViewById(R.id.editText_username)
         val txtPassword:EditText=findViewById(R.id.editText_password)
+        val txtPIN:EditText=findViewById(R.id.editText_pin)
 
         val dateCreated= LocalDate.now().toString()
 
@@ -128,6 +129,7 @@ class CreateNewMerchantActivity : AppCompatActivity() {
                 null,
                 selectedRole?.name,
                 UserStatus.active.name,
+                txtPIN.text.toString()
             )
             val create= CreateUser()
             create.createNewUser(loggedInUser, this,new)//context,user

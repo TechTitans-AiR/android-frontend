@@ -18,7 +18,8 @@ data class User(
     val date_created: String, // date format "dd.MM.yyyy HH:mm:ss"
     val date_modified: String?, // date format "dd.MM.yyyy HH:mm:ss"
     val userRole: UserRole?,
-    val userStatus: UserStatus?
+    val userStatus: UserStatus?,
+    val pin: String?
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -33,7 +34,8 @@ data class User(
         parcel.readString() ?: "",
         parcel.readString(),
         parcel.readParcelable(UserRole::class.java.classLoader),
-        parcel.readParcelable(UserStatus::class.java.classLoader)
+        parcel.readParcelable(UserStatus::class.java.classLoader),
+        parcel.readString()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -50,6 +52,7 @@ data class User(
         parcel.writeString(date_modified)
         parcel.writeParcelable(userRole, flags)
         parcel.writeParcelable(userStatus, flags)
+        parcel.writeString(pin)
     }
 
     override fun describeContents(): Int {
@@ -83,7 +86,8 @@ data class User(
                 userRole = UserRole.admin,
                 userStatus = UserStatus.active,
                 date_created = currentDate,
-                date_modified = currentDate
+                date_modified = currentDate,
+                pin= "012345"
             )
         }
 }
@@ -100,7 +104,8 @@ data class newUser(
     val date_created: String, // date format "dd.MM.yyyy HH:mm:ss"
     var date_modified: String?, // date format "dd.MM.yyyy HH:mm:ss"
     var userRole: String?,
-    var userStatus: String?
+    var userStatus: String?,
+    val pin:String
 )
 
 data class updateUser(
@@ -113,5 +118,6 @@ data class updateUser(
     var phone: String?,
     var date_of_birth: String?, // date format "dd.MM.yyyy"
     var user_role: String?,
-    var user_status: String?
+    var user_status: String?,
+    val pin:String?
 )
