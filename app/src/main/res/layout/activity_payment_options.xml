@@ -4,6 +4,17 @@
     android:layout_height="match_parent"
     tools:context="hr.foi.techtitans.ttpay.transactions.activity_transactions.PaymentOptionsActivity">
 
+    <!-- Back button -->
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="40dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:contentDescription="Back Button"
+        android:src="@drawable/baseline_arrow_back" />
+
     <!-- Payment options -->
     <TextView
         android:id="@+id/textView_payment_options"

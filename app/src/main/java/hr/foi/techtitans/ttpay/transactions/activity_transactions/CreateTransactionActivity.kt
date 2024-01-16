@@ -58,11 +58,10 @@ class CreateTransactionActivity : AppCompatActivity() {
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
-            val intent = Intent(this, AllTransactionsActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("CreateTransactionActivity - LoggedInUser",loggedInUser.toString())
             intent.putExtra("username", userUsername)
-            finish()
+            onBackPressed()
         }
 
         // set recyclerview and total amount
@@ -95,7 +94,6 @@ class CreateTransactionActivity : AppCompatActivity() {
             Log.d("CreateTransactionActivity", "btn_pay onClick: Starting TransactionSummaryActivity")
             // transfer on TransactionSummaryActivity
             startActivity(intent)
-            finish()
         }
     }
 

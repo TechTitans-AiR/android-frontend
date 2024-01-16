@@ -56,12 +56,10 @@ class AdminTransactionsAsMerchantActivity : AppCompatActivity() {
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
-            val intent = Intent(this, TransactionsActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("AdminTransactionsAsMerchantActivity - LoggedInUser", loggedInUser.toString())
             intent.putExtra("username", userUsername)
-            startActivity(intent)
-            finish()
+            onBackPressed()
         }
     }
 

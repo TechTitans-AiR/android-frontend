@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.RadioGroup
@@ -115,6 +116,14 @@ class PaymentOptionsActivity : AppCompatActivity() {
 
         radioGroupPaymentOptions.setOnCheckedChangeListener { _, checkedId ->
             handlePaymentOptionChange(checkedId)
+        }
+
+        val imgBack: ImageView = findViewById(R.id.back_button)
+        imgBack.setOnClickListener {
+            intent.putExtra("loggedInUser", loggedInUser)
+            Log.d("AllTransationsActivity - LoggedInUser", loggedInUser.toString())
+            intent.putExtra("username", userUsername)
+            onBackPressed()
         }
     }
 
@@ -336,7 +345,6 @@ class PaymentOptionsActivity : AppCompatActivity() {
         intent.putExtra("differenceAmount", differenceAmount)
         intent.putExtra("isCardPayment", false)
         startActivity(intent)
-        finish()
     }
 
     private fun handleTransactionCardCreationSuccess(newTransaction: NewTransaction) {
@@ -347,7 +355,6 @@ class PaymentOptionsActivity : AppCompatActivity() {
         intent.putExtra("username", userUsername)
         intent.putExtra("isCardPayment", true)
         startActivity(intent)
-        finish()
     }
 
     private fun showToast(message: String) {
@@ -359,18 +366,16 @@ class PaymentOptionsActivity : AppCompatActivity() {
 
         if (role == "admin") {
             // Open AdminHomeActivity
-            val intent = Intent(this, AdminHomeActivity::class.java)
+            val intent = Intent(this, TransactionsActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
             startActivity(intent)
         } else if (role == "merchant") {
             // Open MerchantHomeActivity
-            val intent = Intent(this, MerchantHomeActivity::class.java)
+            val intent = Intent(this, AllTransactionsMerchantActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
             startActivity(intent)
         }
-        finish()
     }
-
 }

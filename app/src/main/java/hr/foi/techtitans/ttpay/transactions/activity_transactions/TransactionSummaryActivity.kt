@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -68,7 +69,14 @@ class TransactionSummaryActivity : AppCompatActivity() {
             intent.putExtra("totalAmount", totalAmount)
             intent.putExtra("username", userUsername)
             startActivity(intent)
-            finish()
+        }
+
+        val imgBack: ImageView = findViewById(R.id.back_button)
+        imgBack.setOnClickListener {
+            intent.putExtra("loggedInUser", loggedInUser)
+            Log.d("AllTransationsActivity - LoggedInUser", loggedInUser.toString())
+            intent.putExtra("username", userUsername)
+            onBackPressed()
         }
     }
 }

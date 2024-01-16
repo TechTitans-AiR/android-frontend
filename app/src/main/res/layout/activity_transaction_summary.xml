@@ -6,6 +6,21 @@
     tools:context="hr.foi.techtitans.ttpay.transactions.activity_transactions.TransactionSummaryActivity">
 
     <!-- Transaction details go here -->
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="40dp"
+        android:layout_height="28dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="66dp"
+        android:layout_toStartOf="@+id/tv_transaction_details"
+        android:clickable="true"
+        android:contentDescription="Back Button"
+        android:src="@drawable/baseline_arrow_back" />
+
     <TextView
         android:id="@+id/tv_transaction_details"
         android:layout_width="wrap_content"
@@ -24,7 +39,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:layout_below="@id/tv_transaction_details"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="25dp"/>
 
     <!-- Total amount TextView -->
     <TextView
@@ -32,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Total Amount: $0.00"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:layout_below="@id/recycler_transaction_details"
         android:layout_marginTop="16dp"

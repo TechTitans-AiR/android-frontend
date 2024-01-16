@@ -49,7 +49,6 @@ class TransactionsActivity : AppCompatActivity() {
         Log.d("onAllMerchantsClick - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
-        finish()
     }
     fun onOnlyMyTransactionsSectionClick(view: View) {
         val intent = Intent(this, AdminTransactionsAsMerchantActivity::class.java)
@@ -57,6 +56,5 @@ class TransactionsActivity : AppCompatActivity() {
         Log.d("onAllMerchantsClick - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
-        finish()
     }
 }
