@@ -7,7 +7,6 @@ import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeAct
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MainActivity
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.ProfileActivity
 import hr.foi.techtitans.ttpay.R
-import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.SettingsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 
@@ -22,7 +21,6 @@ class NavigationHandler(private val activity: AppCompatActivity, private var log
             when (item.itemId) {
                 R.id.nav_home -> navigateToActivity(AdminHomeActivity::class.java)
                 R.id.nav_profile -> navigateToActivity(ProfileActivity::class.java)
-                R.id.nav_settings -> navigateToActivity(SettingsActivity::class.java)
                 R.id.nav_logout -> navigateToMainActivity()
             }
             true
@@ -58,7 +56,6 @@ class NavigationHandler(private val activity: AppCompatActivity, private var log
         when {
             isCurrentActivity(AdminHomeActivity::class.java) -> bottomNavigationView.selectedItemId = R.id.nav_home
             isCurrentActivity(ProfileActivity::class.java) -> bottomNavigationView.selectedItemId = R.id.nav_profile
-            isCurrentActivity(SettingsActivity::class.java) -> bottomNavigationView.selectedItemId = R.id.nav_settings
         }
     }
 }
