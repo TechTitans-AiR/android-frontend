@@ -94,7 +94,7 @@
                 android:id="@+id/editText_date_of_birth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Date of Birth"
+                android:hint="Day.Month.Year"
                 android:inputType="date"
                 android:layout_below="@+id/textView_date_of_birth_label" />
 
@@ -206,7 +206,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Role"
-                android:layout_below="@+id/editText_password"
+                android:layout_below="@+id/editText_pinUpdate"
                 android:layout_marginTop="16dp" />
 
             <Spinner

@@ -101,10 +101,8 @@ data class newUser(
     var address: String?,
     var phone: String?,
     var date_of_birth: String?, // date format "dd.MM.yyyy"
-    val date_created: String, // date format "dd.MM.yyyy HH:mm:ss"
-    var date_modified: String?, // date format "dd.MM.yyyy HH:mm:ss"
-    var userRole: String?,
-    var userStatus: String?,
+    var user_role: String?,
+    var user_status: String?,
     val pin:String
 )
 

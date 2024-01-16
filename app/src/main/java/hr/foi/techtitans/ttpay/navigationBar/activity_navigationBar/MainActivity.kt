@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val loginButtonUsernamePassword: Button = findViewById(R.id.btn_login)
-        val loginButtonFingertip:Button=findViewById(R.id.btn_login2)
+        val loginButtonPIN:Button=findViewById(R.id.btn_login2)
 
 
         loginButtonUsernamePassword.setOnClickListener {
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(loginIntent)
             finish()
         }
-        loginButtonFingertip.setOnClickListener{
+        loginButtonPIN.setOnClickListener{
             val loginIntent = Intent(this, LoginWithPIN::class.java)
             startActivity(loginIntent)
             finish()

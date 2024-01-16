@@ -1,5 +1,6 @@
 package hr.foi.techtitans.ttpay.accountManagement.activity_accountManagement
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -17,10 +18,16 @@ import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandl
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.UserRole
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.UserStatus
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.gson.Gson
 import java.time.LocalDate
-import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.CreateUser
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.newUser
+import hr.foi.techtitans.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
 import hr.foi.techtitans.ttpay.core.LoggedInUser
+import hr.foi.techtitans.ttpay.network.RetrofitClient
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CreateNewMerchantActivity : AppCompatActivity() {
 
@@ -116,7 +123,7 @@ class CreateNewMerchantActivity : AppCompatActivity() {
 
             //userStatus-->always will be active when creating user
 
-            val new = newUser(
+            val newUserData = newUser(
                 txtUsername.text.toString(),
                 txtPassword.text.toString(),
                 txtFirstname.text.toString(),
@@ -125,15 +132,50 @@ class CreateNewMerchantActivity : AppCompatActivity() {
                 txtAddress.text.toString(),
                 txtPhone.text.toString(),
                 birthDateString,
-                dateCreated,
-                null,
                 selectedRole?.name,
                 UserStatus.active.name,
                 txtPIN.text.toString()
             )
-            val create= CreateUser()
-            create.createNewUser(loggedInUser, this,new)//context,user
-            Log.e("USER JE:", "${new.first_name} ")
+            Log.d("CreateNewActivity", "Search JSON: ${Gson().toJson(newUserData)}")
+            createNewUser(loggedInUser, this,newUserData)//context,user
+            Log.e("USER JE:", newUserData.toString())
         }
+    }
+
+    private fun createNewUser(loggedInUser: LoggedInUser, context: Context, newUser: newUser){
+        val retrofit = RetrofitClient.getInstance(8080)//za account_management
+        val service = retrofit.create(ServiceAccountManagement::class.java)
+
+        // call for method createUser
+        val call = service.createNewUser(loggedInUser.token, newUser)
+
+        call.enqueue(object : Callback<ResponseBody> {
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>){
+                Log.d("Response create user: ", response.toString())
+
+                if(response.isSuccessful) { // successful response
+                    val responseBody = response.body()
+
+                    if (responseBody != null) {
+                        val createdUserString = responseBody.string()
+
+                        // Prikazivanje string poruke iz odgovora
+                        Log.d("Userrrr: ", createdUserString)
+                        Toast.makeText(context, createdUserString, Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(context, "ERROR: Response body is null!", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(context, "ERROR: User not created!", Toast.LENGTH_SHORT).show()
+                }
+                Log.d("Response create user: ", response.toString())
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable){
+                Log.e("NetworkError", "Error: ${t.message}") // show error message in Logcat
+                Toast.makeText(context, "Network error occurred", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

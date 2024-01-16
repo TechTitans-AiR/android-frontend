@@ -4,6 +4,7 @@ import retrofit2.Call
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.newUser
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.updateUser
+import okhttp3.ResponseBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -29,7 +30,7 @@ interface ServiceAccountManagement {
     fun createNewUser(
         @Header("Authorization") token: String,
         @Body user: newUser
-    ): Call<newUser> // Method for sending user data to backend
+    ): Call<ResponseBody> // Method for sending user data to backend
 
     @DELETE("/api/v1/users/delete/{userId}")
     fun deleteUser(

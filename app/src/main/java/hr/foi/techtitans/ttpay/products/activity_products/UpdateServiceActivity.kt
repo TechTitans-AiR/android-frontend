@@ -159,7 +159,7 @@ class UpdateServiceActivity : AppCompatActivity() {
             updatedFields["description"] = descriptionEditText.text.toString()
         }
         if (isFieldChanged(priceEditText, originalPrice)) {
-            updatedFields["price"] = priceEditText.text.toString().toInt()
+            updatedFields["price"] = priceEditText.text.toString().toDouble()
         }
         if (isFieldChanged(currencyEditText, originalCurrency)) {
             updatedFields["currency"] = currencyEditText.text.toString()

@@ -125,9 +125,9 @@ class UpdateMerchantActivity : AppCompatActivity() {
                 editTxtPhone.setText(fetchedUser.phone)
                 editTxtEmail.setText(fetchedUser.email)
                 editTxtUsername.setText(fetchedUser.username)
-                editTxtPassword.setText(fetchedUser.password)
+                editTxtPassword.setText("")
                 dateCreated=fetchedUser.date_created
-                editTxtPIN.setText(fetchedUser.pin)
+                editTxtPIN.setText("")
 
 
                 // Adapter initialization for user role spinner

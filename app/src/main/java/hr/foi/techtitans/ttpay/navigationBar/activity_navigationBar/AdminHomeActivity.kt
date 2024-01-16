@@ -28,7 +28,6 @@ class AdminHomeActivity : AppCompatActivity() {
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var userUsername: String
     private lateinit var textViewUserName: TextView
-    private lateinit var userId: String
     private lateinit var progressBarUserName: ProgressBar
     private lateinit var loggedInUser: LoggedInUser
 
