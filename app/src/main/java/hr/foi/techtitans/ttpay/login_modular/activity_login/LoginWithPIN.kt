@@ -75,10 +75,7 @@ class LoginWithPIN : AppCompatActivity(), LoginOutcomeListener {
                 token = loggedInUser.token,
                 role = loggedInUser.role
             )
-            Log.d("onLoginSuccess_Token", loggedUser.token)
-            Log.d("onLoginSuccess_Role", loggedUser.role)
-            Log.d("onLoginSuccess_Username", loggedUser.username)
-            Log.d("onLoginSuccess_UserId", loggedUser.userId)
+
 
             when(loggedInUser.role){
                 "admin"-> {

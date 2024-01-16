@@ -13,7 +13,6 @@
             <option value="$PROJECT_DIR$/Login-UsernamePassword" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/login-username_password" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />
