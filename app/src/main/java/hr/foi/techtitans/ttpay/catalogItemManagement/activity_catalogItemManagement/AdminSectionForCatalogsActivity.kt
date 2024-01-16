@@ -1,4 +1,4 @@
-package hr.foi.techtitans.ttpay.transactions.activity_transactions
+package hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,16 +6,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.R
-import hr.foi.techtitans.ttpay.accountManagement.activity_accountManagement.AllMerchantsActivity
 import hr.foi.techtitans.ttpay.core.LoggedInUser
-import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
+import hr.foi.techtitans.ttpay.transactions.activity_transactions.AllTransactionsActivity
 
-class TransactionsActivity : AppCompatActivity() {
+class AdminSectionForCatalogsActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var userUsername: String
@@ -23,7 +20,7 @@ class TransactionsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_transactions)
+        setContentView(R.layout.activity_admin_section_for_catalogs)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
@@ -41,15 +38,16 @@ class TransactionsActivity : AppCompatActivity() {
         }
     }
 
-    fun onTransactionsSectionClick(view: View) {
-        val intent = Intent(this, AllTransactionsActivity::class.java)
+    fun onCatalogsSectionClick(view: View) {
+        val intent = Intent(this, AllCatalogsActivity::class.java)
         intent.putExtra("loggedInUser", loggedInUser)
         Log.d("onAllMerchantsClick - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
     }
-    fun onOnlyMyTransactionsSectionClick(view: View) {
-        val intent = Intent(this, AdminTransactionsAsMerchantActivity::class.java)
+
+    fun onOnlyMyCatalogsSectionClick(view: View) {
+        val intent = Intent(this, AllCatalogsAdminAsMerchantActivity::class.java)
         intent.putExtra("loggedInUser", loggedInUser)
         Log.d("onAllMerchantsClick - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)

@@ -209,7 +209,7 @@
                 android:layout_width="199dp"
                 android:layout_height="77dp"
                 android:gravity="center"
-                android:text="The Catalog Item"
+                android:text="The Catalogs"
                 android:textSize="18sp" />
 
         </LinearLayout>

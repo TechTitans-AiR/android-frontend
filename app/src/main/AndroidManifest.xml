@@ -18,6 +18,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".catalogItemManagement.activity_catalogItemManagement.AllCatalogsAdminAsMerchantActivity"
+            android:exported="false" />
+        <activity
+            android:name=".catalogItemManagement.activity_catalogItemManagement.AdminSectionForCatalogsActivity"
+            android:exported="false" />
+        <activity
             android:name=".transactions.activity_transactions.AdminTransactionsAsMerchantActivity"
             android:exported="false" />
         <activity
@@ -41,9 +47,6 @@
             android:exported="false" />
         <activity
             android:name=".transactions.activity_transactions.TransactionItemActivity"
-            android:exported="false" />
-        <activity
-            android:name=".catalogItemManagement.activity_catalogItemManagement.CatalogItemWithoutUserActivity"
             android:exported="false" />
         <activity
             android:name=".catalogItemManagement.activity_catalogItemManagement.DetailedCatalogItemActivity"
@@ -123,9 +126,6 @@
             android:exported="false" />
         <activity
             android:name=".accountManagement.activity_accountManagement.AllMerchantsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".navigationBar.activity_navigationBar.SettingsActivity"
             android:exported="false" />
         <activity
             android:name=".navigationBar.activity_navigationBar.ProfileActivity"

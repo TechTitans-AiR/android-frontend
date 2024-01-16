@@ -24,7 +24,6 @@ import retrofit2.Response
 
 class CatalogAdapter(
     private var catalogs: List<Catalog>,
-    private val onItemClick: (Catalog) -> Unit,
     private val loggedInUser: LoggedInUser
 ) :
     RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder>() {

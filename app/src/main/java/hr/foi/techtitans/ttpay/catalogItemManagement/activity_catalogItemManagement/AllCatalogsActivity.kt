@@ -52,11 +52,7 @@ class AllCatalogsActivity : AppCompatActivity() {
         userUsername = intent.getStringExtra("username") ?: ""
 
 
-        catalogAdapter = CatalogAdapter(
-            emptyList(),
-            { catalog -> openDetailedCatalogItemActivity(catalog.id) },
-            loggedInUser
-        )
+        catalogAdapter = CatalogAdapter(emptyList(), loggedInUser)
 
         recyclerView = findViewById(R.id.recyclerView_all_catalogs)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -74,12 +70,10 @@ class AllCatalogsActivity : AppCompatActivity() {
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
-            val intent = Intent(this, AdminHomeActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("AllCatalogActivity - LoggedInUser",loggedInUser.toString())
             intent.putExtra("username", userUsername)
-            startActivity(intent)
-            finish()
+            onBackPressed()
         }
     }
 
@@ -89,7 +83,6 @@ class AllCatalogsActivity : AppCompatActivity() {
         Log.d("onPlusCatalogIconClick - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
-        finish()
     }
 
     private fun openDetailedCatalogItemActivity(catalogId: String?) {
@@ -557,6 +550,11 @@ class AllCatalogsActivity : AppCompatActivity() {
     fun onDeleteSearchIconClick(view: View) {
         fetchCatalogs()
         removeSearch.visibility=View.GONE
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        fetchCatalogs()
     }
 
 }
