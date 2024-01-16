@@ -65,7 +65,7 @@ class AllTransactionsActivity : AppCompatActivity() {
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
-            val intent = Intent(this, AdminHomeActivity::class.java)
+            val intent = Intent(this, TransactionsActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("AllTransationsActivity - LoggedInUser", loggedInUser.toString())
             intent.putExtra("username", userUsername)

@@ -19,6 +19,7 @@ import hr.foi.techtitans.ttpay.products.activity_products.AllProductsActivity
 import hr.foi.techtitans.ttpay.transactions.activity_transactions.AllTransactionsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.core.LoggedInUser
+import hr.foi.techtitans.ttpay.transactions.activity_transactions.TransactionsActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -62,7 +63,7 @@ class AdminHomeActivity : AppCompatActivity() {
     }
 
     fun onAllTransactionsClick(view: View) {
-        val intent = Intent(this, AllTransactionsActivity::class.java)
+        val intent = Intent(this, TransactionsActivity::class.java)
         intent.putExtra("loggedInUser", loggedInUser)
         Log.d("onAllTransactionsClick - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)
