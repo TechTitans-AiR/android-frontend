@@ -39,7 +39,7 @@ class TransactionCompletionActivity : AppCompatActivity() {
 
         val btnBackToHome: Button = findViewById(R.id.btn_back_to_home)
         btnBackToHome.setOnClickListener {
-            val role = loggedInUser.role // Assuming role is a property in LoggedInUser class
+            val role = loggedInUser.role
 
             if (role == "admin") {
                 // Open AdminHomeActivity
@@ -54,7 +54,6 @@ class TransactionCompletionActivity : AppCompatActivity() {
                 intent.putExtra("username", userUsername)
                 startActivity(intent)
             }
-
             finish()
         }
     }

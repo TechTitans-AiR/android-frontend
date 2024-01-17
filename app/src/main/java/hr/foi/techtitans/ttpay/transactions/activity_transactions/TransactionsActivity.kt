@@ -34,10 +34,12 @@ class TransactionsActivity : AppCompatActivity() {
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
+            val intent = Intent(this, AdminHomeActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("AllTransationsActivity - LoggedInUser", loggedInUser.toString())
             intent.putExtra("username", userUsername)
-            onBackPressed()
+            startActivity(intent)
+            finish()
         }
     }
 
@@ -47,6 +49,7 @@ class TransactionsActivity : AppCompatActivity() {
         Log.d("onAllMerchantsClick - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
+        finish()
     }
     fun onOnlyMyTransactionsSectionClick(view: View) {
         val intent = Intent(this, AdminTransactionsAsMerchantActivity::class.java)
@@ -54,5 +57,6 @@ class TransactionsActivity : AppCompatActivity() {
         Log.d("onAllMerchantsClick - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
+        finish()
     }
 }

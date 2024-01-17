@@ -65,10 +65,12 @@ class AllTransactionsActivity : AppCompatActivity() {
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
+            val intent = Intent(this, TransactionsActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("AllTransationsActivity - LoggedInUser", loggedInUser.toString())
             intent.putExtra("username", userUsername)
-            onBackPressed()
+            startActivity(intent)
+            finish()
         }
     }
 
@@ -78,6 +80,7 @@ class AllTransactionsActivity : AppCompatActivity() {
         Log.d("onPlusTransactionIconClick - LoggedInUser", loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
+        finish()
     }
 
     private fun fetchTransactions() {

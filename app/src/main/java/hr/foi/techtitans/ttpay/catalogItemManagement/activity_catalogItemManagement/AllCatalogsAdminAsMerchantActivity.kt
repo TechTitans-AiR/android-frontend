@@ -1,5 +1,6 @@
 package hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -56,10 +57,12 @@ class AllCatalogsAdminAsMerchantActivity : AppCompatActivity() {
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
+            val intent = Intent(this, AdminSectionForCatalogsActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("AdminTransactionsAsMerchantActivity - LoggedInUser", loggedInUser.toString())
             intent.putExtra("username", userUsername)
-            onBackPressed()
+            startActivity(intent)
+            finish()
         }
     }
 

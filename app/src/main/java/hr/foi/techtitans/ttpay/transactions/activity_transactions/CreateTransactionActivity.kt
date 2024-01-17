@@ -22,6 +22,8 @@ import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.core.LoggedInUser
+import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
+import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHomeActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -58,10 +60,19 @@ class CreateTransactionActivity : AppCompatActivity() {
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
-            intent.putExtra("loggedInUser", loggedInUser)
-            Log.d("CreateTransactionActivity - LoggedInUser",loggedInUser.toString())
-            intent.putExtra("username", userUsername)
-            onBackPressed()
+            val role = loggedInUser.role
+            if (role == "admin") {
+                val intent = Intent(this, AllTransactionsActivity::class.java)
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("username", userUsername)
+                startActivity(intent)
+            } else if (role == "merchant") {
+                val intent = Intent(this, AllTransactionsMerchantActivity::class.java)
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("username", userUsername)
+                startActivity(intent)
+            }
+            finish()
         }
 
         // set recyclerview and total amount

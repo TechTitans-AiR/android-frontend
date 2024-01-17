@@ -46,9 +46,6 @@
             android:name=".transactions.activity_transactions.DetailedTransactionActivity"
             android:exported="false" />
         <activity
-            android:name=".transactions.activity_transactions.TransactionItemActivity"
-            android:exported="false" />
-        <activity
             android:name=".catalogItemManagement.activity_catalogItemManagement.DetailedCatalogItemActivity"
             android:exported="false" />
         <activity
@@ -86,9 +83,6 @@
             android:exported="false" />
         <activity
             android:name=".catalogItemManagement.createCatalog.activity_createCatalog.CreateCatalogItemActivity"
-            android:exported="false" />
-        <activity
-            android:name=".catalogItemManagement.activity_catalogItemManagement.CatalogItemActivity"
             android:exported="false" />
         <activity
             android:name=".catalogItemManagement.activity_catalogItemManagement.AllCatalogsActivity"

@@ -9,6 +9,7 @@ import android.widget.ImageView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.core.LoggedInUser
+import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
 import hr.foi.techtitans.ttpay.transactions.activity_transactions.AllTransactionsActivity
 
@@ -31,10 +32,12 @@ class AdminSectionForCatalogsActivity : AppCompatActivity() {
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
+            val intent = Intent(this, AdminHomeActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("AllTransationsActivity - LoggedInUser", loggedInUser.toString())
             intent.putExtra("username", userUsername)
-            onBackPressed()
+            startActivity(intent)
+            finish()
         }
     }
 
@@ -44,6 +47,7 @@ class AdminSectionForCatalogsActivity : AppCompatActivity() {
         Log.d("onAllMerchantsClick - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
+        finish()
     }
 
     fun onOnlyMyCatalogsSectionClick(view: View) {
@@ -52,5 +56,6 @@ class AdminSectionForCatalogsActivity : AppCompatActivity() {
         Log.d("onAllMerchantsClick - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
+        finish()
     }
 }

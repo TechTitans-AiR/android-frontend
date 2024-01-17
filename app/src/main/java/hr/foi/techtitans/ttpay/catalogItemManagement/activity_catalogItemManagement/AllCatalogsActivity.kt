@@ -70,10 +70,12 @@ class AllCatalogsActivity : AppCompatActivity() {
 
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
+            val intent = Intent(this, AdminSectionForCatalogsActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("AllCatalogActivity - LoggedInUser",loggedInUser.toString())
             intent.putExtra("username", userUsername)
-            onBackPressed()
+            startActivity(intent)
+            finish()
         }
     }
 
@@ -83,15 +85,7 @@ class AllCatalogsActivity : AppCompatActivity() {
         Log.d("onPlusCatalogIconClick - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)
         startActivity(intent)
-    }
-
-    private fun openDetailedCatalogItemActivity(catalogId: String?) {
-        val intent = Intent(this, DetailedCatalogItemActivity::class.java)
-        intent.putExtra("loggedInUser", loggedInUser)
-        Log.d("openDetailedCatalog - LoggedInUser",loggedInUser.toString())
-        intent.putExtra("catalogId", catalogId)
-        intent.putExtra("username", userUsername)
-        startActivity(intent)
+        finish()
     }
 
     private fun fetchCatalogs() {

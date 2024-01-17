@@ -345,6 +345,7 @@ class PaymentOptionsActivity : AppCompatActivity() {
         intent.putExtra("differenceAmount", differenceAmount)
         intent.putExtra("isCardPayment", false)
         startActivity(intent)
+        finish()
     }
 
     private fun handleTransactionCardCreationSuccess(newTransaction: NewTransaction) {
@@ -355,6 +356,7 @@ class PaymentOptionsActivity : AppCompatActivity() {
         intent.putExtra("username", userUsername)
         intent.putExtra("isCardPayment", true)
         startActivity(intent)
+        finish()
     }
 
     private fun showToast(message: String) {
@@ -377,5 +379,6 @@ class PaymentOptionsActivity : AppCompatActivity() {
             intent.putExtra("username", userUsername)
             startActivity(intent)
         }
+        finish()
     }
 }
