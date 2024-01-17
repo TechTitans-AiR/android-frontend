@@ -18,6 +18,7 @@ import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.products.activity_products.AllProductsActivity
 import hr.foi.techtitans.ttpay.transactions.activity_transactions.AllTransactionsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.AdminSectionForCatalogsActivity
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.transactions.activity_transactions.TransactionsActivity
 import retrofit2.Call
@@ -81,7 +82,7 @@ class AdminHomeActivity : AppCompatActivity() {
     }
 
     fun onCatalogItemClick(view: View) {
-        val intent = Intent(this, AllCatalogsActivity::class.java)
+        val intent = Intent(this, AdminSectionForCatalogsActivity::class.java)
         intent.putExtra("loggedInUser", loggedInUser)
         Log.d("onCatalogItemClick - LoggedInUser",loggedInUser.toString())
         intent.putExtra("username", userUsername)

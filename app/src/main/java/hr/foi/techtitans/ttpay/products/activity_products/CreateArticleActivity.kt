@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -47,7 +48,8 @@ class CreateArticleActivity : AppCompatActivity() {
     private lateinit var editTextQuantityInStock : EditText
     private lateinit var btnCreateArticle:Button
     private  var itemCategories:List<ItemCategory>? = emptyList()
-    private  lateinit var itemCategoryId:ItemCategory
+    private  var itemCategoryId:ItemCategory= ItemCategory("","")
+    private  var selectedCategory:String=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +58,7 @@ class CreateArticleActivity : AppCompatActivity() {
         loadingDataProgressBar = findViewById(R.id.loadingData)
         btnBack = findViewById(R.id.back_button)
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
-        itemCategoryId= ItemCategory("","")
+
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
@@ -93,11 +95,24 @@ class CreateArticleActivity : AppCompatActivity() {
         setupCurrencySpinner()
         setupCategorySpinner()
 
-        val selectedCategory = spinnerCategory.selectedItem.toString()
-        getCategoryId(selectedCategory)
+        spinnerCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>, selectedItemView: View?, position: Int, id: Long) {
+                selectedCategory = spinnerCategory.selectedItem.toString()
+
+                getCategoryId(selectedCategory)
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>) {
+                Toast.makeText(applicationContext,"Item category must be selected!", Toast.LENGTH_SHORT).show()
+                Log.d("Selected Category is empty: ", selectedCategory)
+            }
+        }
+
 
         btnCreateArticle.setOnClickListener{
-             // Fetch data from EditText and Spinner
+
+
+            // Fetch data from EditText and Spinner
             val articleName = editTextArticleName.text.toString()
             val description = editTextDescription.text.toString()
             val price = editTextPrice.text.toString().toDouble()
@@ -106,7 +121,6 @@ class CreateArticleActivity : AppCompatActivity() {
             val material = editTextMaterial.text.toString()
             val brand = editTextBrand.text.toString()
             val currency = spinnerCurrency.selectedItem.toString()
-
 
             Log.d("Item category:" , itemCategoryId.toString())
 
@@ -128,6 +142,7 @@ class CreateArticleActivity : AppCompatActivity() {
 
             Log.d("newArticle: ", newArticle.toString())
             createNewArticle(jwtToken,newArticle)
+
         }
 
     }
@@ -177,6 +192,7 @@ class CreateArticleActivity : AppCompatActivity() {
                     for (item in itemCategories.orEmpty()) {
                         if (item.name == selectedCategory) {
                             itemCategoryId = item
+                            Log.d("Selected Category name: ", itemCategoryId.name)
                             Log.d("Selected Category ID: ", itemCategoryId.id)
                         }
                     }
@@ -200,10 +216,43 @@ class CreateArticleActivity : AppCompatActivity() {
         spinnerCurrency.adapter = adapter
     }
     private fun setupCategorySpinner() {
-        val categories = arrayOf("Fruit", "Kitchenware") // Add more currencies as needed
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerCategory.adapter=adapter
+
+        val retrofit=RetrofitClient.getInstance(8081)
+        val service= retrofit.create(ServiceProducts :: class.java)
+        val call=service.getItemCategory()
+
+        call.enqueue(object : Callback<List<ItemCategory>> {
+                override fun onResponse(call: Call<List<ItemCategory>>, response: Response<List<ItemCategory>>) {
+                    try {
+                        if (response.isSuccessful) {
+                            val itemCategories = response.body() ?: emptyList()
+                            Log.d("AllMerchantsActivity", "Users fetched successfully: $itemCategories")
+                            // Add empty string at the begging of the list
+                            val itemCategoryName = mutableListOf<String>("ItemCategory")
+                            itemCategoryName.addAll(itemCategories.map { "${it.name}" })
+
+                            val arrayAdapter = ArrayAdapter(
+                                this@CreateArticleActivity,
+                                android.R.layout.simple_spinner_item,
+                                itemCategoryName.toTypedArray()
+                            )
+                            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                            spinnerCategory.adapter = arrayAdapter
+
+                        } else {
+                            Toast.makeText(applicationContext, "Failed fetching categories.", Toast.LENGTH_SHORT).show()
+                            Log.d("Categories response message: ", response.message())
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        Toast.makeText(applicationContext, "Failed fetching categories.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<List<ItemCategory>>, t: Throwable) {
+                    Toast.makeText(applicationContext, "Failure fetching categories!", Toast.LENGTH_SHORT).show()
+                }
+        })
     }
 
     private fun showLoading() {
