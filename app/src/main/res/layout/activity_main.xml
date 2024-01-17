@@ -47,41 +47,13 @@
         app:srcCompat="@drawable/paying"
         android:importantForAccessibility="no" />
 
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="15dp"
-        android:fontFamily="sans-serif-light"
-        android:text="Login - Username and Password"
-        android:textSize="16sp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewButtonModules"
+        android:layout_width="392dp"
+        android:layout_height="163dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgView_paying"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="HardcodedText" />
-
-    <Button
-        android:id="@+id/btn_login2"
-        android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="60dp"
-        android:fontFamily="sans-serif-light"
-        android:text="Login - PIN"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintTop_toBottomOf="@id/imgView_paying" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
