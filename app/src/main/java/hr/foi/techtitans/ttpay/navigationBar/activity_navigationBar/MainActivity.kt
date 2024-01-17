@@ -1,35 +1,29 @@
 package hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import hr.foi.techtitans.ttpay.R
-import hr.foi.techtitans.ttpay.login_modular.activity_login.LoginUsernamePassword
-import hr.foi.techtitans.ttpay.login_modular.activity_login.LoginWithPIN
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoginManager
+import hr.foi.techtitans.ttpay.login_modular.model_login.ModuleAdapter
 
 
 class MainActivity : AppCompatActivity() {
 
-
+    private lateinit var loginManager: LoginManager
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val loginButtonUsernamePassword: Button = findViewById(R.id.btn_login)
-        val loginButtonPIN:Button=findViewById(R.id.btn_login2)
+
+            loginManager = LoginManager(this)
+            recyclerView = findViewById(R.id.recyclerViewButtonModules)
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            recyclerView.adapter = ModuleAdapter(loginManager.getModules(), this)
 
 
-        loginButtonUsernamePassword.setOnClickListener {
-            val loginIntent = Intent(this, LoginUsernamePassword::class.java)
-            startActivity(loginIntent)
-            finish()
-        }
-        loginButtonPIN.setOnClickListener{
-            val loginIntent = Intent(this, LoginWithPIN::class.java)
-            startActivity(loginIntent)
-            finish()
-        }
     }
 }
