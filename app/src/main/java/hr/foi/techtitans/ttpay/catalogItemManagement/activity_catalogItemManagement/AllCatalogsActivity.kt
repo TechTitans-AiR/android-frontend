@@ -546,9 +546,4 @@ class AllCatalogsActivity : AppCompatActivity() {
         removeSearch.visibility=View.GONE
     }
 
-    override fun onRestart() {
-        super.onRestart()
-        fetchCatalogs()
-    }
-
 }

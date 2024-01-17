@@ -52,7 +52,7 @@
                 android:id="@+id/textView_first_name_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="First Name"
+                android:text="First Name *"
                 android:layout_marginTop="8dp" />
 
             <EditText
@@ -67,7 +67,7 @@
                 android:id="@+id/textView_last_name_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Last Name"
+                android:text="Last Name *"
                 android:layout_below="@+id/editText_first_name"
                 android:layout_marginTop="16dp" />
 
@@ -94,7 +94,7 @@
                 android:id="@+id/editText_date_of_birth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Date of Birth"
+                android:hint="yyyy-MM-dd"
                 android:inputType="date"
                 android:layout_below="@+id/textView_date_of_birth_label" />
 
@@ -137,7 +137,7 @@
                 android:id="@+id/textView_email_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"
+                android:text="Email *"
                 android:layout_below="@+id/editText_phone"
                 android:layout_marginTop="16dp" />
 
@@ -154,7 +154,7 @@
                 android:id="@+id/textView_username_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Username"
+                android:text="Username *"
                 android:layout_below="@+id/editText_email"
                 android:layout_marginTop="16dp" />
 
@@ -171,7 +171,7 @@
                 android:id="@+id/textView_password_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Password"
+                android:text="Password *"
                 android:layout_below="@+id/editText_username"
                 android:layout_marginTop="16dp" />
 
@@ -190,7 +190,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/editText_password"
                 android:layout_marginTop="16dp"
-                android:text="PIN" />
+                android:text="PIN *" />
 
             <EditText
                 android:id="@+id/editText_pin"
@@ -205,7 +205,7 @@
                 android:id="@+id/textView_user_role_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Role"
+                android:text="Role *"
                 android:layout_below="@+id/editText_pin"
                 android:layout_marginTop="16dp" />
 
@@ -221,7 +221,7 @@
                 android:id="@+id/textView_user_status_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Status"
+                android:text="Status *"
                 android:layout_below="@+id/spinner_user_role"
                 android:layout_marginTop="16dp" />
 
