@@ -36,4 +36,5 @@
     <string name="select_the_services">Select the services</string>
     <string name="added_articles">Added articles</string>
     <string name="continue_with_selecting_services">Continue with selecting services</string>
+    <string name="module_button">Module Button</string>
 </resources>
