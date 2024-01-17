@@ -9,6 +9,7 @@ import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.ProfileActiv
 import hr.foi.techtitans.ttpay.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.core.LoggedInUser
+import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHomeActivity
 
 class NavigationHandler(private val activity: AppCompatActivity, private var loggedInUser: LoggedInUser) {
 
@@ -19,7 +20,12 @@ class NavigationHandler(private val activity: AppCompatActivity, private var log
 
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.nav_home -> navigateToActivity(AdminHomeActivity::class.java)
+                R.id.nav_home -> {
+                    when (loggedInUser.role) {
+                        "admin" -> navigateToActivity(AdminHomeActivity::class.java)
+                        "merchant" -> navigateToActivity(MerchantHomeActivity::class.java)
+                    }
+                }
                 R.id.nav_profile -> navigateToActivity(ProfileActivity::class.java)
                 R.id.nav_logout -> navigateToMainActivity()
             }
