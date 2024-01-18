@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -78,8 +79,16 @@ class CreateTransactionActivity : AppCompatActivity() {
         // set recyclerview and total amount
         Log.d("CreateTransactionActivity", "onCreate: Setting up RecyclerViews and total amount")
         setupRecyclerViews()
-        fetchAllArticlesByUser()
-        fetchAllServicesByUser()
+        if (loggedInUser.role == "admin") {
+            fetchAllArticlesForAdmin()
+            fetchAllServicesForAdmin()
+        } else if (loggedInUser.role == "merchant") {
+            fetchAllArticlesByUser()
+            fetchAllServicesByUser()
+        }
+        else {
+            Toast.makeText(this, "User role is not fetched.", Toast.LENGTH_SHORT).show()
+        }
 
         btn_pay.setOnClickListener {
             Log.d("CreateTransactionActivity", "btn_pay onClick: Transferring data to TransactionSummaryActivity")
@@ -136,6 +145,73 @@ class CreateTransactionActivity : AppCompatActivity() {
         updateTotalAmount()
         setupRecyclerViews()
     }
+
+    private fun fetchAllArticlesForAdmin() {
+        showLoading()
+        val retrofit = RetrofitClient.getInstance(8081)
+        val service = retrofit.create(ServiceProducts::class.java)
+        val call = service.getArticles(loggedInUser.token)
+
+        call.enqueue(object : Callback<List<Article>> {
+            override fun onResponse(call: Call<List<Article>>, response: Response<List<Article>>) {
+                hideLoading()
+                if (response.isSuccessful) {
+                    val articles = response.body() ?: emptyList()
+                    Log.d("CreateTransactionActivity", "Articles fetched successfully: $articles")
+
+                    // add articles in the shoppingCartItems with initial unit price
+                    val shoppingCartArticles = articles.map { article ->
+                        ShoppingCartItem(article.name, 0, article.price, true)
+                    }
+                    shoppingCartItems.addAll(shoppingCartArticles)
+
+                    // Update presenting data
+                    articlesAdapter.updateData(shoppingCartArticles)
+                } else {
+                    showErrorDialog()
+                }
+            }
+
+            override fun onFailure(call: Call<List<Article>>, t: Throwable) {
+                hideLoading()
+                showErrorDialog()
+            }
+        })
+    }
+
+    private fun fetchAllServicesForAdmin() {
+        showLoading()
+        val retrofit = RetrofitClient.getInstance(8081)
+        val service = retrofit.create(ServiceProducts::class.java)
+        val call = service.getServices(loggedInUser.token)
+
+        call.enqueue(object : Callback<List<Service>> {
+            override fun onResponse(call: Call<List<Service>>, response: Response<List<Service>>) {
+                hideLoading()
+                if (response.isSuccessful) {
+                    val services = response.body() ?: emptyList()
+                    Log.d("AllProductsActivity", "Services fetched successfully: $services")
+
+                    // add services in the shoppingCartItems with initial unit price
+                    val shoppingCartServices = services.map { service ->
+                        ShoppingCartItem(service.serviceName, 0, service.price, false)
+                    }
+                    shoppingCartItems.addAll(shoppingCartServices)
+
+                    // update presenting data
+                    servicesAdapter.updateData(shoppingCartServices)
+                } else {
+                    showErrorDialog()
+                }
+            }
+
+            override fun onFailure(call: Call<List<Service>>, t: Throwable) {
+                hideLoading()
+                showErrorDialog()
+            }
+        })
+    }
+
 
     private fun fetchAllArticlesByUser() {
         showLoading()

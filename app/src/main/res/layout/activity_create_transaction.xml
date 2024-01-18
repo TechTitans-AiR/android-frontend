@@ -37,66 +37,35 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-    <!-- Total amount TextView and PAY button -->
-    <RelativeLayout
-        android:id="@+id/relativeLayoutTotalAmount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_above="@+id/bottomNavigationView"
-        android:layout_marginTop="20dp">
-
-        <!-- Total amount TextView -->
-        <TextView
-            android:id="@+id/tv_total_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total Amount: $0.00"
-            android:textSize="18sp"
-            android:layout_centerVertical="true"
-            android:textStyle="bold" />
-
-        <!-- PAY button -->
-        <Button
-            android:id="@+id/btn_pay"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="10dp"
-            android:layout_alignParentEnd="true"
-            android:text="PAY" />
-    </RelativeLayout>
-
     <ProgressBar
         android:id="@+id/loadingProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"
         android:layout_below="@id/header"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="16dp"/>
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:visibility="gone" />
 
     <!-- Content Scrollable Layout -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/relativeLayoutTotalAmount"
+        android:layout_below="@id/header"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:fillViewport="true"
-        android:layout_above="@+id/relativeLayoutTotalAmount"
-        android:layout_below="@id/header">
+        android:fillViewport="true">
 
         <!-- Content -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
-            android:gravity="center"
-            android:layout_marginTop="15dp">
+            android:gravity="center">
 
             <!-- Container 1 (Services) -->
             <RelativeLayout
@@ -150,10 +119,42 @@
         </RelativeLayout>
     </ScrollView>
 
-    <!-- Footer (BottomNavigationView) -->
-    <include layout="@layout/bottom_navigation"
-        android:id="@+id/bottomNavigationView"
+    <!-- Total amount TextView and PAY button -->
+    <RelativeLayout
+        android:id="@+id/relativeLayoutTotalAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_above="@+id/bottomNavigationView">
+
+        <!-- Total amount TextView -->
+        <TextView
+            android:id="@+id/tv_total_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Amount: $0.00"
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold" />
+
+        <!-- PAY button -->
+        <Button
+            android:id="@+id/btn_pay"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tv_total_amount"
+            android:text="PAY" />
+    </RelativeLayout>
+
+    <!-- Footer (BottomNavigationView) -->
+    <include
+        android:id="@+id/bottomNavigationView"
+        layout="@layout/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

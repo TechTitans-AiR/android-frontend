@@ -200,8 +200,15 @@ class UpdateArticleActivity : AppCompatActivity() {
         currencyEditText.setText(originalCurrency)
         quantityInStockEditText.setText(originalQuantityInStock)
         weightEditText.setText(originalWeight)
+
         btnCancel.visibility = View.GONE
         btnEditData.text = "Edit Data"
+
+        descriptionEditText.isEnabled = false
+        priceEditText.isEnabled = false
+        currencyEditText.isEnabled = false
+        quantityInStockEditText.isEnabled = false
+        weightEditText.isEnabled = false
     }
 
     private fun isFieldChanged(editText: EditText, originalValue: String?): Boolean {

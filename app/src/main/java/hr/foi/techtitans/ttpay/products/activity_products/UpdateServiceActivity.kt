@@ -277,5 +277,12 @@ class UpdateServiceActivity : AppCompatActivity() {
 
         btnCancel.visibility = View.GONE
         btnEditData.text = "Edit Data"
+
+        descriptionEditText.isEnabled = false
+        priceEditText.isEnabled = false
+        currencyEditText.isEnabled = false
+        durationEditText.isEnabled = false
+        durationUnitEditText.isEnabled = false
+        locationEditText.isEnabled = false
     }
 }
