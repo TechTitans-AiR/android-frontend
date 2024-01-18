@@ -188,7 +188,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
 
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
-        val call = service.getServicesForMerchant(loggedInUser.token, loggedInUser.userId)
+        val call = service.getAllServicesByUserInAllEnabledCatalogs(loggedInUser.token, loggedInUser.userId)
 
         call.enqueue(object : Callback<List<Service>> {
             override fun onResponse(call: Call<List<Service>>, response: Response<List<Service>>) {
@@ -237,7 +237,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
 
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
-        val call = service.getArticlesForMerchant(loggedInUser.token, loggedInUser.userId)
+        val call = service.getAllArticlesByUserInAllEnabledCatalogs(loggedInUser.token, loggedInUser.userId)
 
         call.enqueue(object : Callback<List<Article>> {
             override fun onResponse(call: Call<List<Article>>, response: Response<List<Article>>) {
@@ -285,7 +285,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
 
-        val call = service.getArticlesForMerchant(loggedInUser.token, loggedInUser.userId)
+        val call = service.getAllArticlesByUserInAllEnabledCatalogs(loggedInUser.token, loggedInUser.userId)
 
         call.enqueue(object : Callback<List<Article>> {
             override fun onResponse(call: Call<List<Article>>, response: Response<List<Article>>) {
@@ -322,7 +322,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
 
-        val call = service.getServicesForMerchant(loggedInUser.token, loggedInUser.userId)
+        val call = service.getAllServicesByUserInAllEnabledCatalogs(loggedInUser.token, loggedInUser.userId)
 
         call.enqueue(object : Callback<List<Service>> {
             override fun onResponse(call: Call<List<Service>>, response: Response<List<Service>>) {
