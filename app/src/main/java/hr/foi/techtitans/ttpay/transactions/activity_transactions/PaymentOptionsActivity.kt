@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.RadioGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import hr.foi.techtitans.ttpay.R
@@ -52,6 +53,11 @@ class PaymentOptionsActivity : AppCompatActivity() {
     private lateinit var cancelPayment: Button
     private lateinit var btnCheckCashAmount: Button
     private lateinit var btnCheckValidateCardData: Button
+    private lateinit var currencyCash: TextView
+    private lateinit var currencyAmount: TextView
+    private lateinit var currencyBalance: TextView
+    private lateinit var labelForAmount: TextView
+    private lateinit var labelForBalance: TextView
 
     private lateinit var layoutCash: LinearLayout
     private lateinit var layoutCard: LinearLayout
@@ -83,6 +89,9 @@ class PaymentOptionsActivity : AppCompatActivity() {
         edtDescriptionCash = findViewById(R.id.edt_description_cash)
         edtTotalAmount = findViewById(R.id.edt_ttl_amount)
         btnCheckCashAmount = findViewById(R.id.btn_check_cash_amount)
+        currencyCash = findViewById(R.id.txt_currency_cash)
+        currencyAmount = findViewById(R.id.txt_currency_amount)
+        labelForAmount = findViewById(R.id.txt_label_amount)
 
         layoutCard = findViewById(R.id.llBankCard)
         edtDescriptionCard = findViewById(R.id.edt_description_bank_card)
@@ -91,6 +100,8 @@ class PaymentOptionsActivity : AppCompatActivity() {
         edtBalance = findViewById(R.id.edt_balance)
         edtCvc = findViewById(R.id.edt_cvc)
         btnCheckValidateCardData = findViewById(R.id.btn_check_validate_card_data)
+        currencyBalance = findViewById(R.id.txt_currency_balance)
+        labelForBalance = findViewById(R.id.label_currency_balance)
 
         progressBar = findViewById(R.id.progressBar)
 
@@ -139,17 +150,27 @@ class PaymentOptionsActivity : AppCompatActivity() {
                 layoutCard.visibility = View.GONE
                 completePayment.visibility = View.GONE
                 cancelPayment.visibility = View.VISIBLE
+                currencyCash.visibility = View.VISIBLE
+                currencyAmount.visibility = View.VISIBLE
+                currencyBalance.visibility = View.GONE
+                labelForAmount.visibility = View.VISIBLE
+                labelForBalance.visibility = View.GONE
             }
             R.id.radioBankCard -> {
                 layoutCard.visibility = View.VISIBLE
                 layoutCash.visibility = View.GONE
                 edtCashAmount.visibility = View.GONE
                 edtTotalAmount.visibility = View.GONE
+                currencyCash.visibility = View.GONE
+                currencyAmount.visibility = View.GONE
                 btnCheckCashAmount.visibility = View.GONE
                 edtBalance.setText(totalAmount.toString())
                 edtBalance.isEnabled = false
                 completePayment.visibility = View.GONE
                 cancelPayment.visibility = View.VISIBLE
+                currencyBalance.visibility = View.VISIBLE
+                labelForAmount.visibility = View.GONE
+                labelForBalance.visibility = View.VISIBLE
             }
         }
     }
