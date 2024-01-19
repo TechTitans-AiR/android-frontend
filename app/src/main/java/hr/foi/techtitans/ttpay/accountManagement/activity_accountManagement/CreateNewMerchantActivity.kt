@@ -162,7 +162,17 @@ class CreateNewMerchantActivity : AppCompatActivity() {
 
                         // Prikazivanje string poruke iz odgovora
                         Log.d("Userrrr: ", createdUserString)
+
+                        if (createdUserString.contains("User added successfully")) {
+                            val intent = Intent(context, AllMerchantsActivity::class.java)
+                            intent.putExtra("loggedInUser", loggedInUser)
+                            intent.putExtra("username", newUser.username)
+                            startActivity(intent)
+                            finish()
+                        }
+
                         Toast.makeText(context, createdUserString, Toast.LENGTH_SHORT).show()
+
                     } else {
                         Toast.makeText(context, "ERROR: Response body is null!", Toast.LENGTH_SHORT).show()
                     }

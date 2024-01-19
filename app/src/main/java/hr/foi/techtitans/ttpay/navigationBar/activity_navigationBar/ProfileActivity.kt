@@ -37,6 +37,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var editTextPhone: EditText
     private lateinit var editTextAddress: EditText
     private lateinit var editTextStatus: EditText
+    private lateinit var editTextPin: EditText
 
     private lateinit var btnEditData: Button
     private var isEditMode = false
@@ -64,6 +65,7 @@ class ProfileActivity : AppCompatActivity() {
         editTextPhone = findViewById(R.id.editText_phone)
         editTextAddress = findViewById(R.id.editText_address)
         editTextDateOfBirth = findViewById(R.id.editText_dateOfBirth)
+        editTextPin = findViewById(R.id.editText_pin)
 
         userUsername = intent.getStringExtra("username") ?: ""
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
@@ -208,6 +210,7 @@ class ProfileActivity : AppCompatActivity() {
             editTextDateModified.setText(user.date_modified ?: "")
             editTextUsername.setText(user.username)
             editTextPassword.setText(user.password)
+            editTextPin.setText(user.pin ?: "")
             editTextEmail.setText(user.email)
             editTextPhone.setText(user.phone ?: "")
             editTextAddress.setText(user.address ?: "")
@@ -229,6 +232,7 @@ class ProfileActivity : AppCompatActivity() {
             editTextDateModified.text.clear()
             editTextUsername.text.clear()
             editTextPassword.text.clear()
+            editTextPin.text.clear()
             editTextEmail.text.clear()
             editTextPhone.text.clear()
             editTextAddress.text.clear()

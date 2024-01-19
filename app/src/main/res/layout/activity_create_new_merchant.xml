@@ -185,14 +185,11 @@
 
             <!-- PIN -->
             <TextView
-                android:id="@+id/textView_pin"
+                android:id="@+id/textView_pin_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/editText_password"
                 android:layout_marginTop="16dp"
-                android:inputType="numberPassword"
-                android:digits="0123456789"
-                android:maxLength="6"
                 android:text="PIN *" />
 
             <EditText
@@ -200,8 +197,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter PIN"
-                android:inputType="textPassword"
-                android:layout_below="@+id/textView_pin" />
+                android:inputType="numberPassword"
+                android:digits="0123456789"
+                android:maxLength="6"
+                android:layout_below="@+id/textView_pin_label" />
 
             <!-- UserRole Spinner -->
             <TextView
@@ -249,12 +248,18 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="60dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="80dp"
         android:fontFamily="sans-serif-light"
         android:text="Create merchant"
+        android:layout_above="@+id/bottomNavigationView"
         android:textSize="16sp" />
 
     <!-- BottomNavigationView -->
-    <include layout="@layout/bottom_navigation" />
+    <include
+        android:id="@+id/bottomNavigationView"
+        layout="@layout/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
