@@ -1,9 +1,11 @@
 package hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog
 
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import hr.foi.techtitans.ttpay.R

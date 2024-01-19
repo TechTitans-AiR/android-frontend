@@ -24,6 +24,9 @@ import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.UserAda
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.AddedUserAdapter
+import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.CollectedArticlesCatalogAdapter
+import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.CollectedServicesCatalogAdapter
+import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.CollectedUserCatalogAdapter
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.SelectUserAdapter
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 
@@ -38,17 +41,14 @@ class CreateCatalogDataActivity : AppCompatActivity() {
 
 
     //adapters
-    private lateinit var articlesAdapter: ArticleAdapter
-    private lateinit var servicesAdapter: ServiceAdapter
-    private lateinit var usersAdapter: SelectUserAdapter
+    private lateinit var articlesAdapter: CollectedArticlesCatalogAdapter
+    private lateinit var servicesAdapter: CollectedServicesCatalogAdapter
+    private lateinit var usersAdapter: CollectedUserCatalogAdapter
 
     //lists of data for catalog
     private var listSelectedArticles= mutableListOf<Article>()
     private var listSelectedServices= mutableListOf<Service>()
     private var listSelectedUsers= mutableListOf<User>()
-
-    // defining empty lambda activity onItemClick for UserAdapter
-    private val onItemClick: (User) -> Unit = {  }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,14 +81,14 @@ class CreateCatalogDataActivity : AppCompatActivity() {
         Log.d("CreateCatalogDataActivity, services: ",listSelectedServices.toString())
         Log.d("CreateCatalogDataActivity, users: ",listSelectedUsers.toString())
 
-        articlesAdapter= ArticleAdapter(listSelectedArticles, loggedInUser, false)
-        servicesAdapter= ServiceAdapter(listSelectedServices, loggedInUser, false)
+        articlesAdapter= CollectedArticlesCatalogAdapter(listSelectedArticles)
+        servicesAdapter= CollectedServicesCatalogAdapter(listSelectedServices)
 
 
         //get catalog name
         val catalogName=findViewById<EditText>(R.id.editText_nameOfCatalog)
 
-        usersAdapter= SelectUserAdapter(listSelectedUsers,false){ }
+        usersAdapter= CollectedUserCatalogAdapter(listSelectedUsers)
 
         // Connect adapters with ConcatAdapter--> for more than one adapter shown in one RecycleView
         val concatAdapter = ConcatAdapter(articlesAdapter, servicesAdapter, usersAdapter)

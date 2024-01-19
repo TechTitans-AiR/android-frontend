@@ -15,6 +15,14 @@
         android:layout_gravity="center"
         tools:ignore="UselessParent">
 
+        <!-- Additional details for the user -->
+        <LinearLayout
+            android:id="@+id/innerlinearlayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center|start">
+
         <TextView
             android:id="@+id/textView_user_name"
             android:layout_width="200dp"
@@ -24,22 +32,13 @@
             android:text="@string/user_name"
             android:textSize="16sp" />
 
-        <!-- Additional details for the user -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="45dp">
-
             <TextView
                 android:id="@+id/textView_user_email"
                 android:layout_width="200dp"
                 android:layout_height="30dp"
                 android:text="@string/user_email"
                 android:textSize="14sp"
-                android:gravity="center"
-                android:layout_gravity="center_horizontal" />
+                android:gravity="center" />
         </LinearLayout>
 
         <Button
