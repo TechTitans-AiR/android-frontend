@@ -79,8 +79,6 @@
                 android:inputType="text"
                 android:layout_below="@+id/textView_last_name_label" />
 
-            <!-- Dodaj ostale TextView i EditText za ostale atribute -->
-
             <!-- Date of Birth -->
             <TextView
                 android:id="@+id/textView_date_of_birth_label"
@@ -197,7 +195,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter PIN"
-                android:inputType="textPassword"
+                android:inputType="numberPassword"
+                android:digits="0123456789"
+                android:maxLength="6"
                 android:layout_below="@+id/textView_pin" />
 
             <!-- UserRole Spinner -->
