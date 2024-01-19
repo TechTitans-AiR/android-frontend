@@ -23,6 +23,7 @@ import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.UserAdapter
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.AdminSectionForCatalogsActivity
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.AddedUserAdapter
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.CollectedArticlesCatalogAdapter
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.CollectedServicesCatalogAdapter
@@ -137,7 +138,7 @@ class CreateCatalogDataActivity : AppCompatActivity() {
             Log.d("NewCatalog Object: ", newCatalog.toString())
             createNew.createNewCatalog(loggedInUser,this,newCatalog)
 
-            val intent = Intent(this, AdminHomeActivity::class.java)
+            val intent = Intent(this, AdminSectionForCatalogsActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("username", userUsername)
             startActivity(intent)

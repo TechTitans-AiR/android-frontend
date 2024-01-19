@@ -34,7 +34,7 @@ class TransactionCompletionActivity : AppCompatActivity() {
             // If it's a card payment, hide the tvAmountDifference
             tvAmountDifference.visibility = View.GONE
         } else {
-            tvAmountDifference.text = "Amount Difference: $differenceAmount"
+            tvAmountDifference.text = "Amount Difference: ${formatAmount(differenceAmount)}"
         }
 
         val btnBackToHome: Button = findViewById(R.id.btn_back_to_home)
@@ -43,7 +43,7 @@ class TransactionCompletionActivity : AppCompatActivity() {
 
             if (role == "admin") {
                 // Open AdminHomeActivity
-                val intent = Intent(this, AdminHomeActivity::class.java)
+                val intent = Intent(this, TransactionsActivity::class.java)
                 intent.putExtra("loggedInUser", loggedInUser)
                 intent.putExtra("username", userUsername)
                 startActivity(intent)
@@ -56,5 +56,12 @@ class TransactionCompletionActivity : AppCompatActivity() {
             }
             finish()
         }
+    }
+
+    private fun formatAmount(amount: Double): String {
+        val formattedAmount = String.format("%.2f", amount)
+        val roundedAmount = formattedAmount.toDouble()
+
+        return roundedAmount.toString()
     }
 }
