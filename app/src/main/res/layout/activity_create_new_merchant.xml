@@ -190,6 +190,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/editText_password"
                 android:layout_marginTop="16dp"
+                android:inputType="numberPassword"
+                android:digits="0123456789"
+                android:maxLength="6"
                 android:text="PIN *" />
 
             <EditText

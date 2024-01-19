@@ -1,8 +1,13 @@
 package hr.foi.techtitans.ttpay.accountManagement.activity_accountManagement
 
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
@@ -29,6 +34,7 @@ class DetailsMerchantActivity : AppCompatActivity() {
     private lateinit var txtViewPhone: TextView
     private lateinit var txtViewAddress: TextView
     private lateinit var txtViewStatus: TextView
+    private lateinit var txtViewPin: TextView
 
     private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
@@ -47,6 +53,7 @@ class DetailsMerchantActivity : AppCompatActivity() {
         txtViewPhone = findViewById(R.id.textView_phone)
         txtViewAddress = findViewById(R.id.textView_address)
         txtViewStatus = findViewById(R.id.textView_status)
+        txtViewPin = findViewById(R.id.textView_pin)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
 
@@ -89,7 +96,8 @@ class DetailsMerchantActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
-                // Handle failure
+                Log.e("NetworkError", "Error: ${t.message}")
+                Toast.makeText(this@DetailsMerchantActivity, "Network error occured!", Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -100,10 +108,11 @@ class DetailsMerchantActivity : AppCompatActivity() {
         txtViewDateOfBirth.text = "Date of Birth: ${user.date_of_birth ?: ""}"
         txtViewDateCreated.text = "Date Created: ${user.date_created ?: ""}"
         txtViewUsername.text = "Username: ${user.username}"
-        txtViewPassword.text = "Password: ${user.password}"  // Note: It's not recommended to display passwords
+        txtViewPassword.text = "${user.password.substring(0, 6) ?: ""}"
         txtViewEmail.text = "Email: ${user.email}"
         txtViewPhone.text = "Phone: ${user.phone ?: ""}"
         txtViewAddress.text = "Address: ${user.address ?: ""}"
         txtViewStatus.text = "Status: ${user.userStatus?.name ?: ""}"
+        txtViewPin.text = "${user.pin?.substring(0, 6) ?: ""}"
     }
 }

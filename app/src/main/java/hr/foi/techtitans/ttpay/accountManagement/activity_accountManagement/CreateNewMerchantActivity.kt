@@ -133,7 +133,7 @@ class CreateNewMerchantActivity : AppCompatActivity() {
                 txtPhone.text.toString(),
                 birthDateString,
                 selectedRole?.name,
-                UserStatus.active.name,
+                userStatusSpinner.selectedItem.toString(),
                 txtPIN.text.toString()
             )
             Log.d("CreateNewActivity", "Search JSON: ${Gson().toJson(newUserData)}")

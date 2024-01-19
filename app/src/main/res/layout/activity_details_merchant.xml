@@ -122,12 +122,51 @@
             android:textSize="18dp"
             android:layout_marginBottom="10dp" />
 
-        <TextView
-            android:id="@+id/textView_password"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="18dp"/>
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/textView_password_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password:"
+                android:textSize="18dp"/>
+
+            <TextView
+                android:id="@+id/textView_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="textPassword"
+                android:layout_marginStart="2dp"
+                android:textSize="18dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/textView_pin_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pin:"
+                android:textSize="18dp"/>
+
+            <TextView
+                android:id="@+id/textView_pin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="numberPassword"
+                android:layout_marginStart="10dp"
+                android:textSize="18dp"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView_email"
