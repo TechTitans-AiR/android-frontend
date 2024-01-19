@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -40,6 +41,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var editTextPin: EditText
 
     private lateinit var btnEditData: Button
+    private lateinit var btnCancelEdit: Button
     private var isEditMode = false
 
     // Original values
@@ -66,6 +68,8 @@ class ProfileActivity : AppCompatActivity() {
         editTextAddress = findViewById(R.id.editText_address)
         editTextDateOfBirth = findViewById(R.id.editText_dateOfBirth)
         editTextPin = findViewById(R.id.editText_pin)
+        btnCancelEdit = findViewById(R.id.btnCancelEdit)
+        btnEditData = findViewById(R.id.btnEditData)
 
         userUsername = intent.getStringExtra("username") ?: ""
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
@@ -97,15 +101,22 @@ class ProfileActivity : AppCompatActivity() {
 
         }
 
-        btnEditData = findViewById(R.id.btnEditData)
         btnEditData.setOnClickListener {
             toggleEditMode()
+        }
+
+        btnCancelEdit.visibility = View.GONE
+        btnCancelEdit.setOnClickListener {
+            getUserDetails(loggedInUser.userId)
+            disableEditMode()
+            isEditMode = false
+            btnCancelEdit.visibility = View.GONE
+            Toast.makeText(this, "Profile editing is canceled.", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun toggleEditMode() {
         isEditMode = !isEditMode
-
         if (isEditMode) {
             enableEditMode()
         } else {
@@ -134,6 +145,8 @@ class ProfileActivity : AppCompatActivity() {
         // Change button text
         btnEditData.text = "Save Changes"
 
+        btnCancelEdit.visibility = View.VISIBLE
+
         // Log statement
         Log.d("ProfileActivity", "Entered enableEditMode")
     }
@@ -157,6 +170,8 @@ class ProfileActivity : AppCompatActivity() {
 
         // Change button text
         btnEditData.text = "Edit Data"
+
+        btnCancelEdit.visibility = View.GONE
 
         // Log statement
         Log.d("ProfileActivity", "Entered disableEditMode")
