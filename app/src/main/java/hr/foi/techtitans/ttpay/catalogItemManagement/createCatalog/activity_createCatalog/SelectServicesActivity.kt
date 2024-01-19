@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -143,16 +144,24 @@ class SelectServicesActivity : AppCompatActivity() {
         //continue to select user
         continueButton = findViewById(R.id.btn_continue_select_user)
         continueButton.setOnClickListener {
-            val intent = Intent(this, SelectUserActivity::class.java)
-            if(catalog!=null){
-                intent.putExtra("selectedCatalog", catalog)
+            if (selectedArticles!!.isEmpty() && listSelectedServices.isEmpty()) {
+                Toast.makeText(
+                    this,
+                    "You need to add at least one article or at least one service because the new catalog can't be without products!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                val intent = Intent(this, SelectUserActivity::class.java)
+                if (catalog != null) {
+                    intent.putExtra("selectedCatalog", catalog)
+                }
+                intent.putExtra("loggedInUser", loggedInUser)
+                intent.putExtra("selectedServices", ArrayList(listSelectedServices))
+                intent.putExtra("selectedArticles", ArrayList(selectedArticles))
+                intent.putExtra("username", userUsername)
+                startActivityForResult(intent, 123)
+                finish()
             }
-            intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("selectedServices", ArrayList(listSelectedServices))
-            intent.putExtra("selectedArticles", ArrayList(selectedArticles))
-            intent.putExtra("username", userUsername)
-            startActivityForResult(intent, 123)
-            finish()
         }
     }
     private fun initAddedServiceAdapter() {
