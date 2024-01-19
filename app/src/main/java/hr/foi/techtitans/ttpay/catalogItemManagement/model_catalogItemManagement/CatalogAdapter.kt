@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.DetailedCatalogItemActivity
@@ -48,8 +49,13 @@ class CatalogAdapter(
 
         holder.switchEnableDisable.setOnClickListener {
             val isEnabled = holder.switchEnableDisable.isChecked
-            catalog.disabled = !isEnabled
-            updateCatalogStatus(catalog.id, catalog.name, isEnabled, holder)
+            showEnableDisableConfirmationDialog(
+                catalog.id,
+                catalog.name,
+                isEnabled,
+                holder.itemView.context,
+                holder
+            )
         }
 
         holder.imgViewEye.setOnClickListener {
@@ -57,7 +63,7 @@ class CatalogAdapter(
             intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("catalogId", catalog.id)
             intent.putExtra("selectedCatalog", catalog)
-            val updatedCatalog:String =""
+            val updatedCatalog: String = ""
             intent.putExtra("username", loggedInUser.username)
             intent.putExtra("updatedCatalog", updatedCatalog)
             holder.itemView.context.startActivity(intent)
@@ -100,7 +106,10 @@ class CatalogAdapter(
 
                     Toast.makeText(holder.itemView.context, toastMessage, Toast.LENGTH_SHORT).show()
                 } else {
-                    Log.e("CatalogItemActivity", "Failed to update catalog status: ${response.code()}")
+                    Log.e(
+                        "CatalogItemActivity",
+                        "Failed to update catalog status: ${response.code()}"
+                    )
                     showErrorToast(holder.itemView.context)
                 }
             }
@@ -123,5 +132,34 @@ class CatalogAdapter(
     fun updateData(newCatalogs: List<Catalog>) {
         catalogs = newCatalogs
         notifyDataSetChanged()
+    }
+
+    private fun showEnableDisableConfirmationDialog(
+        catalogId: String?,
+        catalogName: String,
+        isEnabled: Boolean,
+        context: Context,
+        holder: CatalogViewHolder
+    ) {
+        val message = if (isEnabled) {
+            "Do you really want to enable the catalog $catalogName?"
+        } else {
+            "Do you really want to disable the catalog $catalogName?"
+        }
+
+        val alertDialogBuilder = AlertDialog.Builder(context)
+        alertDialogBuilder.setTitle("Confirmation")
+            .setMessage(message)
+            .setPositiveButton("Yes") { _, _ ->
+                // If 'Yes' is clicked, update the catalog status
+                updateCatalogStatus(catalogId, catalogName, isEnabled, holder)
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                // If 'Cancel' is clicked, revert the switch state
+                holder.switchEnableDisable.isChecked = !isEnabled
+                dialog.dismiss()
+            }
+            .create()
+            .show()
     }
 }
