@@ -5,13 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
-import hr.foi.air.login_pin.PINLoginHandler
-import hr.foi.air.login_pin.PINLoginToken
+import hr.foi.air.login_pin.FragmentLoginPIN
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.core.LoginOutcomeListener
@@ -19,24 +17,16 @@ import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeAct
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MainActivity
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHomeActivity
 
-class LoginWithPIN : AppCompatActivity(), LoginOutcomeListener {
+class LoginUser : AppCompatActivity(), LoginOutcomeListener {
 
-    private var loginHandler : PINLoginHandler = PINLoginHandler()
-
-
-    private lateinit var editTextPIN:EditText
-    private lateinit var btnLogin:Button
     private lateinit var btnBack:ImageView
     private lateinit var progressBarPin:ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login_with_pin)
+        setContentView(R.layout.activity_login_user)
 
-        editTextPIN = findViewById(R.id.digitCodePIN)
-        btnLogin=findViewById(R.id.btn_login_PIN_activity)
         btnBack=findViewById(R.id.imgBackButton)
-        progressBarPin=findViewById(R.id.progressBarPIN)
 
 
         btnBack.setOnClickListener{
@@ -45,20 +35,11 @@ class LoginWithPIN : AppCompatActivity(), LoginOutcomeListener {
             finish()
         }
 
-        btnLogin.setOnClickListener{
-            val enteredPIN = editTextPIN.text.toString()
+        val fragmentContainer = findViewById<FrameLayout>(R.id.fragmentContainer)
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(fragmentContainer.id, FragmentLoginPIN(this))
+        fragmentTransaction.commit()
 
-            showProgressBar()
-
-            val loginTokenPIN = PINLoginToken(enteredPIN)
-            loginHandler.handleLogin(loginTokenPIN, this)
-        }
-
-
-    }
-
-    private fun showProgressBar() {
-        progressBarPin.visibility = View.VISIBLE
     }
 
     private fun hideProgressBar() {
@@ -79,24 +60,24 @@ class LoginWithPIN : AppCompatActivity(), LoginOutcomeListener {
 
             when(loggedInUser.role){
                 "admin"-> {
-                    val adminHomeIntent = Intent(this@LoginWithPIN, AdminHomeActivity::class.java)
+                    val adminHomeIntent = Intent(this@LoginUser, AdminHomeActivity::class.java)
                     adminHomeIntent.putExtra("username", loggedUser.username)
                     Log.d("LoggedInUser",loggedUser.toString())
                     adminHomeIntent.putExtra("loggedInUser", loggedUser)
-                    Toast.makeText(this@LoginWithPIN, "You are Admin!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginUser, "You are Admin!", Toast.LENGTH_SHORT).show()
                     startActivity(adminHomeIntent)
                     finish()
                 }
                 "merchant"-> {
-                    val merchantHome=Intent(this@LoginWithPIN, MerchantHomeActivity::class.java)
+                    val merchantHome=Intent(this@LoginUser, MerchantHomeActivity::class.java)
                     merchantHome.putExtra("username", loggedInUser.username)
                     merchantHome.putExtra("loggedInUser", loggedUser)
-                    Toast.makeText(this@LoginWithPIN, "You are Merchant!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginUser, "You are Merchant!", Toast.LENGTH_SHORT).show()
                     startActivity(merchantHome)
                     finish()
                 }
                 else->{
-                    Toast.makeText(this@LoginWithPIN, "Something went wrong!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginUser, "Something went wrong!", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -111,10 +92,10 @@ class LoginWithPIN : AppCompatActivity(), LoginOutcomeListener {
         hideProgressBar()
         if (reason != null) {
             Log.d("Error message: ", reason)
-            Toast.makeText(this@LoginWithPIN, "Login failed!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@LoginUser, "Login failed!", Toast.LENGTH_SHORT).show()
         } else {
             Log.d("Error message: ", "Unknown error")
-            Toast.makeText(this@LoginWithPIN, "Login failed due to an unknown error!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@LoginUser, "Login failed due to an unknown error!", Toast.LENGTH_SHORT).show()
         }
     }
 }

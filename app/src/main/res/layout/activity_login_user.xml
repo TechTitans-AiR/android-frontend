@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login_modular.activity_login.LoginWithPIN">
+    tools:context=".login_modular.activity_login.LoginUser">
 
     <ImageView
         android:id="@+id/imgBackButton"
@@ -51,6 +50,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -60,57 +61,25 @@
             <ImageView
                 android:id="@+id/baselineCircleOverlap"
                 android:layout_width="match_parent"
-                android:layout_height="114dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/baseline_account_circle"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/digitCodePIN"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-
-            <EditText
-                android:id="@+id/digitCodePIN"
-                android:layout_width="match_parent"
-                android:layout_height="53dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="40dp"
-                android:inputType="numberPassword"
-                android:maxLength="6"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                android:backgroundTintMode="src_in"
-                android:backgroundTint="@color/buttonPrimaryColor"
-                app:layout_constraintTop_toBottomOf="@+id/baselineCircleOverlap"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:hint="Enter PIN">
-            </EditText>
+                />
 
-            <Button
-                android:id="@+id/btn_login_PIN_activity"
+            <FrameLayout
+                android:id="@+id/fragmentContainer"
                 android:layout_width="match_parent"
-                android:layout_height="53dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="40dp"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/login"
-                android:textSize="16sp"
-                app:layout_constraintTop_toBottomOf="@+id/digitCodePIN"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <ProgressBar
-                android:id="@+id/progressBarPIN"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@+id/btn_login_PIN_activity"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/baselineCircleOverlap"
+                app:layout_constraintBottom_toTopOf="@+id/appLogo"
+
+                />
+
+
 
             <ImageView
                 android:id="@+id/appLogo"

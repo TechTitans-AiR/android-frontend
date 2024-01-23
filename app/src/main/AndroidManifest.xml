@@ -30,7 +30,7 @@
             android:name=".transactions.activity_transactions.TransactionsActivity"
             android:exported="false" />
         <activity
-            android:name=".login_modular.activity_login.LoginWithPIN"
+            android:name=".login_modular.activity_login.LoginUser"
             android:exported="false" />
         <activity
             android:name=".catalogItemManagement.activity_catalogItemManagement.UpdateCatalogActivity"
