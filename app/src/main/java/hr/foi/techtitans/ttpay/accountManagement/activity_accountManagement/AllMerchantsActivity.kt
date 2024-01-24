@@ -29,7 +29,6 @@ class AllMerchantsActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var loggedInUser: LoggedInUser
     private lateinit var progressBar: ProgressBar
-    private lateinit var userUsername: String
     private lateinit var adapter:MerchantAdapter
 
 
@@ -47,8 +46,6 @@ class AllMerchantsActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
 
-        userUsername = intent.getStringExtra("username") ?: ""
-
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
@@ -63,7 +60,6 @@ class AllMerchantsActivity : AppCompatActivity() {
         btnBack.setOnClickListener {
             val intent = Intent(this, AdminHomeActivity::class.java)
             intent.putExtra("loggedInUser",loggedInUser)
-            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }
@@ -73,7 +69,6 @@ class AllMerchantsActivity : AppCompatActivity() {
     fun onPlusIconClick(view: View) {
         val intent = Intent(this, CreateNewMerchantActivity::class.java)
         intent.putExtra("loggedInUser",loggedInUser)
-        intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
     }

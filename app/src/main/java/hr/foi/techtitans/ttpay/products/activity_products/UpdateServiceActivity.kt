@@ -22,7 +22,6 @@ import retrofit2.Response
 
 class UpdateServiceActivity : AppCompatActivity() {
 
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var bottomNavigationView: BottomNavigationView
@@ -58,7 +57,6 @@ class UpdateServiceActivity : AppCompatActivity() {
         setContentView(R.layout.activity_update_service)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
 
         // Initialize UI elements
         btnBack = findViewById(R.id.back_ac)
@@ -83,7 +81,6 @@ class UpdateServiceActivity : AppCompatActivity() {
         btnBack.setOnClickListener {
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("UpdateServiceActivity - LoggedInUser",loggedInUser.toString())
-            intent.putExtra("username", userUsername)
             setResult(RESULT_OK, intent)
             finish()
         }

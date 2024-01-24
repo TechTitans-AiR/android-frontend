@@ -19,7 +19,6 @@ import hr.foi.techtitans.ttpay.core.LoggedInUser
 
 class TransactionSummaryActivity : AppCompatActivity() {
 
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
     private lateinit var shoppingCartItems: MutableList<ShoppingCartItem>
     private var totalAmount: Double = 0.0
@@ -32,12 +31,10 @@ class TransactionSummaryActivity : AppCompatActivity() {
         setContentView(R.layout.activity_transaction_summary)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
         shoppingCartItems =
             intent.getSerializableExtra("shoppingCartItems") as MutableList<ShoppingCartItem>
         totalAmount = intent.getDoubleExtra("totalAmount", 0.0)
 
-        Log.d("TransactionSummaryActivity", "onCreate: username: $userUsername")
         Log.d("TransactionSummaryActivity", "onCreate: shoppingCartItems: $shoppingCartItems")
         Log.d("TransactionSummaryActivity", "onCreate: totalAmount: $totalAmount")
 
@@ -67,7 +64,6 @@ class TransactionSummaryActivity : AppCompatActivity() {
             intent.putExtra("loggedInUser", loggedInUser)
             intent.putExtra("shoppingCartItems", ArrayList(shoppingCartItems))
             intent.putExtra("totalAmount", totalAmount)
-            intent.putExtra("username", userUsername)
             startActivity(intent)
         }
 
@@ -75,7 +71,6 @@ class TransactionSummaryActivity : AppCompatActivity() {
         imgBack.setOnClickListener {
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("AllTransationsActivity - LoggedInUser", loggedInUser.toString())
-            intent.putExtra("username", userUsername)
             onBackPressed()
         }
     }

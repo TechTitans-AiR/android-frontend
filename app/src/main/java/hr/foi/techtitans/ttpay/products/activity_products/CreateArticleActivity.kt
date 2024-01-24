@@ -33,7 +33,6 @@ class CreateArticleActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
 
     private lateinit var navigationHandler: NavigationHandler
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
 
     // Declare and initialize EditText and Spinner
@@ -61,7 +60,6 @@ class CreateArticleActivity : AppCompatActivity() {
 
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, loggedInUser)
@@ -72,7 +70,6 @@ class CreateArticleActivity : AppCompatActivity() {
             val intent = Intent(this, AllProductsActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("CreateProductActivity - LoggedInUser",loggedInUser.toString())
-            intent.putExtra("username", userUsername)
             startActivity(intent)
         }
 
@@ -159,7 +156,6 @@ class CreateArticleActivity : AppCompatActivity() {
                 hideLoading()
                 if (response.isSuccessful) {
                     intent.putExtra("loggedInUser", loggedInUser)
-                    intent.putExtra("username", userUsername)
                     setResult(RESULT_OK, intent)
                     finish()
                     Toast.makeText(applicationContext, "Article created successfully", Toast.LENGTH_SHORT).show()

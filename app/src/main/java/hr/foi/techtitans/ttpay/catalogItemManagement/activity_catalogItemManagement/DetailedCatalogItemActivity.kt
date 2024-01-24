@@ -43,7 +43,6 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
     private lateinit var textViewDateCreated: TextView
     private lateinit var textViewDateModified: TextView
     private lateinit var navigationHandler: NavigationHandler
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
     private lateinit var btn_edit:Button
     private lateinit var btnRefresh:ImageView
@@ -75,7 +74,6 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
 
         catalogId = intent.getStringExtra("catalogId") ?: ""
         Log.d("CatalogItemWithoutUserActivity", "Catalog id: $catalogId")
-        userUsername = intent.getStringExtra("username") ?: ""
 
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
@@ -95,19 +93,16 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
             if(updatedCatalog!=""){
                 val intent= Intent(this, AllCatalogsActivity::class.java)
                 intent.putExtra("loggedInUser", loggedInUser)
-                intent.putExtra("username", userUsername)
                 startActivity(intent)
             }
             else{
                 if(loggedInUser.role=="merchant"){
                     val intent= Intent(this, AllCatalogsMerchantActivity::class.java)
                     intent.putExtra("loggedInUser", loggedInUser)
-                    intent.putExtra("username", userUsername)
                     onBackPressed()
                 }else{
                     val intent= Intent(this, AllCatalogsActivity::class.java)
                     intent.putExtra("loggedInUser", loggedInUser)
-                    intent.putExtra("username", userUsername)
                     onBackPressed()
                 }
 
@@ -126,7 +121,6 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
                 val intent = Intent(this, SelectArticlesActivity::class.java)
                 intent.putExtra("loggedInUser", loggedInUser)
                 intent.putExtra("selectedCatalog", catalog)
-                intent.putExtra("username", userUsername)
                 startActivity(intent)
             }
         }

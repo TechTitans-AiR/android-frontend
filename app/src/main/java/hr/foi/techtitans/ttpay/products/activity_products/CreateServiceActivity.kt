@@ -29,7 +29,6 @@ class CreateServiceActivity : AppCompatActivity() {
     private lateinit var actionBack: ImageView
     private lateinit var bottomNavigationView: BottomNavigationView
 
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
 
     // Declare and initialize EditText and Spinner
@@ -67,7 +66,6 @@ class CreateServiceActivity : AppCompatActivity() {
 
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
 
         navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
@@ -80,7 +78,6 @@ class CreateServiceActivity : AppCompatActivity() {
         actionBack.setOnClickListener {
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("CreateServiceActivity - LoggedInUser",loggedInUser.toString())
-            intent.putExtra("username", userUsername)
             setResult(RESULT_OK, intent)
             finish()
         }
@@ -145,7 +142,6 @@ class CreateServiceActivity : AppCompatActivity() {
                 hideLoading()
                 if (response.isSuccessful) {
                     intent.putExtra("loggedInUser", loggedInUser)
-                    intent.putExtra("username", userUsername)
                     setResult(RESULT_OK, intent)
                     finish()
                     Toast.makeText(applicationContext, "Service created successfully", Toast.LENGTH_SHORT).show()

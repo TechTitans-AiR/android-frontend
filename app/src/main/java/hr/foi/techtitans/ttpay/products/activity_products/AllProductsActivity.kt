@@ -36,7 +36,6 @@ class AllProductsActivity : AppCompatActivity() {
 
     private var listArticles:List<Article> = emptyList()
     private var listServices:List<Service> = emptyList()
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +45,6 @@ class AllProductsActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.loadingProgressBar)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
 
         articleAdapter= ArticleAdapter(emptyList(), loggedInUser, true)
         serviceAdapter= ServiceAdapter(emptyList(), loggedInUser, true)
@@ -81,7 +79,6 @@ class AllProductsActivity : AppCompatActivity() {
             val intent = Intent(this, AdminHomeActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("AllProductsActivity - LoggedInUser",loggedInUser.toString())
-            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }
@@ -97,14 +94,12 @@ class AllProductsActivity : AppCompatActivity() {
             // Open the activity for creating articles
             val intent = Intent(this, CreateArticleActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("username", userUsername)
             startActivity(intent)
         }
         dialogBuilder.setNegativeButton("Create Service") { _, _ ->
             // Open the activity for creating services
             val intent = Intent(this, CreateServiceActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("username", userUsername)
             startActivity(intent)
         }
         dialogBuilder.setNeutralButton("Cancel") { dialog, _ ->

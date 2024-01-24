@@ -34,7 +34,6 @@ import retrofit2.Response
 class UpdateMerchantActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
     private lateinit var userID: String
 
@@ -63,7 +62,6 @@ class UpdateMerchantActivity : AppCompatActivity() {
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         Log.d("UpdateMerchantActivity - LoggedInUser: ", loggedInUser.toString())
-        userUsername = intent.getStringExtra("username") ?: ""
 
         // BottomNavigationView
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
@@ -74,7 +72,6 @@ class UpdateMerchantActivity : AppCompatActivity() {
 
         btnBack.setOnClickListener {
             intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("username", userUsername)
             finish()
         }
 
@@ -224,7 +221,6 @@ class UpdateMerchantActivity : AppCompatActivity() {
             updateMerchantData(loggedInUser, this, newDataUser, userID)
             val intent = Intent(this@UpdateMerchantActivity, AllMerchantsActivity::class.java)
             intent.putExtra("loggedInUser",loggedInUser)
-            intent.putExtra("username", userUsername)
             Toast.makeText(this@UpdateMerchantActivity, "Updating merchant ${newDataUser.first_name}!", Toast.LENGTH_SHORT).show()
             startActivity(intent)
             finish()

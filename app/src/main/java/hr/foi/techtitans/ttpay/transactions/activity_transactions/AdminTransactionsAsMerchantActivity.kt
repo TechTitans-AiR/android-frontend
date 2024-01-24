@@ -28,7 +28,6 @@ class AdminTransactionsAsMerchantActivity : AppCompatActivity() {
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
     private lateinit var transactionAdapter: TransactionAdapter
 
@@ -37,7 +36,6 @@ class AdminTransactionsAsMerchantActivity : AppCompatActivity() {
         setContentView(R.layout.activity_admin_transactions_as_merchant)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
         transactionAdapter = TransactionAdapter(emptyList(), loggedInUser)
 
         recyclerView = findViewById(R.id.recyclerView_all_transactions_admin)
@@ -59,7 +57,6 @@ class AdminTransactionsAsMerchantActivity : AppCompatActivity() {
             val intent = Intent(this, TransactionsActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("AdminTransactionsAsMerchantActivity - LoggedInUser", loggedInUser.toString())
-            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }

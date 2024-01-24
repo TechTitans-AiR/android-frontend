@@ -34,7 +34,6 @@ class AllTransactionsActivity : AppCompatActivity() {
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
     private lateinit var transactionAdapter: TransactionAdapter
     private lateinit var removeSearch: ImageView
@@ -44,7 +43,6 @@ class AllTransactionsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_all_transactions)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
         transactionAdapter = TransactionAdapter(emptyList(), loggedInUser)
 
         recyclerView = findViewById(R.id.recyclerView_all_transactions)
@@ -68,7 +66,6 @@ class AllTransactionsActivity : AppCompatActivity() {
             val intent = Intent(this, TransactionsActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("AllTransationsActivity - LoggedInUser", loggedInUser.toString())
-            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }
@@ -78,7 +75,6 @@ class AllTransactionsActivity : AppCompatActivity() {
         val intent = Intent(this, CreateTransactionActivity::class.java)
         intent.putExtra("loggedInUser", loggedInUser)
         Log.d("onPlusTransactionIconClick - LoggedInUser", loggedInUser.toString())
-        intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
     }

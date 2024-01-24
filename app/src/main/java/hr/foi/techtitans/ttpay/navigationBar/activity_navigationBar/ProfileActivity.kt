@@ -23,7 +23,6 @@ import retrofit2.Response
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
 
     private lateinit var editTextFirstName: EditText
@@ -71,7 +70,6 @@ class ProfileActivity : AppCompatActivity() {
         btnCancelEdit = findViewById(R.id.btnCancelEdit)
         btnEditData = findViewById(R.id.btnEditData)
 
-        userUsername = intent.getStringExtra("username") ?: ""
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
 
         getUserDetails(loggedInUser.userId)
@@ -87,13 +85,11 @@ class ProfileActivity : AppCompatActivity() {
             when(loggedInUser.role){
                 "admin"-> {
                     val intent = Intent(this, AdminHomeActivity::class.java)
-                    intent.putExtra("username", userUsername)
                     intent.putExtra("loggedInUser", loggedInUser)
                     startActivity(intent)
                 }
                 "merchant"-> {
                     val intent = Intent(this, MerchantHomeActivity::class.java)
-                    intent.putExtra("username", userUsername)
                     intent.putExtra("loggedInUser", loggedInUser)
                     startActivity(intent)
                 }

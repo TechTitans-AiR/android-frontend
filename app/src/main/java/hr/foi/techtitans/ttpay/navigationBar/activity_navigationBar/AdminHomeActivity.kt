@@ -28,7 +28,6 @@ import retrofit2.Response
 class AdminHomeActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
-    private lateinit var userUsername: String
     private lateinit var textViewUserName: TextView
     private lateinit var progressBarUserName: ProgressBar
     private lateinit var loggedInUser: LoggedInUser
@@ -38,11 +37,8 @@ class AdminHomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_admin_home)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
 
         Log.d("AdminHomeActivity - loggedInUser", "loggedInUser: $loggedInUser")
-
-        Log.d("AdminHomeActivity", "User username: $userUsername")
 
         textViewUserName = findViewById(R.id.textViewUserName)
         progressBarUserName = findViewById(R.id.progressBarUserName)
@@ -58,7 +54,6 @@ class AdminHomeActivity : AppCompatActivity() {
         val intent = Intent(this, AllMerchantsActivity::class.java)
         intent.putExtra("loggedInUser", loggedInUser)
         Log.d("onAllMerchantsClick - LoggedInUser",loggedInUser.toString())
-        intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
     }
@@ -67,7 +62,6 @@ class AdminHomeActivity : AppCompatActivity() {
         val intent = Intent(this, TransactionsActivity::class.java)
         intent.putExtra("loggedInUser", loggedInUser)
         Log.d("onAllTransactionsClick - LoggedInUser",loggedInUser.toString())
-        intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
     }
@@ -76,7 +70,6 @@ class AdminHomeActivity : AppCompatActivity() {
         val intent = Intent(this, AllProductsActivity::class.java)
         intent.putExtra("loggedInUser", loggedInUser)
         Log.d("onAllProductsClick - LoggedInUser",loggedInUser.toString())
-        intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
     }
@@ -85,7 +78,6 @@ class AdminHomeActivity : AppCompatActivity() {
         val intent = Intent(this, AdminSectionForCatalogsActivity::class.java)
         intent.putExtra("loggedInUser", loggedInUser)
         Log.d("onCatalogItemClick - LoggedInUser",loggedInUser.toString())
-        intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
     }

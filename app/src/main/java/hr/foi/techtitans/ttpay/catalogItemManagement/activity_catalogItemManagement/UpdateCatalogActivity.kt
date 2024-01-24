@@ -40,7 +40,6 @@ class UpdateCatalogActivity : AppCompatActivity() {
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var btnSave: Button
     private lateinit var imgBack: ImageView
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
 
     //adapters
@@ -64,7 +63,6 @@ class UpdateCatalogActivity : AppCompatActivity() {
         setContentView(R.layout.activity_update_catalog)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
 
         catalog=intent.getParcelableExtra("selectedCatalog")
         Log.d("SelectArticles - Selected catalog: ", catalog.toString())
@@ -83,7 +81,6 @@ class UpdateCatalogActivity : AppCompatActivity() {
             }
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("CreateCatalogDataActivity - LoggedInUser",loggedInUser.toString())
-            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }
@@ -149,7 +146,6 @@ class UpdateCatalogActivity : AppCompatActivity() {
             val intent=Intent(this, DetailedCatalogItemActivity::class.java)
             intent.putExtra("catalogId", currentCatalog?.id)
             intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("username", userUsername)
             intent.putExtra("updatedCatalog", currentCatalog?.id.toString())
             startActivity(intent)
         }

@@ -34,7 +34,6 @@ import retrofit2.Response
 
 class PaymentOptionsActivity : AppCompatActivity() {
 
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
     private lateinit var shoppingCartItems: MutableList<ShoppingCartItem>
     private var totalAmount: Double = 0.0
@@ -68,12 +67,10 @@ class PaymentOptionsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_payment_options)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
         shoppingCartItems =
             intent.getSerializableExtra("shoppingCartItems") as MutableList<ShoppingCartItem>
         totalAmount = intent.getDoubleExtra("totalAmount", 0.0)
 
-        Log.d("PaymentOptionsActivity", "onCreate: username: $userUsername")
         Log.d("PaymentOptionsActivity", "onCreate: shoppingCartItems: $shoppingCartItems")
         Log.d("PaymentOptionsActivity", "onCreate: totalAmount: $totalAmount")
 
@@ -133,7 +130,6 @@ class PaymentOptionsActivity : AppCompatActivity() {
         imgBack.setOnClickListener {
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("AllTransationsActivity - LoggedInUser", loggedInUser.toString())
-            intent.putExtra("username", userUsername)
             onBackPressed()
         }
     }
@@ -362,7 +358,6 @@ class PaymentOptionsActivity : AppCompatActivity() {
         intent.putExtra("newTransaction", newTransaction)
         intent.putExtra("shoppingCartItems", ArrayList(shoppingCartItems))
         intent.putExtra("totalAmount", totalAmount)
-        intent.putExtra("username", userUsername)
         intent.putExtra("differenceAmount", differenceAmount)
         intent.putExtra("isCardPayment", false)
         startActivity(intent)
@@ -374,7 +369,6 @@ class PaymentOptionsActivity : AppCompatActivity() {
         intent.putExtra("loggedInUser", loggedInUser)
         intent.putExtra("newTransaction", newTransaction)
         intent.putExtra("shoppingCartItems", ArrayList(shoppingCartItems))
-        intent.putExtra("username", userUsername)
         intent.putExtra("isCardPayment", true)
         startActivity(intent)
         finish()
@@ -391,13 +385,11 @@ class PaymentOptionsActivity : AppCompatActivity() {
             // Open AdminHomeActivity
             val intent = Intent(this, TransactionsActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("username", userUsername)
             startActivity(intent)
         } else if (role == "merchant") {
             // Open MerchantHomeActivity
             val intent = Intent(this, AllTransactionsMerchantActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("username", userUsername)
             startActivity(intent)
         }
         finish()

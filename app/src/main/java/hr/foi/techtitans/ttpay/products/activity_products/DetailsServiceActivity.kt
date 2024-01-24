@@ -21,7 +21,6 @@ import retrofit2.Response
 
 class DetailsServiceActivity : AppCompatActivity() {
 
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
     private lateinit var navigationHandler: NavigationHandler
 
@@ -52,7 +51,6 @@ class DetailsServiceActivity : AppCompatActivity() {
         progressBar = findViewById(R.id.progressBar)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
 
         // Get service ID from intent
         val serviceId = intent.getStringExtra("serviceId")
@@ -67,7 +65,6 @@ class DetailsServiceActivity : AppCompatActivity() {
         B_back.setOnClickListener {
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("LoggedInUser",loggedInUser.toString())
-            intent.putExtra("username", userUsername)
             finish()
         }
     }

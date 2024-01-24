@@ -36,7 +36,6 @@ class DetailsMerchantActivity : AppCompatActivity() {
     private lateinit var txtViewStatus: TextView
     private lateinit var txtViewPin: TextView
 
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +59,6 @@ class DetailsMerchantActivity : AppCompatActivity() {
         // Get user ID from intent
         userId = intent.getStringExtra("userId") ?: ""
 
-        userUsername = intent.getStringExtra("username") ?: ""
 
 
         // BottomNavigationView
@@ -75,7 +73,6 @@ class DetailsMerchantActivity : AppCompatActivity() {
         val btnBack: ImageView = findViewById(R.id.imgView_back)
         btnBack.setOnClickListener {
             intent.putExtra("loggedInUser",loggedInUser)
-            intent.putExtra("username", userUsername)
             finish()
         }
     }

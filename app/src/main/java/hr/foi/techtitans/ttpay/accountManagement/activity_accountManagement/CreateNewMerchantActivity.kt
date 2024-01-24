@@ -33,7 +33,6 @@ import java.util.regex.Pattern
 class CreateNewMerchantActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -42,7 +41,6 @@ class CreateNewMerchantActivity : AppCompatActivity() {
         setContentView(R.layout.activity_create_new_merchant)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
 
         // BottomNavigationView
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
@@ -55,7 +53,6 @@ class CreateNewMerchantActivity : AppCompatActivity() {
             val intent = Intent(this, AllMerchantsActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("CreateNewMerchant - loggedInUser: ", loggedInUser.toString())
-            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }

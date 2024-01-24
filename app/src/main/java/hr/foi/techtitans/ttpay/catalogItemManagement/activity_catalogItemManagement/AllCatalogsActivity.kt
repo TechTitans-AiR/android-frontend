@@ -36,7 +36,6 @@ import retrofit2.Response
 class AllCatalogsActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var navigationHandler: NavigationHandler
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
     private lateinit var catalogAdapter: CatalogAdapter
 
@@ -49,7 +48,6 @@ class AllCatalogsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_all_catalogs)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
 
 
         catalogAdapter = CatalogAdapter(emptyList(), loggedInUser)
@@ -73,7 +71,6 @@ class AllCatalogsActivity : AppCompatActivity() {
             val intent = Intent(this, AdminSectionForCatalogsActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("AllCatalogActivity - LoggedInUser",loggedInUser.toString())
-            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }
@@ -83,7 +80,6 @@ class AllCatalogsActivity : AppCompatActivity() {
         val intent = Intent(this, CreateCatalogItemActivity::class.java)
         intent.putExtra("loggedInUser", loggedInUser)
         Log.d("onPlusCatalogIconClick - LoggedInUser",loggedInUser.toString())
-        intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
     }

@@ -38,7 +38,6 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var progressBar: ProgressBar
 
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
 
     private lateinit var recyclerView: RecyclerView
@@ -51,8 +50,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         setContentView(R.layout.activity_all_catalogs_merchant)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
-        Log.d("MerchantHomeActivity", "User username: $userUsername")
+        Log.d("MerchantHomeActivity", "User: ${loggedInUser.username}")
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, loggedInUser)
@@ -75,7 +73,6 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         imgBack.setOnClickListener {
             val intent = Intent(this, MerchantHomeActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }

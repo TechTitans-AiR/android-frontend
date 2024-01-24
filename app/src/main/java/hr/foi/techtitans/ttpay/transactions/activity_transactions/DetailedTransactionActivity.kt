@@ -30,7 +30,6 @@ class DetailedTransactionActivity : AppCompatActivity() {
     private lateinit var transactionId: String
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var bottomNavigationView : BottomNavigationView
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
 
     // UI elements
@@ -48,7 +47,6 @@ class DetailedTransactionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detailed_transaction)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
         transactionId = intent.getStringExtra("transactionId") ?: ""
         Log.d("DetailedTransactionActivity", "Transaction id: $transactionId")
 
@@ -71,7 +69,6 @@ class DetailedTransactionActivity : AppCompatActivity() {
 
         imgBack.setOnClickListener {
             intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("username", userUsername)
             onBackPressed()
         }
     }

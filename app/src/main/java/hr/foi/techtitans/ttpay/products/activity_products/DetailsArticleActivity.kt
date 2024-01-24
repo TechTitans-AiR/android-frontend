@@ -21,7 +21,6 @@ import retrofit2.Response
 
 class DetailsArticleActivity : AppCompatActivity() {
 
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
     private lateinit var navigationHandler: NavigationHandler
 
@@ -41,7 +40,6 @@ class DetailsArticleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_details_article)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
 
         val btnBack: ImageView = findViewById(R.id.imgView_back)
 
@@ -66,7 +64,6 @@ class DetailsArticleActivity : AppCompatActivity() {
         btnBack.setOnClickListener {
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("LoggedInUser",loggedInUser.toString())
-            intent.putExtra("username", userUsername)
             finish()
         }
     }

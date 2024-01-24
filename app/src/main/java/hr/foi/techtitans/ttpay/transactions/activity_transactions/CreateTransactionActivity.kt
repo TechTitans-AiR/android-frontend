@@ -38,7 +38,6 @@ class CreateTransactionActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var btn_pay: Button
 
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
     private lateinit var totalAmountTextView: TextView
 
@@ -47,7 +46,6 @@ class CreateTransactionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_create_transaction)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
 
         totalAmountTextView = findViewById(R.id.tv_total_amount)
 
@@ -65,12 +63,10 @@ class CreateTransactionActivity : AppCompatActivity() {
             if (role == "admin") {
                 val intent = Intent(this, AllTransactionsActivity::class.java)
                 intent.putExtra("loggedInUser", loggedInUser)
-                intent.putExtra("username", userUsername)
                 startActivity(intent)
             } else if (role == "merchant") {
                 val intent = Intent(this, AllTransactionsMerchantActivity::class.java)
                 intent.putExtra("loggedInUser", loggedInUser)
-                intent.putExtra("username", userUsername)
                 startActivity(intent)
             }
             finish()
@@ -107,7 +103,6 @@ class CreateTransactionActivity : AppCompatActivity() {
             intent.putExtra("totalAmount", totalAmount)
             Log.d("CreateTransactionActivity", "btn_pay onClick: totalAmount: $totalAmount")
 
-            intent.putExtra("username", userUsername)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("CreateTransactionActivity - LoggedInUser",loggedInUser.toString())
 

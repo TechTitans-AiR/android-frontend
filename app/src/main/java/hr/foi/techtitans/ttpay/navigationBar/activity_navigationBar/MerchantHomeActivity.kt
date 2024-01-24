@@ -25,8 +25,6 @@ class MerchantHomeActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var textViewUserName: TextView
-    private lateinit var userUsername: String
-    private lateinit var userId: String
     private lateinit var progressBarUserName: ProgressBar
     private lateinit var loggedInUser: LoggedInUser
 
@@ -35,9 +33,8 @@ class MerchantHomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_merchant_home)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
 
-        Log.d("MerchantHomeActivity", "User username: $userUsername")
+        Log.d("MerchantHomeActivity", "User username: ${loggedInUser.username}")
 
         textViewUserName = findViewById(R.id.textViewUserName)
         progressBarUserName = findViewById(R.id.progressBarUserName)
@@ -53,7 +50,6 @@ class MerchantHomeActivity : AppCompatActivity() {
         val intent = Intent(this, AllTransactionsMerchantActivity::class.java)
         intent.putExtra("loggedInUser", loggedInUser)
         Log.d("onAllTransactionsClick(merchant) - LoggedInUser",loggedInUser.toString())
-        intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
     }
@@ -62,7 +58,6 @@ class MerchantHomeActivity : AppCompatActivity() {
         val intent = Intent(this, AllCatalogsMerchantActivity::class.java)
         intent.putExtra("loggedInUser", loggedInUser)
         Log.d("onCatalogItemClick(merchant) - LoggedInUser",loggedInUser.toString())
-        intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
     }

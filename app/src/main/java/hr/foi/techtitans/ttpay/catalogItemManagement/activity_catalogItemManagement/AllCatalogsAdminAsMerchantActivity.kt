@@ -30,7 +30,6 @@ class AllCatalogsAdminAsMerchantActivity : AppCompatActivity() {
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var progressBar: ProgressBar
     private lateinit var recyclerView: RecyclerView
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
     private lateinit var catalogAdapter: MerchantCatalogAdapter
 
@@ -39,7 +38,6 @@ class AllCatalogsAdminAsMerchantActivity : AppCompatActivity() {
         setContentView(R.layout.activity_all_catalogs_admin_as_merchant)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
         catalogAdapter = MerchantCatalogAdapter(emptyList(), loggedInUser)
 
         recyclerView = findViewById(R.id.recyclerView_all_catalogs_admin)
@@ -61,7 +59,6 @@ class AllCatalogsAdminAsMerchantActivity : AppCompatActivity() {
             val intent = Intent(this, AdminSectionForCatalogsActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("AdminTransactionsAsMerchantActivity - LoggedInUser", loggedInUser.toString())
-            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }

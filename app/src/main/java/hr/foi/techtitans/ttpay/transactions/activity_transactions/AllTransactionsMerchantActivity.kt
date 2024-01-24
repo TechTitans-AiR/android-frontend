@@ -26,6 +26,7 @@ import hr.foi.techtitans.ttpay.core.LoggedInUser
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.math.log
 
 class AllTransactionsMerchantActivity : AppCompatActivity() {
 
@@ -33,7 +34,6 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var imgBack : ImageView
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: TransactionAdapter
@@ -44,8 +44,7 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
         setContentView(R.layout.activity_all_transactions_merchant)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
-        Log.d("MerchantHomeActivity", "User username: $userUsername")
+        Log.d("MerchantHomeActivity", "User username: ${loggedInUser.username}")
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, loggedInUser)
@@ -67,7 +66,6 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
         imgBack.setOnClickListener {
             val intent = Intent(this, MerchantHomeActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
-            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }
@@ -77,7 +75,6 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
         val intent = Intent(this, CreateTransactionActivity::class.java)
         intent.putExtra("loggedInUser", loggedInUser)
         Log.d("onPlusTransactionIconClick(merchant) - LoggedInUser",loggedInUser.toString())
-        intent.putExtra("username", userUsername)
         startActivity(intent)
     }
 

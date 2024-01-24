@@ -13,7 +13,6 @@ import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHome
 
 class TransactionCompletionActivity : AppCompatActivity() {
 
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
     private var totalAmount: Double = 0.0
     private var differenceAmount: Double = 0.0
@@ -24,7 +23,6 @@ class TransactionCompletionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_transaction_completion)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
         totalAmount = intent.getDoubleExtra("totalAmount", 0.0)
         differenceAmount = intent.getDoubleExtra("differenceAmount", 0.0)
         isCardPayment = intent.getBooleanExtra("isCardPayment", false)
@@ -45,13 +43,11 @@ class TransactionCompletionActivity : AppCompatActivity() {
                 // Open AdminHomeActivity
                 val intent = Intent(this, TransactionsActivity::class.java)
                 intent.putExtra("loggedInUser", loggedInUser)
-                intent.putExtra("username", userUsername)
                 startActivity(intent)
             } else if (role == "merchant") {
                 // Open MerchantHomeActivity
                 val intent = Intent(this, MerchantHomeActivity::class.java)
                 intent.putExtra("loggedInUser", loggedInUser)
-                intent.putExtra("username", userUsername)
                 startActivity(intent)
             }
             finish()

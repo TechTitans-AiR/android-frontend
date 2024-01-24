@@ -18,7 +18,6 @@ import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandl
 class TransactionsActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
-    private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +25,6 @@ class TransactionsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_transactions)
 
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
-        userUsername = intent.getStringExtra("username") ?: ""
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, loggedInUser)
@@ -37,7 +35,6 @@ class TransactionsActivity : AppCompatActivity() {
             val intent = Intent(this, AdminHomeActivity::class.java)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("AllTransationsActivity - LoggedInUser", loggedInUser.toString())
-            intent.putExtra("username", userUsername)
             startActivity(intent)
             finish()
         }
@@ -47,7 +44,6 @@ class TransactionsActivity : AppCompatActivity() {
         val intent = Intent(this, AllTransactionsActivity::class.java)
         intent.putExtra("loggedInUser", loggedInUser)
         Log.d("onAllMerchantsClick - LoggedInUser",loggedInUser.toString())
-        intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
     }
@@ -55,7 +51,6 @@ class TransactionsActivity : AppCompatActivity() {
         val intent = Intent(this, AdminTransactionsAsMerchantActivity::class.java)
         intent.putExtra("loggedInUser", loggedInUser)
         Log.d("onAllMerchantsClick - LoggedInUser",loggedInUser.toString())
-        intent.putExtra("username", userUsername)
         startActivity(intent)
         finish()
     }
