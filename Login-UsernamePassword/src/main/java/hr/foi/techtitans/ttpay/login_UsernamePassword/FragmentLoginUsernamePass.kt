@@ -1,5 +1,6 @@
 package hr.foi.techtitans.ttpay.login_UsernamePassword
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,9 +10,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
+import android.widget.Toast
 import hr.foi.techtitans.ttpay.core.LoginOutcomeListener
 
-class FragmentLoginUsernamePass (private val outcomeListener: LoginOutcomeListener) : Fragment() {
+class FragmentLoginUsernamePass (private val context: Context, private val outcomeListener: LoginOutcomeListener) : Fragment() {
 
     private var loginHandler : UsernamePasswordLoginHandler=UsernamePasswordLoginHandler()
     private lateinit var usernameEditText: EditText
@@ -43,10 +45,15 @@ class FragmentLoginUsernamePass (private val outcomeListener: LoginOutcomeListen
             val enteredUsername = usernameEditText.text.toString()
             val enteredPassword = passwordEditText.text.toString()
 
-            showProgressBar()
 
-            val loginToken = UsernamePasswordLoginToken(enteredUsername, enteredPassword)
-            loginHandler.handleLogin(loginToken, outcomeListener)
+            if(enteredUsername.toString().isNotEmpty() && enteredPassword.toString().isNotEmpty()){
+                showProgressBar()
+                val loginToken = UsernamePasswordLoginToken(enteredUsername, enteredPassword)
+                loginHandler.handleLogin(loginToken, outcomeListener)
+            }else{
+                Toast.makeText(context, "You must enter username and password before clicking login! ", Toast.LENGTH_SHORT).show()
+            }
+
 
         }
     }

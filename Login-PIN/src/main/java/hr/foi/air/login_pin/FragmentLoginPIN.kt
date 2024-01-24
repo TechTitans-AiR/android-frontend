@@ -1,5 +1,6 @@
 package hr.foi.air.login_pin
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,11 +10,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.core.LoginOutcomeListener
 
-class FragmentLoginPIN(private val outcomeListener: LoginOutcomeListener) : Fragment() {
+class FragmentLoginPIN(private val context:Context,private val outcomeListener: LoginOutcomeListener) : Fragment() {
 
     private lateinit var editTextPIN: EditText
     private lateinit var btnLogin: Button
@@ -46,10 +48,15 @@ class FragmentLoginPIN(private val outcomeListener: LoginOutcomeListener) : Frag
         btnLogin.setOnClickListener {
             val enteredPIN = editTextPIN.text.toString()
 
-            showProgressBar()
 
-            val loginTokenPIN = PINLoginToken(enteredPIN)
-            loginHandler.handleLogin(loginTokenPIN, outcomeListener)
+            if(enteredPIN.toString().isNotEmpty()){
+                showProgressBar()
+                val loginTokenPIN = PINLoginToken(enteredPIN)
+                loginHandler.handleLogin(loginTokenPIN, outcomeListener)
+            }else{
+                Toast.makeText(context, "You must enter PIN before clicking login! ", Toast.LENGTH_SHORT).show()
+            }
+
 
         }
     }

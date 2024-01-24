@@ -53,12 +53,12 @@ class LoginUser : AppCompatActivity(), LoginOutcomeListener {
             when(m.getName()){
                 "Login - Username and Password" -> {
                     if (selectedButton == m.getName()) {
-                        fragmentTransaction.replace(fragmentContainer.id, FragmentLoginUsernamePass(this))
+                        fragmentTransaction.replace(fragmentContainer.id, FragmentLoginUsernamePass(this@LoginUser, this))
                     }
                 }
                 "Login - PIN" -> {
                     if (selectedButton == m.getName()) {
-                        fragmentTransaction.replace(fragmentContainer.id, FragmentLoginPIN(this))
+                        fragmentTransaction.replace(fragmentContainer.id, FragmentLoginPIN(this@LoginUser, this))
                     }
                 }
             }
