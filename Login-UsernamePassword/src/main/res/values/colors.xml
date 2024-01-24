@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">#D22B2B</color>
+    <color name="buttonPrimaryColor">#D22B2B</color>
+    <color name="buttonSecondaryColor">#00308F</color>
+    <color name="bottom_navigation_selected">#E3735E</color>
+</resources>
