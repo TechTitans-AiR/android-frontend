@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -98,6 +99,10 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
                     if (transactions != null) {
                         adapter.updateData(transactions)
                         Log.d("TransactionActivity", "Response: $response")
+                    }
+                    else{
+                        Toast.makeText(this@AllTransactionsMerchantActivity, "You don't have any transactions yet! ", Toast.LENGTH_SHORT).show()
+
                     }
                 } else {
                     showErrorDialog()

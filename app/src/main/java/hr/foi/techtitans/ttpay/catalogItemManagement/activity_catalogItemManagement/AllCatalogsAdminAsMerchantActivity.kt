@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -81,6 +82,8 @@ class AllCatalogsAdminAsMerchantActivity : AppCompatActivity() {
                         // Filter catalogs by the disabled property (disable = false)
                         val activeCatalogs = catalogs.filter { !it.disabled }
                         catalogAdapter.updateData(activeCatalogs)
+                    }else{
+                        Toast.makeText(this@AllCatalogsAdminAsMerchantActivity, "You don't have any catalogs yet! ", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     showErrorDialog()

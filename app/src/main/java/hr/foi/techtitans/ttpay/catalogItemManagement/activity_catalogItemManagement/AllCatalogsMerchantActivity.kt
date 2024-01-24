@@ -40,7 +40,6 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
 
     private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
-    private lateinit var userId: String
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var catalogMerchantAdapter: MerchantCatalogAdapter
@@ -98,6 +97,9 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
                         // Filter catalogs by the disabled property (disable = false)
                         val activeCatalogs = catalogs.filter { !it.disabled }
                         catalogMerchantAdapter.updateData(activeCatalogs)
+                    }else{
+                        Toast.makeText(this@AllCatalogsMerchantActivity, "You don't have any catalogs yet! ", Toast.LENGTH_SHORT).show()
+
                     }
                 } else {
                     showErrorDialog()
