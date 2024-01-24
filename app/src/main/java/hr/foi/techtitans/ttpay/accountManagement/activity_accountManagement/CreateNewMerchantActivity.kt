@@ -28,6 +28,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.regex.Pattern
 
 class CreateNewMerchantActivity : AppCompatActivity() {
 
@@ -84,10 +85,7 @@ class CreateNewMerchantActivity : AppCompatActivity() {
         // data from fields
         val txtFirstname: EditText =findViewById(R.id.editText_first_name)
         val txtLastname:EditText=findViewById(R.id.editText_last_name)
-
         val txtBirthDate:EditText=findViewById(R.id.editText_date_of_birth)
-
-
         val txtAddress:EditText=findViewById(R.id.editText_address)
         val txtPhone:EditText=findViewById(R.id.editText_phone)
         val txtEmail:EditText=findViewById(R.id.editText_email)
@@ -95,7 +93,6 @@ class CreateNewMerchantActivity : AppCompatActivity() {
         val txtPassword:EditText=findViewById(R.id.editText_password)
         val txtPIN:EditText=findViewById(R.id.editText_pin)
 
-        val dateCreated= LocalDate.now().toString()
 
         //button for creating user --> POST createUser
         val btnCreateUser: Button = findViewById(R.id.btn_create_merchant)
@@ -121,27 +118,50 @@ class CreateNewMerchantActivity : AppCompatActivity() {
                 }
             }
 
-            //userStatus-->always will be active when creating user
+            if (!isValidEmail(txtEmail.text.toString())) {
+                Toast.makeText(this, "Invalid email address", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-            val newUserData = newUser(
-                txtUsername.text.toString(),
-                txtPassword.text.toString(),
-                txtFirstname.text.toString(),
-                txtLastname.text.toString(),
-                txtEmail.text.toString(),
-                txtAddress.text.toString(),
-                txtPhone.text.toString(),
-                birthDateString,
-                selectedRole?.name,
-                userStatusSpinner.selectedItem.toString(),
-                txtPIN.text.toString()
-            )
-            Log.d("CreateNewActivity", "Search JSON: ${Gson().toJson(newUserData)}")
-            createNewUser(loggedInUser, this,newUserData)//context,user
-            Log.e("USER JE:", newUserData.toString())
+
+            if(txtUsername.text.toString().isNotEmpty() &&
+                txtPassword.text.toString().isNotEmpty() &&
+                txtFirstname.text.toString().isNotEmpty() &&
+                txtLastname.text.toString().isNotEmpty() &&
+                txtUsername.text.toString().isNotEmpty() &&
+                txtEmail.text.toString().isNotEmpty()){
+
+                val newUserData = newUser(
+                    txtUsername.text.toString(),
+                    txtPassword.text.toString(),
+                    txtFirstname.text.toString(),
+                    txtLastname.text.toString(),
+                    txtEmail.text.toString(),
+                    txtAddress.text.toString(),
+                    txtPhone.text.toString(),
+                    birthDateString,
+                    selectedRole?.name,
+                    userStatusSpinner.selectedItem.toString(),
+                    txtPIN.text.toString()
+                )
+                Log.d("CreateNewActivity", "Search JSON: ${Gson().toJson(newUserData)}")
+                createNewUser(loggedInUser, this,newUserData)//context,user
+                Log.e("USER JE:", newUserData.toString())
+            }else{
+                Toast.makeText(this, "Firstname, Lastname, E-mail, Username, Password and PIN are neccessary fields. ", Toast.LENGTH_SHORT).show()
+
+            }
+
+
+
         }
     }
-
+    private fun isValidEmail(email: String): Boolean {
+        val emailPattern = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"
+        val pattern = Pattern.compile(emailPattern)
+        val matcher = pattern.matcher(email)
+        return matcher.matches()
+    }
     private fun createNewUser(loggedInUser: LoggedInUser, context: Context, newUser: newUser){
         val retrofit = RetrofitClient.getInstance(8080)//za account_management
         val service = retrofit.create(ServiceAccountManagement::class.java)
