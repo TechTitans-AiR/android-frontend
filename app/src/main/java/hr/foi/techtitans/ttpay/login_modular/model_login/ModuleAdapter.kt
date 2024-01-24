@@ -27,6 +27,7 @@ class ModuleAdapter(private val modules: List<Module>, private val context: Cont
             return modules.size
         }
 
+
         inner class ModuleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private val button: Button = itemView.findViewById(R.id.btnModule)
 
@@ -34,6 +35,7 @@ class ModuleAdapter(private val modules: List<Module>, private val context: Cont
                 button.text = module.getName()
                 button.setOnClickListener {
                     val intent = Intent(context, module.getActivityClass())
+                    intent.putExtra("selectedButton", button.text)
                     context.startActivity(intent)
                 }
             }

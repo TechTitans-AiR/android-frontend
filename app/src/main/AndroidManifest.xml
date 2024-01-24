@@ -40,9 +40,6 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".login_modular.activity_login.LoginUsernamePassword"
-            android:exported="false" />
-        <activity
             android:name=".transactions.activity_transactions.DetailedTransactionActivity"
             android:exported="false" />
         <activity

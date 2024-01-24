@@ -9,10 +9,14 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import hr.foi.air.login_pin.FragmentLoginPIN
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.core.LoginOutcomeListener
+import hr.foi.techtitans.ttpay.login_UsernamePassword.FragmentLoginUsernamePass
+import hr.foi.techtitans.ttpay.login_modular.model_login.LoginManager
+import hr.foi.techtitans.ttpay.login_modular.model_login.Module
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MainActivity
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHomeActivity
@@ -21,13 +25,15 @@ class LoginUser : AppCompatActivity(), LoginOutcomeListener {
 
     private lateinit var btnBack:ImageView
     private lateinit var progressBarPin:ProgressBar
+    private  var loginManager:LoginManager= LoginManager(this)
+    private var selectedButton:String=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_user)
 
         btnBack=findViewById(R.id.imgBackButton)
-
+        selectedButton=intent.getStringExtra("selectedButton") ?: ""
 
         btnBack.setOnClickListener{
             val main= Intent(this, MainActivity::class.java)
@@ -35,9 +41,28 @@ class LoginUser : AppCompatActivity(), LoginOutcomeListener {
             finish()
         }
 
+
+        val listModule=loginManager.getModules()
+
         val fragmentContainer = findViewById<FrameLayout>(R.id.fragmentContainer)
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.replace(fragmentContainer.id, FragmentLoginPIN(this))
+
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
+        for(m:Module in listModule){
+            when(m.getName()){
+                "Login - Username and Password" -> {
+                    if (selectedButton == m.getName()) {
+                        fragmentTransaction.replace(fragmentContainer.id, FragmentLoginUsernamePass(this))
+                    }
+                }
+                "Login - PIN" -> {
+                    if (selectedButton == m.getName()) {
+                        fragmentTransaction.replace(fragmentContainer.id, FragmentLoginPIN(this))
+                    }
+                }
+            }
+        }
         fragmentTransaction.commit()
 
     }
