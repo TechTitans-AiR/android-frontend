@@ -104,7 +104,7 @@ class MerchantsUnitTest {
     fun testDeleteUserSuccess() {
 
         // Simulate the userId to delete specific user
-        val userIdToDelete = "113322908093"
+        val userIdToDelete = "11332290809"
 
         // Enqueue a mock response for the deleteUser endpoint
         val mockResponse = MockResponse()
@@ -126,7 +126,7 @@ class MerchantsUnitTest {
     fun testDeleteUserFailure() {
 
         // Simulated userId to delete specific user
-        val userIdToDelete = "113322908093"
+        val userIdToDelete = "11332290809"
 
         // Enqueue a mock response for the deleteUser endpoint
         val mockResponse = MockResponse()
