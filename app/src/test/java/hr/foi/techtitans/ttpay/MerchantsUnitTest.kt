@@ -14,7 +14,7 @@ import org.junit.Test
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class AllMerchantsUnitTest {
+class MerchantsUnitTest {
 
     private lateinit var mockWebServer: MockWebServer
     private lateinit var service: ServiceAccountManagement
@@ -40,7 +40,7 @@ class AllMerchantsUnitTest {
     }
 
     @Test
-    fun testGetUsers() {
+    fun testGetUsersSuccess() {
         // Enqueue a mock response for the getUsers endpoint
         val mockResponse = MockResponse()
             .setResponseCode(200)
@@ -100,4 +100,47 @@ class AllMerchantsUnitTest {
         println("Error fetching users. Show error dialog.")
     }
 
+    @Test
+    fun testDeleteUserSuccess() {
+
+        // Simulate the userId to delete specific user
+        val userIdToDelete = "113322908093"
+
+        // Enqueue a mock response for the deleteUser endpoint
+        val mockResponse = MockResponse()
+            .setResponseCode(204) // Simulate a successful deletion
+        mockWebServer.enqueue(mockResponse)
+
+        // Call deleteUser method
+        val call = service.deleteUser("fakeToken", userIdToDelete)
+        val response = call.execute()
+
+        // Check if the request was successful
+        assert(response.isSuccessful)
+
+        // Print the user ID if deletion is successful
+        println("User with ID $userIdToDelete deleted successfully.")
+    }
+
+    @Test
+    fun testDeleteUserFailure() {
+
+        // Simulated userId to delete specific user
+        val userIdToDelete = "113322908093"
+
+        // Enqueue a mock response for the deleteUser endpoint
+        val mockResponse = MockResponse()
+            .setResponseCode(500) // Simulate a server error
+        mockWebServer.enqueue(mockResponse)
+
+        // Call deleteUser method
+        val call = service.deleteUser("fakeToken", userIdToDelete)
+        val response = call.execute()
+
+        // Check if the request was unsuccessful
+        assert(!response.isSuccessful)
+
+        // Print the user ID if deletion fails
+        println("Failed to delete user with ID $userIdToDelete.")
+    }
 }
