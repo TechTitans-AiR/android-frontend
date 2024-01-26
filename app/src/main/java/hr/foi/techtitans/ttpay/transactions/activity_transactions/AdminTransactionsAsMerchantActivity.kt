@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -81,8 +82,9 @@ class AdminTransactionsAsMerchantActivity : AppCompatActivity() {
                         transactionAdapter.updateData(transactions)
                         Log.d("AdminTransactionsAsMerchantActivity", "Response: $response")
                     }
-                } else {
-                    showErrorDialog()
+                    else{
+                        Toast.makeText(this@AdminTransactionsAsMerchantActivity, "You don't have any transactions yet! ", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
 

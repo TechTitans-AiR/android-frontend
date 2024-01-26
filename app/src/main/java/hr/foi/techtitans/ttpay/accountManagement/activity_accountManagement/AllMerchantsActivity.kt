@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -86,10 +87,15 @@ class AllMerchantsActivity : AppCompatActivity() {
                 try {
                     if (response.isSuccessful) {
                         val users = response.body() ?: emptyList()
-                        Log.d("AllMerchantsActivity", "Users fetched successfully: $users")
+                        if (users.isNotEmpty()) {
                         adapter.updateData(users)
                     } else {
-                        showErrorDialog()
+                            Toast.makeText(
+                                this@AllMerchantsActivity,
+                                "There are no users yet!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()

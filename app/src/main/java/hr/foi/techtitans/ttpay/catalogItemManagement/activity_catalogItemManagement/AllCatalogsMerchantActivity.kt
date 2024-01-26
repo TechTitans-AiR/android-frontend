@@ -90,16 +90,21 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
                 hideLoading()
                 if (response.isSuccessful) {
                     val catalogs = response.body()
-                    if (catalogs != null) {
+                    if (!catalogs.isNullOrEmpty()) {
                         // Filter catalogs by the disabled property (disable = false)
                         val activeCatalogs = catalogs.filter { !it.disabled }
                         catalogMerchantAdapter.updateData(activeCatalogs)
-                    }else{
-                        Toast.makeText(this@AllCatalogsMerchantActivity, "You don't have any catalogs yet! ", Toast.LENGTH_SHORT).show()
-
+                    } else {
+                        // Show toast message when there are no catalogs
+                        Toast.makeText(this@AllCatalogsMerchantActivity, "You don't have any active catalogs yet!", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    showErrorDialog()
+                    // Handle the case where catalogs are null
+                    Toast.makeText(
+                        this@AllCatalogsMerchantActivity,
+                        "You don't have any catalogs yet!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 

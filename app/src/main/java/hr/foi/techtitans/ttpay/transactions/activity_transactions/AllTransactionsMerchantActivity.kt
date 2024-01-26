@@ -99,10 +99,7 @@ class AllTransactionsMerchantActivity : AppCompatActivity() {
                     }
                     else{
                         Toast.makeText(this@AllTransactionsMerchantActivity, "You don't have any transactions yet! ", Toast.LENGTH_SHORT).show()
-
                     }
-                } else {
-                    showErrorDialog()
                 }
             }
 
