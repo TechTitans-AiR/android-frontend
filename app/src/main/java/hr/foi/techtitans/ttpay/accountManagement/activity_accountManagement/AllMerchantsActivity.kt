@@ -28,10 +28,9 @@ class AllMerchantsActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var recyclerView: RecyclerView
-    private lateinit var loggedInUser: LoggedInUser
+    lateinit var loggedInUser: LoggedInUser
     private lateinit var progressBar: ProgressBar
-    private lateinit var adapter:MerchantAdapter
-
+    lateinit var adapter:MerchantAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,15 +114,15 @@ class AllMerchantsActivity : AppCompatActivity() {
         })
     }
 
-    private fun showLoading() {
+    fun showLoading() {
         progressBar.visibility = View.VISIBLE
     }
 
-    private fun hideLoading() {
+    fun hideLoading() {
         progressBar.visibility = View.GONE
     }
 
-    private fun showErrorDialog() {
+    fun showErrorDialog() {
         val builder = AlertDialog.Builder(this)
 
         builder.setTitle("Error")
