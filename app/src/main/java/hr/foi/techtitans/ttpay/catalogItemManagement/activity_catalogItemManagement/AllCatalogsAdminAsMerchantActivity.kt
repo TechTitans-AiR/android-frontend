@@ -80,10 +80,15 @@ class AllCatalogsAdminAsMerchantActivity : AppCompatActivity() {
                         val activeCatalogs = catalogs.filter { !it.disabled }
                         catalogAdapter.updateData(activeCatalogs)
                     }else{
-                        Toast.makeText(this@AllCatalogsAdminAsMerchantActivity, "You don't have any catalogs yet! ", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@AllCatalogsAdminAsMerchantActivity, "You don't have any active catalogs yet! ", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    showErrorDialog()
+                    // Handle the case where catalogs are null
+                    Toast.makeText(
+                        this@AllCatalogsAdminAsMerchantActivity,
+                        "You don't have any catalogs yet!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 

@@ -32,7 +32,7 @@ class UsernamePasswordLoginHandler : LoginHandler {
         }
     }
 
-    private val loginService: `LoginService-UserPass` = Retrofit.getInstance(8080)
+    val loginService: `LoginService-UserPass` = Retrofit.getInstance(8080)
         .create(`LoginService-UserPass`::class.java)
 
 
@@ -48,7 +48,7 @@ class UsernamePasswordLoginHandler : LoginHandler {
         val authorizers = loginToken.getAuthorizers()
         val username = authorizers["username"]!!
         val password = authorizers["password"]!!
-            Log.d("Username & password: ", username+ password)
+            //Log.d("Username & password: ", username+ password)
 
         val loginRequest = LoginRequestData(username, password)
         loginService.login(loginRequest).enqueue(object : Callback<LoginResponseData> {

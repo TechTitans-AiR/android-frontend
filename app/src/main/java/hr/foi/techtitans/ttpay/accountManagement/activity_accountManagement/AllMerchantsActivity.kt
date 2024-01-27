@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,10 +28,9 @@ class AllMerchantsActivity : AppCompatActivity() {
 
     private lateinit var navigationHandler: NavigationHandler
     private lateinit var recyclerView: RecyclerView
-    private lateinit var loggedInUser: LoggedInUser
+    lateinit var loggedInUser: LoggedInUser
     private lateinit var progressBar: ProgressBar
-    private lateinit var adapter:MerchantAdapter
-
+    lateinit var adapter:MerchantAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,10 +86,15 @@ class AllMerchantsActivity : AppCompatActivity() {
                 try {
                     if (response.isSuccessful) {
                         val users = response.body() ?: emptyList()
-                        Log.d("AllMerchantsActivity", "Users fetched successfully: $users")
+                        if (users.isNotEmpty()) {
                         adapter.updateData(users)
                     } else {
-                        showErrorDialog()
+                            Toast.makeText(
+                                this@AllMerchantsActivity,
+                                "There are no users yet!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -109,15 +114,15 @@ class AllMerchantsActivity : AppCompatActivity() {
         })
     }
 
-    private fun showLoading() {
+    fun showLoading() {
         progressBar.visibility = View.VISIBLE
     }
 
-    private fun hideLoading() {
+    fun hideLoading() {
         progressBar.visibility = View.GONE
     }
 
-    private fun showErrorDialog() {
+    fun showErrorDialog() {
         val builder = AlertDialog.Builder(this)
 
         builder.setTitle("Error")

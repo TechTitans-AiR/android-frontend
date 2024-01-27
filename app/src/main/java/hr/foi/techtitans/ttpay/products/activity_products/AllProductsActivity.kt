@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -123,23 +124,29 @@ class AllProductsActivity : AppCompatActivity() {
                 hideLoading()
                 if (response.isSuccessful) {
                     listArticles = response.body() ?: emptyList()
-                    Log.d("AllProductsActivity", "Articles fetched successfully: $listArticles")
-                    articleAdapter.updateData(listArticles)
-                    articleAdapter.notifyDataSetChanged()
+                    if (listArticles.isNotEmpty()) {
+                        articleAdapter.updateData(listArticles)
+                    } else {
+                        Toast.makeText(
+                            this@AllProductsActivity,
+                            "There are no articles yet!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 } else {
-                    showErrorDialog()
+                    showErrorDialogArticles()
                 }
             }
 
             override fun onFailure(call: Call<List<Article>>, t: Throwable) {
                 hideLoading()
-                showErrorDialog()
+                showErrorDialogArticles()
             }
         })
     }
 
     private fun fetchServices() {
-        listServices= emptyList()
+        listServices = emptyList()
         showLoading()
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
@@ -150,19 +157,25 @@ class AllProductsActivity : AppCompatActivity() {
                 hideLoading()
                 if (response.isSuccessful) {
                     listServices = response.body() ?: emptyList()
-                    Log.d("AllProductsActivity", "Services fetched successfully: $listServices")
-                    serviceAdapter.updateData(listServices)
+                    if (listServices.isNotEmpty()) {
+                        serviceAdapter.updateData(listServices)
+                    } else {
+                        Toast.makeText(
+                            this@AllProductsActivity,
+                            "There are no services yet!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 } else {
-                    showErrorDialog()
+                    showErrorDialogServices()
                 }
             }
 
             override fun onFailure(call: Call<List<Service>>, t: Throwable) {
                 hideLoading()
-                showErrorDialog()
+                showErrorDialogServices()
             }
         })
-
     }
 
 
@@ -174,13 +187,28 @@ class AllProductsActivity : AppCompatActivity() {
         progressBar?.visibility = View.GONE
     }
 
-    private fun showErrorDialog() {
+    private fun showErrorDialogArticles() {
         val builder = AlertDialog.Builder(this)
 
         builder.setTitle("Error")
-            .setMessage("Error fetching data.")
+            .setMessage("Error fetching articles.")
             .setPositiveButton("Retry") { _, _ ->
                 fetchArticles()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun showErrorDialogServices() {
+        val builder = AlertDialog.Builder(this)
+
+        builder.setTitle("Error")
+            .setMessage("Error fetching services.")
+            .setPositiveButton("Retry") { _, _ ->
                 fetchServices()
             }
             .setNegativeButton("Cancel") { dialog, _ ->
@@ -190,6 +218,8 @@ class AllProductsActivity : AppCompatActivity() {
         val dialog = builder.create()
         dialog.show()
     }
+
+
 
     override fun onRestart() {
         super.onRestart()
