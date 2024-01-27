@@ -249,7 +249,7 @@ class UpdateArticleActivity : AppCompatActivity() {
         return fieldsMap
     }
 
-    private fun updateArticleDetails(articleId: String, updatedFields: Map<String, Any>, token: String) {
+    fun updateArticleDetails(articleId: String, updatedFields: Map<String, Any>, token: String) {
         val retrofit = RetrofitClient.getInstance(8081)
         val service = retrofit.create(ServiceProducts::class.java)
         val call = service.updateArticle(articleId, updatedFields, "Bearer $token")
