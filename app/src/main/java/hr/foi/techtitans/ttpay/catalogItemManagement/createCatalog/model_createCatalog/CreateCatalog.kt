@@ -15,14 +15,13 @@ class CreateCatalog {
         val retrofit = RetrofitClient.getInstance(8081)//za catalog_item_management
         val service = retrofit.create(ServiceCatalogItemManagement::class.java)
 
-
-        //call for method createUser
+        //Call for method createUser
         val call= service.createNewCatalogForUser(loggedInUser.token, newCatalog)
 
         call.enqueue(object : Callback<NewCatalog> {
 
             override fun onResponse(call: Call<NewCatalog>, response: Response<NewCatalog>){
-                if(response.isSuccessful){ //successful response
+                if(response.isSuccessful){
                     val created: NewCatalog?= response.body()
                     Log.d("Response: ", response.raw().toString())
                     if (created != null) {
@@ -37,7 +36,7 @@ class CreateCatalog {
             }
 
             override fun onFailure(call: Call<NewCatalog>, t: Throwable){
-                Log.e("NetworkError", "Error: ${t.message}") //show error message in Logcat
+                Log.e("NetworkError", "Error: ${t.message}")
                 Toast.makeText(context, "Network error occurred", Toast.LENGTH_SHORT).show()
             }
 

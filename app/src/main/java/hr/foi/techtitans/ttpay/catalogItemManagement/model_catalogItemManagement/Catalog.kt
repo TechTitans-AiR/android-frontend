@@ -14,7 +14,6 @@ class Catalog (
     var disabled: Boolean
 ): Parcelable {
 
-    // Konstruktor za čitanje iz Parcela
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString()!!,
@@ -26,7 +25,6 @@ class Catalog (
         parcel.readByte() != 0.toByte()
     )
 
-    // Metoda za pisanje u Parcel
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
         parcel.writeString(name)
@@ -38,12 +36,10 @@ class Catalog (
         parcel.writeByte(if (disabled) 1 else 0)
     }
 
-    // Metoda za kreiranje objekta iz Parcela
     override fun describeContents(): Int {
         return 0
     }
 
-    // Creator objekta, potreban za deserialize
     companion object CREATOR : Parcelable.Creator<Catalog> {
         override fun createFromParcel(parcel: Parcel): Catalog {
             return Catalog(parcel)

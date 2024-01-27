@@ -9,7 +9,6 @@ data class UserRole(
     val code: String
 ) : Parcelable {
 
-    // Parcelable implementacija
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
@@ -35,7 +34,6 @@ data class UserRole(
             return arrayOfNulls(size)
         }
 
-        // Definicija statičkih objekata
         val admin = UserRole("655509aa074f8ba48dd82a12", "admin", "A")
         val merchant = UserRole("655509aa074f8ba48dd82a13", "merchant", "M")
     }

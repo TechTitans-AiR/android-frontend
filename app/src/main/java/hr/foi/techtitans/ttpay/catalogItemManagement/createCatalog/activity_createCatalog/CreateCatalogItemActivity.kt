@@ -18,7 +18,6 @@ class CreateCatalogItemActivity : AppCompatActivity() {
     private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_catalog_item)

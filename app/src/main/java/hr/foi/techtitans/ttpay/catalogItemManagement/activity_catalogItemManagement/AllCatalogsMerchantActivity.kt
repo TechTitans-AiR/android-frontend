@@ -15,12 +15,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import hr.foi.techtitans.ttpay.R
-import hr.foi.techtitans.ttpay.accountManagement.network_accountManagement.ServiceAccountManagement
 import hr.foi.techtitans.ttpay.catalogItemManagement.network_catalogItemManagement.ServiceCatalogItemManagement
 import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.Catalog
 import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.MerchantCatalogAdapter
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
-import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHomeActivity
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -205,7 +203,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
                         // Add empty string at the begging of the list
 
                         val serviceList = mutableListOf<String>("Services")
-                        serviceList.addAll(services.map { "${it.serviceName}" })
+                        serviceList.addAll(services.map { it.serviceName })
 
                         val arrayAdapter = ArrayAdapter(
                             this@AllCatalogsMerchantActivity,
@@ -254,7 +252,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
                         // Add empty string at the begging of the list
 
                         val articleList = mutableListOf<String>("Articles")
-                        articleList.addAll(articles.map { "${it.name}" })
+                        articleList.addAll(articles.map { it.name })
 
                         val arrayAdapter = ArrayAdapter(
                             this@AllCatalogsMerchantActivity,
@@ -300,7 +298,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
                             val nameArticle = article.name
                             if (nameArticle == articleName) {
                                 callback.invoke(
-                                    article.id ?: ""
+                                    article.id
                                 )
                                 return
                             }
@@ -337,7 +335,7 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
                             val nameUser = service.serviceName
                             if (nameUser == serviceName) {
                                 callback.invoke(
-                                    service.id ?: ""
+                                    service.id
                                 )
                                 return
                             }
@@ -364,9 +362,9 @@ class AllCatalogsMerchantActivity : AppCompatActivity() {
         progressBarDialog.visibility = View.VISIBLE
         progressBar.visibility = View.VISIBLE
 
-        var merchantId: String = ""
-        var serviceId: String = ""
-        var articleId: String = ""
+        var merchantId = ""
+        var serviceId = ""
+        var articleId = ""
 
         getServiceIdFromMerchantName(serviceSpinner) { fetchedService ->
             if (serviceSpinner == "Services") {

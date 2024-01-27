@@ -15,20 +15,14 @@ import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.CreateCatalog
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.NewCatalog
 import hr.foi.techtitans.ttpay.products.model_products.Article
-import hr.foi.techtitans.ttpay.products.model_products.ArticleAdapter
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
 import hr.foi.techtitans.ttpay.products.model_products.Service
-import hr.foi.techtitans.ttpay.products.model_products.ServiceAdapter
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
-import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.UserAdapter
-import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.AdminSectionForCatalogsActivity
-import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.AddedUserAdapter
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.CollectedArticlesCatalogAdapter
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.CollectedServicesCatalogAdapter
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.CollectedUserCatalogAdapter
-import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.SelectUserAdapter
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 
 @Suppress("DEPRECATION")
@@ -40,13 +34,12 @@ class CreateCatalogDataActivity : AppCompatActivity() {
     private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
 
-
-    //adapters
+    //Adapters
     private lateinit var articlesAdapter: CollectedArticlesCatalogAdapter
     private lateinit var servicesAdapter: CollectedServicesCatalogAdapter
     private lateinit var usersAdapter: CollectedUserCatalogAdapter
 
-    //lists of data for catalog
+    //Lists of data for catalog
     private var listSelectedArticles= mutableListOf<Article>()
     private var listSelectedServices= mutableListOf<Service>()
     private var listSelectedUsers= mutableListOf<User>()
@@ -73,7 +66,7 @@ class CreateCatalogDataActivity : AppCompatActivity() {
             finish()
         }
 
-        //get all lists from previous screens
+        //Get all lists from previous screens (articles, services, users)
         listSelectedArticles = intent.getSerializableExtra("listArticles") as? ArrayList<Article> ?: arrayListOf()
         listSelectedServices = intent.getSerializableExtra("listServices") as? ArrayList<Service> ?: arrayListOf()
         listSelectedUsers = intent.getSerializableExtra("listUsers") as? ArrayList<User> ?: arrayListOf()
@@ -86,9 +79,8 @@ class CreateCatalogDataActivity : AppCompatActivity() {
         servicesAdapter= CollectedServicesCatalogAdapter(listSelectedServices)
 
 
-        //get catalog name
+        //Get catalog name
         val catalogName=findViewById<EditText>(R.id.editText_nameOfCatalog)
-
         usersAdapter= CollectedUserCatalogAdapter(listSelectedUsers)
 
         // Connect adapters with ConcatAdapter--> for more than one adapter shown in one RecycleView
@@ -103,15 +95,16 @@ class CreateCatalogDataActivity : AppCompatActivity() {
 
         createButton = findViewById(R.id.btn_create_catalog)
         createButton.setOnClickListener {
-            //get just ids from lists
+
+            //Get IDs from lists
             val selectedArticleIds = listSelectedArticles.map { it.id }
             val selectedServicesIds=listSelectedServices.map{it.id}
             val selectedUsersIds= listSelectedUsers.mapNotNull { it.id }
 
-            //take catalog name
+            //Take catalog name
             val catalogNameText = catalogName.text.toString()
 
-            //prepare data for endpoint
+            //Prepare data for endpoint
             var newCatalog = NewCatalog(
                 catalogNameText,
                 selectedArticleIds,
@@ -120,7 +113,7 @@ class CreateCatalogDataActivity : AppCompatActivity() {
                 disabled = false //disabled property set to false
             )
 
-            // handle the case when no items are selected
+            // Handle the case when no items are selected
             if (selectedArticleIds.isEmpty()) {
                 newCatalog.articles = listOf()
             }

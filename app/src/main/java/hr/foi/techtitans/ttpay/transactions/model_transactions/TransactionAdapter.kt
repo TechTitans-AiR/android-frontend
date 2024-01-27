@@ -11,8 +11,6 @@ import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.transactions.activity_transactions.DetailedTransactionActivity
 import hr.foi.techtitans.ttpay.utilities.DateFormatter
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class TransactionAdapter(
     private var transactions: List<Transaction>, private val loggedInUser: LoggedInUser

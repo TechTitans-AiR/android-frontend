@@ -14,13 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.Catalog
-import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.CatalogAdapter
 import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.MerchantCatalogAdapter
 import hr.foi.techtitans.ttpay.catalogItemManagement.network_catalogItemManagement.ServiceCatalogItemManagement
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
 import hr.foi.techtitans.ttpay.network.RetrofitClient
-import hr.foi.techtitans.ttpay.transactions.model_transactions.TransactionAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

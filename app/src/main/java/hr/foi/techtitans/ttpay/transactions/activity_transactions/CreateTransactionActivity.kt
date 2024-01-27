@@ -23,8 +23,6 @@ import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.core.LoggedInUser
-import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
-import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHomeActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -72,7 +70,7 @@ class CreateTransactionActivity : AppCompatActivity() {
             finish()
         }
 
-        // set recyclerview and total amount
+        // Set recyclerview and total amount
         Log.d("CreateTransactionActivity", "onCreate: Setting up RecyclerViews and total amount")
         setupRecyclerViews()
         if (loggedInUser.role == "admin") {
@@ -89,10 +87,10 @@ class CreateTransactionActivity : AppCompatActivity() {
         btn_pay.setOnClickListener {
             Log.d("CreateTransactionActivity", "btn_pay onClick: Transferring data to TransactionSummaryActivity")
 
-            // transfer data on TransactionSummaryActivity
+            // Transfer data on TransactionSummaryActivity
             val intent = Intent(this, TransactionSummaryActivity::class.java)
 
-            // transfer shoppingCartItems
+            // Transfer shoppingCartItems
             intent.putExtra("shoppingCartItems", ArrayList(shoppingCartItems))
             Log.d("CreateTransactionActivity", "btn_pay onClick: shoppingCartItems: $shoppingCartItems")
 
@@ -107,7 +105,7 @@ class CreateTransactionActivity : AppCompatActivity() {
             Log.d("CreateTransactionActivity - LoggedInUser",loggedInUser.toString())
 
             Log.d("CreateTransactionActivity", "btn_pay onClick: Starting TransactionSummaryActivity")
-            // transfer on TransactionSummaryActivity
+            // Transfer on TransactionSummaryActivity
             startActivity(intent)
         }
     }

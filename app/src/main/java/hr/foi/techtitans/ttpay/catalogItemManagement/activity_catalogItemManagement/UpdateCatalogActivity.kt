@@ -9,21 +9,18 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.text.set
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.User
-import hr.foi.techtitans.ttpay.accountManagement.model_accountManagement.UserAdapter
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.activity_createCatalog.SelectUserActivity
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.SelectUserAdapter
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.UpdateCatalog
 import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.Catalog
 import hr.foi.techtitans.ttpay.catalogItemManagement.network_catalogItemManagement.ServiceCatalogItemManagement
 import hr.foi.techtitans.ttpay.core.LoggedInUser
-import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.products.model_products.Article
@@ -42,22 +39,22 @@ class UpdateCatalogActivity : AppCompatActivity() {
     private lateinit var imgBack: ImageView
     private lateinit var loggedInUser: LoggedInUser
 
-    //adapters
+    //Adapters
     private lateinit var articlesAdapter: ArticleAdapter
     private lateinit var servicesAdapter: ServiceAdapter
     private lateinit var usersAdapter: SelectUserAdapter
 
-    //lists of data for catalog
+    //Lists of data for catalog
     private var listSelectedArticles= mutableListOf<Article>()
     private var listSelectedServices= mutableListOf<Service>()
     private var listSelectedUsers= mutableListOf<User>()
 
-    // defining empty lambda activity onItemClick for UserAdapter
+    // Defining empty lambda activity onItemClick for UserAdapter
     private val onItemClick: (User) -> Unit = {  }
 
     private var catalog: Catalog?= Catalog(null, "", "", "", "", null, null, false)
-
     private  var currentCatalog: Catalog?= Catalog(null, "", "", "", "", null, null, false)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update_catalog)
@@ -100,7 +97,6 @@ class UpdateCatalogActivity : AppCompatActivity() {
 
         //get catalog name
         val catalogName=findViewById<EditText>(R.id.editText_nameOfCatalog)
-
         catalogName.hint=currentCatalog?.name.toString()
 
         usersAdapter= SelectUserAdapter(listSelectedUsers, false){}
@@ -118,29 +114,28 @@ class UpdateCatalogActivity : AppCompatActivity() {
         btnSave = findViewById(R.id.btnSaveChanges)
         btnSave.setOnClickListener {
 
-            //get just ids from lists
+            //Get IDs from lists
             val selectedArticleIds = listSelectedArticles.map { it.id }
             val selectedServicesIds=listSelectedServices.map{it.id}
             val selectedUsersIds= listSelectedUsers.mapNotNull { it.id }
 
-            //take catalog name
+            //Take catalog name
             var catalogNameText = catalogName.text.toString()
             if(catalogNameText.isEmpty()){
                 catalogNameText=currentCatalog?.name.toString()
             }
 
-            //prepare data for endpoint
+            //Prepare data for endpoint
             val catalog = UpdateCatalog(
                 id = currentCatalog?.id,
                 catalogNameText,
                 selectedArticleIds,
                 selectedServicesIds,
                 selectedUsersIds,
-                disabled = false //disabled property set to false
+                disabled = false //Disabled property set to false
             )
 
             updateCatalog(catalog)
-            //Create new catalog
             Log.d("updateCatalog Object: ", catalog.toString())
 
             val intent=Intent(this, DetailedCatalogItemActivity::class.java)
@@ -155,13 +150,11 @@ class UpdateCatalogActivity : AppCompatActivity() {
         val retrofit = RetrofitClient.getInstance(8081)//za catalog_item_management
         val service = retrofit.create(ServiceCatalogItemManagement::class.java)
 
-
         val call = service.updateExistingCatalog(
             loggedInUser.token,
             updatingCatalog.id.toString(),
             updatingCatalog
         )
-
 
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {

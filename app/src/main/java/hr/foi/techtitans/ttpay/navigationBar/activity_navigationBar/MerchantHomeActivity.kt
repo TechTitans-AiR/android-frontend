@@ -1,5 +1,6 @@
 package hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -71,6 +72,7 @@ class MerchantHomeActivity : AppCompatActivity() {
         progressBarUserName.visibility = View.VISIBLE
 
         call.enqueue(object : Callback<User> {
+            @SuppressLint("SetTextI18n")
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 // Hide the progress bar
                 progressBarUserName.visibility = View.GONE

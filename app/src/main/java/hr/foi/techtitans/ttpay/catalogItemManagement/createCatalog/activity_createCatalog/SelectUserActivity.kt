@@ -23,7 +23,6 @@ import hr.foi.techtitans.ttpay.network.RetrofitClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.UpdateCatalogActivity
-import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.AddedServiceAdapter
 import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.Catalog
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 import retrofit2.Call
@@ -38,7 +37,7 @@ class SelectUserActivity : AppCompatActivity() {
 
     private lateinit var progressBar:ProgressBar
 
-    //for selecting user
+    //For selecting user
     private lateinit var recyclerViewSelectUser:RecyclerView
     private lateinit var selectUserAdapter: SelectUserAdapter
 
@@ -53,14 +52,13 @@ class SelectUserActivity : AppCompatActivity() {
     private lateinit var loggedInUser: LoggedInUser
 
     private var catalog: Catalog?= Catalog(null, "", "", "", "", null, null, false)
-
     private  var currentCatalog: Catalog?= Catalog(null, "", "", "", "", null, null, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_user)
 
-        //initializing recycler view
+        //Initializing recycler view
         recyclerViewSelectUser = findViewById(R.id.recyclerView_select_users)
         recycleViewAddedUser = findViewById(R.id.recyclerView_added_users)
 
@@ -72,14 +70,14 @@ class SelectUserActivity : AppCompatActivity() {
 
         currentCatalog=catalog
 
-        //for adapter Select user
+        //For adapter Select user
         recyclerViewSelectUser.layoutManager = LinearLayoutManager(this)
         selectUserAdapter = SelectUserAdapter(emptyList()) { user ->
             //Adding selected service to list
             listSelectedUsers.add(user)
+
             addedUserAdapter.updateData(listSelectedUsers)
 
-            //Snackbar message
             showSnackbar("The user is added to the list of users.")
         }
         recyclerViewSelectUser.adapter = selectUserAdapter
@@ -88,9 +86,9 @@ class SelectUserActivity : AppCompatActivity() {
         addedUserAdapter = AddedUserAdapter(emptyList()) { position ->
             // Remove selected user from the list
             listSelectedUsers.removeAt(position)
+
             addedUserAdapter.updateData(listSelectedUsers)
 
-            //Snackbar message
             showSnackbar("The user is deleted from the list of users.")
         }
         recycleViewAddedUser.adapter = addedUserAdapter
@@ -102,7 +100,7 @@ class SelectUserActivity : AppCompatActivity() {
 
         progressBar=findViewById(R.id.loadingProgressBar)
 
-        //btn back
+        //Button back
         imgBack = findViewById(R.id.back_back)
         imgBack.setOnClickListener {
 
@@ -119,7 +117,7 @@ class SelectUserActivity : AppCompatActivity() {
 
         }
 
-        //get the list of the added articles
+        //Get the list of the added articles
         val selectedArticles: ArrayList<Article>? = intent.getSerializableExtra("selectedArticles") as? ArrayList<Article>
         //Print the list of articles in logcat
         selectedArticles?.let {
@@ -129,7 +127,7 @@ class SelectUserActivity : AppCompatActivity() {
             }
         }
 
-        //get the list of the added services
+        //Get the list of the added services
         val selectedServices: ArrayList<Service>? = intent.getSerializableExtra("selectedServices") as? ArrayList<Service>
         //Print the list of articles in logcat
         selectedServices?.let {
@@ -139,10 +137,9 @@ class SelectUserActivity : AppCompatActivity() {
             }
         }
 
-        //fetch merchants
         fetchMerchants()
 
-        //go to next activity
+        //Continue button
         continueButton = findViewById(R.id.btn_continue_see_data)
         continueButton.setOnClickListener {
             if(catalog!=null) {
@@ -187,7 +184,6 @@ class SelectUserActivity : AppCompatActivity() {
             //Updating the display of added users
             addedUserAdapter.updateData(listSelectedUsers)
 
-            //Snackbar message
             showSnackbar("The services is deleted from the list of services.")
         }
         recycleViewAddedUser.adapter = addedUserAdapter

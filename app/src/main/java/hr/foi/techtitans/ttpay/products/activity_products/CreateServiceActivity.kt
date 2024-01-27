@@ -43,7 +43,6 @@ class CreateServiceActivity : AppCompatActivity() {
     private lateinit var editTextServiceLocation: EditText
     private lateinit var btnCreateNewService: Button
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_service)

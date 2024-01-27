@@ -64,10 +64,5 @@ class FragmentLoginPIN(private val context:Context,private val outcomeListener: 
         progressBarPin.visibility = View.VISIBLE
     }
 
-    private fun hideProgressBar() {
-        progressBarPin.visibility = View.GONE
-    }
-
-
 
 }

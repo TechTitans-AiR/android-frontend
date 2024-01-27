@@ -22,8 +22,6 @@ import hr.foi.techtitans.ttpay.utilities.DateFormatter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class DetailedTransactionActivity : AppCompatActivity() {
 

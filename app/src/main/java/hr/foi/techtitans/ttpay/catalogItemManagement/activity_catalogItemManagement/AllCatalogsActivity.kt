@@ -13,7 +13,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.activity_createCatalog.CreateCatalogItemActivity
@@ -350,7 +349,7 @@ class AllCatalogsActivity : AppCompatActivity() {
                             val nameUser = service.serviceName
                             if (nameUser == serviceName) {
                                 callback.invoke(
-                                    service.id ?: ""
+                                    service.id
                                 )
                                 return
                             }
@@ -388,7 +387,7 @@ class AllCatalogsActivity : AppCompatActivity() {
                             val nameArticle = article.name
                             if (nameArticle == articleName) {
                                 callback.invoke(
-                                    article.id ?: ""
+                                    article.id
                                 )
                                 return
                             }

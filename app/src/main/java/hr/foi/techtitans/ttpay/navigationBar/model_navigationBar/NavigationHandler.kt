@@ -1,6 +1,5 @@
 package hr.foi.techtitans.ttpay.navigationBar.model_navigationBar
 
-// NavigationHandler.kt
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity

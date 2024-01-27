@@ -8,7 +8,6 @@ data class UserStatus(
     val name: String
 )  : Parcelable {
 
-    // Parcelable implementacija
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         parcel.readString() ?: ""
@@ -32,7 +31,6 @@ data class UserStatus(
             return arrayOfNulls(size)
         }
 
-        // Definicija statičkih objekata
         val active = UserStatus("65550a49074f8ba48dd82a19", "active")
         val inactive = UserStatus("65550a49074f8ba48dd82a1a", "inactive")
         val blocked = UserStatus("65550a49074f8ba48dd82a1b", "blocked")

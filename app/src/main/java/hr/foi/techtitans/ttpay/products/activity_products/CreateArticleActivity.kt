@@ -47,6 +47,7 @@ class CreateArticleActivity : AppCompatActivity() {
     private lateinit var editTextQuantityInStock : EditText
     private lateinit var btnCreateArticle:Button
     private  var itemCategories:List<ItemCategory>? = emptyList()
+
     private  var itemCategoryId:ItemCategory= ItemCategory("","")
     private  var selectedCategory:String=""
 
@@ -73,7 +74,6 @@ class CreateArticleActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
         //initializing fields
         editTextArticleName= findViewById(R.id.editTextArticleName)
         editTextDescription= findViewById(R.id.editTextDescription)
@@ -87,8 +87,7 @@ class CreateArticleActivity : AppCompatActivity() {
         btnCreateArticle=findViewById(R.id.btnCreateNewArticle)
 
 
-
-        //set spinners
+        //Set spinners
         setupCurrencySpinner()
         setupCategorySpinner()
 
@@ -107,7 +106,6 @@ class CreateArticleActivity : AppCompatActivity() {
 
 
         btnCreateArticle.setOnClickListener{
-
 
             // Fetch data from EditText and Spinner
             val articleName = editTextArticleName.text.toString()
@@ -139,7 +137,6 @@ class CreateArticleActivity : AppCompatActivity() {
 
             Log.d("newArticle: ", newArticle.toString())
             createNewArticle(jwtToken,newArticle)
-
         }
 
     }
@@ -166,7 +163,7 @@ class CreateArticleActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
                 hideLoading()
-                Toast.makeText(applicationContext, "Error creating article. Please try again.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Failed to create article. Please try again.", Toast.LENGTH_SHORT).show()
             }
         })
     }

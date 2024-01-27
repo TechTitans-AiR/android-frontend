@@ -11,7 +11,6 @@ import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
 import hr.foi.techtitans.ttpay.navigationBar.model_navigationBar.NavigationHandler
-import hr.foi.techtitans.ttpay.transactions.activity_transactions.AllTransactionsActivity
 
 class AdminSectionForCatalogsActivity : AppCompatActivity() {
 

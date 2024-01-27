@@ -8,6 +8,6 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface LoginServicePIN {
-    @POST("/api/v1/users/login/pin") // endpoint for login
+    @POST("/api/v1/users/login/pin") // Endpoint for login
     fun login(@Body pin: LoginRequestDataPIN): Call<ResponseBodyData>
 }

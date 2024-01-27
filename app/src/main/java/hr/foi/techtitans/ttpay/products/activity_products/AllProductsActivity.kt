@@ -58,18 +58,13 @@ class AllProductsActivity : AppCompatActivity() {
 
         articleAdapter = ArticleAdapter(listArticles, loggedInUser)
 
-
         recyclerViewArticles.adapter = articleAdapter
         recyclerViewServices.adapter = serviceAdapter
-
-
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         navigationHandler = NavigationHandler(this, loggedInUser)
         navigationHandler.setupWithBottomNavigation(bottomNavigationView)
         bottomNavigationView.visibility = View.VISIBLE
-
-
 
         fetchArticles()
         fetchServices()
@@ -218,8 +213,6 @@ class AllProductsActivity : AppCompatActivity() {
         val dialog = builder.create()
         dialog.show()
     }
-
-
 
     override fun onRestart() {
         super.onRestart()

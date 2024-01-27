@@ -4,7 +4,7 @@ import hr.foi.techtitans.ttpay.core.LoginToken
 
 class PINLoginToken(pin: String) : LoginToken {
 
-    //data of the input fields
+    //Data of the input fields
     private val authorizers = mapOf(
         "pin" to pin,
     )

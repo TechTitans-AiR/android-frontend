@@ -22,7 +22,7 @@ interface ServiceTransactionManagement {
         @Header("Authorization") token: String
     ): Call<List<Transaction>>
 
-    @POST("/api/v1/transactions/create")//create new transaction for selling items
+    @POST("/api/v1/transactions/create")//Create new transaction for selling items
     fun createTransactionCash(@Body newTransaction: NewTransaction): Call<NewTransaction>
 
     @POST("/api/v1/transactions/create/card")

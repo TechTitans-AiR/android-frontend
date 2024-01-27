@@ -110,9 +110,10 @@ class UpdateMerchantActivity : AppCompatActivity() {
         var oldStatus: UserStatus?= UserStatus.active
         var dateCreated=""
 
-        //call endpoint for user details
+        //Call endpoint for user details
         Log.d("FetchMerchant: ", userID)
         fetchMerchants(loggedInUser, userID) { fetchedUser ->
+
             //User is found and his data will be updated
             if (fetchedUser != null && fetchedUser.id==userID) {
                 editTxtFirstName.setText(fetchedUser.first_name)
@@ -254,10 +255,9 @@ class UpdateMerchantActivity : AppCompatActivity() {
     }
 
 fun updateMerchantData(loggedInUser: LoggedInUser, context: Context, updatedData: updateUser, userID: String) {
-    val retrofit = RetrofitClient.getInstance(8080) // Replace 8080 with your specific port
+    val retrofit = RetrofitClient.getInstance(8080)//za account_management
     val service = retrofit.create(ServiceAccountManagement::class.java)
 
-    // Call for method updateMerchantData
     val call = service.updateMerchantData(loggedInUser.token, userID, updatedData)
 
     call.enqueue(object : Callback<updateUser> {

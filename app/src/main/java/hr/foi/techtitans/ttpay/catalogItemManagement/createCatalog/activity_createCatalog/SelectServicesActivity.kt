@@ -22,7 +22,6 @@ import hr.foi.techtitans.ttpay.network.RetrofitClient
 import hr.foi.techtitans.ttpay.products.network_products.ServiceProducts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
-import hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.model_createCatalog.AddedArticleAdapter
 import hr.foi.techtitans.ttpay.catalogItemManagement.model_catalogItemManagement.Catalog
 import hr.foi.techtitans.ttpay.core.LoggedInUser
 import retrofit2.Call
@@ -40,20 +39,19 @@ class SelectServicesActivity : AppCompatActivity() {
     private lateinit var userUsername: String
     private lateinit var loggedInUser: LoggedInUser
 
-
-    //for selecting service
+    //For selecting service
     private lateinit var recyclerViewSelectServices: RecyclerView
     private lateinit var selectServiceAdapter: SelectServiceAdapter
 
-    //which service is selected
+    //Which service is selected
     private lateinit var addedServiceAdapter: AddedServiceAdapter
     private lateinit var recyclerViewAddedServices: RecyclerView
 
     private var listSelectedServices = mutableListOf<Service>()
 
     private var catalog: Catalog?= Catalog(null, "", "", "", "", null, null, false)
-
     private  var currentCatalog: Catalog?= Catalog(null, "", "", "", "", null, null, false)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_services)
@@ -61,7 +59,6 @@ class SelectServicesActivity : AppCompatActivity() {
         recyclerViewSelectServices = findViewById(R.id.recyclerView_select_services)
         recyclerViewAddedServices = findViewById(R.id.recyclerView_added_services)
 
-        //nav
         loggedInUser = intent.getParcelableExtra("loggedInUser")!!
         userUsername = intent.getStringExtra("username") ?: ""
 
@@ -70,7 +67,7 @@ class SelectServicesActivity : AppCompatActivity() {
 
         currentCatalog=catalog
 
-        //for adapter Select service
+        //For adapter Select service
         recyclerViewSelectServices.layoutManager = LinearLayoutManager(this)
         selectServiceAdapter = SelectServiceAdapter(emptyList()) { service ->
 
@@ -82,12 +79,11 @@ class SelectServicesActivity : AppCompatActivity() {
             //Updating the display of added articles
             addedServiceAdapter.updateData(listSelectedServices)
 
-            //Snackbar message
             showSnackbar("The service is added to the list of services.")
         }
         recyclerViewSelectServices.adapter=selectServiceAdapter
 
-        //for adapter Added service
+        //For adapter Added service
         recyclerViewAddedServices.layoutManager = LinearLayoutManager(this)
         addedServiceAdapter = AddedServiceAdapter(listSelectedServices) { position ->
                // Deleting the selected services from the list of services
@@ -96,7 +92,6 @@ class SelectServicesActivity : AppCompatActivity() {
                //Updating the display of added services
                addedServiceAdapter.updateData(listSelectedServices)
 
-               //Snackbar message
                showSnackbar("The service is deleted from the list of services.")
 
         }
@@ -110,7 +105,7 @@ class SelectServicesActivity : AppCompatActivity() {
 
         progressBar = findViewById(R.id.loadingProgressBar)
 
-        //btn back
+        //Button back
         imgBack = findViewById(R.id.back_back)
         imgBack.setOnClickListener {
             val intent = Intent(this, SelectArticlesActivity::class.java)
@@ -129,8 +124,9 @@ class SelectServicesActivity : AppCompatActivity() {
 
         }
 
-        //get the list of the added articles
+        //Get the list of the added articles
         val selectedArticles: ArrayList<Article>? = intent.getSerializableExtra("selected_articles") as? ArrayList<Article>
+
         //Print the list of articles in logcat
         selectedArticles?.let {
             for (article in it) {
@@ -138,10 +134,10 @@ class SelectServicesActivity : AppCompatActivity() {
             }
         }
 
-        //get all services
+        //Get all services
         fetchServices()
 
-        //continue to select user
+        //Continue to select user
         continueButton = findViewById(R.id.btn_continue_select_user)
         continueButton.setOnClickListener {
             if (selectedArticles!!.isEmpty() && listSelectedServices.isEmpty()) {
@@ -172,7 +168,6 @@ class SelectServicesActivity : AppCompatActivity() {
             //Updating the display of added services
             addedServiceAdapter.updateData(listSelectedServices)
 
-            //Snackbar message
             showSnackbar("The services is deleted from the list of services.")
         }
         recyclerViewAddedServices.adapter = addedServiceAdapter

@@ -8,6 +8,6 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface `LoginService-UserPass` {
-    @POST("/api/v1/users/login") // endpoint for login
+    @POST("/api/v1/users/login") // Endpoint for login
     fun login(@Body userData: LoginRequestData): Call<LoginResponseData>
 }

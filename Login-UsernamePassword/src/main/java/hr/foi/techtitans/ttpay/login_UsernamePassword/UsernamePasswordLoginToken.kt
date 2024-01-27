@@ -4,7 +4,7 @@ import hr.foi.techtitans.ttpay.core.LoginToken
 
 class UsernamePasswordLoginToken(username: String, password: String) : LoginToken {
 
-    //data of the input fields
+    //Data of the input fields
     private val authorizers = mapOf(
         "username" to username,
         "password" to password,
