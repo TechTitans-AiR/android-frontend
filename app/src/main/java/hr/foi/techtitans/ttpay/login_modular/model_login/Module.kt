@@ -1,14 +1,19 @@
 package hr.foi.techtitans.ttpay.login_modular.model_login
 
-data class Module ( private var name: String? = null, private var activityClass: Class<*>? = null) {
+import androidx.fragment.app.Fragment
 
-    fun Module(name: String?, activityClass: Class<*>?) {
-        this.name = name
-        this.activityClass = activityClass
-    }
+data class Module (
+    private var name: String? = null,
+    private var fragmentClass: Class<out Fragment>? = null,
+    private var activityClass: Class<*>? = null
+) {
 
     fun getName(): String? {
         return name
+    }
+
+    fun getFragmentClass(): Class<out Fragment>? {
+        return fragmentClass
     }
 
     fun getActivityClass(): Class<*>? {

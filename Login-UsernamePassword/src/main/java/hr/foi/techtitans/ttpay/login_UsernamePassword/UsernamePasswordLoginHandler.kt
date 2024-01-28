@@ -8,13 +8,10 @@ import hr.foi.techtitans.ttpay.core.LoginHandler
 import hr.foi.techtitans.ttpay.core.LoginOutcomeListener
 import hr.foi.techtitans.ttpay.core.LoginToken
 import hr.foi.techtitans.ttpay.core.network.models.ErrorResponseBody
-import hr.foi.techtitans.ttpay.core.network.models.ResponseBody
-import hr.foi.techtitans.ttpay.core.network.models.SuccessfulResponseBody
 import hr.foi.techtitans.ttpay.core.network.data.LoginRequestData
 import hr.foi.techtitans.ttpay.core.network.data.LoginResponseData
 import hr.foi.techtitans.ttpay.login_UsernamePassword.service.`LoginService-UserPass`
 import hr.foi.techtitans.ttpay.login_UsernamePassword.service.Retrofit
-import org.json.JSONException
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

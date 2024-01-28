@@ -49,18 +49,19 @@ class LoginUser : AppCompatActivity(), LoginOutcomeListener {
 
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
+        var foundMatchingModule = false
+
         for(m:Module in listModule){
-            when(m.getName()){
-                "Login - Username and Password" -> {
-                    if (selectedButton == m.getName()) {
-                        fragmentTransaction.replace(fragmentContainer.id, FragmentLoginUsernamePass(this@LoginUser, this))
-                    }
+            if (selectedButton == m.getName()) {
+                val fragment = loginManager.getFragmentForModule(m, applicationContext, this)
+                fragment?.let {
+                    fragmentTransaction.replace(fragmentContainer.id, it)
+                    foundMatchingModule = true
                 }
-                "Login - PIN" -> {
-                    if (selectedButton == m.getName()) {
-                        fragmentTransaction.replace(fragmentContainer.id, FragmentLoginPIN(this@LoginUser, this))
-                    }
-                }
+            }
+
+            if (foundMatchingModule) {
+                break // Break the loop after finding the matching module
             }
         }
         fragmentTransaction.commit()

@@ -25,7 +25,6 @@ class FragmentLoginPIN(private val context:Context,private val outcomeListener: 
     private var loginHandler : PINLoginHandler = PINLoginHandler()
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

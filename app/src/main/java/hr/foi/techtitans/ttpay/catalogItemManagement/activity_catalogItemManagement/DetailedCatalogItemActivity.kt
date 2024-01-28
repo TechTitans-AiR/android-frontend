@@ -90,7 +90,8 @@ class DetailedCatalogItemActivity : AppCompatActivity() {
         val imgBack: ImageView = findViewById(R.id.back_button)
         imgBack.setOnClickListener {
             var updatedCatalog = intent.getStringExtra("updatedCatalog") ?: ""
-            if(updatedCatalog!=""){
+
+            if(updatedCatalog != null){
                 val intent= Intent(this, AllCatalogsActivity::class.java)
                 intent.putExtra("loggedInUser", loggedInUser)
                 startActivity(intent)

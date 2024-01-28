@@ -2,6 +2,7 @@ package hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import hr.foi.techtitans.ttpay.R
@@ -23,7 +24,6 @@ class MainActivity : AppCompatActivity() {
             recyclerView = findViewById(R.id.recyclerViewButtonModules)
             recyclerView.layoutManager = LinearLayoutManager(this)
             recyclerView.adapter = ModuleAdapter(loginManager.getModules(), this)
-
 
     }
 }

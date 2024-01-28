@@ -73,9 +73,7 @@ class UpdateCatalogActivity : AppCompatActivity() {
         imgBack = findViewById(R.id.back_back)
         imgBack.setOnClickListener {
             val intent = Intent(this, SelectUserActivity::class.java)
-            if(catalog!=null){
-
-            }
+            intent.putExtra("selectedCatalog", catalog)
             intent.putExtra("loggedInUser", loggedInUser)
             Log.d("CreateCatalogDataActivity - LoggedInUser",loggedInUser.toString())
             startActivity(intent)

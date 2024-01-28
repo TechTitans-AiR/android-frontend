@@ -25,6 +25,7 @@ class PINLoginHandler : LoginHandler{
                 instance ?: PINLoginHandler().also { instance = it }
             }
         }
+
     }
 
     private val loginServicePIN: LoginServicePIN  = RetrofitPIN.getInstance(8080)
