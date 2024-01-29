@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.activity_createCatalog.SelectServicesActivity">
+
+    <!-- Back Button -->
+    <ImageView
+        android:id="@+id/back_back"
+        android:layout_width="40dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/back_button"
+        android:src="@drawable/baseline_arrow_back" />
+
+    <TextView
+        android:id="@+id/textView_title_select_services"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@id/back_back"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/select_the_services"
+        android:textColor="@color/red"
+        android:textSize="24sp"
+        android:textStyle="bold"/>
+
+    <!-- RecyclerView for selecting articles -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_select_services"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_below="@+id/textView_title_select_services"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Added articles container -->
+
+    <!-- RecyclerView for added articles -->
+    <TextView
+        android:id="@+id/textView_added_services_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_continue_select_user"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/added_services"
+        android:textColor="@color/red"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_added_services"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_below="@+id/textView_added_services_title"
+        android:layout_marginTop="20dp"/>
+
+    <!-- Continue button -->
+
+    <!-- ProgressBar for loading -->
+
+    <Button
+        android:id="@+id/btn_continue_select_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/recyclerView_select_services"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="15dp"
+        android:text="@string/continue_with_selecting_users"
+        android:textSize="16sp" />
+
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:visibility="gone" />
+
+    <!-- BottomNavigationView -->
+    <include
+        layout="@layout/bottom_navigation"
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

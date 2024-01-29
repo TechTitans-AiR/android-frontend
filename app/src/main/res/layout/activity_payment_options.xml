@@ -1,0 +1,279 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hr.foi.techtitans.ttpay.transactions.activity_transactions.PaymentOptionsActivity">
+
+    <!-- Back button -->
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="40dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:contentDescription="Back Button"
+        android:src="@drawable/baseline_arrow_back" />
+
+    <!-- Payment options -->
+    <TextView
+        android:id="@+id/textView_payment_options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Payment options"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Radio Group for payment options -->
+    <RadioGroup
+        android:id="@+id/radioGroupPaymentOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_payment_options"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="15dp">
+
+        <!-- Cash radio button -->
+        <RadioButton
+            android:id="@+id/radioCash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cash" />
+
+        <!-- Bank Card radio button -->
+        <RadioButton
+            android:id="@+id/radioBankCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bank Card"
+            android:layout_marginStart="16dp" />
+    </RadioGroup>
+
+    <!-- Linear Layout for "Cash" -->
+    <LinearLayout
+        android:id="@+id/llCash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/radioGroupPaymentOptions"
+        android:layout_marginTop="16dp"
+        android:visibility="gone">
+
+        <!-- Description input for "Cash" -->
+        <EditText
+            android:id="@+id/edt_description_cash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:hint="Enter description" />
+
+        <!-- Total Amount with Euro symbol -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="25dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_label_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total amount:"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/edt_ttl_amount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp"/>
+
+            <TextView
+                android:id="@+id/txt_currency_cash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="€"
+                android:textSize="18sp"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+
+        <!-- Amount input for "Cash" with Euro symbol -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="25dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edt_cash"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="5dp"
+                android:hint="Enter Cash Amount the customer gave you" />
+
+            <TextView
+                android:id="@+id/txt_currency_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="€"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+        <!-- Button to check Cash amount validity -->
+        <Button
+            android:id="@+id/btn_check_cash_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="8dp"
+            android:text="Check Cash Amount" />
+    </LinearLayout>
+
+    <!-- Linear Layout for "Bank Card" -->
+    <LinearLayout
+        android:id="@+id/llBankCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/radioGroupPaymentOptions"
+        android:layout_marginTop="16dp"
+        android:visibility="gone">
+
+        <!-- Description input for "Bank Card" -->
+        <EditText
+            android:id="@+id/edt_description_bank_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:hint="Enter description" />
+
+        <!-- Card number input for "Bank Card" -->
+        <EditText
+            android:id="@+id/edt_card_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:hint="Enter Card Number"
+            android:maxLength="16"
+            android:inputType="number" />
+
+        <!-- Expiration date input for "Bank Card" -->
+        <EditText
+            android:id="@+id/edt_expiration_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:hint="Enter Expiration Date" />
+
+        <!-- Balance input for "Bank Card" with Euro symbol -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/label_currency_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total amount: "
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/edt_balance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="5dp"
+                android:hint="Enter Balance" />
+
+            <TextView
+                android:id="@+id/txt_currency_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="€"
+                android:textSize="18sp"
+                android:layout_marginStart="5dp"/>
+        </LinearLayout>
+
+
+        <!-- CVC input for "Bank Card" -->
+        <EditText
+            android:id="@+id/edt_cvc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:hint="Enter CVC"
+            android:maxLength="3"
+            android:inputType="number" />
+
+        <!-- Button to check and validate card data -->
+        <Button
+            android:id="@+id/btn_check_validate_card_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="8dp"
+            android:text="Check Validate Card Data" />
+    </LinearLayout>
+
+    <!-- Button and ProgressBar -->
+    <LinearLayout
+        android:id="@+id/llCompletePayment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottomNavigationView"
+        android:layout_marginBottom="100dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_complete_payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="COMPLETE PAYMENT" />
+
+        <Button
+            android:id="@+id/btn_cancel_payment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:text="CANCEL PAYMENT" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+
+    <!-- BottomNavigationView -->
+    <include layout="@layout/bottom_navigation"
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

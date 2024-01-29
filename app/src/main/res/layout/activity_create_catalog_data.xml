@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hr.foi.techtitans.ttpay.catalogItemManagement.createCatalog.activity_createCatalog.CreateCatalogDataActivity">
+
+    <!-- Back Button -->
+
+    <EditText
+        android:id="@+id/editText_nameOfCatalog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_name"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="20dp"
+        android:autofillHints=""
+        android:hint="@string/write_here_the_name_of_catalog"
+        android:inputType="text"
+        android:padding="15dp" />
+
+    <TextView
+        android:id="@+id/textView_collected_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_create_catalog"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/all_collected_data_for_catalog_are"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleView_all_collected_data_catalog"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_below="@+id/textView_collected_data"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/bottomNavigationView"
+        android:layout_marginBottom="25dp" />
+
+    <Button
+        android:id="@+id/btn_create_catalog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_nameOfCatalog"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/create_the_catalog_item"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_title_data"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:padding="5dp"
+        android:text="@string/name_of_catalog"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/back_back"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/back_button"
+        android:src="@drawable/baseline_arrow_back"
+        android:focusable="true" />
+
+    <TextView
+        android:id="@+id/textView_title_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/all_collected_data"
+        android:textColor="@color/red"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <include
+        android:id="@+id/bottomNavigationView"
+        layout="@layout/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

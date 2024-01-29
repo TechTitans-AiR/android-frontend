@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".catalogItemManagement.activity_catalogItemManagement.AdminSectionForCatalogsActivity">
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="40dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:clickable="true"
+        android:contentDescription="Back Button"
+        android:src="@drawable/baseline_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_title_catalogs_section"
+        android:layout_width="228dp"
+        android:layout_height="57dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:text="@string/catalog_section_title"
+        android:textAlignment="center"
+        android:textColor="@color/red"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.275"
+        app:layout_constraintStart_toEndOf="@+id/back_button"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_all_catalogs_admin"
+        android:layout_width="378dp"
+        android:layout_height="112dp"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="onCatalogsSectionClick"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_title_catalogs_section">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/textView_group1"
+                android:layout_width="199dp"
+                android:layout_height="77dp"
+                android:gravity="center"
+                android:text="All Catalogs"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/imageView_list_catalog"
+                android:layout_width="80dp"
+                android:layout_height="70dp"
+                android:src="@drawable/catalog" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- CardView for the second group -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_only_my_catalogs_section"
+        android:layout_width="378dp"
+        android:layout_height="112dp"
+        android:layout_marginTop="15dp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:onClick="onOnlyMyCatalogsSectionClick"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView_all_catalogs_admin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/imageView_catalog"
+                android:layout_width="90dp"
+                android:layout_height="80dp"
+                android:src="@drawable/one_user_catalog" />
+
+            <TextView
+                android:id="@+id/textView_group2"
+                android:layout_width="199dp"
+                android:layout_height="77dp"
+                android:gravity="center"
+                android:text="Only my catalogs"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <include layout="@layout/bottom_navigation" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

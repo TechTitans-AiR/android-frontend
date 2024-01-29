@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".catalogItemManagement.activity_catalogItemManagement.UpdateCatalogActivity">
+
+    <LinearLayout
+        android:id="@+id/ll_back_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp">
+
+        <!-- Back button -->
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="40dp"
+            android:layout_height="28dp"
+            android:clickable="true"
+            android:contentDescription="Back Button"
+            android:src="@drawable/baseline_arrow_back"/>
+
+        <!-- Catalog Name TextView -->
+        <TextView
+            android:id="@+id/textView_catalogName"
+            android:layout_width="304dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Catalog Name"
+            android:textColor="@color/red"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_below="@id/ll_back_name"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"/>
+
+
+    <LinearLayout
+        android:id="@+id/layoutName"
+        android:layout_width="381dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_back_name"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/textView_name"
+            android:layout_width="135dp"
+            android:layout_height="42dp"
+            android:layout_gravity="left"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="31dp"
+            android:padding="5dp"
+            android:text="@string/name_of_catalog"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/editText_nameOfCatalog"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/ll_back_name"
+            android:layout_gravity="right"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="16dp"
+            android:layout_toEndOf="@+id/textView_name"
+            android:autofillHints=""
+            android:hint="Name of catalog"
+            android:inputType="text"
+            android:padding="15sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textAllData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutName"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="127dp"
+        android:padding="5dp"
+        android:text="All data from catalog:"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/textAllData">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleView_all_collected_data_catalog"
+            android:layout_width="409dp"
+            android:layout_height="361dp"
+            android:layout_below="@+id/textAllData"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="2dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="20dp" />
+
+        <Button
+            android:id="@+id/btnSaveChanges"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recycleView_all_collected_data_catalog"
+            android:layout_gravity="right"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="9dp"
+            android:text="Save changes"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+
+
+
+
+    <ImageView
+            android:id="@+id/back_back"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:contentDescription="@string/back_button"
+            android:src="@drawable/baseline_arrow_back"
+            android:focusable="true" />
+
+
+
+
+    <!-- BottomNavigationView -->
+    <include layout="@layout/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

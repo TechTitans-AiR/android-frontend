@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hr.foi.techtitans.ttpay.catalogItemManagement.activity_catalogItemManagement.AllCatalogsActivity">
+
+    <!-- Back button -->
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="40dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:contentDescription="Back Button"
+        android:src="@drawable/baseline_arrow_back" />
+
+    <!-- Title "All catalogs" -->
+    <TextView
+        android:id="@+id/tv_all_catalogs_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-light"
+        android:text="All catalogs"
+        android:textColor="@color/red"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- Plus icon with red circle -->
+    <RelativeLayout
+        android:id="@+id/rl_plus_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_all_catalogs_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/img_plus_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:onClick="onPlusCatalogIconClick"
+            android:src="@drawable/add_circle" />
+        <ImageView
+            android:id="@+id/img_search_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="60dp"
+            android:onClick="onSearchCatalogIconClick"
+            android:src="@drawable/baseline_search" />
+
+        <ImageView
+            android:id="@+id/img_delete_search_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="110dp"
+            android:onClick="onDeleteSearchIconClick"
+            android:visibility="gone"
+            android:src="@drawable/baseline_search_off" />
+
+    </RelativeLayout>
+
+    <!-- Message above RecyclerView -->
+    <TextView
+        android:id="@+id/tv_select_user_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_plus_icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Select the catalog you want to see"
+        android:textSize="18sp" />
+
+    <!-- ProgressBar for loading -->
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_select_user_message"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:visibility="gone" />
+
+    <!-- RecyclerView for all users -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_all_catalogs"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:layout_below="@+id/loadingProgressBar"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:foregroundGravity="center"
+        android:padding="5dp"/>
+
+    <include layout="@layout/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
