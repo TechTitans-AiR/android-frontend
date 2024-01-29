@@ -163,13 +163,13 @@ class UpdateMerchantActivity : AppCompatActivity() {
         spinnerRole.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedRole = userRoleList[position]
-                user.user_role = selectedRole.id
+                user.user_role = selectedRole.name
                 Log.d("New role: ", user.user_role.toString())
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                Log.d("Old role: ", oldRole?.id.toString())
-                user.user_role = oldRole?.id ?: "DefaultUserRole"
+                Log.d("Old role: ", oldRole?.name.toString())
+                user.user_role = oldRole?.name ?: "DefaultUserRole"
             }
         }
 
@@ -177,13 +177,13 @@ class UpdateMerchantActivity : AppCompatActivity() {
         spinnerStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedStatus = userStatusList[position]
-                user.user_status = selectedStatus.id
+                user.user_status = selectedStatus.name
                 Log.d("New status: ", user.user_status.toString())
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                Log.d("Old status: ", oldStatus?.id.toString())
-                user.user_status = oldStatus?.id ?: "DefaultUserStatus"
+                Log.d("Old status: ", oldStatus?.name.toString())
+                user.user_status = oldStatus?.name ?: "DefaultUserStatus"
             }
 
     }
