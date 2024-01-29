@@ -47,9 +47,15 @@ class FragmentLoginUsernamePass (private val context: Context, private val outco
 
 
             if(enteredUsername.toString().isNotEmpty() && enteredPassword.toString().isNotEmpty()){
-                showProgressBar()
-                val loginToken = UsernamePasswordLoginToken(enteredUsername, enteredPassword)
-                loginHandler.handleLogin(loginToken, outcomeListener)
+                if (progressBar.visibility == View.VISIBLE) {
+                    usernameEditText.text=null
+                    passwordEditText.text=null
+                    hideProgressBar()
+                } else {
+                    showProgressBar()
+                    val loginToken = UsernamePasswordLoginToken(enteredUsername, enteredPassword)
+                    loginHandler.handleLogin(loginToken, outcomeListener)
+                }
             }else{
                 Toast.makeText(context, "You must enter username and password before clicking login! ", Toast.LENGTH_SHORT).show()
             }
@@ -62,5 +68,8 @@ class FragmentLoginUsernamePass (private val context: Context, private val outco
         progressBar.visibility = View.VISIBLE
     }
 
+    private fun hideProgressBar(){
+        progressBar.visibility = View.GONE
+    }
 
 }

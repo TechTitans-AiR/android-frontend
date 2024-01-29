@@ -24,7 +24,6 @@ import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHome
 class LoginUser : AppCompatActivity(), LoginOutcomeListener {
 
     private lateinit var btnBack:ImageView
-    private lateinit var progressBarPin:ProgressBar
     private  var loginManager:LoginManager= LoginManager(this)
     private var selectedButton:String=""
 
@@ -68,9 +67,7 @@ class LoginUser : AppCompatActivity(), LoginOutcomeListener {
 
     }
 
-    private fun hideProgressBar() {
-        progressBarPin.visibility = View.GONE
-    }
+
 
     override fun onSuccessfulLogin(loggedInUser: LoggedInUser) {
         Log.d("onLoginSuccess: ", loggedInUser.toString())
@@ -115,13 +112,13 @@ class LoginUser : AppCompatActivity(), LoginOutcomeListener {
     }
 
     override fun onFailedLogin(reason: String?) {
-        hideProgressBar()
         if (reason != null) {
             Log.d("Error message: ", reason)
-            Toast.makeText(this@LoginUser, "Login failed!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@LoginUser, "${reason}", Toast.LENGTH_SHORT).show()
         } else {
             Log.d("Error message: ", "Unknown error")
             Toast.makeText(this@LoginUser, "Login failed due to an unknown error!", Toast.LENGTH_SHORT).show()
         }
     }
+
 }

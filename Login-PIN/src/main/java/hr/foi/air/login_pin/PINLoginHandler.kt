@@ -1,6 +1,9 @@
 package hr.foi.air.login_pin
 
+import android.content.Context
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import com.auth0.jwt.JWT
 import com.google.gson.Gson
 import hr.foi.air.login_pin.service.LoginServicePIN
@@ -16,6 +19,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class PINLoginHandler : LoginHandler{
+
     companion object {
         @Volatile
         private var instance: PINLoginHandler? = null
@@ -34,7 +38,7 @@ class PINLoginHandler : LoginHandler{
 
     override fun handleLogin(
         loginToken: LoginToken,
-        loginListener: LoginOutcomeListener
+        loginListener: LoginOutcomeListener,
     ) {
 
         if (loginToken !is PINLoginToken) {
@@ -84,13 +88,12 @@ class PINLoginHandler : LoginHandler{
 
                         loginListener.onSuccessfulLogin(loggedInUser)
                     } else {
-                        loginListener.onFailedLogin("No data for login or the data is wrong!")
-                        Log.d("No data, wrong data: ", response.message())
+                        loginListener.onFailedLogin("User is not in the database, please check input data!")
+                        Log.d("User is not in the database, please check input data: ", response.message())
                     }
                 } else {
                     val errorBody = response.errorBody()?.string()
                     if (errorBody != null) {
-                         val errorResponse = errorBody.toString()
                         loginListener.onFailedLogin(errorBody.toString())
                     } else {
                         loginListener.onFailedLogin("Login failed because of server error.")
@@ -106,4 +109,5 @@ class PINLoginHandler : LoginHandler{
 
         })
     }
+
 }

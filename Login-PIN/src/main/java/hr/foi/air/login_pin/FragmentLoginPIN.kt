@@ -49,19 +49,26 @@ class FragmentLoginPIN(private val context:Context,private val outcomeListener: 
 
 
             if(enteredPIN.toString().isNotEmpty()){
-                showProgressBar()
-                val loginTokenPIN = PINLoginToken(enteredPIN)
-                loginHandler.handleLogin(loginTokenPIN, outcomeListener)
-            }else{
+                if (progressBarPin.visibility == View.VISIBLE) {
+                    editTextPIN.text=null
+                    hideProgressBar()
+                } else {
+                    showProgressBar()
+                    val loginTokenPIN = PINLoginToken(enteredPIN)
+                    loginHandler.handleLogin(loginTokenPIN, outcomeListener)
+                }
+            }
+            else{
                 Toast.makeText(context, "You must enter PIN before clicking login! ", Toast.LENGTH_SHORT).show()
             }
-
 
         }
     }
     private fun showProgressBar() {
         progressBarPin.visibility = View.VISIBLE
     }
-
+    private fun hideProgressBar(){
+        progressBarPin.visibility = View.GONE
+    }
 
 }

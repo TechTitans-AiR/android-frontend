@@ -76,8 +76,8 @@ class UsernamePasswordLoginHandler : LoginHandler {
 
                         loginListener.onSuccessfulLogin(loggedInUser)
                     } else {
-                        loginListener.onFailedLogin("No data for login or the data is wrong!")
-                        Log.d("No data, wrong data: ", response.message())
+                        loginListener.onFailedLogin("User is not in the database, please check input data!")
+                        Log.d("User is not in the database, please check input data: ", response.message())
                     }
                 } else {
                     val errorBody = response.errorBody()?.string()
