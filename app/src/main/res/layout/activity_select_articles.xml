@@ -48,9 +48,6 @@
         android:layout_below="@+id/textView_title_select_articles"
         android:layout_marginTop="20dp" />
 
-    <!-- Continue button -->
-
-    <!-- BottomNavigationView -->
 
     <TextView
         android:id="@+id/textView_added_articles_title"
@@ -74,6 +71,7 @@
         android:layout_below="@+id/textView_added_articles_title"
         android:layout_marginTop="20dp" />
 
+    <!-- Continue button -->
     <Button
         android:id="@+id/btn_continue_select_services"
         android:layout_width="wrap_content"
@@ -87,7 +85,6 @@
 
     <include
         layout="@layout/bottom_navigation"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"/>

@@ -65,11 +65,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rl_plus_icon"
-        android:layout_marginBottom="120dp"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
+        android:layout_marginBottom="120dp"
         android:gravity="center"
-        android:padding="16dp"/>
+        android:padding="16dp" />
 
     <!-- BottomNavigationView -->
     <include layout="@layout/bottom_navigation"

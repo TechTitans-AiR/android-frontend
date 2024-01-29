@@ -10,11 +10,12 @@
 
     <!-- Article frame -->
     <FrameLayout
-        android:layout_width="382dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="center"
-        tools:ignore="UselessParent">
+        tools:ignore="UselessParent"
+        >
 
         <TextView
             android:id="@+id/textView_article_name"
@@ -27,7 +28,7 @@
 
         <!-- Additional details for the article -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="bottom"
@@ -35,7 +36,7 @@
 
             <TextView
                 android:id="@+id/textView_weight"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:text="@string/weight"
                 android:textSize="14sp"
@@ -44,7 +45,7 @@
 
             <TextView
                 android:id="@+id/textView_price_currency"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:text="Price Currency"
                 android:textSize="14sp"

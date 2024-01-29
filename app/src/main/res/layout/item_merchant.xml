@@ -5,14 +5,14 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center"
-    android:padding="16dp">
+    android:padding="15dp">
 
     <!-- Merchant frame -->
 
 
         <TextView
             android:id="@+id/textView_firstName_lastName"
-            android:layout_width="250dp"
+            android:layout_width="225dp"
             android:layout_height="40dp"
             android:background="@drawable/red_border_item"
             android:gravity="center"
@@ -20,9 +20,10 @@
             android:textSize="16sp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginLeft="5dp">
         <ImageView
             android:id="@+id/imgView_eye"
             android:layout_width="wrap_content"
