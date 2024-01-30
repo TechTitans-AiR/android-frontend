@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
+import androidx.fragment.app.Fragment
 import com.auth0.jwt.JWT
 import com.google.gson.Gson
 import hr.foi.air.login_pin.service.LoginServicePIN
@@ -109,5 +110,15 @@ class PINLoginHandler : LoginHandler{
 
         })
     }
+
+    override fun getFragmentClass(context: Context, outcomeListener: LoginOutcomeListener): Fragment {
+        val fragment=FragmentLoginPIN(context, outcomeListener)
+        return fragment
+    }
+
+    override fun getName(): String? {
+       return "Login - PIN"
+    }
+
 
 }

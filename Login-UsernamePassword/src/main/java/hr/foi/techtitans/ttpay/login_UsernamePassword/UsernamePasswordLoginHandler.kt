@@ -1,6 +1,8 @@
 package hr.foi.techtitans.ttpay.login_UsernamePassword
 
+import android.content.Context
 import android.util.Log
+import androidx.fragment.app.Fragment
 import com.auth0.jwt.JWT
 import com.google.gson.Gson
 import hr.foi.techtitans.ttpay.core.LoggedInUser
@@ -97,5 +99,17 @@ class UsernamePasswordLoginHandler : LoginHandler {
             }
 
         })
+    }
+
+    override fun getFragmentClass(
+        context: Context,
+        outcomeListener: LoginOutcomeListener
+    ): Fragment {
+        val fragment=FragmentLoginUsernamePass(context, outcomeListener)
+        return fragment
+    }
+
+    override fun getName(): String? {
+        return "Login - Username and Password"
     }
 }

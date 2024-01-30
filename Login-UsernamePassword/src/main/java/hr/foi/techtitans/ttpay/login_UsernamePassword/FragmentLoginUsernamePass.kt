@@ -15,6 +15,13 @@ import hr.foi.techtitans.ttpay.core.LoginOutcomeListener
 
 class FragmentLoginUsernamePass (private val context: Context, private val outcomeListener: LoginOutcomeListener) : Fragment() {
 
+    companion object {
+        fun newInstance(context: Context, outcomeListener: LoginOutcomeListener): FragmentLoginUsernamePass {
+            val fragment = FragmentLoginUsernamePass(context, outcomeListener)
+            return fragment
+        }
+    }
+
     private var loginHandler : UsernamePasswordLoginHandler=UsernamePasswordLoginHandler()
     private lateinit var usernameEditText: EditText
     private lateinit var passwordEditText: EditText

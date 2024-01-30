@@ -17,6 +17,14 @@ import hr.foi.techtitans.ttpay.core.LoginOutcomeListener
 
 class FragmentLoginPIN(private val context:Context,private val outcomeListener: LoginOutcomeListener) : Fragment() {
 
+    companion object {
+        fun newInstance(context: Context, outcomeListener: LoginOutcomeListener): FragmentLoginPIN {
+            val fragment = FragmentLoginPIN(context, outcomeListener)
+            return fragment
+        }
+    }
+
+
     private lateinit var editTextPIN: EditText
     private lateinit var btnLogin: Button
     private lateinit var progressBarPin: ProgressBar

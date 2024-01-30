@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import hr.foi.techtitans.ttpay.R
+import hr.foi.techtitans.ttpay.core.LoginHandler
+import hr.foi.techtitans.ttpay.login_modular.activity_login.LoginUser
 
-class ModuleAdapter(private val modules: List<Module>, private val context: Context) :
+class ModuleAdapter(private val modules: List<LoginHandler>, private val context: Context) :
     RecyclerView.Adapter<ModuleAdapter.ModuleViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ModuleViewHolder {
@@ -19,8 +21,8 @@ class ModuleAdapter(private val modules: List<Module>, private val context: Cont
         }
 
         override fun onBindViewHolder(holder: ModuleViewHolder, position: Int) {
-            val module = modules[position]
-            holder.bind(module)
+            val handler = modules[position]
+            holder.bind(handler)
         }
 
         override fun getItemCount(): Int {
@@ -31,10 +33,10 @@ class ModuleAdapter(private val modules: List<Module>, private val context: Cont
         inner class ModuleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             private val button: Button = itemView.findViewById(R.id.btnModule)
 
-            fun bind(module: Module) {
-                button.text = module.getName()
+            fun bind(loginHandler : LoginHandler) {
+                button.text = loginHandler.getName()
                 button.setOnClickListener {
-                    val intent = Intent(context, module.getActivityClass())
+                    val intent = Intent(context,LoginUser::class.java)
                     intent.putExtra("selectedButton", button.text)
                     context.startActivity(intent)
                 }

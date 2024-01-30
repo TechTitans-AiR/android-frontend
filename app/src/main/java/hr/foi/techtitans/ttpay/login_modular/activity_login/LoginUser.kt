@@ -4,19 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.FragmentManager
-import hr.foi.air.login_pin.FragmentLoginPIN
 import hr.foi.techtitans.ttpay.R
 import hr.foi.techtitans.ttpay.core.LoggedInUser
+import hr.foi.techtitans.ttpay.core.LoginHandler
 import hr.foi.techtitans.ttpay.core.LoginOutcomeListener
-import hr.foi.techtitans.ttpay.login_UsernamePassword.FragmentLoginUsernamePass
 import hr.foi.techtitans.ttpay.login_modular.model_login.LoginManager
-import hr.foi.techtitans.ttpay.login_modular.model_login.Module
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.AdminHomeActivity
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MainActivity
 import hr.foi.techtitans.ttpay.navigationBar.activity_navigationBar.MerchantHomeActivity
@@ -50,7 +46,7 @@ class LoginUser : AppCompatActivity(), LoginOutcomeListener {
 
         var foundMatchingModule = false
 
-        for(m:Module in listModule){
+        for(m:LoginHandler in listModule){
             if (selectedButton == m.getName()) {
                 val fragment = loginManager.getFragmentForModule(m, applicationContext, this)
                 fragment?.let {
